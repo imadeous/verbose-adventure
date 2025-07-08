@@ -45,7 +45,6 @@
 </head>
 
 <body class="bg-gray-900">
-    <?php file_put_contents(project_root('debug_index.log'), "app.php body started\n", FILE_APPEND); ?>
     <div id="flash-messages" class="flash-container">
         <?php if (session()->has('success')): ?>
             <div class="flash-message success"><?= session()->flash('success') ?></div>
@@ -58,9 +57,7 @@
 
     <div class="bg-gray-900">
         <main>
-            <?php file_put_contents(project_root('debug_index.log'), "app.php before yield content\n", FILE_APPEND); ?>
             <?php Core\Controller::yield('content'); ?>
-            <?php file_put_contents(project_root('debug_index.log'), "app.php after yield content\n", FILE_APPEND); ?>
         </main>
 
         <!-- Footer -->
@@ -99,7 +96,6 @@
             });
         });
     </script>
-    <?php file_put_contents(project_root('debug_index.log'), "app.php end reached\n", FILE_APPEND); ?>
 </body>
 
 </html>
