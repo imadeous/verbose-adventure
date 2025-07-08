@@ -1,0 +1,7 @@
+Options -Indexes
+
+RewriteEngine On
+RewriteBase /craft/
+
+# Route all requests to the public directory
+RewriteRule ^(.*)$ public/$1 [L]

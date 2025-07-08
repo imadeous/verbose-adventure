@@ -1,0 +1,3 @@
+[submodule "vendor/fakerphp/faker"]
+	path = vendor/fakerphp/faker
+	url = https://github.com/FakerPHP/Faker.git
