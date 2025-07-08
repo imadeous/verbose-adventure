@@ -9,11 +9,25 @@ abstract class Controller
     protected static $currentSection;
     protected $middlewares = [];
 
+
+    /**
+     * Set the layout to be used for views rendered by this controller.
+     *
+     * @param string $layout
+     * @return void
+     */
     public function setLayout($layout)
     {
         $this->layout = $layout;
     }
 
+
+    /**
+     * Register a middleware for this controller.
+     *
+     * @param string $middleware
+     * @return $this
+     */
     public function middleware($middleware)
     {
         $this->middlewares[] = [
@@ -23,6 +37,13 @@ abstract class Controller
         return $this;
     }
 
+
+    /**
+     * Restrict the last registered middleware to specific controller methods.
+     *
+     * @param array $methods
+     * @return $this
+     */
     public function only(array $methods)
     {
         if (!empty($this->middlewares)) {
@@ -31,11 +52,26 @@ abstract class Controller
         return $this;
     }
 
+
+    /**
+     * Get all registered middlewares for this controller.
+     *
+     * @return array
+     */
     public function getMiddlewares()
     {
         return $this->middlewares;
     }
 
+
+    /**
+     * Render a view with optional data and layout.
+     *
+     * @param string $view
+     * @param array $data
+     * @param string|null $layout
+     * @return string
+     */
     protected function view($view, $data = [], $layout = null)
     {
         ob_start();
@@ -69,18 +105,38 @@ abstract class Controller
         return ob_get_clean();
     }
 
+
+    /**
+     * Start capturing output for a named section.
+     *
+     * @param string $section
+     * @return void
+     */
     public static function start($section)
     {
         self::$currentSection = $section;
         ob_start();
     }
 
+
+    /**
+     * End the current section and save its output.
+     *
+     * @return void
+     */
     public static function end()
     {
         self::$sections[self::$currentSection] = ob_get_clean();
         self::$currentSection = null;
     }
 
+
+    /**
+     * Output the contents of a named section.
+     *
+     * @param string $section
+     * @return void
+     */
     public static function yield($section)
     {
         echo self::$sections[$section] ?? '';

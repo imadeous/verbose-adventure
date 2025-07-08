@@ -9,22 +9,50 @@ class View
     protected $sections = [];
     protected $currentSection = null;
 
+
+    /**
+     * View constructor.
+     *
+     * @param string|null $basePath
+     */
     public function __construct($basePath = null)
     {
         $this->basePath = $basePath ?: dirname(__DIR__) . DIRECTORY_SEPARATOR;
     }
 
+
+    /**
+     * Set the layout to be used for rendering.
+     *
+     * @param string $layout
+     * @return void
+     */
     public function layout($layout)
     {
         $this->layout = $layout;
     }
 
+
+    /**
+     * Start capturing output for a named section.
+     *
+     * @param string $section
+     * @return void
+     */
     public function start($section)
     {
         $this->currentSection = $section;
         ob_start();
     }
 
+
+    /**
+     * End the current section and save its output.
+     *
+     * @param string|null $section
+     * @return void
+     * @throws \Exception
+     */
     public function end($section = null)
     {
         if ($this->currentSection === null) {
@@ -34,11 +62,28 @@ class View
         $this->currentSection = null;
     }
 
+
+    /**
+     * Render a view file with optional data.
+     *
+     * @param string $name
+     * @param array $data
+     * @return string
+     */
     public function render($name, $data = [])
     {
         return $this->make($name, $data);
     }
 
+
+    /**
+     * Make (render) a view file, optionally with a layout and sections.
+     *
+     * @param string $name
+     * @param array $data
+     * @return string
+     * @throws \Exception
+     */
     public function make($name, $data = [])
     {
         extract($data);
@@ -64,6 +109,13 @@ class View
         return $content;
     }
 
+
+    /**
+     * Render the current layout with all defined sections.
+     *
+     * @return string
+     * @throws \Exception
+     */
     protected function renderLayout()
     {
         ob_start();
@@ -72,6 +124,13 @@ class View
         return ob_get_clean();
     }
 
+
+    /**
+     * Get the contents of a named section.
+     *
+     * @param string $section
+     * @return string
+     */
     public function yield($section)
     {
         return $this->sections[$section] ?? '';
