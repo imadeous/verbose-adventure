@@ -35,6 +35,11 @@ A lightweight, developer-friendly MVC framework for building web applications wi
    cd your-repo-name
    ```
 
+   If you see errors about missing files in `vendor/` (such as `symfony/deprecation-contracts/function.php`), your `composer.json` may be missing required dependencies. Add any missing packages to your `composer.json` under a `require` section, then run:
+   ```bash
+   composer require symfony/deprecation-contracts
+   ```
+
 2. **Install dependencies:**
    ```bash
    composer install
