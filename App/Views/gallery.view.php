@@ -36,75 +36,75 @@
             <p class="lg:pl-6 lg:w-2/3 mx-auto leading-relaxed text-base">Browse a selection of our recent 3D printed works. From engineering prototypes to creative art pieces, our gallery showcases the versatility and precision of our printing technology. Get inspired for your next project!</p>
         </div>
         <div class="flex flex-wrap md:-m-2 -m-1">
-            <div class="flex flex-wrap md:w-1/2">
-                <div class="md:p-2 p-1 md:w-1/2">
+            <div class="flex flex-wrap w-full md:w-1/2">
+                <div class="md:p-2 p-1 w-full md:w-1/2">
                     <img alt="gallery" class="rounded-lg w-full object-cover h-full object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/500x300">
                 </div>
-                <div class="md:p-2 p-1 md:w-1/2">
+                <div class="md:p-2 p-1 w-full md:w-1/2">
                     <img alt="gallery" class="rounded-lg w-full object-cover h-full object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/501x301">
                 </div>
-                <div class="md:p-2 p-1 md:w-full">
+                <div class="md:p-2 p-1 w-full md:w-full">
                     <img alt="gallery" class="rounded-lg w-full h-full object-cover object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/600x360">
                 </div>
             </div>
-            <div class="flex flex-wrap md:w-1/2">
-                <div class="md:p-2 p-1 md:w-full">
+            <div class="flex flex-wrap w-full md:w-1/2">
+                <div class="md:p-2 p-1 w-full md:w-full">
                     <img alt="gallery" class="rounded-lg w-full h-full object-cover object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/600x360">
                 </div>
-                <div class="md:p-2 p-1 md:w-1/2">
+                <div class="md:p-2 p-1 w-full md:w-1/2">
                     <img alt="gallery" class="rounded-lg w-full object-cover h-full object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/501x301">
                 </div>
-                <div class="md:p-2 p-1 md:w-1/2">
+                <div class="md:p-2 p-1 w-full md:w-1/2">
                     <img alt="gallery" class="rounded-lg w-full object-cover h-full object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/500x300">
                 </div>
             </div>
-            <div class="flex flex-wrap md:w-1/2">
-                <div class="md:p-2 p-1 md:w-1/2">
+            <div class="flex flex-wrap w-full md:w-1/2">
+                <div class="md:p-2 p-1 w-full md:w-1/2">
                     <img alt="gallery" class="rounded-lg w-full object-cover h-full object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/501x301">
                 </div>
-                <div class="md:p-2 p-1 md:w-1/2">
+                <div class="md:p-2 p-1 w-full md:w-1/2">
                     <img alt="gallery" class="rounded-lg w-full object-cover h-full object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/501x301">
                 </div>
-                <div class="md:p-2 p-1 md:w-full">
+                <div class="md:p-2 p-1 w-full md:w-full">
                     <img alt="gallery" class="rounded-lg w-full h-full object-cover object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/600x360">
                 </div>
-                <div class="md:p-2 p-1 md:w-1/2">
+                <div class="md:p-2 p-1 w-full md:w-1/2">
                     <img alt="gallery" class="rounded-lg w-full object-cover h-full object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/500x300">
                 </div>
-                <div class="md:p-2 p-1 md:w-1/2">
+                <div class="md:p-2 p-1 w-full md:w-1/2">
                     <img alt="gallery" class="rounded-lg w-full object-cover h-full object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/501x301">
                 </div>
             </div>
-            <div class="flex flex-wrap md:w-1/2">
-                <div class="md:p-2 p-1 md:w-1/2">
+            <div class="flex flex-wrap w-full md:w-1/2">
+                <div class="md:p-2 p-1 w-full md:w-1/2">
                     <img alt="gallery" class="rounded-lg w-full object-cover h-full object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/501x301">
                 </div>
-                <div class="md:p-2 p-1 md:w-1/2">
+                <div class="md:p-2 p-1 w-full md:w-1/2">
                     <img alt="gallery" class="rounded-lg w-full object-cover h-full object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/500x300">
                 </div>
-                <div class="md:p-2 p-1 md:w-full">
+                <div class="md:p-2 p-1 w-full md:w-full">
                     <img alt="gallery" class="rounded-lg w-full h-full object-cover object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/600x360">
                 </div>
             </div>
-            <div class="flex flex-wrap md:w-1/2">
-                <div class="md:p-2 p-1 md:w-1/2">
+            <div class="flex flex-wrap w-full md:w-1/2">
+                <div class="md:p-2 p-1 w-full md:w-1/2">
                     <img alt="gallery" class="rounded-lg w-full object-cover h-full object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/500x300">
                 </div>
-                <div class="md:p-2 p-1 md:w-1/2">
+                <div class="md:p-2 p-1 w-full md:w-1/2">
                     <img alt="gallery" class="rounded-lg w-full object-cover h-full object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/501x301">
                 </div>
-                <div class="md:p-2 p-1 md:w-full">
+                <div class="md:p-2 p-1 w-full md:w-full">
                     <img alt="gallery" class="rounded-lg w-full h-full object-cover object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/600x360">
                 </div>
             </div>
-            <div class="flex flex-wrap md:w-1/2">
-                <div class="md:p-2 p-1 md:w-1/2">
+            <div class="flex flex-wrap w-full md:w-1/2">
+                <div class="md:p-2 p-1 w-full md:w-1/2">
                     <img alt="gallery" class="rounded-lg w-full object-cover h-full object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/501x301">
                 </div>
-                <div class="md:p-2 p-1 md:w-1/2">
+                <div class="md:p-2 p-1 w-full md:w-1/2">
                     <img alt="gallery" class="rounded-lg w-full object-cover h-full object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/501x301">
                 </div>
-                <div class="md:p-2 p-1 md:w-full">
+                <div class="md:p-2 p-1 w-full md:w-full">
                     <img alt="gallery" class="rounded-lg w-full h-full object-cover object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/600x360">
                 </div>
                 <div class="md:p-2 p-1 md:w-1/2">
