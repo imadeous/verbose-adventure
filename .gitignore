@@ -1,0 +1,11 @@
+# Ignore .htaccess in root and public
+/.htaccess
+/public/.htaccess
+# Standard ignores
+/vendor/
+/node_modules/
+.env
+.DS_Store
+.idea/
+*.log
+/public/storage/

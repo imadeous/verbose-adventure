@@ -2,354 +2,119 @@
 
 namespace Core;
 
-use Core\App;
-use App\Core\Database\QueryBuilder;
-use Exception;
 
 abstract class Model
 {
-    public const RULE_REQUIRED = 'required';
-    public const RULE_EMAIL = 'email';
-    public const RULE_MIN = 'min';
-    public const RULE_MAX = 'max';
-    public const RULE_MATCH = 'match';
-    public const RULE_UNIQUE = 'unique';
-    public const RULE_NUMBER = 'number';
+    /**
+     * The route key for model binding in resource routes (default: 'id').
+     * Override in child models to use a different column (e.g., 'username', 'slug').
+     */
+    public static $routeKey = 'id';
 
-    public array $errors = [];
-
-    protected static $table;
-    protected static $primaryKey = 'id';
+    // Optionally, you can define a protected $table property in child models
+    protected $table = null;
+    protected $primaryKey = 'id';
     protected $attributes = [];
 
 
     /**
-     * Model constructor. Optionally fill attributes.
-     *
-     * @param array $attributes
+     * Get the count of all records in the table.
+     * @return int
      */
-    public function __construct(array $attributes = [])
+    public static function count(): int
     {
-        $this->fill($attributes);
+        $instance = new static();
+        $qb = new \Core\Database\QueryBuilder($instance->table);
+        if (method_exists($qb, 'count')) {
+            return $qb->count();
+        }
+        // Fallback: count all rows manually if QueryBuilder has no count()
+        $rows = $qb->all();
+        return is_array($rows) ? count($rows) : 0;
     }
 
 
-    /**
-     * Magic setter for model attributes.
-     *
-     * @param string $key
-     * @param mixed $value
-     * @return void
-     */
-    public function __set($key, $value)
+    public function __construct($attributes = [])
     {
-        $this->attributes[$key] = $value;
+        $this->attributes = $attributes;
     }
 
-
-    /**
-     * Magic getter for model attributes.
-     *
-     * @param string $key
-     * @return mixed|null
-     */
     public function __get($key)
     {
         return $this->attributes[$key] ?? null;
     }
 
-
-    /**
-     * Get the table name for the model.
-     *
-     * @return string
-     */
-    protected static function getTable()
+    public function __set($key, $value)
     {
-        if (static::$table) {
-            return static::$table;
-        }
-        // A simple way to pluralize class names.
-        // For more complex cases, a dedicated library might be better.
-        $class = basename(str_replace('\\', '/', static::class));
-        return strtolower($class) . 's';
+        $this->attributes[$key] = $value;
     }
 
-
-    /**
-     * Get all records for the model.
-     *
-     * @return static[]
-     */
-    public static function all()
+    public function toArray()
     {
-        $results = App::get('database')->selectAll(static::getTable());
-        return array_map(fn($row) => new static($row), $results);
+        return $this->attributes;
     }
 
-
     /**
-     * Find a record by its primary key.
-     *
-     * @param mixed $id
-     * @return static|null
-     */
-    public static function find($id)
-    {
-        $result = App::get('database')->table(static::getTable())->find($id, static::$primaryKey);
-        return $result ? new static($result) : null;
-    }
-
-
-    /**
-     * Get a query builder instance for the model's table.
-     *
-     * @return \Core\Database\QueryBuilder
-     */
-    public static function query()
-    {
-        return App::get('database')->table(static::getTable())->setModel(static::class);
-    }
-
-
-    /**
-     * Add a where clause to the query.
-     *
-     * @param string $column
-     * @param string $operator
-     * @param mixed|null $value
-     * @return \Core\Database\QueryBuilder
-     */
-    public static function where($column, $operator, $value = null)
-    {
-        $query = static::query();
-
-        if (func_num_args() === 2) {
-            return $query->where($column, '=', $operator);
-        }
-
-        return $query->where($column, $operator, $value);
-    }
-
-
-    /**
-     * Create and save a new model instance.
-     *
-     * @param array $attributes
-     * @return static
-     */
-    public static function create(array $attributes)
-    {
-        $model = new static($attributes);
-        $model->save();
-        return $model;
-    }
-
-
-    /**
-     * Save the model to the database (insert or update).
-     *
-     * @return $this
-     */
-    public function save()
-    {
-        $pk = static::$primaryKey;
-        $table = static::getTable();
-        $db = App::get('database');
-
-        $dataToSave = $this->attributes;
-
-        if (isset($dataToSave[$pk])) {
-            $id = $dataToSave[$pk];
-            unset($dataToSave[$pk]); // Don't include PK in the update set
-            $db->update($table, $id, $dataToSave, $pk);
-        } else {
-            $id = $db->insert($table, $dataToSave);
-            $this->attributes[$pk] = $id;
-        }
-        return $this;
-    }
-
-
-    /**
-     * Delete the model from the database.
-     *
-     * @return bool
-     */
-    public function delete()
-    {
-        $pk = static::$primaryKey;
-        if (!isset($this->attributes[$pk])) {
-            return false;
-        }
-        App::get('database')->delete(static::getTable(), $this->attributes[$pk], $pk);
-        unset($this->attributes[$pk]);
-        return true;
-    }
-
-
-    /**
-     * Fill the model with an array of attributes.
-     *
+     * Mass-assign attributes to the model instance.
      * @param array $attributes
      * @return $this
      */
     public function fill(array $attributes)
     {
         foreach ($attributes as $key => $value) {
-            $this->__set($key, $value);
+            $this->$key = $value;
         }
         return $this;
     }
 
-
-    /**
-     * Load data into the model, setting both properties and attributes.
-     *
-     * @param array $data
-     * @return void
-     */
-    public function load(array $data)
+    // --- Active Record style methods ---
+    public static function all()
     {
-        foreach ($data as $key => $value) {
-            if (property_exists($this, $key)) {
-                $this->{$key} = $value;
-            }
-            $this->__set($key, $value);
+        $instance = new static();
+        $qb = new \Core\Database\QueryBuilder($instance->table);
+        $rows = $qb->all();
+        return array_map(fn($row) => new static($row), $rows);
+    }
+
+    public static function find($id)
+    {
+        $instance = new static();
+        $qb = new \Core\Database\QueryBuilder($instance->table);
+        $row = $qb->find($id, $instance->primaryKey);
+        return $row ? new static($row) : null;
+    }
+
+    public static function where($column, $value)
+    {
+        $instance = new static();
+        $qb = new \Core\Database\QueryBuilder($instance->table);
+        $rows = $qb->where($column, $value)->get();
+        return array_map(fn($row) => new static($row), $rows);
+    }
+
+    public function save()
+    {
+        $qb = new \Core\Database\QueryBuilder($this->table);
+        // Remove CSRF field if present
+        $data = $this->attributes;
+        unset($data['_csrf']);
+        if (!empty($this->attributes[$this->primaryKey])) {
+            // Update
+            $id = $this->attributes[$this->primaryKey];
+            unset($data[$this->primaryKey]);
+            return $qb->update($id, $data, $this->primaryKey);
+        } else {
+            // Insert
+            $id = $qb->insert($data);
+            $this->attributes[$this->primaryKey] = $id;
+            return $id;
         }
     }
 
-
-    /**
-     * Convert the model to an array.
-     *
-     * @return array
-     */
-    public function toArray()
+    public function delete()
     {
-        return $this->attributes;
-    }
-
-    // Validation methods
-    abstract public static function rules(): array;
-
-
-    /**
-     * Validate the model's attributes against its rules.
-     *
-     * @return bool
-     */
-    public function validate()
-    {
-        foreach (static::rules() as $attribute => $rules) {
-            $value = $this->{$attribute};
-            foreach ($rules as $rule) {
-                $ruleName = is_string($rule) ? $rule : $rule[0];
-
-                if ($ruleName === self::RULE_REQUIRED && empty($value)) {
-                    $this->addErrorForRule($attribute, self::RULE_REQUIRED);
-                }
-                if ($ruleName === self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                    $this->addErrorForRule($attribute, self::RULE_EMAIL);
-                }
-                if ($ruleName === self::RULE_MIN && strlen($value) < $rule['min']) {
-                    $this->addErrorForRule($attribute, self::RULE_MIN, $rule);
-                }
-                if ($ruleName === self::RULE_MAX && strlen($value) > $rule['max']) {
-                    $this->addErrorForRule($attribute, self::RULE_MAX, $rule);
-                }
-                if ($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']}) {
-                    $this->addErrorForRule($attribute, self::RULE_MATCH, $rule);
-                }
-                if ($ruleName === self::RULE_NUMBER && !is_numeric($value)) {
-                    $this->addErrorForRule($attribute, self::RULE_NUMBER);
-                }
-                if ($ruleName === self::RULE_UNIQUE) {
-                    $className = $rule['class'];
-                    $uniqueAttr = $rule['attribute'] ?? $attribute;
-                    $tableName = $className::getTable();
-                    $statement = App::get('database')->prepare("SELECT * FROM {$tableName} WHERE {$uniqueAttr} = :attr");
-                    $statement->bindValue(":attr", $value);
-                    $statement->execute();
-                    $record = $statement->fetchObject();
-                    if ($record) {
-                        $this->addErrorForRule($attribute, self::RULE_UNIQUE, ['field' => $attribute]);
-                    }
-                }
-            }
-        }
-        return empty($this->errors);
-    }
-
-
-    /**
-     * Add an error message for a failed validation rule.
-     *
-     * @param string $attribute
-     * @param string $rule
-     * @param array $params
-     * @return void
-     */
-    private function addErrorForRule(string $attribute, string $rule, array $params = [])
-    {
-        $message = $this->errorMessages()[$rule] ?? '';
-        foreach ($params as $key => $value) {
-            $message = str_replace("{{$key}}", $value, $message);
-        }
-        $this->errors[$attribute][] = $message;
-    }
-
-
-    /**
-     * Get the default error messages for validation rules.
-     *
-     * @return array
-     */
-    public function errorMessages(): array
-    {
-        return [
-            self::RULE_REQUIRED => 'This field is required',
-            self::RULE_EMAIL => 'This field must be a valid email address',
-            self::RULE_MIN => 'Min length of this field must be {min}',
-            self::RULE_MAX => 'Max length of this field must be {max}',
-            self::RULE_MATCH => 'This field must be the same as {match}',
-            self::RULE_UNIQUE => 'Record with this {field} already exists',
-            self::RULE_NUMBER => 'This field must be a number',
-        ];
-    }
-
-
-    /**
-     * Check if the model has a validation error for an attribute.
-     *
-     * @param string $attribute
-     * @return bool
-     */
-    public function hasError($attribute): bool
-    {
-        return isset($this->errors[$attribute]);
-    }
-
-
-    /**
-     * Get the first validation error for an attribute.
-     *
-     * @param string $attribute
-     * @return string|null
-     */
-    public function getFirstError($attribute): ?string
-    {
-        return $this->errors[$attribute][0] ?? null;
-    }
-
-
-    /**
-     * Get all validation errors for the model.
-     *
-     * @return array
-     */
-    public function getErrors(): array
-    {
-        return $this->errors;
+        if (empty($this->attributes[$this->primaryKey])) return false;
+        $qb = new \Core\Database\QueryBuilder($this->table);
+        return $qb->delete($this->attributes[$this->primaryKey], $this->primaryKey);
     }
 }

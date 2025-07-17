@@ -3,68 +3,54 @@
 namespace App\Helpers;
 
 use App\Models\User;
-use Core\Session;
 
 class Auth
 {
     /**
-     * Log the given user in.
-     *
-     * @param User $user
-     */
-    public static function login(User $user)
-    {
-        session()->set('user_id', $user->id);
-    }
-
-    /**
-     * Log the user out.
-     */
-    public static function logout()
-    {
-        session()->destroy();
-    }
-
-    /**
-     * Check if a user is authenticated.
-     *
+     * Check if a user is logged in.
      * @return bool
      */
     public static function check(): bool
     {
-        return session()->has('user_id');
+        return isset($_SESSION['user_id']) && User::find($_SESSION['user_id']);
     }
 
     /**
-     * Check if the current user is a guest.
-     *
-     * @return bool
-     */
-    public static function guest(): bool
-    {
-        return !self::check();
-    }
-
-    /**
-     * Get the currently authenticated user.
-     *
+     * Get the currently logged in user, or null if not logged in.
      * @return User|null
      */
-    public static function user(): ?User
+    public static function user()
     {
-        if (self::check()) {
-            return User::find(self::id());
-        }
-        return null;
+        return isset($_SESSION['user_id']) ? User::find($_SESSION['user_id']) : null;
     }
 
     /**
-     * Get the ID of the currently authenticated user.
-     *
-     * @return int|null
+     * Check if the current user is logged in and is an admin.
+     * @return bool
      */
-    public static function id(): ?int
+    public static function isAdmin(): bool
     {
-        return session()->get('user_id');
+        $user = self::user();
+        return Auth::user()->role === 'admin' && $user !== null;
+    }
+
+    /**
+     * Log in a user by their user ID.
+     * @param int|string $userId
+     * @return void
+     */
+    public static function login($userId): void
+    {
+        $_SESSION['user_id'] = $userId;
+    }
+
+    /**
+     * Log out the current user and destroy the session.
+     * @return void
+     */
+    public static function logout(): void
+    {
+        unset($_SESSION['user_id']);
+        session_destroy();
     }
 }

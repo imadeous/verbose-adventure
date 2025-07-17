@@ -3,75 +3,97 @@
 namespace App\Controllers;
 
 use Core\Controller;
+use App\Models\User;
 use App\Helpers\Auth;
-use App\Models\User; // Import the User model
-use Core\Request;
-use Core\Csrf;
-use Core\Validator;
 
 class AuthController extends Controller
 {
-    public function __construct()
+    // Show initial setup page if no users exist
+    public function setup()
     {
-        $this->setLayout('app');
+        if (User::count() > 0) {
+            header('Location: ' . url('login'));
+            exit;
+        }
+        require __DIR__ . '/../Views/config/setup.view.php';
+    }
+
+    // Handle initial admin creation
+    public function storeSetup()
+    {
+        if (User::count() > 0) {
+            flash('error', 'Setup already completed. Please log in.');
+            header('Location: ' . url('login'));
+            exit;
+        }
+        $data = $_POST;
+        if (empty($data['username']) || empty($data['email']) || empty($data['password'])) {
+            flash('error', 'All fields are required.');
+            header('Location: ' . url('setup'));
+            exit;
+        }
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            flash('error', 'Invalid email address.');
+            header('Location: ' . url('setup'));
+            exit;
+        }
+        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        $data['role'] = 'admin';
+        $data['created_at'] = date('Y-m-d H:i:s');
+        $data['avatar'] = null;
+        $user = new User($data);
+        $user->save();
+        flash('success', 'Admin account created! You can now log in.');
+        header('Location: ' . url('login'));
+        exit;
+    }
+    public function showLogin()
+    {
+        if (Auth::check()) {
+            header('Location: ' . url('admin'));
+            exit;
+        }
+        $this->view('auth/login');
     }
 
     public function login()
     {
-        return $this->view('auth/login', [
-            'title' => 'Login'
-        ]);
-    }
-
-    public function attempt()
-    {
-        Csrf::check();
-
-        $validator = new Validator();
-        $errors = $validator->validate($_POST, [
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
-
-        if (!empty($errors)) {
-            session()->flashErrors($errors);
-            session()->set('old', ['email' => Request::post('email')]);
-            redirect('login');
+        // CSRF check
+        if (empty($_POST['_csrf']) || !\App\Helpers\Csrf::check($_POST['_csrf'])) {
+            flash('error', 'Invalid CSRF token.');
+            $this->view('auth/login');
             return;
         }
-
-        // --- Start of new, simplified logic ---
-        $user = User::where('email', '=', Request::post('email'))->first();
-
-        // For debugging, let's separate the user found and password verification checks.
-        if (!$user) {
-            // User with the given email was not found
-            error_log("Login Fail: No user found for email -> " . Request::post('email'));
-            session()->set('error', 'No account found for that email.');
-            session()->set('old', ['email' => Request::post('email')]);
-            redirect('login');
+        $email = $_POST['email'] ?? '';
+        $password = $_POST['password'] ?? '';
+        if (empty($email) || empty($password)) {
+            flash('error', 'Email and password are required.');
+            $this->view('auth/login');
             return;
         }
-
-        if (password_verify(trim(Request::post('password')), $user->password)) {
-            // Password is correct, log the user in
-            Auth::login($user);
-            session()->set('success', 'You have been successfully logged in.');
-            redirect('admin');
-            return;
+        $user = User::findByAttribute($email, 'email');
+        if ($user && password_verify($password, $user->password)) {
+            Auth::login($user->id);
+            flash('success', 'Welcome back!');
+            header('Location: ' . url('admin'));
+            exit;
         }
-
-        // User was found, but the password was incorrect.
-        error_log("Login Fail: Invalid password for user -> " . Request::post('email'));
-        session()->set('error', 'Incorrect password. Please try again.');
-        session()->set('old', ['email' => Request::post('email')]);
-        redirect('login');
+        flash('error', 'Invalid credentials.');
+        $this->view('auth/login');
     }
 
     public function logout()
     {
+        // CSRF check
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (empty($_POST['_csrf']) || !\App\Helpers\Csrf::check($_POST['_csrf'])) {
+                flash('error', 'Invalid CSRF token.');
+                header('Location: ' . url('login'));
+                exit;
+            }
+        }
         Auth::logout();
-        session()->set('success', 'You have been successfully logged out.');
-        redirect('login');
+        header('Location: ' . url('login'));
+        exit;
     }
 }

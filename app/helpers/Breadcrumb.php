@@ -2,6 +2,11 @@
 
 namespace App\Helpers;
 
+/**
+ * Breadcrumb helper for managing breadcrumb navigation.
+ * Provides methods to add, retrieve, and render breadcrumbs.
+ */
+
 class Breadcrumb
 {
     private static array $breadcrumbs = [];
@@ -51,7 +56,7 @@ class Breadcrumb
 
             $isLast = $index === count(self::$breadcrumbs) - 1;
             if ($breadcrumb['url'] && !$isLast) {
-                echo '<a href="' . url($breadcrumb['url']) . '" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">' . e($breadcrumb['label']) . '</a>';
+                echo '<a href="' . url($breadcrumb['url']) . '" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">' . \e($breadcrumb['label']) . '</a>';
             } else {
                 echo '<span class="ml-4 text-sm font-medium text-gray-500"' . ($isLast ? ' aria-current="page"' : '') . '>' . e($breadcrumb['label']) . '</span>';
             }

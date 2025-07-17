@@ -6,11 +6,10 @@ use App\Helpers\Auth;
 
 class AuthMiddleware
 {
-    public function handle()
+    public static function handle()
     {
-        if (Auth::guest()) {
-            session()->set('error', 'You must be logged in to view this page.');
-            redirect('/login');
+        if (!Auth::check()) {
+            header('Location: ' . url('login'));
             exit;
         }
     }

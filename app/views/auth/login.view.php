@@ -1,57 +1,38 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
 
-use Core\Controller;
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+</head>
 
-Controller::start('title');
-?>
-<?= e($title) ?>
-<?php
-Controller::end();
-Controller::start('content');
-?>
-<div class="container mx-auto max-w-md p-4">
-    <h1 class="text-2xl font-bold mb-4">Login</h1>
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-200 px-4">
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 sm:p-10">
+        <div class="mb-6 text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-12 w-12 text-blue-600 mx-auto">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+            </svg>
 
-    <?php if (session()->has('error')) : ?>
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-            <span class="block sm:inline"><?= session()->get('error') ?></span>
+            <h2 class="mt-2 text-2xl font-bold text-gray-800">Sign in to your account</h2>
+            <p class="mt-1 text-sm text-gray-500">Welcome back! Please enter your credentials.</p>
         </div>
-    <?php endif; ?>
+        <?php include __DIR__ . '/../partials/_flash.view.php'; ?>
+        <form method="post" action="<?= url('login') ?>" class="space-y-5">
+            <?= csrf_field() ?>
+            <div>
+                <label for="email" class="block mb-1 text-gray-700 font-medium">Email</label>
+                <input type="email" name="email" id="email" class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400" required autofocus autocomplete="username">
+            </div>
+            <div>
+                <label for="password" class="block mb-1 text-gray-700 font-medium">Password</label>
+                <input type="password" name="password" id="password" class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400" required autocomplete="current-password">
+            </div>
+            <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold text-lg shadow hover:bg-blue-700 transition">Login</button>
+        </form>
+    </div>
+</body>
 
-    <form action="<?= url('login') ?>" method="POST">
-        <?= csrf_field() ?>
-        <div class="mb-4">
-            <label for="email" class="block text-gray-700">Email</label>
-            <input type="email" id="email" name="email" class="w-full px-3 py-2 border rounded" required>
-        </div>
-        <div class="mb-4">
-            <label for="password" class="block text-gray-700">Password</label>
-            <input type="password" id="password" name="password" class="w-full px-3 py-2 border rounded" required>
-        </div>
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Login</button>
-    </form>
-</div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Select the first form on the page, which is our login form.
-        const loginForm = document.querySelector('form');
-
-        if (loginForm) {
-            loginForm.addEventListener('submit', function(event) {
-                const email = document.getElementById('email').value;
-                // For security, we log the password's length, not the password itself.
-                const passwordLength = document.getElementById('password').value.length;
-
-                console.log('--- Frontend Login Debug ---');
-                console.log('Form is being submitted.');
-                console.log('Email value:', email);
-                console.log('Password length:', passwordLength);
-                console.log('CSRF Token value:', document.querySelector('input[name="_token"]').value);
-                console.log('----------------------------');
-            });
-        }
-    });
-</script>
-
-<?php Controller::end(); ?>
+</html>

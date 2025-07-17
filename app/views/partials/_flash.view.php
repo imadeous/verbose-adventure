@@ -1,22 +1,20 @@
 <?php
-
-if (session()->has('success')) : ?>
-    <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)" class="fixed top-5 right-5 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-lg shadow-lg z-50" role="alert">
-        <p class="font-bold">Success</p>
-        <p><?= session()->flash('success') ?></p>
-    </div>
-<?php endif; ?>
-
-<?php if (session()->has('error')) : ?>
-    <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)" class="fixed top-5 right-5 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg shadow-lg z-50" role="alert">
-        <p class="font-bold">Error</p>
-        <p><?= session()->flash('error') ?></p>
-    </div>
-<?php endif; ?>
-
-<?php if (session()->has('info')) : ?>
-    <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)" class="fixed top-5 right-5 bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 rounded-lg shadow-lg z-50" role="alert">
-        <p class="font-bold">Info</p>
-        <p><?= session()->flash('info') ?></p>
-    </div>
-<?php endif; ?>
+// Usage: include this partial in your layout or view
+if (!isset($_SESSION)) session_start();
+$flashes = $_SESSION['_flash'] ?? [];
+if ($flashes):
+    foreach ($flashes as $type => $msg):
+        $color = [
+            'error' => 'bg-red-100 text-red-700',
+            'success' => 'bg-green-100 text-green-700',
+            'info' => 'bg-blue-100 text-blue-700',
+            'warning' => 'bg-yellow-100 text-yellow-700',
+        ][$type] ?? 'bg-gray-100 text-gray-700';
+?>
+        <div class="<?= $color ?> p-2 mb-4 rounded text-center text-sm font-medium animate-fade-in">
+            <?= e($msg) ?>
+        </div>
+<?php
+    endforeach;
+    unset($_SESSION['_flash']);
+endif;

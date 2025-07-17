@@ -2,177 +2,163 @@
 
 namespace Core\Database;
 
+use Core\Database\Db;
 use PDO;
+
 
 class QueryBuilder
 {
-    protected $pdo;
     protected $table;
-    protected $modelClass;
+    protected $pdo;
+    protected $select = '*';
     protected $wheres = [];
     protected $bindings = [];
+    protected $orderBy = '';
+    protected $limit = '';
 
-    public function __construct(PDO $pdo)
+    public function __construct($table)
     {
-        $this->pdo = $pdo;
+        $this->table = $table;
+        $this->pdo = Db::instance();
     }
 
-    public function getPdo()
+    public function select($columns)
     {
-        return $this->pdo;
+        if (is_array($columns)) {
+            $this->select = '`' . implode('`,`', $columns) . '`';
+        } else {
+            $this->select = $columns;
+        }
+        return $this;
     }
 
     public function where($column, $operator, $value = null)
     {
-        if (func_num_args() === 2) {
+        if (func_num_args() == 2) {
             $value = $operator;
             $operator = '=';
         }
-        $this->wheres[] = "{$column} {$operator} ?";
+        $this->wheres[] = ["$column $operator ?"];
         $this->bindings[] = $value;
         return $this;
     }
 
-    public function table($table)
+    public function orWhere($column, $operator, $value = null)
     {
-        $this->table = $table;
+        if (func_num_args() == 2) {
+            $value = $operator;
+            $operator = '=';
+        }
+        $this->wheres[] = ["OR $column $operator ?"];
+        $this->bindings[] = $value;
+        return $this;
+    }
+
+    /**
+     * Get the count of rows matching the current query.
+     * @return int
+     */
+    public function count(): int
+    {
+        $sql = "SELECT COUNT(*) as count FROM `{$this->table}`";
+        $params = [];
+        if (!empty($this->wheres)) {
+            $whereClauses = [];
+            foreach ($this->wheres as $where) {
+                $whereClauses[] = $where[0] . ' ' . $where[1] . ' ?';
+                $params[] = $where[2];
+            }
+            $sql .= ' WHERE ' . implode(' AND ', $whereClauses);
+        }
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return (int)($row['count'] ?? 0);
+    }
+
+    public function orderBy($column, $direction = 'ASC')
+    {
+        $this->orderBy = "ORDER BY `$column` $direction";
+        return $this;
+    }
+
+    public function limit($limit)
+    {
+        $this->limit = "LIMIT $limit";
         return $this;
     }
 
     public function get()
     {
-        $sql = $this->toSql();
-        $statement = $this->pdo->prepare($sql);
-        $statement->execute($this->bindings);
-
-        $result = $this->modelClass
-            ? $statement->fetchAll(PDO::FETCH_CLASS, $this->modelClass)
-            : $statement->fetchAll(PDO::FETCH_ASSOC);
-
-        $this->reset();
-        return $result;
+        $sql = "SELECT {$this->select} FROM `{$this->table}`";
+        if ($this->wheres) {
+            $whereSql = [];
+            foreach ($this->wheres as $i => $where) {
+                $whereSql[] = ($i === 0 ? 'WHERE ' : '') . $where[0];
+            }
+            $sql .= ' ' . implode(' ', $whereSql);
+        }
+        if ($this->orderBy) {
+            $sql .= ' ' . $this->orderBy;
+        }
+        if ($this->limit) {
+            $sql .= ' ' . $this->limit;
+        }
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($this->bindings);
+        $results = $stmt->fetchAll();
+        // Reset state for next query
+        $this->select = '*';
+        $this->wheres = [];
+        $this->bindings = [];
+        $this->orderBy = '';
+        $this->limit = '';
+        return $results;
     }
 
     public function first()
     {
-        $sql = $this->toSql() . " LIMIT 1";
-        $statement = $this->pdo->prepare($sql);
-        $statement->execute($this->bindings);
+        $this->limit(1);
+        $results = $this->get();
+        return $results[0] ?? null;
+    }
 
-        if ($this->modelClass) {
-            $statement->setFetchMode(PDO::FETCH_CLASS, $this->modelClass);
-            $result = $statement->fetch();
-        } else {
-            $result = $statement->fetch(PDO::FETCH_ASSOC);
-        }
-
-        $this->reset();
-        return $result ?: null;
+    public function all()
+    {
+        return $this->get();
     }
 
     public function find($id, $primaryKey = 'id')
     {
-        return $this->where($primaryKey, '=', $id)->first();
+        return $this->where($primaryKey, $id)->first();
     }
 
-    public function selectAll($table)
+    public function insert($data)
     {
-        return $this->table($table)->get();
+        $columns = array_keys($data);
+        $placeholders = implode(',', array_fill(0, count($columns), '?'));
+        $sql = "INSERT INTO `{$this->table}` (`" . implode('`,`', $columns) . "`) VALUES ($placeholders)";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(array_values($data));
+        return $this->pdo->lastInsertId();
     }
 
-    public function toSql()
+    public function update($id, $data, $primaryKey = 'id')
     {
-        $sql = "SELECT * FROM {$this->table}";
-        if (!empty($this->wheres)) {
-            $sql .= " WHERE " . implode(' AND ', $this->wheres);
-        }
-        return $sql;
+        $columns = array_keys($data);
+        $set = implode(', ', array_map(function ($col) {
+            return "`$col` = ?";
+        }, $columns));
+        $sql = "UPDATE `{$this->table}` SET $set WHERE `$primaryKey` = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $values = array_values($data);
+        $values[] = $id;
+        return $stmt->execute($values);
     }
 
-    protected function reset()
+    public function delete($id, $primaryKey = 'id')
     {
-        $this->table = null;
-        $this->modelClass = null;
-        $this->wheres = [];
-        $this->bindings = [];
-    }
-
-    public function insert($table, $parameters)
-    {
-        $sql = sprintf(
-            'insert into %s (%s) values (%s)',
-            $table,
-            implode(', ', array_keys($parameters)),
-            ':' . implode(', :', array_keys($parameters))
-        );
-
-        try {
-            $statement = $this->pdo->prepare($sql);
-            $statement->execute($parameters);
-            return $this->pdo->lastInsertId();
-        } catch (\Exception $e) {
-            // In a real app, you'd log this error.
-            die('Whoops, something went wrong.');
-        }
-    }
-
-    public function update($table, $id, $parameters, $primaryKey = 'id')
-    {
-        $sql = sprintf(
-            'UPDATE %s SET %s WHERE %s = :id',
-            $table,
-            implode(', ', array_map(fn($key) => "{$key} = :{$key}", array_keys($parameters))),
-            $primaryKey
-        );
-
-        $parameters['id'] = $id;
-
-        try {
-            $statement = $this->pdo->prepare($sql);
-            $statement->execute($parameters);
-        } catch (\Exception $e) {
-            die('Whoops, something went wrong.');
-        }
-    }
-
-    public function delete($table, $id, $primaryKey = 'id')
-    {
-        $sql = "DELETE FROM {$table} WHERE {$primaryKey} = :id";
-
-        try {
-            $statement = $this->pdo->prepare($sql);
-            $statement->execute(['id' => $id]);
-        } catch (\Exception $e) {
-            die('Whoops, something went wrong.');
-        }
-    }
-
-    public function prepare($sql)
-    {
-        return $this->pdo->prepare($sql);
-    }
-
-    /**
-     * Execute a raw SQL query.
-     *
-     * @param string $sql The raw SQL string to execute.
-     * @param array $bindings An array of bindings for the query.
-     * @return \PDOStatement|false
-     */
-    public function raw($sql, $bindings = [])
-    {
-        try {
-            $statement = $this->pdo->prepare($sql);
-            $statement->execute($bindings);
-            return $statement;
-        } catch (\Exception $e) {
-            // Re-throw the exception to be handled by the caller
-            throw $e;
-        }
-    }
-    public function setModel($class)
-    {
-        $this->modelClass = $class;
-        return $this;
+        $stmt = $this->pdo->prepare("DELETE FROM `{$this->table}` WHERE `$primaryKey` = ?");
+        return $stmt->execute([$id]);
     }
 }

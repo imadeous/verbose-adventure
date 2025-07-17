@@ -1,78 +1,62 @@
+
 <?php
 
+/**
+ * Route file imports controller classes for handling various application routes.
+ * This file is part of the web routing system.
+ * It uses the Core Router class to define GET routes for different controllers.
+ * The routes are defined using the `get` method of the Router class.  
+ * The controllers handle the logic for rendering views and managing application state.
+ * The routes are registered in the `routes/web.php` file.  
+ * The controllers are namespaced under `App\Controllers\Admin` and `App\Controllers\App`.
+ * The HomeController handles the main application logic, while the AdminController manages admin-specific routes.
+ */
+
 use App\Controllers\Admin\AdminController;
-use App\Controllers\Admin\DebugController;
-use App\Controllers\App\ErrorController;
 use App\Controllers\App\HomeController;
-use App\Controllers\Admin\ProductController;
-use App\Controllers\Admin\TableController;
-use App\Controllers\Admin\UserController;
-use App\Controllers\Admin\SettingsController;
 use App\Controllers\AuthController;
+use App\Controllers\Admin\UserController;
+use App\Controllers\Admin\EventController;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\RoleMiddleware;
 
-use Core\Router;
-
-$router->get('', [HomeController::class, 'index']);
 $router->get('/', [HomeController::class, 'index']);
+$router->get('/test', [HomeController::class, 'test']);
+$router->get('/events', [HomeController::class, 'indexEvents']);
+$router->get('/events/{id}', [HomeController::class, 'showEvent']);
+$router->get('/about', [HomeController::class, 'about']);
+$router->get('/contact', [HomeController::class, 'contact']);
 
-// Auth Routes
-$router->get('login', [AuthController::class, 'login']);
-$router->post('login', [AuthController::class, 'attempt']);
-$router->post('logout', [AuthController::class, 'logout']);
-
-// Admin routes
-$router->group(['middleware' => ['auth', 'role:admin']], function (Router $router) {
-    $router->get('admin', [AdminController::class, 'index']);
-
-    // Table Creator routes
-    $router->get('admin/tables', [TableController::class, 'index']);
-    $router->get('admin/tables/create', [TableController::class, 'create']);
-    $router->post('admin/tables/store', [TableController::class, 'store']);
-    $router->get('admin/tables/alter/{tableName}', [TableController::class, 'alter']);
-    $router->post('admin/tables/alter/add-column', [TableController::class, 'addColumn']);
-    $router->post('admin/tables/alter/drop-column', [TableController::class, 'dropColumn']);
-    $router->post('admin/tables/destroy', [TableController::class, 'destroy']);
-
-    // Debug Route
-    $router->get('admin/debug', [DebugController::class, 'index']);
-
-    // User Management routes
-    $router->get('admin/users', [UserController::class, 'index']);
-    $router->get('admin/users/create', [UserController::class, 'create']);
-    $router->post('admin/users', [UserController::class, 'store']);
-    $router->get('admin/users/show/{id}', [UserController::class, 'show']);
-    $router->get('admin/users/edit/{id}', [UserController::class, 'edit']);
-    $router->post('admin/users/update/{id}', [UserController::class, 'update']);
-    $router->post('admin/users/destroy/{id}', [UserController::class, 'destroy']);
-
-    // User Profile routes
-    $router->get('admin/profile', [UserController::class, 'profile']);
-    $router->post('admin/profile/avatar', [UserController::class, 'updateAvatar']);
-
-    // Product routes
-    $router->get('admin/products', [ProductController::class, 'index']);
-    $router->get('admin/products/create', [ProductController::class, 'create']);
-    $router->post('admin/products', [ProductController::class, 'store']);
-    $router->get('admin/products/{id}', [ProductController::class, 'show']);
-    $router->get('admin/products/{id}/edit', [ProductController::class, 'edit']);
-    $router->post('admin/products/{id}', [ProductController::class, 'update']); // Should be PUT/PATCH, but HTML forms only support GET/POST
-    $router->post('admin/products/destroy/{id}', [ProductController::class, 'destroy']); // Should be DELETE
-
-
-    // Settings routes
-    $router->get('admin/settings', [SettingsController::class, 'index']);
-    $router->get('admin/settings/analytics', [SettingsController::class, 'analytics']);
-    $router->post('admin/settings/analytics', [SettingsController::class, 'updateAnalytics']);
-    $router->post('admin/settings/managed-tables', [SettingsController::class, 'updateManagedTables']);
+// Admin routes (protected by AuthMiddleware)
+$router->middleware([AuthMiddleware::class], function ($router) {
+    $router->get('/admin', [AdminController::class, 'index']);
+    $router->resource('/admin/users', UserController::class)
+        ->middleware(RoleMiddleware::class, ['create', 'store', 'destroy']);
+    $router->resource('/admin/events', EventController::class);
+    $router->get('/logout', [AuthController::class, 'logout']);
+    $router->post('/logout', [AuthController::class, 'logout']);
 });
 
-// API routes are not behind the admin role middleware
-$router->get('api/managed-tables', [SettingsController::class, 'getManagedTablesJson']);
+// Authentication routes
+// Redirect logged-in users away from /login
+$router->get('/login', function () {
+    if (class_exists('App\\Helpers\\Auth')) {
+        $auth = 'App\\Helpers\\Auth';
+    } elseif (class_exists('Auth')) {
+        $auth = 'Auth';
+    } else {
+        require_once __DIR__ . '/../app/helpers/Auth.php';
+        $auth = 'Auth';
+    }
+    if ($auth::check()) {
+        header('Location: ' . url('/admin'));
+        exit;
+    }
+    (new App\Controllers\AuthController)->showLogin();
+});
+$router->post('/login', [AuthController::class, 'login']);
 
-// Handle 404
-$router->addNotFoundHandler([ErrorController::class, 'notFound']);
-
-// Example of a resource route
-// $router->resource('tasks', 'TaskController');
+// Initial setup routes
+// Show setup page if no users exist
+$router->get('/setup', [AuthController::class, 'setup']);
+$router->post('/setup', [AuthController::class, 'storeSetup']);

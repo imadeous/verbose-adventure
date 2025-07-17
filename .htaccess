@@ -1,7 +1,13 @@
 Options -Indexes
 
 RewriteEngine On
-RewriteBase /craft/
+RewriteBase /yes/
 
 # Route all requests to the public directory
 RewriteRule ^(.*)$ public/$1 [L]
+
+# Block access to sensitive files
+<FilesMatch "(composer\.json|composer\.lock|\.env|\.gitignore|README\.md)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

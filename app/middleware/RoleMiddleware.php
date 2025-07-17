@@ -3,36 +3,27 @@
 namespace App\Middleware;
 
 use App\Helpers\Auth;
-use Core\Session;
 
 class RoleMiddleware
 {
     /**
-     * The role required to access the route.
+     * Handle the request and check for required role(s).
+     * Usage: RoleMiddleware::handle('admin') or RoleMiddleware::handle(['admin', 'editor'])
      *
-     * @var string
+     * @param string|array $role
      */
-    protected $role;
-
-    /**
-     * Create a new middleware instance.
-     *
-     * @param string $role
-     */
-    public function __construct($role = 'admin')
+    public static function handle($role = 'admin')
     {
-        $this->role = $role;
-    }
-
-    /**
-     * Handle the incoming request.
-     *
-     */
-    public function handle()
-    {
-        if (!Auth::check() || Auth::user()->role !== $this->role) {
-            session()->flash('error', 'You do not have permission to access this page.');
-            redirect('/');
+        if (!Auth::check()) {
+            header('Location: ' . url('/login'));
+            exit;
+        }
+        $user = Auth::user();
+        $roles = is_array($role) ? $role : [$role];
+        if (!in_array($user->role ?? null, $roles, true)) {
+            http_response_code(403);
+            echo '<h1>403 Forbidden</h1><p>You do not have permission to access this page.</p>';
+            exit;
         }
     }
 }

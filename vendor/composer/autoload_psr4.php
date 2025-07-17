@@ -6,9 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
-    'Helpers\\' => array($baseDir . '/app/helpers'),
-    'Faker\\' => array($vendorDir . '/fakerphp/faker/src/Faker'),
-    'Core\\' => array($baseDir . '/core'),
-    'App\\' => array($baseDir . '/app'),
+    'Helpers\\' => array($baseDir . '/Helpers'),
+    'Database\\' => array($baseDir . '/Database'),
+    'Core\\' => array($baseDir . '/Core'),
+    'App\\' => array($baseDir . '/App'),
 );
