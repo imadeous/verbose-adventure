@@ -126,3 +126,4 @@
             </div>
         </div>
 </section>
+<!-- endsection gallery -->
