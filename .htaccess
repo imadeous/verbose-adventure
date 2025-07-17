@@ -1,15 +1,13 @@
 Options -Indexes
 
 RewriteEngine On
-RewriteBase /
+RewriteBase /craft/
 
-# Only rewrite if the file/folder does NOT exist
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+# Route all requests to the public directory
 RewriteRule ^(.*)$ public/$1 [L]
 
 # Block access to sensitive files
-<FilesMatch "(composer\\.json|composer\\.lock|\\.env|\\.gitignore|README\\.md)">
+<FilesMatch "(composer\.json|composer\.lock|\.env|\.gitignore|README\.md)">
     Order allow,deny
     Deny from all
 </FilesMatch>

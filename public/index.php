@@ -11,11 +11,9 @@ require_once __DIR__ . '/../Core/Env.php';
 use Core\Env;
 
 Env::load(__DIR__ . '/../.env');
-if (getenv('APP_MODE') === 'DEBUG') {
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-}
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 require_once __DIR__ . '/../App/Helpers/Functions.php';
 require_once __DIR__ . '/../Core/Router.php';

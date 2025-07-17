@@ -1,3 +1,6 @@
+# Ignore all .htaccess files
+.htaccess
+public/.htaccess
 # Ignore .htaccess in root and public
 /.htaccess
 /public/.htaccess
