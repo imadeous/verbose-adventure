@@ -7,19 +7,19 @@
                 <div class="leading-relaxed">Discover some of our favorite 3D printed projects, from intricate prototypes to finished products. Each piece demonstrates our commitment to quality, detail, and customer satisfaction.</div>
             </div>
             <div class="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
-                <h2 class="title-font font-medium text-3xl text-white">2</h2>
+                <h2 class="title-font font-medium text-3xl text-yellow-500">2</h2>
                 <p class="leading-relaxed">Machines</p>
             </div>
             <div class="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
-                <h2 class="title-font font-medium text-3xl text-white">74</h2>
+                <h2 class="title-font font-medium text-3xl text-yellow-500">74</h2>
                 <p class="leading-relaxed">Filament Rolls</p>
             </div>
             <div class="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
-                <h2 class="title-font font-medium text-3xl text-white">153</h2>
+                <h2 class="title-font font-medium text-3xl text-yellow-500">153</h2>
                 <p class="leading-relaxed">Prints</p>
             </div>
             <div class="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
-                <h2 class="title-font font-medium text-3xl text-white">1.3K</h2>
+                <h2 class="title-font font-medium text-3xl text-yellow-500">1.3K</h2>
                 <p class="leading-relaxed">Happy Clients</p>
             </div>
         </div>
@@ -36,6 +36,72 @@
             <p class="lg:pl-6 lg:w-2/3 mx-auto leading-relaxed text-base">Browse a selection of our recent 3D printed works. From engineering prototypes to creative art pieces, our gallery showcases the versatility and precision of our printing technology. Get inspired for your next project!</p>
         </div>
         <div class="flex flex-wrap md:-m-2 -m-1">
+            <div class="flex flex-wrap w-1/2">
+                <div class="md:p-2 p-1 w-1/2">
+                    <img alt="gallery" class="rounded-lg w-full object-cover h-full object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/500x300">
+                </div>
+                <div class="md:p-2 p-1 w-1/2">
+                    <img alt="gallery" class="rounded-lg w-full object-cover h-full object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/501x301">
+                </div>
+                <div class="md:p-2 p-1 w-full">
+                    <img alt="gallery" class="rounded-lg w-full h-full object-cover object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/600x360">
+                </div>
+            </div>
+            <div class="flex flex-wrap w-1/2">
+                <div class="md:p-2 p-1 w-full">
+                    <img alt="gallery" class="rounded-lg w-full h-full object-cover object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/601x361">
+                </div>
+                <div class="md:p-2 p-1 w-1/2">
+                    <img alt="gallery" class="rounded-lg w-full object-cover h-full object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/502x302">
+                </div>
+                <div class="md:p-2 p-1 w-1/2">
+                    <img alt="gallery" class="rounded-lg w-full object-cover h-full object-center block transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" src="https://dummyimage.com/503x303">
+                </div>
+            </div>
+            <div class="flex flex-wrap w-1/2">
+                <div class="md:p-2 p-1 w-1/2">
+                    <img alt="gallery" class="rounded-lg w-full object-cover h-full object-center block" src="https://dummyimage.com/500x300">
+                </div>
+                <div class="md:p-2 p-1 w-1/2">
+                    <img alt="gallery" class="rounded-lg w-full object-cover h-full object-center block" src="https://dummyimage.com/501x301">
+                </div>
+                <div class="md:p-2 p-1 w-full">
+                    <img alt="gallery" class="rounded-lg w-full h-full object-cover object-center block" src="https://dummyimage.com/600x360">
+                </div>
+            </div>
+            <div class="flex flex-wrap w-1/2">
+                <div class="md:p-2 p-1 w-full">
+                    <img alt="gallery" class="rounded-lg w-full h-full object-cover object-center block" src="https://dummyimage.com/601x361">
+                </div>
+                <div class="md:p-2 p-1 w-1/2">
+                    <img alt="gallery" class="rounded-lg w-full object-cover h-full object-center block" src="https://dummyimage.com/502x302">
+                </div>
+                <div class="md:p-2 p-1 w-1/2">
+                    <img alt="gallery" class="rounded-lg w-full object-cover h-full object-center block" src="https://dummyimage.com/503x303">
+                </div>
+            </div>
+            <div class="flex flex-wrap w-1/2">
+                <div class="md:p-2 p-1 w-1/2">
+                    <img alt="gallery" class="w-full object-cover h-full object-center block" src="https://dummyimage.com/500x300">
+                </div>
+                <div class="md:p-2 p-1 w-1/2">
+                    <img alt="gallery" class="w-full object-cover h-full object-center block" src="https://dummyimage.com/501x301">
+                </div>
+                <div class="md:p-2 p-1 w-full">
+                    <img alt="gallery" class="w-full h-full object-cover object-center block" src="https://dummyimage.com/600x360">
+                </div>
+            </div>
+            <div class="flex flex-wrap w-1/2">
+                <div class="md:p-2 p-1 w-full">
+                    <img alt="gallery" class="w-full h-full object-cover object-center block" src="https://dummyimage.com/601x361">
+                </div>
+                <div class="md:p-2 p-1 w-1/2">
+                    <img alt="gallery" class="w-full object-cover h-full object-center block" src="https://dummyimage.com/502x302">
+                </div>
+                <div class="md:p-2 p-1 w-1/2">
+                    <img alt="gallery" class="w-full object-cover h-full object-center block" src="https://dummyimage.com/503x303">
+                </div>
+            </div>
             <div class="flex flex-wrap w-1/2">
                 <div class="md:p-2 p-1 w-1/2">
                     <img alt="gallery" class="w-full object-cover h-full object-center block" src="https://dummyimage.com/500x300">
@@ -59,5 +125,4 @@
                 </div>
             </div>
         </div>
-    </div>
 </section>
