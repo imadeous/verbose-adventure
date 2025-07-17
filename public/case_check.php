@@ -19,3 +19,4 @@ function listFiles($dir, $prefix = '')
 header('Content-Type: text/plain');
 echo "Listing all files and folders (case-sensitive):\n\n";
 listFiles(dirname(__DIR__));
+echo "\nDone listing files and folders.\n";
