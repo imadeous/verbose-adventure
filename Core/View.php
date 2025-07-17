@@ -45,8 +45,17 @@ class View
         $viewPath = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $name);
         $fullPath = $this->basePath . "App" . DIRECTORY_SEPARATOR . "Views" . DIRECTORY_SEPARATOR . $viewPath . ".view.php";
         if (!file_exists($fullPath)) {
-            echo "<b>View file not found:</b> $fullPath";
-            return '';
+            // Redirect to ErrorController::viewNotFound
+            $errorControllerClass = class_exists('App\\Controllers\\App\\ErrorController') ? 'App\\Controllers\\App\\ErrorController' : (class_exists('App\\Controller\\ErrorController') ? 'App\\Controller\\ErrorController' : null);
+            if ($errorControllerClass) {
+                $errorController = new $errorControllerClass();
+                $errorController->viewNotFound($name);
+                exit;
+            } else {
+                header('HTTP/1.1 500 Internal Server Error');
+                echo "<b>View file not found:</b> $fullPath";
+                exit;
+            }
         }
         ob_start();
         require $fullPath;
@@ -74,8 +83,17 @@ class View
         extract($data);
         $partialPath = $this->basePath . "App" . DIRECTORY_SEPARATOR . "Views" . DIRECTORY_SEPARATOR . "partials" . DIRECTORY_SEPARATOR . $partial . ".php";
         if (!file_exists($partialPath)) {
-            echo "<b>Partial file not found:</b> $partialPath";
-            return '';
+            // Redirect to ErrorController::viewNotFound
+            $errorControllerClass = class_exists('App\\Controllers\\App\\ErrorController') ? 'App\\Controllers\\App\\ErrorController' : (class_exists('App\\Controller\\ErrorController') ? 'App\\Controller\\ErrorController' : null);
+            if ($errorControllerClass) {
+                $errorController = new $errorControllerClass();
+                $errorController->viewNotFound('partials/' . $partial);
+                exit;
+            } else {
+                header('HTTP/1.1 500 Internal Server Error');
+                echo "<b>Partial file not found:</b> $partialPath";
+                exit;
+            }
         }
         ob_start();
         require $partialPath;
