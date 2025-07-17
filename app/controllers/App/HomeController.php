@@ -42,21 +42,21 @@ class HomeController extends Controller
      * Show the public events index page
      */
 
-    public function indexEvents()
-    {
-        $this->view->layout('app');
-        // Fetch events from the database
-        $events = Event::all();
-        // Optionally, you could sort or filter by start_date/end_date here
-        // Example: Sort events by start_date ascending
-        usort($events, function ($a, $b) {
-            return strtotime($a->start_date) <=> strtotime($b->start_date);
-        });
-        $this->view('events/index', [
-            'events' => $events,
-            'title' => 'Upcoming Events',
-        ]);
-    }
+    // public function indexEvents()
+    // {
+    //     $this->view->layout('app');
+    //     // Fetch events from the database
+    //     // $events = Event::all();
+    //     // Optionally, you could sort or filter by start_date/end_date here
+    //     // Example: Sort events by start_date ascending
+    //     usort($events, function ($a, $b) {
+    //         return strtotime($a->start_date) <=> strtotime($b->start_date);
+    //     });
+    //     $this->view('events/index', [
+    //         'events' => $events,
+    //         'title' => 'Upcoming Events',
+    //     ]);
+    // }
 
     /**
      * Show a single event by ID
@@ -64,32 +64,25 @@ class HomeController extends Controller
     public function showEvent($id)
     {
         $this->view->layout('app');
-        $event = \App\Models\Event::find($id);
+        // $event = \App\Models\Event::find($id);
         $this->view('events/show', [
-            'event' => $event,
-            'title' => $event ? $event->title : 'Event Not Found',
+            // 'event' => $event,
+            // 'title' => $event ? $event->title : 'Event Not Found',
         ]);
     }
 
     /**
-     * Show the About page
+     * Show a generic page by title
+     *
+     * @param string $pageTitle
      */
-    public function about()
+    public function page($pageTitle)
     {
         $this->view->layout('app');
-        $this->view('about', [
-            'title' => 'About YES',
-        ]);
-    }
-
-    /**
-     * Show the Contact page
-     */
-    public function contact()
-    {
-        $this->view->layout('app');
-        $this->view('contact', [
-            'title' => 'Contact YES',
+        // Convert page title to lowercase and replace spaces with underscores for view file name
+        $viewName = strtolower(str_replace(' ', '_', $pageTitle));
+        $this->view($viewName, [
+            'title' => $pageTitle,
         ]);
     }
 }

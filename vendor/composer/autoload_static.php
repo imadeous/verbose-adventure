@@ -28,7 +28,7 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
     public static $prefixDirsPsr4 = array (
         'Helpers\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/Helpers',
+            0 => __DIR__ . '/../..' . '/App/Helpers',
         ),
         'Database\\' => 
         array (

@@ -1,39 +1,29 @@
-<html lang="en" style="scroll-behavior: smooth;">
+<!DOCTYPE html>
+<html lang="en" class="bg-white text-gray-900">
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!--====== Favicon Icon ======-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><?= isset($title) ? htmlspecialchars($title) : 'Print3D Pro' ?></title>
     <link rel="shortcut icon" href="/assets/img/favicon.png" type="image/png">
-    <title><?= isset($title) ? htmlspecialchars($title) : 'YES' ?></title>
-    <!-- Icon -->
-    <link rel="stylesheet" type="text/css" href="/assets/css/LineIcons.2.0.css">
-    <!-- Animate -->
-    <?php
-    $themePath = '/assets';
-    ?>
-    <html lang="en" style="scroll-behavior: smooth;">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- <link rel="stylesheet" href="/assets/css/LineIcons.2.0.css"> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.14.9/cdn.min.js" defer></script>
+    <meta name="description"
+        content="Professional 3D printing services for rapid prototyping, custom manufacturing, and design consultation.">
+</head>
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="shortcut icon" href="<?= $themePath ?>/img/favicon.png" type="image/png">
-        <title><?= isset($title) ? htmlspecialchars($title) : 'YES' ?></title>
-        <link rel="stylesheet" type="text/css" href="<?= $themePath ?>/css/LineIcons.2.0.css">
-        <link rel="stylesheet" type="text/css" href="<?= $themePath ?>/css/animate.css">
-        <link rel="stylesheet" type="text/css" href="<?= $themePath ?>/css/tiny-slider.css">
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    </head>
+<body class="min-h-screen flex flex-col bg-white text-gray-900">
+    <!-- Navbar -->
+    <?= $this->partial('/front-navbar'); ?>
 
-<body>
-    <div class="bg-white">
-        <?php echo $this->partial('front-navbar'); ?>
-        <main>
-            <?= $this->yield('content') ?>
-        </main>
-    </div>
-    <?php echo $this->partial('footer'); ?>
+    <!-- Main Content -->
+    <main class="flex-1">
+        <?= $this->yield('content') ?>
+    </main>
+
+    <!-- Footer -->
+    <?= $this->partial('/footer'); ?>
 </body>
 
 </html>

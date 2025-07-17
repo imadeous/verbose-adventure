@@ -1,4 +1,3 @@
-
 <?php
 
 /**
@@ -16,23 +15,20 @@ use App\Controllers\Admin\AdminController;
 use App\Controllers\App\HomeController;
 use App\Controllers\AuthController;
 use App\Controllers\Admin\UserController;
-use App\Controllers\Admin\EventController;
+// use App\Controllers\Admin\EventController;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\RoleMiddleware;
 
 $router->get('/', [HomeController::class, 'index']);
-$router->get('/test', [HomeController::class, 'test']);
 $router->get('/events', [HomeController::class, 'indexEvents']);
 $router->get('/events/{id}', [HomeController::class, 'showEvent']);
-$router->get('/about', [HomeController::class, 'about']);
-$router->get('/contact', [HomeController::class, 'contact']);
 
 // Admin routes (protected by AuthMiddleware)
 $router->middleware([AuthMiddleware::class], function ($router) {
     $router->get('/admin', [AdminController::class, 'index']);
     $router->resource('/admin/users', UserController::class)
         ->middleware(RoleMiddleware::class, ['create', 'store', 'destroy']);
-    $router->resource('/admin/events', EventController::class);
+    // $router->resource('/admin/events', EventController::class);
     $router->get('/logout', [AuthController::class, 'logout']);
     $router->post('/logout', [AuthController::class, 'logout']);
 });
@@ -60,3 +56,6 @@ $router->post('/login', [AuthController::class, 'login']);
 // Show setup page if no users exist
 $router->get('/setup', [AuthController::class, 'setup']);
 $router->post('/setup', [AuthController::class, 'storeSetup']);
+
+// Generic page route
+$router->get('/{pageTitle}', [HomeController::class, 'page']);
