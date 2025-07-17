@@ -1,4 +1,4 @@
-<header class="text-gray-400 bg-gray-900 body-font">
+<header class="text-gray-400 bg-gray-900 body-font" x-data="{ current: window.location.pathname }">
     <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
         <a href="<?= url('/') ?>" class="flex title-font font-medium items-center text-white mb-4 md:mb-0">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-yellow-500 rounded-full" viewBox="0 0 24 24">
@@ -7,10 +7,10 @@
             <span class="ml-3 text-xl">Craftophile Shop</span>
         </a>
         <nav class="md:ml-auto md:mr-auto hidden md:flex flex-wrap items-center text-base justify-center">
-            <a href="<?= url('/gallery') ?>" class="mr-5 hover:text-white">Gallery</a>
-            <a href="<?= url('/quote') ?>" class="mr-5 hover:text-white">Get Quote</a>
-            <a href="<?= url('/about') ?>" class="mr-5 hover:text-white">About Us</a>
-            <a href="<?= url('/contact') ?>" class="mr-5 hover:text-white">Contact</a>
+            <a href="<?= url('/gallery') ?>" :class="current === '<?= url('/gallery') ?>' ? 'text-yellow-500 mr-5' : 'mr-5 hover:text-white'">Gallery</a>
+            <a href="<?= url('/quote') ?>" :class="current === '<?= url('/quote') ?>' ? 'text-yellow-500 mr-5' : 'mr-5 hover:text-white'">Get Quote</a>
+            <a href="<?= url('/about') ?>" :class="current === '<?= url('/about') ?>' ? 'text-yellow-500 mr-5' : 'mr-5 hover:text-white'">About Us</a>
+            <a href="<?= url('/contact') ?>" :class="current === '<?= url('/contact') ?>' ? 'text-yellow-500 mr-5' : 'mr-5 hover:text-white'">Contact</a>
         </nav>
         <span class="flex items-center space-x-1">
             <span class="text-sm hidden md:inline">Follow us on:</span>
@@ -32,8 +32,8 @@
     </div>
 </header>
 <!-- Responsive Bottom App Bar for Mobile -->
-<div x-data="{ active: 'gallery' }" class="fixed bottom-0 left-0 right-0 z-50 bg-gray-900 border-t border-gray-800 flex justify-around items-center py-2 md:hidden">
-    <a href="<?= url('/gallery') ?>" @click="active = 'gallery'" class="flex flex-col items-center text-xs" :class="active === 'gallery' ? 'text-yellow-400' : 'text-gray-400'">
+<div x-data="{ current: window.location.pathname }" class="fixed bottom-0 left-0 right-0 z-50 bg-gray-900 border-t border-gray-800 flex justify-around items-center py-2 md:hidden">
+    <a href="<?= url('/gallery') ?>" class="flex flex-col items-center text-xs" :class="current === '<?= url('/gallery') ?>' ? 'text-yellow-500' : 'text-gray-400'">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -41,7 +41,7 @@
         </svg>
         Gallery
     </a>
-    <a href="<?= url('/quote') ?>" @click="active = 'quote'" class="flex flex-col items-center text-xs" :class="active === 'quote' ? 'text-yellow-400' : 'text-gray-400'">
+    <a href="<?= url('/quote') ?>" class="flex flex-col items-center text-xs" :class="current === '<?= url('/quote') ?>' ? 'text-yellow-500' : 'text-gray-400'">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -49,7 +49,7 @@
         </svg>
         Quote
     </a>
-    <a href="<?= url('/about') ?>" @click="active = 'about'" class="flex flex-col items-center text-xs" :class="active === 'about' ? 'text-yellow-400' : 'text-gray-400'">
+    <a href="<?= url('/about') ?>" class="flex flex-col items-center text-xs" :class="current === '<?= url('/about') ?>' ? 'text-yellow-500' : 'text-gray-400'">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -57,7 +57,7 @@
         </svg>
         About
     </a>
-    <a href="<?= url('/contact') ?>" @click="active = 'contact'" class="flex flex-col items-center text-xs" :class="active === 'contact' ? 'text-yellow-400' : 'text-gray-400'">
+    <a href="<?= url('/contact') ?>" class="flex flex-col items-center text-xs" :class="current === '<?= url('/contact') ?>' ? 'text-yellow-500' : 'text-gray-400'">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round"
