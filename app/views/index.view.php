@@ -111,7 +111,7 @@
                 current: 0,
                 prev() { this.current = (this.current === 0) ? this.images.length - 1 : this.current - 1; },
                 next() { this.current = (this.current === this.images.length - 1) ? 0 : this.current + 1; }
-            }" class="relative w-full max-w-4xl mx-auto">
+            }" class="relative w-full max-w-8xl h-96 mx-auto">
                 <div class="overflow-hidden rounded-lg">
                     <div class="relative w-full h-64 md:h-80 overflow-hidden">
                         <template x-for="(img, i) in images" :key="i">
