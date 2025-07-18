@@ -1,49 +1,49 @@
 <div class="mb-8">
-    <h3 class="text-base font-semibold leading-6 text-gray-900">Key Metrics (Last 30 Days)</h3>
+    <h3 class="text-base font-semibold leading-6 text-blue-900">Key Metrics (Last 30 Days)</h3>
     <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-4">
-        <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6 flex items-center gap-4">
-            <div class="bg-blue-100 text-blue-600 rounded-full p-3">
+        <div class="overflow-hidden rounded-lg bg-blue-50 px-4 py-5 shadow sm:p-6 flex items-center gap-4">
+            <div class="bg-blue-200 text-blue-700 rounded-full p-3">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path d="M3 3h18v2H3V3zm0 4h18v2H3V7zm0 4h18v2H3v-2zm0 4h18v2H3v-2zm0 4h18v2H3v-2z" />
                 </svg>
             </div>
             <div>
-                <dt class="truncate text-sm font-medium text-gray-500">Orders</dt>
-                <dd class="mt-1 text-3xl font-semibold tracking-tight text-gray-900">42</dd>
+                <dt class="truncate text-sm font-medium text-blue-600">Orders</dt>
+                <dd class="mt-1 text-3xl font-semibold tracking-tight text-blue-900">42</dd>
             </div>
         </div>
-        <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6 flex items-center gap-4">
-            <div class="bg-green-100 text-green-600 rounded-full p-3">
+        <div class="overflow-hidden rounded-lg bg-blue-50 px-4 py-5 shadow sm:p-6 flex items-center gap-4">
+            <div class="bg-blue-200 text-blue-700 rounded-full p-3">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0-6C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" />
                 </svg>
             </div>
             <div>
-                <dt class="truncate text-sm font-medium text-gray-500">Revenue</dt>
-                <dd class="mt-1 text-3xl font-semibold tracking-tight text-gray-900">MVR 18,500</dd>
+                <dt class="truncate text-sm font-medium text-blue-600">Revenue</dt>
+                <dd class="mt-1 text-3xl font-semibold tracking-tight text-blue-900">MVR 18,500</dd>
             </div>
         </div>
-        <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6 flex items-center gap-4">
-            <div class="bg-yellow-100 text-yellow-600 rounded-full p-3">
+        <div class="overflow-hidden rounded-lg bg-blue-50 px-4 py-5 shadow sm:p-6 flex items-center gap-4">
+            <div class="bg-blue-200 text-blue-700 rounded-full p-3">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path d="M12 8v4l3 3" />
                 </svg>
             </div>
             <div>
-                <dt class="truncate text-sm font-medium text-gray-500">Avg. Revenue</dt>
-                <dd class="mt-1 text-3xl font-semibold tracking-tight text-gray-900">MVR 440</dd>
+                <dt class="truncate text-sm font-medium text-blue-600">Avg. Revenue</dt>
+                <dd class="mt-1 text-3xl font-semibold tracking-tight text-blue-900">MVR 440</dd>
             </div>
         </div>
-        <div class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6 flex items-center gap-4">
-            <div class="bg-purple-100 text-purple-600 rounded-full p-3">
+        <div class="overflow-hidden rounded-lg bg-blue-50 px-4 py-5 shadow sm:p-6 flex items-center gap-4">
+            <div class="bg-blue-200 text-blue-700 rounded-full p-3">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <circle cx="12" cy="12" r="10" />
                     <path d="M8 15l4-4 4 4" />
                 </svg>
             </div>
             <div>
-                <dt class="truncate text-sm font-medium text-gray-500">CSAT</dt>
-                <dd class="mt-1 text-3xl font-semibold tracking-tight text-green-600">4.7/5</dd>
+                <dt class="truncate text-sm font-medium text-blue-600">CSAT</dt>
+                <dd class="mt-1 text-3xl font-semibold tracking-tight text-blue-700">4.7/5</dd>
             </div>
         </div>
     </div>
@@ -53,7 +53,7 @@
     <h3 class="text-base font-semibold leading-6 text-gray-900">Business Insights</h3>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-4">
         <!-- Revenue & Orders Chart -->
-        <div class="col-span-1 lg:col-span-2 p-4 bg-white text-sm shadow-lg rounded-lg flex flex-col justify-between">
+        <div class="col-span-1 lg:col-span-2 p-4 bg-blue-50 text-sm shadow-lg rounded-lg flex flex-col justify-between">
             <h4 class="font-semibold mb-2">Revenue & Orders Trend</h4>
             <div class="flex-1 flex items-center justify-center">
                 <!-- Dummy Line Chart SVG -->
@@ -67,7 +67,7 @@
             </div>
         </div>
         <!-- Quarterly Report -->
-        <div class="col-span-1 h-full px-6 py-4 text-sm shadow-lg rounded-lg bg-white flex flex-col">
+        <div class="col-span-1 h-full px-6 py-4 text-sm shadow-lg rounded-lg bg-blue-50 flex flex-col">
             <h4 class="font-semibold mb-2"><?php echo date('Y') ?> Quarterly Report</h4>
             <div class="flex-1 flex flex-col items-center justify-center mt-2">
                 <!-- Dummy Bar Chart SVG -->
@@ -95,7 +95,7 @@
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
     <!-- Top Products -->
-    <div class="col-span-1 bg-white p-6 rounded-lg shadow flex flex-col">
+    <div class="col-span-1 bg-blue-50 p-6 rounded-lg shadow flex flex-col">
         <h4 class="font-semibold mb-4 flex items-center gap-2"><svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
             </svg>Top Products</h4>
@@ -118,7 +118,7 @@
         </div>
     </div>
     <!-- Promo Code Usage -->
-    <div class="col-span-1 bg-white p-6 rounded-lg shadow flex flex-col">
+    <div class="col-span-1 bg-blue-50 p-6 rounded-lg shadow flex flex-col">
         <h4 class="font-semibold mb-4 flex items-center gap-2"><svg class="w-5 h-5 text-pink-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path d="M17 9V7a5 5 0 0 0-10 0v2a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2z" />
             </svg>Promo Code Usage</h4>
@@ -140,7 +140,7 @@
         </div>
     </div>
     <!-- Expense Breakdown -->
-    <div class="col-span-1 bg-white p-6 rounded-lg shadow flex flex-col">
+    <div class="col-span-1 bg-blue-50 p-6 rounded-lg shadow flex flex-col">
         <h4 class="font-semibold mb-4 flex items-center gap-2"><svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0-6C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" />
             </svg>Expense Breakdown</h4>
@@ -173,7 +173,7 @@
     </div>
 </div>
 
-<div class="bg-white rounded-lg shadow p-6 mb-8">
+<div class="bg-blue-50 rounded-lg shadow p-6 mb-8">
     <h4 class="font-semibold mb-4 flex items-center gap-2"><svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path d="M12 20l9-5-9-5-9 5 9 5z" />
             <path d="M12 12V4" />
