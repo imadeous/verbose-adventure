@@ -255,59 +255,70 @@
     </div>
 </div>
 
-<div class="bg-white rounded-xl shadow-md p-6 mb-8 border border-blue-100">
-    <h4 class="font-semibold mb-4 flex items-center gap-2"><svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M12 20l9-5-9-5-9 5 9 5z" />
-            <path d="M12 12V4" />
-        </svg>Recent Reviews</h4>
-    <div class="flex flex-col gap-4">
-        <div class="flex items-center gap-4 p-3 rounded-lg bg-blue-50 border border-blue-100">
-            <div class="flex flex-col items-center justify-center">
-                <span class="font-semibold text-blue-900">Aishath L.</span>
-                <span class="text-xs text-blue-400">Custom Keychain</span>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="col-span-1 md:col-span-3 bg-white rounded-xl shadow-md p-6 border border-blue-100">
+        <h4 class="font-semibold mb-6 flex items-center gap-2">
+            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M12 20l9-5-9-5-9 5 9 5z" />
+                <path d="M12 12V4" />
+            </svg>
+            Recent Reviews
+        </h4>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="flex flex-col gap-2 p-4 rounded-lg bg-blue-50 border border-blue-100">
+                <div>
+                    <span class="font-semibold text-blue-900">Aishath L.</span>
+                    <span class="block text-xs text-blue-400">Custom Keychain</span>
+                </div>
+                <div class="flex items-center gap-3 mt-2">
+                    <div class="flex items-center gap-1">
+                        <span class="text-yellow-400">★</span><span>5</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <span class="text-blue-500">💲</span><span>4</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <span class="text-blue-400">🚚</span><span>5</span>
+                    </div>
+                </div>
+                <div class="text-blue-700 italic text-xs mt-2">"Great quality and fast delivery!"</div>
             </div>
-            <div class="flex items-center gap-1 ml-6">
-                <span class="text-yellow-400">★</span><span>5</span>
+            <div class="flex flex-col gap-2 p-4 rounded-lg bg-blue-50 border border-blue-100">
+                <div>
+                    <span class="font-semibold text-blue-900">Mohamed R.</span>
+                    <span class="block text-xs text-blue-400">Miniature Figure</span>
+                </div>
+                <div class="flex items-center gap-3 mt-2">
+                    <div class="flex items-center gap-1">
+                        <span class="text-yellow-400">★</span><span>4</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <span class="text-blue-500">💲</span><span>5</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <span class="text-blue-400">🚚</span><span>4</span>
+                    </div>
+                </div>
+                <div class="text-blue-700 italic text-xs mt-2">"Very detailed and well-priced."</div>
             </div>
-            <div class="flex items-center gap-1">
-                <span class="text-blue-500">💲</span><span>4</span>
+            <div class="flex flex-col gap-2 p-4 rounded-lg bg-blue-50 border border-blue-100">
+                <div>
+                    <span class="font-semibold text-blue-900">Fathimath S.</span>
+                    <span class="block text-xs text-blue-400">Architectural Model</span>
+                </div>
+                <div class="flex items-center gap-3 mt-2">
+                    <div class="flex items-center gap-1">
+                        <span class="text-yellow-400">★</span><span>5</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <span class="text-blue-500">💲</span><span>5</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <span class="text-blue-400">🚚</span><span>5</span>
+                    </div>
+                </div>
+                <div class="text-blue-700 italic text-xs mt-2">"Impressed with the service!"</div>
             </div>
-            <div class="flex items-center gap-1">
-                <span class="text-blue-400">🚚</span><span>5</span>
-            </div>
-            <div class="ml-auto text-blue-700 italic text-xs">"Great quality and fast delivery!"</div>
-        </div>
-        <div class="flex items-center gap-4 p-3 rounded-lg bg-blue-50 border border-blue-100">
-            <div class="flex flex-col items-center justify-center">
-                <span class="font-semibold text-blue-900">Mohamed R.</span>
-                <span class="text-xs text-blue-400">Miniature Figure</span>
-            </div>
-            <div class="flex items-center gap-1 ml-6">
-                <span class="text-yellow-400">★</span><span>4</span>
-            </div>
-            <div class="flex items-center gap-1">
-                <span class="text-blue-500">💲</span><span>5</span>
-            </div>
-            <div class="flex items-center gap-1">
-                <span class="text-blue-400">🚚</span><span>4</span>
-            </div>
-            <div class="ml-auto text-blue-700 italic text-xs">"Very detailed and well-priced."</div>
-        </div>
-        <div class="flex items-center gap-4 p-3 rounded-lg bg-blue-50 border border-blue-100">
-            <div class="flex flex-col items-center justify-center">
-                <span class="font-semibold text-blue-900">Fathimath S.</span>
-                <span class="text-xs text-blue-400">Architectural Model</span>
-            </div>
-            <div class="flex items-center gap-1 ml-6">
-                <span class="text-yellow-400">★</span><span>5</span>
-            </div>
-            <div class="flex items-center gap-1">
-                <span class="text-blue-500">💲</span><span>5</span>
-            </div>
-            <div class="flex items-center gap-1">
-                <span class="text-blue-400">🚚</span><span>5</span>
-            </div>
-            <div class="ml-auto text-blue-700 italic text-xs">"Impressed with the service!"</div>
         </div>
     </div>
 </div>
