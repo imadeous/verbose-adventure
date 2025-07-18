@@ -67,8 +67,8 @@
                 </div>
                 <div class="text-xs text-blue-500 font-medium uppercase tracking-wide">Revenue & Orders Trend</div>
             </div>
-            <div class="flex-1 flex items-center justify-center">
-                <canvas id="revenueOrdersChart" class="w-full max-w-xl" height="120"></canvas>
+            <div class="flex-1 flex items-center justify-center" style="height:220px;min-height:180px;max-height:220px;">
+                <canvas id="revenueOrdersChart" class="w-full max-w-xl" style="height:200px!important;max-height:200px;min-height:200px;" height="200"></canvas>
             </div>
         </div>
         <!-- Quarterly Report -->
@@ -82,8 +82,8 @@
                 </div>
                 <div class="text-xs text-blue-500 font-medium uppercase tracking-wide"><?php echo date('Y') ?> Quarterly Report</div>
             </div>
-            <div class="flex-1 flex flex-col items-center justify-center mt-2">
-                <canvas id="quarterlyReportChart" class="w-full max-w-xs" height="90"></canvas>
+            <div class="flex-1 flex flex-col items-center justify-center mt-2" style="height:180px;min-height:140px;max-height:180px;">
+                <canvas id="quarterlyReportChart" class="w-full max-w-xs" style="height:140px!important;max-height:140px;min-height:140px;" height="140"></canvas>
                 <ul class="text-gray-700 text-xs mt-4 w-full flex justify-between px-2">
                     <li>Q1: <span class="font-semibold">MVR 5,200</span></li>
                     <li>Q2: <span class="font-semibold">MVR 6,800</span></li>
