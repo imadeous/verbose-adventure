@@ -360,7 +360,7 @@
             submitForm() {
                 // Only submit if all required fields are filled and not just whitespace
                 if (!this.isFormValid()) {
-                    console.log('Form invalid:', JSON.parse(JSON.stringify(this.form)));
+                    alert('Please fill all required fields before submitting.');
                     return;
                 }
                 // You can add AJAX or form submission logic here
