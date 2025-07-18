@@ -56,20 +56,38 @@
         <div class="col-span-1 lg:col-span-2 p-4 bg-white text-sm shadow-lg rounded-lg flex flex-col justify-between">
             <h4 class="font-semibold mb-2">Revenue & Orders Trend</h4>
             <div class="flex-1 flex items-center justify-center">
-                <span class="text-gray-400">[Line Chart Placeholder]</span>
+                <!-- Dummy Line Chart SVG -->
+                <svg width="100%" height="120" viewBox="0 0 400 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-xl">
+                    <rect x="0" y="0" width="400" height="120" rx="12" fill="#f3f4f6" />
+                    <polyline fill="none" stroke="#3b82f6" stroke-width="3" points="20,100 60,80 100,90 140,60 180,70 220,40 260,60 300,30 340,50 380,20" />
+                    <polyline fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="4 2" points="20,110 60,100 100,100 140,80 180,90 220,60 260,80 300,50 340,70 380,40" />
+                    <circle cx="380" cy="20" r="4" fill="#3b82f6" />
+                    <circle cx="380" cy="40" r="3" fill="#10b981" />
+                </svg>
             </div>
         </div>
         <!-- Quarterly Report -->
         <div class="col-span-1 h-full px-6 py-4 text-sm shadow-lg rounded-lg bg-white flex flex-col">
             <h4 class="font-semibold mb-2"><?php echo date('Y') ?> Quarterly Report</h4>
-            <ul class="text-gray-700">
-                <li>Q1 Revenue: <span class="font-semibold">MVR 5,200.00</span></li>
-                <li>Q2 Revenue: <span class="font-semibold">MVR 6,800.00</span></li>
-                <li>Q3 Revenue: <span class="font-semibold">MVR 4,500.00</span></li>
-                <li>Q4 Revenue: <span class="font-semibold">MVR 2,000.00</span></li>
-            </ul>
-            <div class="flex-1 flex items-center justify-center mt-4">
-                <span class="text-gray-400">[Bar Chart Placeholder]</span>
+            <div class="flex-1 flex flex-col items-center justify-center mt-2">
+                <!-- Dummy Bar Chart SVG -->
+                <svg width="100%" height="90" viewBox="0 0 220 90" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-xs">
+                    <rect x="0" y="0" width="220" height="90" rx="10" fill="#f3f4f6" />
+                    <rect x="25" y="50" width="30" height="30" rx="4" fill="#3b82f6" />
+                    <rect x="70" y="30" width="30" height="50" rx="4" fill="#10b981" />
+                    <rect x="115" y="40" width="30" height="40" rx="4" fill="#f59e42" />
+                    <rect x="160" y="65" width="30" height="15" rx="4" fill="#ef4444" />
+                    <text x="40" y="45" text-anchor="middle" font-size="10" fill="#3b82f6">Q1</text>
+                    <text x="85" y="25" text-anchor="middle" font-size="10" fill="#10b981">Q2</text>
+                    <text x="130" y="35" text-anchor="middle" font-size="10" fill="#f59e42">Q3</text>
+                    <text x="175" y="60" text-anchor="middle" font-size="10" fill="#ef4444">Q4</text>
+                </svg>
+                <ul class="text-gray-700 text-xs mt-4 w-full flex justify-between px-2">
+                    <li>Q1: <span class="font-semibold">MVR 5,200</span></li>
+                    <li>Q2: <span class="font-semibold">MVR 6,800</span></li>
+                    <li>Q3: <span class="font-semibold">MVR 4,500</span></li>
+                    <li>Q4: <span class="font-semibold">MVR 2,000</span></li>
+                </ul>
             </div>
         </div>
     </div>
