@@ -94,6 +94,11 @@ class UserController extends Controller
         } else {
             unset($data['password']);
         }
+        // Ensure role is set to a valid value or NULL
+        $validRoles = ['admin', 'user'];
+        if (empty($data['role']) || !in_array($data['role'], $validRoles, true)) {
+            $data['role'] = 'user'; // Default to 'user' if not set or invalid
+        }
         foreach ($data as $key => $value) {
             $user->$key = $value;
         }
