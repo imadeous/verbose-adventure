@@ -7,9 +7,7 @@
         <h1 class="text-2xl font-bold text-gray-800">Users</h1>
         <?php if (Auth::isAdmin()): ?>
             <a href="<?= url('admin/users/create') ?>" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5 inline-block">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                </svg>
+                Create User
             </a>
         <?php endif; ?>
     </div>
