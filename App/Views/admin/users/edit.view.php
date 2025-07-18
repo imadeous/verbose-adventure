@@ -10,7 +10,7 @@
             </div>
         <?php endif; ?>
 
-        <form action="<?= url('/admin/users/' . $user->id) ?>" method="POST" class="space-y-5" autocomplete="off">
+        <form action="<?= url('/admin/users/') ?>" method="POST" class="space-y-5" autocomplete="off">
             <?= csrf_field() ?>
             <input type="hidden" name="_method" value="PUT">
             <div>
