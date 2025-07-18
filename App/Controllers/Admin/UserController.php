@@ -42,9 +42,9 @@ class UserController extends Controller
     {
         $data = $_POST;
         // Ensure role is set to a valid value or NULL
-        $validRoles = ['superadmin', 'admin', 'member'];
+        $validRoles = ['admin', 'user'];
         if (empty($data['role']) || !in_array($data['role'], $validRoles, true)) {
-            $data['role'] = 'member'; // Default to 'member' if not set or invalid
+            $data['role'] = 'user'; // Default to 'user' if not set or invalid
         }
         // Hash password if present
         if (!empty($data['password'])) {
