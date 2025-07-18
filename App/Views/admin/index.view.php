@@ -44,6 +44,7 @@
             <div>
                 <dt class="truncate text-sm font-medium text-blue-600">CSAT</dt>
                 <dd class="mt-1 text-3xl font-semibold tracking-tight text-blue-700">4.7/5</dd>
+                <div class="text-xs text-blue-600 mt-1">Recommendation: <span class="font-semibold text-blue-900">92%</span></div>
             </div>
         </div>
     </div>
