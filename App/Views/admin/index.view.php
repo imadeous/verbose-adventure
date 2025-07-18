@@ -58,8 +58,15 @@
     <h3 class="text-base font-semibold leading-6 text-blue-900">Business Insights</h3>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-4">
         <!-- Revenue & Orders Chart -->
-        <div class="col-span-1 lg:col-span-2 p-4 bg-blue-50 text-sm shadow-lg rounded-lg flex flex-col justify-between">
-            <h4 class="font-semibold mb-2">Revenue & Orders Trend</h4>
+        <div class="col-span-1 lg:col-span-2 bg-white rounded-xl shadow-md p-5 flex flex-col border border-blue-100 hover:shadow-lg transition">
+            <div class="flex items-center gap-3 mb-2">
+                <div class="bg-blue-100 text-blue-600 rounded-lg p-3 flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M3 3h18v2H3V3zm0 4h18v2H3V7zm0 4h18v2H3v-2zm0 4h18v2H3v-2zm0 4h18v2H3v-2z" />
+                    </svg>
+                </div>
+                <div class="text-xs text-blue-500 font-medium uppercase tracking-wide">Revenue & Orders Trend</div>
+            </div>
             <div class="flex-1 flex items-center justify-center">
                 <!-- Dummy Line Chart SVG -->
                 <svg width="100%" height="120" viewBox="0 0 400 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-xl">
@@ -72,8 +79,16 @@
             </div>
         </div>
         <!-- Quarterly Report -->
-        <div class="col-span-1 h-full px-6 py-4 text-sm shadow-lg rounded-lg bg-blue-50 flex flex-col">
-            <h4 class="font-semibold mb-2"><?php echo date('Y') ?> Quarterly Report</h4>
+        <div class="col-span-1 h-full bg-white rounded-xl shadow-md p-5 flex flex-col border border-blue-100 hover:shadow-lg transition">
+            <div class="flex items-center gap-3 mb-2">
+                <div class="bg-blue-100 text-blue-600 rounded-lg p-3 flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M8 15l4-4 4 4" />
+                    </svg>
+                </div>
+                <div class="text-xs text-blue-500 font-medium uppercase tracking-wide"><?php echo date('Y') ?> Quarterly Report</div>
+            </div>
             <div class="flex-1 flex flex-col items-center justify-center mt-2">
                 <!-- Dummy Bar Chart SVG -->
                 <svg width="100%" height="90" viewBox="0 0 220 90" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-xs">
@@ -100,7 +115,7 @@
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
     <!-- Top Products -->
-    <div class="col-span-1 bg-blue-50 p-6 rounded-lg shadow flex flex-col">
+    <div class="col-span-1 bg-white rounded-xl shadow-md p-5 flex flex-col border border-blue-100 hover:shadow-lg transition">
         <h4 class="font-semibold mb-4 flex items-center gap-2"><svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
             </svg>Top Products</h4>
@@ -123,7 +138,7 @@
         </div>
     </div>
     <!-- Promo Code Usage -->
-    <div class="col-span-1 bg-blue-50 p-6 rounded-lg shadow flex flex-col">
+    <div class="col-span-1 bg-white rounded-xl shadow-md p-5 flex flex-col border border-blue-100 hover:shadow-lg transition">
         <h4 class="font-semibold mb-4 flex items-center gap-2"><svg class="w-5 h-5 text-pink-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path d="M17 9V7a5 5 0 0 0-10 0v2a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2z" />
             </svg>Promo Code Usage</h4>
@@ -145,7 +160,7 @@
         </div>
     </div>
     <!-- Expense Breakdown -->
-    <div class="col-span-1 bg-blue-50 p-6 rounded-lg shadow flex flex-col">
+    <div class="col-span-1 bg-white rounded-xl shadow-md p-5 flex flex-col border border-blue-100 hover:shadow-lg transition">
         <h4 class="font-semibold mb-4 flex items-center gap-2"><svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0-6C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" />
             </svg>Expense Breakdown</h4>
@@ -178,13 +193,13 @@
     </div>
 </div>
 
-<div class="bg-blue-100 rounded-lg shadow p-6 mb-8">
+<div class="bg-white rounded-xl shadow-md p-6 mb-8 border border-blue-100">
     <h4 class="font-semibold mb-4 flex items-center gap-2"><svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path d="M12 20l9-5-9-5-9 5 9 5z" />
             <path d="M12 12V4" />
         </svg>Recent Reviews</h4>
     <div class="flex flex-col gap-4">
-        <div class="flex items-center gap-4 p-3 rounded-lg bg-blue-50">
+        <div class="flex items-center gap-4 p-3 rounded-lg bg-blue-50 border border-blue-100">
             <div class="flex flex-col items-center justify-center">
                 <span class="font-semibold text-blue-900">Aishath L.</span>
                 <span class="text-xs text-blue-400">Custom Keychain</span>
@@ -200,7 +215,7 @@
             </div>
             <div class="ml-auto text-blue-700 italic text-xs">"Great quality and fast delivery!"</div>
         </div>
-        <div class="flex items-center gap-4 p-3 rounded-lg bg-blue-50">
+        <div class="flex items-center gap-4 p-3 rounded-lg bg-blue-50 border border-blue-100">
             <div class="flex flex-col items-center justify-center">
                 <span class="font-semibold text-blue-900">Mohamed R.</span>
                 <span class="text-xs text-blue-400">Miniature Figure</span>
@@ -216,7 +231,7 @@
             </div>
             <div class="ml-auto text-blue-700 italic text-xs">"Very detailed and well-priced."</div>
         </div>
-        <div class="flex items-center gap-4 p-3 rounded-lg bg-blue-50">
+        <div class="flex items-center gap-4 p-3 rounded-lg bg-blue-50 border border-blue-100">
             <div class="flex flex-col items-center justify-center">
                 <span class="font-semibold text-blue-900">Fathimath S.</span>
                 <span class="text-xs text-blue-400">Architectural Model</span>
