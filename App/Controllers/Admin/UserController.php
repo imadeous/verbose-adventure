@@ -116,4 +116,21 @@ class UserController extends Controller
         header('Location: ' . url('admin/users'));
         exit;
     }
+
+    public function profile()
+    {
+        $user = User::find($_SESSION['user_id']);
+        if (!$user) {
+            header('Location: ' . url('admin/users'));
+            exit;
+        }
+        $this->view->layout('admin');
+        $this->view('admin/users/profile', [
+            'user' => $user,
+            'breadcrumb' => [
+                ['label' => 'Dashboard', 'url' => url('/admin')],
+                ['label' => 'Profile'],
+            ],
+        ]);
+    }
 }
