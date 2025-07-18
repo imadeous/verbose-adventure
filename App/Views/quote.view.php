@@ -88,11 +88,11 @@
                             <label for="product_type" class="leading-7 text-sm text-gray-400">Product Type*</label>
                             <select id="product_type" name="product_type" x-model="form.product_type" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                 <option value="" disabled>Select a product</option>
-                                <option value="table">Table</option>
-                                <option value="chair">Chair</option>
-                                <option value="shelf">Shelf</option>
-                                <option value="cabinet">Cabinet</option>
-                                <option value="other">Other</option>
+                                <option value="prototype">Prototype Model</option>
+                                <option value="figurine">Custom Figurine</option>
+                                <option value="replacement_part">Replacement Part</option>
+                                <option value="miniature">Miniature</option>
+                                <option value="custom_design">Custom Design (Please Describe)</option>
                             </select>
                         </div>
                     </div>
@@ -101,10 +101,11 @@
                             <label for="material" class="leading-7 text-sm text-gray-400">Preferred Material (Optional)</label>
                             <select id="material" name="material" x-model="form.material" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                 <option value="">Any</option>
-                                <option value="wood">Wood</option>
-                                <option value="metal">Metal</option>
-                                <option value="glass">Glass</option>
-                                <option value="mixed">Mixed</option>
+                                <option value="pla">PLA</option>
+                                <option value="petg">PETG</option>
+                                <option value="abs">ABS</option>
+                                <option value="eco_pla">ECO-PLA</option>
+                                <option value="mixed">Mixed Materials</option>
                             </select>
                         </div>
                     </div>
@@ -256,7 +257,9 @@
                                 <span>
                                     I would like to order
                                     <span class="font-semibold text-yellow-400" x-text="form.quantity"></span>
-                                    <span class="font-semibold text-yellow-400" x-text="productTypeLabel(form.product_type)"></span>
+                                    <span class="font-semibold text-yellow-400"
+                                        x-text="(form.quantity > 1 || form.quantity === '10+') && form.product_type !== 'custom_design' ? productTypeLabel(form.product_type) + 's' : productTypeLabel(form.product_type)">
+                                    </span>
                                     <template x-if="form.material">
                                         <span> made of <span class="font-semibold text-yellow-400" x-text="materialLabel(form.material)"></span></span>
                                     </template>
@@ -308,11 +311,46 @@
                     @click="nextStep"
                     type="button"
                     class="flex mx-auto text-white bg-yellow-500 border-0 py-2 px-8 focus:outline-none hover:bg-yellow-600 rounded text-lg">Next</button>
-                <button
-                    x-show="step === tabs.length - 1"
-                    @click.prevent="submitForm"
-                    type="button"
-                    class="flex mx-auto text-white bg-yellow-500 border-0 py-2 px-8 focus:outline-none hover:bg-yellow-600 rounded text-lg">Submit</button>
+                <template x-if="step === tabs.length - 1">
+                    <div class="flex mx-auto">
+                        <button
+                            x-show="isFormValid()"
+                            @click.prevent="submitForm"
+                            type="button"
+                            class="text-white bg-yellow-500 border-0 py-2 px-8 focus:outline-none hover:bg-yellow-600 rounded text-lg transition-all duration-200">
+                            Submit
+                        </button>
+                        <div
+                            x-show="!isFormValid()"
+                            class="flex items-center justify-center h-12 px-8 bg-gray-700 rounded text-lg text-gray-300 ml-0"
+                            style="min-width: 100px;">
+                            <span>Validating</span>
+                            <span class="ml-2 flex space-x-1">
+                                <span class="dot bg-yellow-400 rounded-full w-2 h-2 inline-block animate-bounce" style="animation-delay:0s"></span>
+                                <span class="dot bg-yellow-400 rounded-full w-2 h-2 inline-block animate-bounce" style="animation-delay:0.2s"></span>
+                                <span class="dot bg-yellow-400 rounded-full w-2 h-2 inline-block animate-bounce" style="animation-delay:0.4s"></span>
+                            </span>
+                        </div>
+                    </div>
+                </template>
+                <style>
+                    @keyframes bounce {
+
+                        0%,
+                        80%,
+                        100% {
+                            transform: scale(1);
+                        }
+
+                        40% {
+                            transform: scale(1.5);
+                        }
+                    }
+
+                    .animate-bounce {
+                        animation: bounce 1s infinite;
+                    }
+                </style>
             </div>
         </div>
     </div>
@@ -389,20 +427,21 @@
             },
             productTypeLabel(val) {
                 const map = {
-                    table: 'Table',
-                    chair: 'Chair',
-                    shelf: 'Shelf',
-                    cabinet: 'Cabinet',
-                    other: 'Other'
+                    prototype: 'Prototype Model',
+                    figurine: 'Custom Figurine',
+                    replacement_part: 'Replacement Part',
+                    miniature: 'Miniature',
+                    custom_design: 'Custom Design',
                 };
                 return map[val] || '-';
             },
             materialLabel(val) {
                 const map = {
-                    wood: 'Wood',
-                    metal: 'Metal',
-                    glass: 'Glass',
-                    mixed: 'Mixed',
+                    pla: 'PLA',
+                    petg: 'PETG',
+                    abs: 'ABS',
+                    eco_pla: 'ECO-PLA',
+                    mixed: 'Mixed Materials',
                     '': 'Any'
                 };
                 return map[val] || 'Any';
