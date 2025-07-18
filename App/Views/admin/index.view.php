@@ -30,8 +30,8 @@
                 </svg>
             </div>
             <div>
-                <dt class="truncate text-sm font-medium text-blue-600">Avg. Revenue</dt>
-                <dd class="mt-1 text-3xl font-semibold tracking-tight text-blue-900">MVR 440</dd>
+                <dt class="truncate text-sm font-medium text-blue-600">Trend</dt>
+                <dd class="mt-1 text-3xl font-semibold tracking-tight text-blue-900">+12%</dd>
             </div>
         </div>
         <div class="overflow-hidden rounded-lg bg-blue-50 px-4 py-5 shadow sm:p-6 flex items-center gap-4">
