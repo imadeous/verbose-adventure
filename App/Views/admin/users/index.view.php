@@ -3,7 +3,7 @@
 
     use App\Helpers\Auth;
 
-    include __DIR__ . '/../../partials/breadcrumb.view.php'; ?>
+    echo $this->partial('breadcrumb.view'); ?>
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-gray-800">Users</h1>
         <?php if (Auth::isAdmin()): ?>
