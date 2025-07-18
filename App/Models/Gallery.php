@@ -4,12 +4,11 @@ namespace App\Models;
 
 use Core\Model;
 
-class Product extends Model
+class Gallery extends Model
 {
-    protected $table = 'products';
+    protected $table = 'gallery';
     protected $fillable = [
-        'name',
-        'category_id',
+        'title',
         'description',
         'image_url',
         'created_at'
