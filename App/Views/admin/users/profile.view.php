@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="mt-8">
-            <a href="<?= url('admin/users/edit/' . $user->id) ?>" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg shadow transition">Edit Profile</a>
+            <a href="<?= url('admin/users/' . $user->id . '/edit') ?>" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg shadow transition">Edit Profile</a>
         </div>
     </div>
 </div>
