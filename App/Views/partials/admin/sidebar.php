@@ -90,6 +90,35 @@
                 </ul>
             </div>
             <!-- Quick Links and other sidebar sections can be added here as needed -->
+            <div class="mt-8">
+                <h3 class="text-gray-400 uppercase text-xs font-bold mb-2 px-4">Quick Links</h3>
+                <ul class="space-y-1">
+                    <li class="hover:text-white rounded px-4 py-2 flex space-x-3 items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                        <a href="<?= url('admin/products/create') ?>" class="w-full">New Product</a>
+                    </li>
+                    <li class="hover:text-white rounded px-4 py-2 flex space-x-3 items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v8m0 0l-3-3m3 3l3-3m-9-4a9 9 0 1 1 18 0 9 9 0 0 1-18 0Z" />
+                        </svg>
+                        <a href="<?= url('admin/promo-codes/create') ?>" class="w-full">Start Promo</a>
+                    </li>
+                    <li class="hover:text-white rounded px-4 py-2 flex space-x-3 items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7m-9 2v6m0 0h6m-6 0H5m6 0v6" />
+                        </svg>
+                        <a href="<?= url('/') ?>" class="w-full">Shop Home</a>
+                    </li>
+                    <li class="hover:text-white rounded px-4 py-2 flex space-x-3 items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        </svg>
+                        <a href="<?= url('admin/settings') ?>" class="w-full">Settings</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </aside>
