@@ -10,12 +10,13 @@ class AdminController extends Controller
     {
         // Set the layout for the admin dashboard
         $this->view->layout('admin'); // uses App/Views/layouts/admin.php
+        // Set breadcrumb using the correct method
+        $this->breadcrumb([
+            ['label' => 'Dashboard', 'url' => url('admin')]
+        ]);
         // Render the view using section/yield system
         $this->view('admin/index', [
-            'title' => 'Admin Dashboard',
-            'breadcrumb' => [
-                ['label' => 'Dashboard', 'url' => url('admin')]
-            ]
+            'title' => 'Admin Dashboard'
         ]);
     }
 }

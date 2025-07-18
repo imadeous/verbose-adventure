@@ -22,7 +22,6 @@
         <?php echo $this->partial('admin/sidebar'); ?>
         <main class="flex-1 flex flex-col h-screen bg-gray-100 overflow-y-scroll scrollbar">
             <?php echo $this->partial('admin/header'); ?>
-
             <?php echo $this->partial('_flash.view'); ?>
             <div class="p-6 lg:p-12 space-y-8 flex-1">
                 <?= $content ?>
