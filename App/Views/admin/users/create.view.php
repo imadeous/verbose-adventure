@@ -27,7 +27,7 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Role</label>
                 <select name="role" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="member">Member</option>
+                    <option value="user">Normal User</option>
                     <option value="admin">Admin</option>
                 </select>
             </div>
