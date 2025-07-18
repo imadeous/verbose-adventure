@@ -47,7 +47,7 @@
                     x-transition:leave="transition ease-in duration-300"
                     x-transition:leave-start="opacity-100 scale-100"
                     x-transition:leave-end="opacity-0 scale-80">
-                    <a href="<?= url('/profile') ?>" class="px-2 py-1 rounded text-sm shrink-0 hover:bg-gray-100">My Profile</a>
+                    <a href="<?= url('admin/profile') ?>" class="px-2 py-1 rounded text-sm shrink-0 hover:bg-gray-100">My Profile</a>
                     <form action="<?= url('/logout') ?>" method="POST">
                         <?= csrf_field() ?>
                         <button type="submit" class="w-full text-left px-2 py-1 rounded text-sm shrink-0 hover:bg-gray-100">Log Out</button>
