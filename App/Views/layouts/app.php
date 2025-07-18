@@ -8,7 +8,7 @@
     <link rel="shortcut icon" href="/assets/img/favicon.png" type="image/png">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- <link rel="stylesheet" href="/assets/css/LineIcons.2.0.css"> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.14.9/cdn.min.js" defer></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <meta name="description"
         content="Professional 3D printing services for rapid prototyping, custom manufacturing, and design consultation.">
 

@@ -310,7 +310,7 @@
                     class="flex mx-auto text-white bg-yellow-500 border-0 py-2 px-8 focus:outline-none hover:bg-yellow-600 rounded text-lg">Next</button>
                 <button
                     x-show="step === tabs.length - 1"
-                    @click="submitForm"
+                    @click.prevent="submitForm"
                     type="button"
                     class="flex mx-auto text-white bg-yellow-500 border-0 py-2 px-8 focus:outline-none hover:bg-yellow-600 rounded text-lg">Submit</button>
             </div>
@@ -358,8 +358,34 @@
                 if (this.step < this.tabs.length - 1) this.step++;
             },
             submitForm() {
+                // Only submit if all required fields are filled and not just whitespace
+                if (!this.isFormValid()) {
+                    console.log('Form invalid:', JSON.parse(JSON.stringify(this.form)));
+                    return;
+                }
                 // You can add AJAX or form submission logic here
                 alert('Form submitted!');
+            },
+            isFormValid() {
+                // Helper to check all required fields
+                const requiredFields = [
+                    'name',
+                    'email',
+                    'phone',
+                    'delivery_address',
+                    'product_type',
+                    'quantity',
+                    'timeline'
+                ];
+                for (const field of requiredFields) {
+                    const val = this.form[field];
+                    if (typeof val === 'string') {
+                        if (!val.trim()) return false;
+                    } else if (val === null || val === undefined || val === '') {
+                        return false;
+                    }
+                }
+                return true;
             },
             productTypeLabel(val) {
                 const map = {
