@@ -93,8 +93,8 @@
     <!-- End Stats Section -->
 
     <!--featured section-->
-    <section class="text-gray-400 bg-gray-900 body-font">
-        <div class="container px-5 py-12 mx-auto flex flex-wrap">
+    <section class="text-gray-400 bg-gray-900 py-12 body-font">
+        <div class="container px-5 py-24 mx-auto flex flex-wrap">
             <div class="flex w-full mb-20 flex-wrap">
                 <h1 class="sm:text-3xl text-2xl font-medium title-font text-white lg:w-1/3 lg:mb-0 mb-4">Featured Prints & Projects</h1>
                 <p class="lg:pl-6 lg:w-2/3 mx-auto leading-relaxed text-base">Explore our latest 3D printed creations, from custom prototypes to artistic models. Each project showcases the versatility and quality of our printing technology. Get inspired for your next idea!</p>
@@ -143,7 +143,7 @@
                     </svg>
                 </button>
                 <!-- Indicators -->
-                <div class="flex justify-center mt-4 space-x-2">
+                <div class="flex justify-center mt-8 space-x-2">
                     <template x-for="(img, i) in images" :key="'dot-' + i">
                         <button @click="current = i" :class="{'bg-yellow-500': current === i, 'bg-gray-600': current !== i}" class="w-3 h-3 rounded-full focus:outline-none"></button>
                     </template>

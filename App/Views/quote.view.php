@@ -151,28 +151,28 @@
                                     <input type="checkbox" name="services[]" value="design_consultation" x-model="form.services" class="form-checkbox text-yellow-500 mr-2">
                                     <span class="text-gray-100">Design Consultation</span>
                                 </div>
-                                <span class="text-yellow-400 text-xs ml-2">+₦50/hour</span>
+                                <span class="text-yellow-400 text-xs ml-2">+MVR 50/hour</span>
                             </label>
                             <label class="flex items-center justify-between bg-gray-800 bg-opacity-40 rounded px-3 py-2 border border-gray-700">
                                 <div class="flex items-center">
                                     <input type="checkbox" name="services[]" value="post_processing" x-model="form.services" class="form-checkbox text-yellow-500 mr-2">
                                     <span class="text-gray-100">Post-processing & Finishing</span>
                                 </div>
-                                <span class="text-yellow-400 text-xs ml-2">+₦7,500</span>
+                                <span class="text-yellow-400 text-xs ml-2">+MVR 7,500</span>
                             </label>
                             <label class="flex items-center justify-between bg-gray-800 bg-opacity-40 rounded px-3 py-2 border border-gray-700">
                                 <div class="flex items-center">
                                     <input type="checkbox" name="services[]" value="assembly" x-model="form.services" class="form-checkbox text-yellow-500 mr-2">
                                     <span class="text-gray-100">Assembly</span>
                                 </div>
-                                <span class="text-yellow-400 text-xs ml-2">+₦50/hour</span>
+                                <span class="text-yellow-400 text-xs ml-2">+MVR 50/hour</span>
                             </label>
                             <label class="flex items-center justify-between bg-gray-800 bg-opacity-40 rounded px-3 py-2 border border-gray-700">
                                 <div class="flex items-center">
                                     <input type="checkbox" name="services[]" value="rush_delivery" x-model="form.services" class="form-checkbox text-yellow-500 mr-2">
                                     <span class="text-gray-100">Rush Delivery (24 hours)</span>
                                 </div>
-                                <span class="text-yellow-400 text-xs ml-2">+50%</span>
+                                <span class="text-yellow-400 text-xs ml-2">+20%</span>
                             </label>
                         </div>
                     </div>
@@ -181,11 +181,11 @@
                             <label for="budget" class="leading-7 text-sm text-gray-400">Budget Range (Optional)</label>
                             <select id="budget" name="budget" x-model="form.budget" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                 <option value="">No preference</option>
-                                <option value="under_50k">Under ₦50,000</option>
-                                <option value="50k_100k">₦50,000 - ₦100,000</option>
-                                <option value="100k_250k">₦100,000 - ₦250,000</option>
-                                <option value="250k_500k">₦250,000 - ₦500,000</option>
-                                <option value="over_500k">Over ₦500,000</option>
+                                <option value="under_50k">Under MVR 500</option>
+                                <option value="50k_100k">MVR 500 - MVR 1,000</option>
+                                <option value="100k_250k">MVR 1,000 - MVR 2,500</option>
+                                <option value="250k_500k">MVR 2,500 - MVR 5,000</option>
+                                <option value="over_500k">Over MVR 5,000</option>
                             </select>
                         </div>
                     </div>
@@ -198,57 +198,78 @@
                     <!-- Customer Details -->
                     <div class="mb-6">
                         <h3 class="text-yellow-400 font-semibold text-base mb-3">Customer Details</h3>
-                        <div class="flex flex-col gap-y-2">
-                            <div class="flex items-center mb-1 min-w-0">
-                                <span class="text-gray-500 w-28 text-xs truncate flex-shrink-0">Name:</span>
-                                <span class="font-semibold text-gray-100 ml-2 truncate block min-w-0" x-text="form.name"></span>
+                        <template x-if="form.name && form.email && form.phone && form.delivery_address">
+                            <div class="flex flex-col bg-gray-900 rounded-lg shadow-lg p-6 border border-yellow-500 max-w-md mx-auto">
+                                <div class="mb-4 relative">
+                                    <div class="text-xl font-bold text-yellow-400" x-text="form.name"></div>
+                                    <div class="text-gray-400 text-sm mt-1 flex flex-col gap-1">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 inline-block mr-1 text-yellow-500">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
+                                            </svg>
+                                            <span x-text="form.email"></span>
+                                        </span>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 inline-block mr-1 text-yellow-500">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+                                            </svg>
+                                            <span x-text="form.phone"></span>
+                                        </span>
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" class="w-5 h-5 inline-block mr-1 text-yellow-500" viewBox="0 0 24 24">
+                                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                                                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
+                                            </svg>
+                                            <span x-text="form.instagram ? '@' + form.instagram : '-'"></span>
+                                        </span>
+                                    </div>
+                                    <div class="flex items-center justify-center w-20 h-20 rounded-full bg-yellow-500 mb-4 opacity-10 top-4 right-4 absolute">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="w-full border-t border-gray-700 my-3"></div>
+                                <div class="w-full flex flex-col gap-2">
+                                    <div class="flex items-start">
+                                        <span class="text-gray-500 w-24 text-xs flex-shrink-0">Delivery:</span>
+                                        <span class="font-semibold text-gray-100 ml-2" x-text="form.delivery_address"></span>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <span class="text-gray-500 w-24 text-xs flex-shrink-0">Billing:</span>
+                                        <span class="font-semibold text-gray-100 ml-2" x-text="form.billing_address || '-'"></span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="flex items-center mb-1 min-w-0">
-                                <span class="text-gray-500 w-28 text-xs truncate flex-shrink-0">Email:</span>
-                                <span class="font-semibold text-gray-100 ml-2 truncate block min-w-0" x-text="form.email"></span>
+                        </template>
+                        <template x-if="!(form.name && form.email && form.phone && form.delivery_address)">
+                            <div class="bg-gray-900 rounded-lg p-4 border border-yellow-500 text-gray-100 text-base leading-relaxed">
+                                <span class="text-gray-400">Customer Details incomplete.</span>
                             </div>
-                            <div class="flex items-center mb-1 min-w-0">
-                                <span class="text-gray-500 w-28 text-xs truncate flex-shrink-0">Phone:</span>
-                                <span class="font-semibold text-gray-100 ml-2 truncate block min-w-0" x-text="form.phone"></span>
-                            </div>
-                            <div class="flex items-center mb-1 min-w-0">
-                                <span class="text-gray-500 w-28 text-xs truncate flex-shrink-0">Instagram:</span>
-                                <span class="font-semibold text-gray-100 ml-2 truncate block min-w-0" x-text="form.instagram ? '@' + form.instagram : '-'"></span>
-                            </div>
-                            <div class="flex items-center mb-1 min-w-0">
-                                <span class="text-gray-500 w-28 text-xs truncate flex-shrink-0">Delivery:</span>
-                                <span class="font-semibold text-gray-100 ml-2 truncate block min-w-0" x-text="form.delivery_address"></span>
-                            </div>
-                            <div class="flex items-center mb-1 min-w-0">
-                                <span class="text-gray-500 w-28 text-xs truncate flex-shrink-0">Billing:</span>
-                                <span class="font-semibold text-gray-100 ml-2 truncate block min-w-0" x-text="form.billing_address || '-'"></span>
-                            </div>
-                        </div>
+                        </template>
                     </div>
                     <!-- Order Specifics -->
                     <div class="mb-6">
                         <h3 class="text-yellow-400 font-semibold text-base mb-3">Order Specifics</h3>
-                        <div class="flex flex-col gap-y-2">
-                            <div class="flex items-center mb-1 min-w-0">
-                                <span class="text-gray-500 w-28 text-xs truncate flex-shrink-0">Product:</span>
-                                <span class="font-semibold text-gray-100 ml-2 truncate block min-w-0" x-text="productTypeLabel(form.product_type)"></span>
-                            </div>
-                            <div class="flex items-center mb-1 min-w-0">
-                                <span class="text-gray-500 w-28 text-xs truncate flex-shrink-0">Material:</span>
-                                <span class="font-semibold text-gray-100 ml-2 truncate block min-w-0" x-text="materialLabel(form.material)"></span>
-                            </div>
-                            <div class="flex items-center mb-1 min-w-0">
-                                <span class="text-gray-500 w-28 text-xs truncate flex-shrink-0">Quantity:</span>
-                                <span class="font-semibold text-gray-100 ml-2 truncate block min-w-0" x-text="form.quantity"></span>
-                            </div>
-                            <div class="flex items-center mb-1 min-w-0">
-                                <span class="text-gray-500 w-28 text-xs truncate flex-shrink-0">Timeline:</span>
-                                <span class="font-semibold text-gray-100 ml-2 truncate block min-w-0" x-text="form.timeline"></span>
-                            </div>
-                            <div class="flex items-center mb-1 min-w-0">
-                                <span class="text-gray-500 w-28 text-xs truncate flex-shrink-0">Description:</span>
-                                <span class="font-semibold text-gray-100 ml-2 truncate block min-w-0" x-text="form.description"></span>
-                            </div>
+                        <div class="bg-gray-900 rounded-lg p-4 border border-yellow-500 text-gray-100 text-base leading-relaxed">
+                            <template x-if="form.product_type && form.quantity && form.timeline">
+                                <span>
+                                    I would like to order
+                                    <span class="font-semibold text-yellow-400" x-text="form.quantity"></span>
+                                    <span class="font-semibold text-yellow-400" x-text="productTypeLabel(form.product_type)"></span>
+                                    <template x-if="form.material">
+                                        <span> made of <span class="font-semibold text-yellow-400" x-text="materialLabel(form.material)"></span></span>
+                                    </template>
+                                    , to be completed in
+                                    <span class="font-semibold text-yellow-400" x-text="form.timeline"></span>.
+                                    <template x-if="form.description">
+                                        <span x-text="form.description"></span>
+                                    </template>
+                                </span>
+                            </template>
+                            <template x-if="!form.product_type || !form.quantity || !form.timeline">
+                                <span class="text-gray-400">Order details incomplete.</span>
+                            </template>
                         </div>
                     </div>
                     <!-- Additional Services -->
@@ -262,7 +283,9 @@
                                 </div>
                             </template>
                             <template x-if="form.services.length === 0">
-                                <span class="text-gray-400">None</span>
+                                <div class="bg-gray-900 rounded-lg p-4 w-full  border border-yellow-500 text-gray-100 text-base leading-relaxed">
+                                    <span class="text-gray-400">None</span>
+                                </div>
                             </template>
                         </div>
                     </div>
