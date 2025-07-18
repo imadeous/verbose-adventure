@@ -68,14 +68,7 @@
                 <div class="text-xs text-blue-500 font-medium uppercase tracking-wide">Revenue & Orders Trend</div>
             </div>
             <div class="flex-1 flex items-center justify-center">
-                <!-- Dummy Line Chart SVG -->
-                <svg width="100%" height="120" viewBox="0 0 400 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-xl">
-                    <rect x="0" y="0" width="400" height="120" rx="12" fill="#f3f4f6" />
-                    <polyline fill="none" stroke="#3b82f6" stroke-width="3" points="20,100 60,80 100,90 140,60 180,70 220,40 260,60 300,30 340,50 380,20" />
-                    <polyline fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="4 2" points="20,110 60,100 100,100 140,80 180,90 220,60 260,80 300,50 340,70 380,40" />
-                    <circle cx="380" cy="20" r="4" fill="#3b82f6" />
-                    <circle cx="380" cy="40" r="3" fill="#10b981" />
-                </svg>
+                <canvas id="revenueOrdersChart" class="w-full max-w-xl" height="120"></canvas>
             </div>
         </div>
         <!-- Quarterly Report -->
@@ -90,18 +83,7 @@
                 <div class="text-xs text-blue-500 font-medium uppercase tracking-wide"><?php echo date('Y') ?> Quarterly Report</div>
             </div>
             <div class="flex-1 flex flex-col items-center justify-center mt-2">
-                <!-- Dummy Bar Chart SVG -->
-                <svg width="100%" height="90" viewBox="0 0 220 90" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-xs">
-                    <rect x="0" y="0" width="220" height="90" rx="10" fill="#f3f4f6" />
-                    <rect x="25" y="50" width="30" height="30" rx="4" fill="#3b82f6" />
-                    <rect x="70" y="30" width="30" height="50" rx="4" fill="#10b981" />
-                    <rect x="115" y="40" width="30" height="40" rx="4" fill="#f59e42" />
-                    <rect x="160" y="65" width="30" height="15" rx="4" fill="#ef4444" />
-                    <text x="40" y="45" text-anchor="middle" font-size="10" fill="#3b82f6">Q1</text>
-                    <text x="85" y="25" text-anchor="middle" font-size="10" fill="#10b981">Q2</text>
-                    <text x="130" y="35" text-anchor="middle" font-size="10" fill="#f59e42">Q3</text>
-                    <text x="175" y="60" text-anchor="middle" font-size="10" fill="#ef4444">Q4</text>
-                </svg>
+                <canvas id="quarterlyReportChart" class="w-full max-w-xs" height="90"></canvas>
                 <ul class="text-gray-700 text-xs mt-4 w-full flex justify-between px-2">
                     <li>Q1: <span class="font-semibold">MVR 5,200</span></li>
                     <li>Q2: <span class="font-semibold">MVR 6,800</span></li>
@@ -110,7 +92,87 @@
                 </ul>
             </div>
         </div>
+        <!-- Chart.js CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            // Revenue & Orders Trend Chart
+            const ctx1 = document.getElementById('revenueOrdersChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: ['Day 1', 'Day 5', 'Day 10', 'Day 15', 'Day 20', 'Day 25', 'Day 30'],
+                    datasets: [{
+                            label: 'Revenue',
+                            data: [1200, 1800, 1500, 2200, 2000, 2500, 2300],
+                            borderColor: '#3b82f6',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            pointRadius: 3,
+                        },
+                        {
+                            label: 'Orders',
+                            data: [5, 8, 7, 10, 9, 12, 11],
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            tension: 0.4,
+                            fill: false,
+                            pointRadius: 3,
+                        }
+                    ]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            display: true
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Quarterly Report Bar Chart
+            const ctx2 = document.getElementById('quarterlyReportChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                    datasets: [{
+                        label: 'Revenue',
+                        data: [5200, 6800, 4500, 2000],
+                        backgroundColor: [
+                            '#3b82f6',
+                            '#10b981',
+                            '#f59e42',
+                            '#ef4444'
+                        ],
+                        borderRadius: 8,
+                    }]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        </script>
     </div>
+</div>
 </div>
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
