@@ -233,6 +233,40 @@
                     <div class="text-sm text-gray-500">Based on 50 reviews</div>
                 </div>
             </div>
+            <!-- Overall Ratings -->
+            <div class="col-span-1 bg-white rounded-xl shadow-md p-6 border border-blue-100">
+                <h4 class="font-semibold mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M12 20l9-5-9-5-9 5 9 5z" />
+                        <path d="M12 12V4" />
+                    </svg>
+                    Overall Ratings
+                </h4>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-blue-900 mb-2">4.5</div>
+                    <div class="text-sm text-gray-500">Based on 50 reviews</div>
+                    <div class="mt-4">
+                        <div class="font-semibold">Product Quality:</div>
+                        <div class="text-sm text-gray-500">4.6</div>
+                    </div>
+                    <div class="mt-2">
+                        <div class="font-semibold">Pricing:</div>
+                        <div class="text-sm text-gray-500">4.2</div>
+                    </div>
+                    <div class="mt-2">
+                        <div class="font-semibold">Communication:</div>
+                        <div class="text-sm text-gray-500">4.8</div>
+                    </div>
+                    <div class="mt-2">
+                        <div class="font-semibold">Packaging:</div>
+                        <div class="text-sm text-gray-500">4.7</div>
+                    </div>
+                    <div class="mt-2">
+                        <div class="font-semibold">Delivery:</div>
+                        <div class="text-sm text-gray-500">4.5</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
