@@ -22,7 +22,7 @@
             </li>
             <!-- messages icon -->
             <li class="relative cursor-pointer">
-                <?php if (!empty($unreadContactsCount)): ?>
+                <?php if (!empty($unreadContacts)): ?>
                     <div class="absolute h-1.5 w-1.5 bg-red-400 rounded-full animate-pulse"></div>
                 <?php endif; ?>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
