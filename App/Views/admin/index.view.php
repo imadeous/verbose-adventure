@@ -47,7 +47,6 @@
             <div>
                 <div class="text-xs text-yellow-500 font-medium uppercase tracking-wide">CSAT</div>
                 <div class="text-2xl font-bold text-blue-900">4.7/5</div>
-                <div class="text-xs text-gray-500 mt-1">Recommendation: <span class="font-semibold text-blue-700">92%</span></div>
             </div>
         </div>
     </div>
