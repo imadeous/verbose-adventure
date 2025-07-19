@@ -29,6 +29,7 @@
                     <?php echo $this->yield('content'); ?>
                 </div>
                 <?php echo $this->partial('admin/footer'); ?>
+            </div>
         </main>
     </div>
 </body>

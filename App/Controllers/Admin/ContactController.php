@@ -12,8 +12,8 @@ class ContactController extends Controller
      */
     protected function provideSharedData()
     {
-        $unreadContactsCount = Contact::where('opened_at', null);
-        $this->share('unreadContactsCount', count($unreadContactsCount));
+        $unreadContacts = Contact::where('opened_at', null);
+        $this->share('unreadContactsCount', count($unreadContacts));
     }
 
     // List all contacts
