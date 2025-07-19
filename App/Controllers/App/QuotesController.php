@@ -60,6 +60,6 @@ class QuotesController extends Controller
         }
 
         flash('success', 'Quote saved successfully.');
-        $this->redirect('/quotes/create');
+        $this->redirect('/quotes');
     }
 }
