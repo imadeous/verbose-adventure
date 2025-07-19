@@ -14,14 +14,7 @@ class QuotesController extends Controller
         // $quotes = Quote::all();
         // $this->view->quotes = $quotes;
         $this->view->layout('app');
-        $this->view('quotes/index'); // expects App/Views/quotes/index.view.php
-    }
-    // Show the quote form (if needed)
-
-    public function create()
-    {
-        $this->view->layout('app'); // uses App/Views/layouts/app.php
-        $this->view('quote');
+        $this->view('quotes'); // expects App/Views/quotes/index.view.php
     }
 
     // Handle quote form submission
