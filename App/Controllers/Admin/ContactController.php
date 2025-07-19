@@ -70,6 +70,6 @@ class ContactController extends Controller
     public function update($id)
     {
         // Implement update logic or leave empty if not used
-        // $this->redirect('/admin/contacts');
+        $this->redirect('/admin/contacts');
     }
 }
