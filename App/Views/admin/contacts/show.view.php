@@ -26,7 +26,7 @@
             <div class="text-xs text-green-600">Read: <?= htmlspecialchars(date('Y-m-d H:i', strtotime($contact->opened_at))) ?></div>
         <?php endif; ?>
         <div class="mt-6 flex space-x-2">
-            <form action="<?= url('admin/contacts/' . $contact->id) ?>" method="POST" onsubmit="return confirm('Delete this contact?')">
+            <form action="<?= url('admin/contacts/' . $contact->id . '/delete') ?>" method="POST" onsubmit="return confirm('Delete this contact?')">
                 <input type="hidden" name="_method" value="DELETE">
                 <?= csrf_field() ?>
                 <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded text-sm">Delete</button>

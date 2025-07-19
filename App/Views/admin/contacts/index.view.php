@@ -49,7 +49,7 @@
                                             </svg>
                                         <?php endif; ?>
                                     </a>
-                                    <form action="<?= url('admin/contacts/' . $contact->id) ?>" method="POST" class="flex items-center" style="display:inline;" onsubmit="return confirm('Delete this contact?')">
+                                    <form action="<?= url('admin/contacts/' . $contact->id . '/delete') ?>" method="POST" class="flex items-center" style="display:inline;" onsubmit="return confirm('Delete this contact?')">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <?= csrf_field() ?>
                                         <button type="submit" class="flex items-center text-red-600 hover:underline" title="Delete">
