@@ -18,7 +18,7 @@
         <div class="lg:w-1/3 md:w-1/2 flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
             <h2 class="text-white text-lg mb-1 font-medium title-font">Contact Us</h2>
             <p class="leading-relaxed mb-5">Have a question, need a quote, or want to discuss your next project? Fill out the form below and our team will get back to you as soon as possible.</p>
-
+            <?= $this->partial('_flash.view'); ?>
             <form method="POST" action="/contact" autocomplete="off">
                 <?= csrf_field() ?>
                 <div class="relative mb-4">
