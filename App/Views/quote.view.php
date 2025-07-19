@@ -46,8 +46,57 @@
             <!-- All visible fields moved inside the form below -->
             <!-- Step 3: Additional Services -->
             <!-- All visible fields moved inside the form below -->
+
             <!-- Step 4: Review & Send -->
-            <!-- Review step remains outside the form, as it is display-only -->
+            <div x-show="step === 3" x-transition>
+                <div class="bg-gray-800 bg-opacity-60 rounded-lg p-6 mb-6 border border-gray-700">
+                    <h3 class="text-xl font-semibold text-yellow-400 mb-4">Review Your Request</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-bold text-gray-200 mb-2">Customer Details</h4>
+                            <p><span class="text-gray-400">Name:</span> <span class="text-gray-100" x-text="form.name"></span></p>
+                            <p><span class="text-gray-400">Email:</span> <span class="text-gray-100" x-text="form.email"></span></p>
+                            <p><span class="text-gray-400">Phone:</span> <span class="text-gray-100" x-text="form.phone"></span></p>
+                            <template x-if="form.instagram">
+                                <p><span class="text-gray-400">Instagram:</span> <span class="text-gray-100" x-text="form.instagram"></span></p>
+                            </template>
+                            <p><span class="text-gray-400">Delivery Address:</span> <span class="text-gray-100" x-text="form.delivery_address"></span></p>
+                            <template x-if="form.billing_address">
+                                <p><span class="text-gray-400">Billing Address:</span> <span class="text-gray-100" x-text="form.billing_address"></span></p>
+                            </template>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-200 mb-2">Order Details</h4>
+                            <p><span class="text-gray-400">Product Type:</span> <span class="text-gray-100" x-text="productTypeLabel(form.product_type)"></span></p>
+                            <p><span class="text-gray-400">Material:</span> <span class="text-gray-100" x-text="materialLabel(form.material)"></span></p>
+                            <p><span class="text-gray-400">Quantity:</span> <span class="text-gray-100" x-text="form.quantity"></span></p>
+                            <p><span class="text-gray-400">Timeline:</span> <span class="text-gray-100" x-text="form.timeline"></span></p>
+                            <template x-if="form.description">
+                                <p><span class="text-gray-400">Description:</span> <span class="text-gray-100" x-text="form.description"></span></p>
+                            </template>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <h4 class="font-bold text-gray-200 mb-2">Additional Services</h4>
+                        <template x-if="form.services.length">
+                            <ul class="list-disc list-inside text-gray-100">
+                                <template x-for="service in form.services" :key="service">
+                                    <li>
+                                        <span x-text="serviceLabel(service)"></span>
+                                    </li>
+                                </template>
+                            </ul>
+                        </template>
+                        <template x-if="!form.services.length">
+                            <p class="text-gray-400">None selected</p>
+                        </template>
+                    </div>
+                    <div class="mt-6">
+                        <h4 class="font-bold text-gray-200 mb-2">Budget</h4>
+                        <span class="text-gray-100" x-text="budgetLabel(form.budget)"></span>
+                    </div>
+                </div>
+            </div>
             <!-- Navigation Buttons -->
 
             <div class="p-2 w-full flex justify-between items-center mt-6">
