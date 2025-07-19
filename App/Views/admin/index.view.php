@@ -182,7 +182,7 @@
                 </svg>
                 Recent Reviews
             </h4>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 gap-4">
 
                 <div class="flex flex-col gap-2 p-4 rounded-lg bg-blue-50 border border-blue-100">
                     <div class="flex justify-between items-center">
