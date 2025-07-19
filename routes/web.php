@@ -1,3 +1,4 @@
+
 <?php
 
 /**
@@ -18,11 +19,16 @@ use App\Controllers\Admin\UserController;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\RoleMiddleware;
 use App\Controllers\App\QuotesController;
+use App\Controllers\App\ContactController;
 
+// Define the base path for the application
 $router->get('/', [HomeController::class, 'index']);
-// $router->get('/quote', [QuotesController::class, 'create']);
+// Public routes
+$router->get('/about', [HomeController::class, 'about']);
 $router->get('/quote', [QuotesController::class, 'index']);
 $router->post('/quote', [QuotesController::class, 'store']);
+$router->get('/contact', [ContactController::class, 'create']);
+$router->post('/contact', [ContactController::class, 'store']);
 
 // Admin routes (protected by AuthMiddleware)
 $router->middleware([AuthMiddleware::class], function ($router) {
