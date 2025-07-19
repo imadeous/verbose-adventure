@@ -95,10 +95,14 @@
     <!--featured section-->
     <section class="text-gray-400 bg-gray-900 py-12 body-font">
         <div class="container px-5 py-24 mx-auto flex flex-wrap">
-            <div class="flex flex-col w-full mb-20 flex-wrap">
-                <h1 class="sm:text-3xl text-2xl font-medium title-font text-white lg:w-1/3 lg:mb-0 mb-4">Featured Prints & Projects</h1>
-                <div class="h-1 w-20 bg-yellow-500 rounded"></div>
-                <p class="lg:pl-6 lg:w-2/3 leading-relaxed text-base">Explore our latest 3D printed creations, from custom prototypes to artistic models. Each project showcases the versatility and quality of our printing technology. Get inspired for your next idea!</p>
+            <div class="flex flex-wrap w-full mb-20">
+                <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
+                    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-white">Featured Prints & Projects</h1>
+                    <div class="h-1 w-20 bg-yellow-500 rounded"></div>
+                </div>
+                <p class="lg:w-1/2 w-full leading-relaxed text-gray-400 text-opacity-90">
+                    Explore our latest 3D printed creations, from custom prototypes to artistic models. Each project showcases the versatility and quality of our printing technology. Get inspired for your next idea!.
+                </p>
             </div>
             <div x-data="{
                 images: [
