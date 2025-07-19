@@ -2,8 +2,6 @@
 
 namespace App\Controllers\App;
 
-require_once __DIR__ . '/../../../Helpers/Functions.php';
-
 use App\Models\Quote;
 use App\Models\QuoteService;
 use Core\Controller;
