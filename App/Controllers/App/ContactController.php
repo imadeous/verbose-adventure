@@ -17,6 +17,8 @@ class ContactController extends Controller
     // Handle contact form submission
     public function store()
     {
+        var_dump($_POST);
+        die("Debugging POST data");
 
         // CSRF validation
         if (empty($_POST['_csrf']) || !\App\Helpers\Csrf::check($_POST['_csrf'])) {
