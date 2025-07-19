@@ -23,6 +23,8 @@ class QuotesController extends Controller
         if (php_sapi_name() !== 'cli') {
             header('Content-Type: text/plain');
         }
+        var_dump($_POST);
+        die('Debugging POST data');
         error_log('QUOTE DEBUG POST: ' . print_r($_POST, true));
         if (empty($_POST)) {
             echo "No POST data received.\n";
