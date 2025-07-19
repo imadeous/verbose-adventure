@@ -32,7 +32,7 @@ $router->get('/about', [HomeController::class, 'about']);
 $router->get('/quote', [QuotesController::class, 'index']);
 $router->post('/quote', [QuotesController::class, 'store']);
 // Public contact routes
-$router->get('/contact', [ContactController::class, 'create']);
+$router->get('/contact', [ContactController::class, 'index']);
 $router->post('/contact', [ContactController::class, 'store']);
 
 // Admin routes (protected by AuthMiddleware)

@@ -8,7 +8,7 @@ use Core\Controller;
 class ContactController extends Controller
 {
     // Show the contact us page
-    public function create()
+    public function index()
     {
         $this->view->layout('app');
         $this->view('contact'); // expects App/Views/contact.view.php
