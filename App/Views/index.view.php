@@ -169,39 +169,46 @@
                     We use a range of professional 3D printers to deliver exceptional quality and precision for every project. From rapid prototyping to high-detail production, our machines are selected for their reliability, accuracy, and versatility. Explore some of the key printers that power our workshop below.
                 </p>
             </div>
-            <div class="flex flex-wrap -m-4">
-                <div class="xl:w-1/4 md:w-1/2 p-4">
-                    <div class="bg-gray-800 bg-opacity-40 p-6 rounded-lg">
-                        <img class="h-40 rounded w-full object-cover object-center mb-6" src="<?= asset('storage/site/Prusa i3 MK3S+.png') ?>" alt="content">
-                        <h3 class="tracking-widest text-yellow-400 text-xs font-medium title-font">FDM PRINTER</h3>
-                        <h2 class="text-lg text-white font-medium title-font mb-4">Prusa i3 MK3S+</h2>
-                        <p class="leading-relaxed text-base">A workhorse for reliable, high-quality prints in PLA, PETG, and more. Perfect for prototypes, functional parts, and large models with excellent repeatability.</p>
+            <div
+                x-data="{
+                    machines: [
+                        {
+                            img: '<?= asset('storage/site/Prusa i3 MK3S+.png') ?>',
+                            type: 'FDM PRINTER',
+                            name: 'Prusa i3 MK3S+',
+                            desc: 'A workhorse for reliable, high-quality prints in PLA, PETG, and more. Perfect for prototypes, functional parts, and large models with excellent repeatability.'
+                        },
+                        {
+                            img: '<?= asset('storage/site/Anycubic Photon Mono X.png') ?>',
+                            type: 'RESIN PRINTER',
+                            name: 'Anycubic Photon Mono X',
+                            desc: 'Delivers ultra-fine detail and smooth surfaces for miniatures, jewelry, and intricate models. Ideal for projects requiring high resolution and sharp features.'
+                        },
+                        {
+                            img: '<?= asset('storage/site/Creality CR-10 Max.png') ?>',
+                            type: 'LARGE FORMAT',
+                            name: 'Creality CR-10 Max',
+                            desc: 'Handles oversized prints and batch production with ease. Its large build volume is perfect for architectural models, cosplay props, and multi-part assemblies.'
+                        },
+                        {
+                            img: '<?= asset('storage/site/FlashForge Creator Pro 2.png') ?>',
+                            type: 'DUAL EXTRUDER',
+                            name: 'FlashForge Creator Pro 2',
+                            desc: 'Enables multi-material and multi-color printing for advanced projects. Great for engineering parts, complex assemblies, and creative designs with soluble supports.'
+                        }
+                    ]
+                }"
+                class="flex flex-wrap -m-4">
+                <template x-for="machine in machines" :key="machine.name">
+                    <div class="xl:w-1/4 md:w-1/2 p-4">
+                        <div class="bg-gray-800 bg-opacity-40 p-6 rounded-lg">
+                            <img class="h-40 rounded w-full object-cover object-center mb-6" :src="machine.img" alt="content">
+                            <h3 class="tracking-widest text-yellow-400 text-xs font-medium title-font" x-text="machine.type"></h3>
+                            <h2 class="text-lg text-white font-medium title-font mb-4" x-text="machine.name"></h2>
+                            <p class="leading-relaxed text-base" x-text="machine.desc"></p>
+                        </div>
                     </div>
-                </div>
-                <div class="xl:w-1/4 md:w-1/2 p-4">
-                    <div class="bg-gray-800 bg-opacity-40 p-6 rounded-lg">
-                        <img class="h-40 rounded w-full object-cover object-center mb-6" src="<?= asset('storage/site/Anycubic Photon Mono X.png') ?>" alt="content">
-                        <h3 class="tracking-widest text-yellow-400 text-xs font-medium title-font">RESIN PRINTER</h3>
-                        <h2 class="text-lg text-white font-medium title-font mb-4">Anycubic Photon Mono X</h2>
-                        <p class="leading-relaxed text-base">Delivers ultra-fine detail and smooth surfaces for miniatures, jewelry, and intricate models. Ideal for projects requiring high resolution and sharp features.</p>
-                    </div>
-                </div>
-                <div class="xl:w-1/4 md:w-1/2 p-4">
-                    <div class="bg-gray-800 bg-opacity-40 p-6 rounded-lg">
-                        <img class="h-40 rounded w-full object-cover object-center mb-6" src="<?= asset('storage/site/Creality CR-10 Max.png') ?>" alt="content">
-                        <h3 class="tracking-widest text-yellow-400 text-xs font-medium title-font">LARGE FORMAT</h3>
-                        <h2 class="text-lg text-white font-medium title-font mb-4">Creality CR-10 Max</h2>
-                        <p class="leading-relaxed text-base">Handles oversized prints and batch production with ease. Its large build volume is perfect for architectural models, cosplay props, and multi-part assemblies.</p>
-                    </div>
-                </div>
-                <div class="xl:w-1/4 md:w-1/2 p-4">
-                    <div class="bg-gray-800 bg-opacity-40 p-6 rounded-lg">
-                        <img class="h-40 rounded w-full object-cover object-center mb-6" src="<?= asset('storage/site/FlashForge Creator Pro 2.png') ?>" alt="content">
-                        <h3 class="tracking-widest text-yellow-400 text-xs font-medium title-font">DUAL EXTRUDER</h3>
-                        <h2 class="text-lg text-white font-medium title-font mb-4">FlashForge Creator Pro 2</h2>
-                        <p class="leading-relaxed text-base">Enables multi-material and multi-color printing for advanced projects. Great for engineering parts, complex assemblies, and creative designs with soluble supports.</p>
-                    </div>
-                </div>
+                </template>
             </div>
         </div>
     </section>
