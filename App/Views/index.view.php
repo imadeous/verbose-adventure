@@ -233,6 +233,7 @@
                     <div class="flex-grow sm:pl-6 mt-6 sm:mt-0">
                         <h2 class="font-medium title-font text-white mb-1 text-xl">1. Submit Your 3D Model or Idea</h2>
                         <p class="leading-relaxed">Upload your 3D file or describe your project using our online form. Our team will review your submission and reach out if we need more details.</p>
+                        <a href="<?= url('/quote') ?>" class="inline-block mt-4 text-white bg-yellow-500 border-0 py-2 px-6 rounded hover:bg-yellow-600 text-lg font-semibold transition">Get a Quote</a>
                     </div>
                 </div>
             </div>
