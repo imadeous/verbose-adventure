@@ -25,11 +25,13 @@
         <?php if ($contact->opened_at): ?>
             <div class="text-xs text-green-600">Read: <?= htmlspecialchars(date('Y-m-d H:i', strtotime($contact->opened_at))) ?></div>
         <?php endif; ?>
-        <div class="mt-6 flex space-x-2">
+        <div class="mt-6 flex justify-end">
             <form action="<?= url('admin/contacts/' . $contact->id . '/delete') ?>" method="POST" onsubmit="return confirm('Delete this contact?')">
                 <input type="hidden" name="_method" value="DELETE">
                 <?= csrf_field() ?>
-                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded text-sm">Delete</button>
+                <button type="submit" class="bg-red-100 hover:bg-red-200 text-red-700 px-4 py-2 rounded text-sm border border-red-200 transition-colors">
+                    Delete
+                </button>
             </form>
         </div>
     </div>
