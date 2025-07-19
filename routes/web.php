@@ -17,7 +17,7 @@ use App\Controllers\AuthController;
 use App\Controllers\Admin\UserController;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\RoleMiddleware;
-use App\Controllers\QuotesController;
+use App\Controllers\App\QuotesController;
 
 $router->get('/', [HomeController::class, 'index']);
 $router->get('/quote', [QuotesController::class, 'create']);
