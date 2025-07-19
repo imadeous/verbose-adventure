@@ -13,6 +13,7 @@ class QuotesController extends Controller
 
     public function create()
     {
+        $this->view->layout('app'); // uses App/Views/layouts/app.php
         $this->view('quote');
     }
 
