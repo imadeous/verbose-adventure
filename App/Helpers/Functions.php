@@ -84,3 +84,26 @@ if (!function_exists('csrf_field')) {
         return '<input type="hidden" name="_csrf" value="' . htmlspecialchars($token, ENT_QUOTES, 'UTF-8') . '">';
     }
 }
+
+if (!function_exists('asset')) {
+    /**
+     * Generate a URL for an asset in the public folder.
+     * Example usage:
+     *   <link rel="stylesheet" href="<?= asset('css/app.css') ?>">
+     *   <img src="<?= asset('images/logo.png') ?>">
+     * @param string $path
+     * @return string
+     */
+    function asset(string $path): string
+    {
+        $base = base_path();
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+        $host = $_SERVER['HTTP_HOST'] ?? '';
+        $url = $protocol . $host;
+        if ($base) {
+            $url .= $base;
+        }
+        $url .= '/' . ltrim($path, '/');
+        return $url;
+    }
+}
