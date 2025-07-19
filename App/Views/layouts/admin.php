@@ -7,9 +7,7 @@
     <title><?= isset($title) ? htmlspecialchars($title) : 'Craftophile' ?></title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.14.9/cdn.min.js" defer></script>
-    <link rel="stylesheet" href="/assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="/assets/css/scroll.css">
     <style>
         [x-cloak] {
             display: none !important;
