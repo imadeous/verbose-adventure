@@ -5,13 +5,13 @@
             <div class="bg-gray-900 relative flex flex-wrap py-6 rounded shadow-md">
                 <div class="lg:w-1/2 px-6">
                     <h2 class="title-font font-semibold text-white tracking-widest text-xs">ADDRESS</h2>
-                    <p class="mt-1">Aman, 03150, a<br>Craft City, CA 90001</p>
+                    <p class="mt-1">Aman, Chanbeylee Magu,<br>Funadhoo, SH 03150</p>
                 </div>
                 <div class="lg:w-1/2 px-6 mt-4 lg:mt-0">
                     <h2 class="title-font font-semibold text-white tracking-widest text-xs">EMAIL</h2>
                     <a href="mailto:hello@craftophile.com" class="text-yellow-400 leading-relaxed">hello@craftophile.com</a>
                     <h2 class="title-font font-semibold text-white tracking-widest text-xs mt-4">PHONE</h2>
-                    <p class="leading-relaxed">(555) 123-4567</p>
+                    <p class="leading-relaxed">(960) 980-0303</p>
                 </div>
             </div>
         </div>
