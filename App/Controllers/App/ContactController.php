@@ -19,27 +19,27 @@ class ContactController extends Controller
     {
 
         // Debug: before CSRF check
-        error_log('DEBUG: Before CSRF check');
+        echo 'DEBUG: Before CSRF check<br>';
 
         // CSRF validation
         if (empty($_POST['_csrf']) || !\App\Helpers\Csrf::check($_POST['_csrf'])) {
-            error_log('DEBUG: CSRF check failed');
+            echo 'DEBUG: CSRF check failed<br>';
             flash('error', 'Invalid or missing CSRF token. Please try again.');
             $this->redirect('/contact');
             return;
         }
-        error_log('DEBUG: After CSRF check');
+        echo 'DEBUG: After CSRF check<br>';
 
         $required = ['name', 'email', 'message'];
         foreach ($required as $field) {
             if (empty($_POST[$field]) || (is_string($_POST[$field]) && trim($_POST[$field]) === '')) {
-                error_log('DEBUG: Missing required field: ' . $field);
+                echo 'DEBUG: Missing required field: ' . $field . '<br>';
                 flash('error', "Missing required field: $field");
                 $this->redirect('/contact');
                 return;
             }
         }
-        error_log('DEBUG: All required fields present');
+        echo 'DEBUG: All required fields present<br>';
 
         $contact = new Contact();
         $contact->fill([
@@ -48,9 +48,9 @@ class ContactController extends Controller
             'phone' => $_POST['phone'] ?? null,
             'message' => $_POST['message'],
         ]);
-        error_log('DEBUG: Before contact save');
+        echo 'DEBUG: Before contact save<br>';
         $contact->save();
-        error_log('DEBUG: After contact save');
+        echo 'DEBUG: After contact save<br>';
 
         flash('success', 'Your message has been sent!');
         $this->redirect('/contact');
