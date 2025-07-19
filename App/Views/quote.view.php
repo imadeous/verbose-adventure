@@ -1,7 +1,7 @@
 <section
     x-data="quoteForm()"
     class="text-gray-400 bg-gray-900 body-font">
-    <?php $this->insert('partials/flash'); ?>
+    <?php echo $this->partial('partials/flash'); ?>
     <!-- Hidden fallback form for native PHP POST -->
     <form id="fallbackQuoteForm" method="POST" action="/quote" style="display:none;">
         <input type="hidden" name="name">
