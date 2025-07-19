@@ -27,7 +27,6 @@ use App\Middleware\RoleMiddleware;
 // Define the base path for the application
 $router->get('/', [HomeController::class, 'index']);
 // Public routes
-$router->get('/about', [HomeController::class, 'about']);
 // Public quote routes
 $router->get('/quote', [QuotesController::class, 'index']);
 $router->post('/quote', [QuotesController::class, 'store']);
