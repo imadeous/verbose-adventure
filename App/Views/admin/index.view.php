@@ -219,63 +219,66 @@
                     <?php endforeach; ?>
                 </div>
             </div>
-            <!-- Recommendations -->
-            <div class="col-span-1 bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col items-center justify-center">
-                <h4 class="text-blue-500 font-semibold mb-4 flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M12 20l9-5-9-5-9 5 9 5z" />
-                        <path d="M12 12V4" />
-                    </svg>
-                    Recommendations
-                </h4>
-                <div class="flex flex-col items-center">
-                    <div class="text-3xl font-bold text-blue-900 mb-2">92%</div>
-                    <div class="text-sm text-gray-500">Based on 50 reviews</div>
-                </div>
-            </div>
-            <!-- Overall Ratings (Revamped UI) -->
-            <div class="col-span-1 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-lg p-6 border border-blue-200 flex flex-col items-center">
-                <h4 class="text-blue-700 font-bold mb-4 flex items-center gap-2 text-lg tracking-wide">
-                    <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M12 20l9-5-9-5-9 5 9 5z" />
-                        <path d="M12 12V4" />
-                    </svg>
-                    Overall Ratings
-                </h4>
-                <div class="flex flex-col items-center w-full">
-                    <div class="flex items-center gap-2 mb-1">
-                        <span class="text-4xl font-extrabold text-blue-900">4.5</span>
-                        <div class="flex">
-                            <?php for ($i = 1; $i <= 5; $i++): ?>
-                                <svg class="w-6 h-6 <?php echo $i <= 4 ? 'text-yellow-400' : 'text-gray-300'; ?>" fill="currentColor" viewBox="0 0 20 20">
-                                    <polygon points="10 15 4 18 5.5 12 1 8 7 7 10 1 13 7 19 8 14.5 12 16 18"></polygon>
-                                </svg>
-                            <?php endfor; ?>
-                        </div>
+            <!-- Recommendations + Overall Ratings (Stacked) -->
+            <div class="col-span-1 flex flex-col gap-6 h-full">
+                <!-- Recommendations (1x1) -->
+                <div class="bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col items-center justify-center">
+                    <h4 class="text-blue-500 font-semibold mb-4 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M12 20l9-5-9-5-9 5 9 5z" />
+                            <path d="M12 12V4" />
+                        </svg>
+                        Recommendations
+                    </h4>
+                    <div class="flex flex-col items-center">
+                        <div class="text-3xl font-bold text-blue-900 mb-2">92%</div>
+                        <div class="text-sm text-gray-500">Based on 50 reviews</div>
                     </div>
-                    <div class="text-xs text-gray-500 mb-4">Based on 50 reviews</div>
-                    <div class="w-full">
-                        <div class="grid grid-cols-1 gap-2">
-                            <?php
-                            $categories = [
-                                ['label' => 'Product Quality', 'score' => 4.6, 'color' => 'bg-blue-400'],
-                                ['label' => 'Pricing', 'score' => 4.2, 'color' => 'bg-green-400'],
-                                ['label' => 'Communication', 'score' => 4.8, 'color' => 'bg-indigo-400'],
-                                ['label' => 'Packaging', 'score' => 4.7, 'color' => 'bg-yellow-400'],
-                                ['label' => 'Delivery', 'score' => 4.5, 'color' => 'bg-pink-400'],
-                            ];
-                            foreach ($categories as $cat):
-                                $percent = ($cat['score'] / 5) * 100;
-                            ?>
-                                <div class="flex items-center gap-2">
-                                    <span class="w-3 h-3 rounded-full <?php echo $cat['color']; ?>"></span>
-                                    <span class="flex-1 text-sm text-blue-900 font-medium"><?php echo $cat['label']; ?></span>
-                                    <div class="w-24 bg-blue-200 rounded-full h-2 mx-2">
-                                        <div class="<?php echo $cat['color']; ?> h-2 rounded-full" style="width: <?php echo $percent; ?>%"></div>
+                </div>
+                <!-- Overall Ratings (1x2) -->
+                <div class="flex-1 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-lg p-6 border border-blue-200 flex flex-col items-center">
+                    <h4 class="text-blue-700 font-bold mb-4 flex items-center gap-2 text-lg tracking-wide">
+                        <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M12 20l9-5-9-5-9 5 9 5z" />
+                            <path d="M12 12V4" />
+                        </svg>
+                        Overall Ratings
+                    </h4>
+                    <div class="flex flex-col items-center w-full">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-4xl font-extrabold text-blue-900">4.5</span>
+                            <div class="flex">
+                                <?php for ($i = 1; $i <= 5; $i++): ?>
+                                    <svg class="w-6 h-6 <?php echo $i <= 4 ? 'text-yellow-400' : 'text-gray-300'; ?>" fill="currentColor" viewBox="0 0 20 20">
+                                        <polygon points="10 15 4 18 5.5 12 1 8 7 7 10 1 13 7 19 8 14.5 12 16 18"></polygon>
+                                    </svg>
+                                <?php endfor; ?>
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-500 mb-4">Based on 50 reviews</div>
+                        <div class="w-full">
+                            <div class="grid grid-cols-1 gap-2">
+                                <?php
+                                $categories = [
+                                    ['label' => 'Product Quality', 'score' => 4.6, 'color' => 'bg-blue-400'],
+                                    ['label' => 'Pricing', 'score' => 4.2, 'color' => 'bg-green-400'],
+                                    ['label' => 'Communication', 'score' => 4.8, 'color' => 'bg-indigo-400'],
+                                    ['label' => 'Packaging', 'score' => 4.7, 'color' => 'bg-yellow-400'],
+                                    ['label' => 'Delivery', 'score' => 4.5, 'color' => 'bg-pink-400'],
+                                ];
+                                foreach ($categories as $cat):
+                                    $percent = ($cat['score'] / 5) * 100;
+                                ?>
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-3 h-3 rounded-full <?php echo $cat['color']; ?>"></span>
+                                        <span class="flex-1 text-sm text-blue-900 font-medium"><?php echo $cat['label']; ?></span>
+                                        <div class="w-24 bg-blue-200 rounded-full h-2 mx-2">
+                                            <div class="<?php echo $cat['color']; ?> h-2 rounded-full" style="width: <?php echo $percent; ?>%"></div>
+                                        </div>
+                                        <span class="text-xs text-blue-700 font-semibold"><?php echo number_format($cat['score'], 1); ?></span>
                                     </div>
-                                    <span class="text-xs text-blue-700 font-semibold"><?php echo number_format($cat['score'], 1); ?></span>
-                                </div>
-                            <?php endforeach; ?>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
                     </div>
                 </div>
