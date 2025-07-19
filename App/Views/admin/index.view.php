@@ -183,6 +183,8 @@
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
+        <h3 class="text-base font-semibold leading-6 text-blue-900">Business Insights</h3>
+        <!-- Recent Reviews -->
         <div class="col-span-1 bg-white rounded-xl shadow-md p-6 border border-blue-100">
             <h4 class="font-semibold mb-4 flex items-center gap-2">
                 <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
