@@ -24,11 +24,6 @@
         </div>
         <?php if ($contact->opened_at): ?>
             <div class="text-xs text-green-600">Read: <?= htmlspecialchars(date('Y-m-d H:i', strtotime($contact->opened_at))) ?></div>
-        <?php else: ?>
-            <form action="<?= url('admin/contacts/' . $contact->id . '/markAsRead') ?>" method="POST" class="mt-4">
-                <?= csrf_field() ?>
-                <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded text-sm">Mark as Read</button>
-            </form>
         <?php endif; ?>
         <div class="mt-6 flex space-x-2">
             <form action="<?= url('admin/contacts/' . $contact->id) ?>" method="POST" onsubmit="return confirm('Delete this contact?')">
