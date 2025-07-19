@@ -182,7 +182,7 @@
     </div>
 
     <div class="mb-8">
-        <h3 class="text-base font-semibold leading-6 text-blue-900">Reviews & Recommendations</h3>
+        <h3 class="text-base font-semibold leading-6 text-blue-900">Rating Insights</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4 mb-8">
             <!-- Recent Reviews -->
             <div class="col-span-1 bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col">
