@@ -212,11 +212,11 @@
         <div class="container px-5 py-24 mx-auto flex flex-wrap">
             <div class="flex flex-wrap w-full mb-20">
                 <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
-                    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-white">Featured Prints & Projects</h1>
+                    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-white">How to Order</h1>
                     <div class="h-1 w-20 bg-yellow-500 rounded"></div>
                 </div>
                 <p class="lg:w-1/2 w-full leading-relaxed text-gray-400 text-opacity-90">
-                    Explore our latest 3D printed creations, from custom prototypes to artistic models. Each project showcases the versatility and quality of our printing technology. Get inspired for your next idea!.
+                    Ordering your custom 3D print is simple and hassle-free. Just follow these four easy steps to bring your ideas to life, from submitting your design to receiving your finished part.
                 </p>
             </div>
             <div class="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
