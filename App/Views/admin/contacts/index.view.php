@@ -21,18 +21,18 @@
                     </tr>
                 <?php else: ?>
                     <?php foreach ($contacts as $contact): ?>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap font-semibold text-gray-800">
+                        <tr<?= $contact->opened_at === null ? ' class="font-bold bg-yellow-50"' : '' ?>>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-800<?= $contact->opened_at === null ? ' font-bold' : ' font-semibold' ?>">
                                 <a href="<?= url('admin/contacts/' . $contact->id) ?>" class="hover:underline">
                                     <?= htmlspecialchars($contact->id) ?>
                                 </a>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-gray-700"><?= htmlspecialchars($contact->name) ?></td>
-                            <td class="px-6 py-4 whitespace-nowrap text-gray-700"><?= htmlspecialchars($contact->email) ?></td>
-                            <td class="px-6 py-4 whitespace-nowrap text-gray-700 max-w-xs truncate" title="<?= htmlspecialchars($contact->message) ?>">
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-700<?= $contact->opened_at === null ? ' font-bold' : '' ?>"><?= htmlspecialchars($contact->name) ?></td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-700<?= $contact->opened_at === null ? ' font-bold' : '' ?>"><?= htmlspecialchars($contact->email) ?></td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-700 max-w-xs truncate<?= $contact->opened_at === null ? ' font-bold' : '' ?>" title="<?= htmlspecialchars($contact->message) ?>">
                                 <?= htmlspecialchars(mb_strimwidth($contact->message, 0, 50, '...')) ?>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-gray-700"><?= htmlspecialchars($contact->created_at) ?></td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-700<?= $contact->opened_at === null ? ' font-bold' : '' ?>"><?= htmlspecialchars($contact->created_at) ?></td>
                             <td class="px-6 py-4 whitespace-nowrap flex items-center space-x-2">
                                 <a href="<?= url('admin/contacts/' . $contact->id) ?>" class="text-yellow-600 hover:underline" title="View">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
@@ -49,9 +49,9 @@
                                     </button>
                                 </form>
                             </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
             </tbody>
         </table>
     </div>
