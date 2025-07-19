@@ -1,6 +1,3 @@
-$router->get('/quote', [\App\Controllers\QuotesController::class, 'create']);
-$router->post('/quote', [\App\Controllers\QuotesController::class, 'store']);
-
 <?php
 
 /**
@@ -18,13 +15,13 @@ use App\Controllers\Admin\AdminController;
 use App\Controllers\App\HomeController;
 use App\Controllers\AuthController;
 use App\Controllers\Admin\UserController;
-// use App\Controllers\Admin\EventController;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\RoleMiddleware;
+use App\Controllers\QuotesController;
 
 $router->get('/', [HomeController::class, 'index']);
-$router->get('/events', [HomeController::class, 'indexEvents']);
-$router->get('/events/{id}', [HomeController::class, 'showEvent']);
+$router->get('/quote', [QuotesController::class, 'create']);
+$router->post('/quote', [QuotesController::class, 'store']);
 
 // Admin routes (protected by AuthMiddleware)
 $router->middleware([AuthMiddleware::class], function ($router) {
