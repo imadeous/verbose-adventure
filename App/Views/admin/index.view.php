@@ -182,40 +182,42 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
-        <h3 class="text-base font-semibold leading-6 text-blue-900">Business Insights</h3>
-        <!-- Recent Reviews -->
-        <div class="col-span-1 bg-white rounded-xl shadow-md p-6 border border-blue-100">
-            <h4 class="font-semibold mb-4 flex items-center gap-2">
-                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path d="M12 20l9-5-9-5-9 5 9 5z" />
-                    <path d="M12 12V4" />
-                </svg>
-                Recent Reviews
-            </h4>
-            <div class="grid grid-cols-1 gap-4">
-                <?php
-                $reviews = [
-                    ['name' => 'Fathimath S.', 'product' => 'Architectural Model', 'comment' => 'Impressed with the service!', 'rating' => 5],
-                    ['name' => 'Ahmed R.', 'product' => 'Custom Keychains', 'comment' => 'Great quality and fast delivery.', 'rating' => 4],
-                    ['name' => 'Zuleikha M.', 'product' => 'Miniature Figures', 'comment' => 'Very detailed work, will order again.', 'rating' => 5]
-                ];
-                foreach ($reviews as $review): ?>
-                    <div class="bg-blue-50 border border-blue-100 rounded-lg p-4 flex flex-col gap-2 shadow-sm">
-                        <div class="flex items-center gap-2">
-                            <span class="font-semibold text-blue-900"><?php echo htmlspecialchars($review['name']); ?></span>
-                            <span class="text-xs text-blue-400 ml-auto"><?php echo htmlspecialchars($review['product']); ?></span>
+    <div class="mb-8">
+        <h3 class="text-base font-semibold leading-6 text-blue-900">Reviews & Recommendations</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
+            <!-- Recent Reviews -->
+            <div class="col-span-1 bg-white rounded-xl shadow-md p-6 border border-blue-100">
+                <h4 class="font-semibold mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M12 20l9-5-9-5-9 5 9 5z" />
+                        <path d="M12 12V4" />
+                    </svg>
+                    Recent Reviews
+                </h4>
+                <div class="grid grid-cols-1 gap-4">
+                    <?php
+                    $reviews = [
+                        ['name' => 'Fathimath S.', 'product' => 'Architectural Model', 'comment' => 'Impressed with the service!', 'rating' => 5],
+                        ['name' => 'Ahmed R.', 'product' => 'Custom Keychains', 'comment' => 'Great quality and fast delivery.', 'rating' => 4],
+                        ['name' => 'Zuleikha M.', 'product' => 'Miniature Figures', 'comment' => 'Very detailed work, will order again.', 'rating' => 5]
+                    ];
+                    foreach ($reviews as $review): ?>
+                        <div class="bg-blue-50 border border-blue-100 rounded-lg p-4 flex flex-col gap-2 shadow-sm">
+                            <div class="flex items-center gap-2">
+                                <span class="font-semibold text-blue-900"><?php echo htmlspecialchars($review['name']); ?></span>
+                                <span class="text-xs text-blue-400 ml-auto"><?php echo htmlspecialchars($review['product']); ?></span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <?php for ($i = 1; $i <= 5; $i++): ?>
+                                    <svg class="w-4 h-4 <?php echo $i <= $review['rating'] ? 'text-yellow-400' : 'text-gray-300'; ?>" fill="currentColor" viewBox="0 0 20 20">
+                                        <polygon points="10 15 4 18 5.5 12 1 8 7 7 10 1 13 7 19 8 14.5 12 16 18"></polygon>
+                                    </svg>
+                                <?php endfor; ?>
+                            </div>
+                            <div class="text-blue-700 text-sm"><?php echo htmlspecialchars($review['comment']); ?></div>
                         </div>
-                        <div class="flex items-center gap-1">
-                            <?php for ($i = 1; $i <= 5; $i++): ?>
-                                <svg class="w-4 h-4 <?php echo $i <= $review['rating'] ? 'text-yellow-400' : 'text-gray-300'; ?>" fill="currentColor" viewBox="0 0 20 20">
-                                    <polygon points="10 15 4 18 5.5 12 1 8 7 7 10 1 13 7 19 8 14.5 12 16 18"></polygon>
-                                </svg>
-                            <?php endfor; ?>
-                        </div>
-                        <div class="text-blue-700 text-sm"><?php echo htmlspecialchars($review['comment']); ?></div>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
     </div>
