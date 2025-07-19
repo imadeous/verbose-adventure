@@ -1,6 +1,8 @@
 <section
     x-data="quoteForm()"
     class="text-gray-400 bg-gray-900 body-font">
+    <!-- check if session flash message is set and echo this->partial('_flash') -->
+    <?= $this->partial('_flash.view'); ?>
     <!-- Hidden fallback form for native PHP POST -->
     <form id="fallbackQuoteForm" method="POST" action="/quote" style="display:none;">
         <input type="hidden" name="name">
