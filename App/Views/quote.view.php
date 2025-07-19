@@ -384,54 +384,47 @@
                     </style>
                 </form>
                 <script>
-                    // Sync visible fields to hidden fields before submit
-                    document.addEventListener('alpine:init', () => {
-                        Alpine.data('quoteForm', () => ({
-                            ...quoteForm(),
-                            $nextTick() {
-                                this.syncHiddenFields();
-                            },
-                            syncHiddenFields() {
-                                document.getElementById('hidden_name').value = this.form.name;
-                                document.getElementById('hidden_email').value = this.form.email;
-                                document.getElementById('hidden_phone').value = this.form.phone;
-                                document.getElementById('hidden_instagram').value = this.form.instagram;
-                                document.getElementById('hidden_delivery_address').value = this.form.delivery_address;
-                                document.getElementById('hidden_billing_address').value = this.form.billing_address;
-                                document.getElementById('hidden_product_type').value = this.form.product_type;
-                                document.getElementById('hidden_material').value = this.form.material;
-                                document.getElementById('hidden_quantity').value = this.form.quantity;
-                                document.getElementById('hidden_timeline').value = this.form.timeline;
-                                document.getElementById('hidden_description').value = this.form.description;
-                                document.getElementById('hidden_budget').value = this.form.budget;
-                                // Services[]
-                                const servicesDiv = document.getElementById('hidden_services');
-                                servicesDiv.innerHTML = '';
-                                (this.form.services || []).forEach(val => {
-                                    const input = document.createElement('input');
-                                    input.type = 'hidden';
-                                    input.name = 'services[]';
-                                    input.value = val;
-                                    servicesDiv.appendChild(input);
-                                });
-                            }
-                        }));
-                    });
-                    // Listen for input changes and sync
-                    document.addEventListener('input', function(e) {
-                        if (e.target.closest('[x-data]')) {
-                            const alpine = Alpine && Alpine.$data && Alpine.$data(document.querySelector('[x-data]'));
-                            if (alpine && typeof alpine.syncHiddenFields === 'function') {
-                                alpine.syncHiddenFields();
-                            }
-                        }
-                    });
-                    // Sync before submit
-                    document.getElementById('quoteForm').addEventListener('submit', function(e) {
-                        const alpine = Alpine && Alpine.$data && Alpine.$data(document.querySelector('[x-data]'));
-                        if (alpine && typeof alpine.syncHiddenFields === 'function') {
-                            alpine.syncHiddenFields();
-                        }
+                    // Sync visible fields to hidden fields in real time and before submit
+                    function syncHiddenFieldsFromForm(form) {
+                        document.getElementById('hidden_name').value = form.name.value;
+                        document.getElementById('hidden_email').value = form.email.value;
+                        document.getElementById('hidden_phone').value = form.phone.value;
+                        document.getElementById('hidden_instagram').value = form.instagram.value;
+                        document.getElementById('hidden_delivery_address').value = form.delivery_address.value;
+                        document.getElementById('hidden_billing_address').value = form.billing_address.value;
+                        document.getElementById('hidden_product_type').value = form.product_type.value;
+                        document.getElementById('hidden_material').value = form.material.value;
+                        document.getElementById('hidden_quantity').value = form.quantity.value;
+                        document.getElementById('hidden_timeline').value = form.timeline.value;
+                        document.getElementById('hidden_description').value = form.description.value;
+                        document.getElementById('hidden_budget').value = form.budget.value;
+                        // Services[]
+                        const servicesDiv = document.getElementById('hidden_services');
+                        servicesDiv.innerHTML = '';
+                        const checkedServices = form.querySelectorAll('input[name="services[]"]:checked');
+                        checkedServices.forEach(input => {
+                            const hidden = document.createElement('input');
+                            hidden.type = 'hidden';
+                            hidden.name = 'services[]';
+                            hidden.value = input.value;
+                            servicesDiv.appendChild(hidden);
+                        });
+                    }
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const form = document.getElementById('quoteForm');
+                        // Sync on input/change
+                        form.addEventListener('input', function() {
+                            syncHiddenFieldsFromForm(form);
+                        });
+                        form.addEventListener('change', function() {
+                            syncHiddenFieldsFromForm(form);
+                        });
+                        // Sync before submit
+                        form.addEventListener('submit', function(e) {
+                            syncHiddenFieldsFromForm(form);
+                        });
+                        // Initial sync
+                        syncHiddenFieldsFromForm(form);
                     });
                 </script>
             </div>
