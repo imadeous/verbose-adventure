@@ -233,7 +233,7 @@
                         </h4>
                         <div
                             x-data="{ percent: 92 }"
-                            class="flex items-center gap-2">
+                            class="flex items-center gap-2 w-full justify-between">
                             <div class="flex flex-col flex-1 items-start">
                                 <div class="text-3xl font-bold text-blue-900 mb-2" x-text="percent + '%'"></div>
                                 <div class="text-sm text-gray-500">Based on 50 reviews</div>
