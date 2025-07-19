@@ -1,22 +1,7 @@
 <section
     x-data="quoteForm()"
     class="text-gray-400 bg-gray-900 body-font">
-    <!-- Hidden fallback form for native PHP POST -->
-    <form id="fallbackQuoteForm" method="POST" action="/quote" style="display:none;">
-        <input type="hidden" name="name">
-        <input type="hidden" name="email">
-        <input type="hidden" name="phone">
-        <input type="hidden" name="instagram">
-        <input type="hidden" name="delivery_address">
-        <input type="hidden" name="billing_address">
-        <input type="hidden" name="product_type">
-        <input type="hidden" name="material">
-        <input type="hidden" name="quantity">
-        <input type="hidden" name="timeline">
-        <input type="hidden" name="description">
-        <input type="hidden" name="budget">
-        <input type="hidden" name="services[]">
-    </form>
+    <!-- Removed fallbackQuoteForm: only the main form is present -->
     <div class="container px-5 mt-24 mx-auto flex flex-wrap flex-col">
         <!-- Step Tabs -->
         <div class="flex mx-auto flex-wrap mb-20">
