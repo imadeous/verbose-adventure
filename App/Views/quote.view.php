@@ -1,7 +1,23 @@
 <section
     x-data="quoteForm()"
     class="text-gray-400 bg-gray-900 body-font">
-    <form id="quoteForm" @submit.prevent="submitForm" method="POST" action="/quote" enctype="multipart/form-data">
+    <form id="quoteForm" @submit.prevent="submitForm" method="POST" action="/quote" enctype="multipart/form-data" autocomplete="off">
+        <!-- Hidden fallback form for native PHP POST -->
+        <form id="fallbackQuoteForm" method="POST" action="/quote" style="display:none;">
+            <input type="hidden" name="name">
+            <input type="hidden" name="email">
+            <input type="hidden" name="phone">
+            <input type="hidden" name="instagram">
+            <input type="hidden" name="delivery_address">
+            <input type="hidden" name="billing_address">
+            <input type="hidden" name="product_type">
+            <input type="hidden" name="material">
+            <input type="hidden" name="quantity">
+            <input type="hidden" name="timeline">
+            <input type="hidden" name="description">
+            <input type="hidden" name="budget">
+            <input type="hidden" name="services[]">
+        </form>
         <div class="container px-5 mt-24 mx-auto flex flex-wrap flex-col">
             <!-- Step Tabs -->
             <div class="flex mx-auto flex-wrap mb-20">
@@ -401,29 +417,26 @@
                     alert('Please fill all required fields before submitting.');
                     return;
                 }
-                const formData = new FormData();
+                // Copy values to fallback form
+                const fallback = document.getElementById('fallbackQuoteForm');
                 for (const key in this.form) {
-                    if (Array.isArray(this.form[key])) {
-                        this.form[key].forEach(val => formData.append(key + '[]', val));
+                    const val = this.form[key];
+                    if (Array.isArray(val)) {
+                        // Remove any existing service fields
+                        [...fallback.querySelectorAll('input[name="services[]"]')].forEach(e => e.remove());
+                        val.forEach(service => {
+                            const input = document.createElement('input');
+                            input.type = 'hidden';
+                            input.name = 'services[]';
+                            input.value = service;
+                            fallback.appendChild(input);
+                        });
                     } else {
-                        formData.append(key, this.form[key]);
+                        const input = fallback.querySelector(`[name="${key}"]`);
+                        if (input) input.value = val;
                     }
                 }
-                fetch('/quote', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(async response => {
-                        if (response.redirected) {
-                            window.location.href = response.url;
-                            return;
-                        }
-                        const text = await response.text();
-                        alert('Quote submitted!');
-                    })
-                    .catch(() => {
-                        alert('There was an error submitting your quote. Please try again.');
-                    });
+                fallback.submit();
             },
             isFormValid() {
                 // Helper to check all required fields
