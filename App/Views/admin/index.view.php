@@ -182,66 +182,105 @@
                 </svg>
                 Recent Reviews
             </h4>
-            <div class="grid grid-cols-1 gap-4">
-
-                <div class="flex flex-col gap-2 p-4 rounded-lg bg-blue-50 border border-blue-100">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <span class="font-semibold text-blue-900">Fathimath S.</span>
-                            <span class="block text-xs text-blue-400">Architectural Model</span>
-                        </div>
-                        <!-- Product Quality -->
-                        <div class="flex items-center gap-3 mt-2">
-                            <div class="flex items-center gap-1">
-                                <span class="text-yellow-400">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-                                    </svg>
-                                </span><span>5</span>
+            <div
+                x-data="{
+                    reviews: [
+                        {
+                            name: 'Fathimath S.',
+                            product: 'Architectural Model',
+                            ratings: { quality: 5, pricing: 5, communication: 5, packaging: 5, delivery: 5 },
+                            comment: 'Impressed with the service!'
+                        },
+                        {
+                            name: 'Ahmed R.',
+                            product: 'Custom Keychains',
+                            ratings: { quality: 4, pricing: 5, communication: 4, packaging: 5, delivery: 5 },
+                            comment: 'Great quality and fast delivery.'
+                        },
+                        {
+                            name: 'Zuleikha M.',
+                            product: 'Miniature Figures',
+                            ratings: { quality: 5, pricing: 4, communication: 5, packaging: 4, delivery: 5 },
+                            comment: 'Very detailed work, will order again.'
+                        },
+                        {
+                            name: 'Ibrahim A.',
+                            product: 'Architectural Model',
+                            ratings: { quality: 5, pricing: 5, communication: 5, packaging: 5, delivery: 4 },
+                            comment: 'Packaging could be improved, but overall excellent.'
+                        },
+                        {
+                            name: 'Aishath L.',
+                            product: 'Custom Keychains',
+                            ratings: { quality: 5, pricing: 5, communication: 5, packaging: 5, delivery: 5 },
+                            comment: 'Perfect experience from start to finish!'
+                        }
+                    ]
+                }">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <template x-for="(review, idx) in reviews" :key="idx">
+                        <div class="flex flex-col gap-3 p-5 rounded-xl bg-blue-50 border border-blue-100 shadow-sm hover:shadow-md transition">
+                            <div class="flex items-center gap-3">
+                                <div>
+                                    <span class="font-semibold text-blue-900" x-text="review.name"></span>
+                                    <span class="block text-xs text-blue-400" x-text="review.product"></span>
+                                </div>
                             </div>
-                        </div>
-                        <!-- Pricing -->
-                        <div class="flex items-center gap-3 mt-2">
-                            <div class="flex items-center gap-1">
-                                <span class="text-yellow-400">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" />
-                                    </svg>
-                                </span><span>5</span>
+                            <div class="grid grid-cols-2 gap-2 mt-2 text-xs">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-medium text-blue-700">Quality</span>
+                                    <span class="flex items-center gap-1">
+                                        <template x-for="n in review.ratings.quality">
+                                            <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                                <polygon points="10 1.5 12.59 7.36 18.9 7.97 14 12.14 15.18 18.36 10 15.27 4.82 18.36 6 12.14 1.1 7.97 7.41 7.36 10 1.5" />
+                                            </svg>
+                                        </template>
+                                    </span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-medium text-blue-700">Pricing</span>
+                                    <span class="flex items-center gap-1">
+                                        <template x-for="n in review.ratings.pricing">
+                                            <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                                <polygon points="10 1.5 12.59 7.36 18.9 7.97 14 12.14 15.18 18.36 10 15.27 4.82 18.36 6 12.14 1.1 7.97 7.41 7.36 10 1.5" />
+                                            </svg>
+                                        </template>
+                                    </span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-medium text-blue-700">Communication</span>
+                                    <span class="flex items-center gap-1">
+                                        <template x-for="n in review.ratings.communication">
+                                            <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                                <polygon points="10 1.5 12.59 7.36 18.9 7.97 14 12.14 15.18 18.36 10 15.27 4.82 18.36 6 12.14 1.1 7.97 7.41 7.36 10 1.5" />
+                                            </svg>
+                                        </template>
+                                    </span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-medium text-blue-700">Packaging</span>
+                                    <span class="flex items-center gap-1">
+                                        <template x-for="n in review.ratings.packaging">
+                                            <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                                <polygon points="10 1.5 12.59 7.36 18.9 7.97 14 12.14 15.18 18.36 10 15.27 4.82 18.36 6 12.14 1.1 7.97 7.41 7.36 10 1.5" />
+                                            </svg>
+                                        </template>
+                                    </span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-medium text-blue-700">Delivery</span>
+                                    <span class="flex items-center gap-1">
+                                        <template x-for="n in review.ratings.delivery">
+                                            <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                                <polygon points="10 1.5 12.59 7.36 18.9 7.97 14 12.14 15.18 18.36 10 15.27 4.82 18.36 6 12.14 1.1 7.97 7.41 7.36 10 1.5" />
+                                            </svg>
+                                        </template>
+                                    </span>
+                                </div>
                             </div>
+                            <div class="text-blue-700 italic mt-3" x-text="`\" ${review.comment}\"`"></div>
                         </div>
-                        <!-- Communication -->
-                        <div class="flex items-center gap-3 mt-2">
-                            <div class="flex items-center gap-1">
-                                <span class="text-yellow-400">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
-                                    </svg>
-                                </span><span>5</span>
-                            </div>
-                        </div>
-                        <!-- Packaging -->
-                        <div class="flex items-center gap-3 mt-2">
-                            <div class="flex items-center gap-1">
-                                <span class="text-yellow-400">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0-3-3m3 3 3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
-                                    </svg>
-                                </span><span>5</span>
-                            </div>
-                        </div>
-                        <!-- Delivery -->
-                        <div class="flex items-center gap-3 mt-2">
-                            <div class="flex items-center gap-1">
-                                <span class="text-yellow-400">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 0 0-10.026 0 1.106 1.106 0 0 0-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
-                                    </svg>
-                                </span><span>5</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-blue-700 italic text-xs mt-2">"Impressed with the service!"</div>
+                    </template>
                 </div>
             </div>
         </div>
