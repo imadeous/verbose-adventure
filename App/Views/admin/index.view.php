@@ -196,9 +196,7 @@
                 $reviews = [
                     ['name' => 'Fathimath S.', 'product' => 'Architectural Model', 'comment' => 'Impressed with the service!', 'rating' => 5],
                     ['name' => 'Ahmed R.', 'product' => 'Custom Keychains', 'comment' => 'Great quality and fast delivery.', 'rating' => 4],
-                    ['name' => 'Zuleikha M.', 'product' => 'Miniature Figures', 'comment' => 'Very detailed work, will order again.', 'rating' => 5],
-                    ['name' => 'Ibrahim A.', 'product' => 'Architectural Model', 'comment' => 'Packaging could be improved, but overall excellent.', 'rating' => 4],
-                    ['name' => 'Aishath L.', 'product' => 'Custom Keychains', 'comment' => 'Perfect experience from start to finish!', 'rating' => 5]
+                    ['name' => 'Zuleikha M.', 'product' => 'Miniature Figures', 'comment' => 'Very detailed work, will order again.', 'rating' => 5]
                 ];
                 foreach ($reviews as $review): ?>
                     <div class="bg-blue-50 border border-blue-100 rounded-lg p-4 flex flex-col gap-2 shadow-sm">
