@@ -1,3 +1,5 @@
+$router->get('/quote', [\App\Controllers\QuotesController::class, 'create']);
+$router->post('/quote', [\App\Controllers\QuotesController::class, 'store']);
 
 <?php
 
