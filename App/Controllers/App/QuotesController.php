@@ -14,7 +14,7 @@ class QuotesController extends Controller
         // $quotes = Quote::all();
         // $this->view->quotes = $quotes;
         $this->view->layout('app');
-        $this->view('quotes'); // expects App/Views/quotes/index.view.php
+        $this->view('quote'); // expects App/Views/quotes/index.view.php
     }
 
     // Handle quote form submission
@@ -25,7 +25,7 @@ class QuotesController extends Controller
         foreach ($required as $field) {
             if (empty($_POST[$field]) || (is_string($_POST[$field]) && trim($_POST[$field]) === '')) {
                 flash('error', "Missing required field: $field");
-                $this->redirect('/quotes');
+                $this->redirect('/quote');
                 return;
             }
         }
