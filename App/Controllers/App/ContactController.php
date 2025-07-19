@@ -17,6 +17,14 @@ class ContactController extends Controller
     // Handle contact form submission
     public function store()
     {
+
+        // CSRF validation
+        if (empty($_POST['_csrf']) || !\App\Helpers\Csrf::check($_POST['_csrf'])) {
+            flash('error', 'Invalid or missing CSRF token. Please try again.');
+            $this->redirect('/contact');
+            return;
+        }
+
         $required = ['name', 'email', 'message'];
         foreach ($required as $field) {
             if (empty($_POST[$field]) || (is_string($_POST[$field]) && trim($_POST[$field]) === '')) {
