@@ -23,7 +23,7 @@
             </div>
         </div>
         <?php if ($contact->opened_at): ?>
-            <div class="text-xs text-green-600">Read: <?= htmlspecialchars(date('Y-m-d H:i', strtotime($contact->opened_at))) ?></div>
+            <div class="text-xs text-green-600">Opened: <?= htmlspecialchars(date('Y-m-d H:i', strtotime($contact->opened_at))) ?></div>
         <?php endif; ?>
         <div class="mt-6 flex justify-end">
             <form action="<?= url('admin/contacts/' . $contact->id . '/delete') ?>" method="POST" onsubmit="return confirm('Delete this contact?')">
