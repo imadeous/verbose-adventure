@@ -232,8 +232,9 @@
                     </div>
                     <div class="flex-grow sm:pl-6 mt-6 sm:mt-0">
                         <h2 class="font-medium title-font text-white mb-1 text-xl">1. Submit Your 3D Model or Idea</h2>
-                        <p class="leading-relaxed">Upload your 3D file or describe your project using our online form. Our team will review your submission and reach out if we need more details.</p>
-                        <a href="<?= url('/quote') ?>" class="inline text-yellow-500 text-lg font-semibold transition">Get a Quote</a>
+                        <p class="leading-relaxed">Upload your 3D file or describe your project using our online form. Our team will review your submission and reach out if we need more details.
+                            <a href="<?= url('/quote') ?>" class="inline text-yellow-500 text-lg font-semibold transition">Get a Quote</a> and we will guide you through the process.
+                        </p>
                     </div>
                 </div>
             </div>
