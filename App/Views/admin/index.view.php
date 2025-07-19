@@ -184,7 +184,7 @@
 
     <div class="mb-8">
         <h3 class="text-base font-semibold leading-6 text-blue-900">Reviews & Recommendations</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4 mb-8">
             <!-- Recent Reviews -->
             <div class="col-span-1 bg-white rounded-xl shadow-md p-6 border border-blue-100">
                 <h4 class="font-semibold mb-4 flex items-center gap-2">
@@ -219,87 +219,99 @@
                     <?php endforeach; ?>
                 </div>
             </div>
+            <!-- Recommendations -->
+            <div class="col-span-1 bg-white rounded-xl shadow-md p-6 border border-blue-100">
+                <h4 class="font-semibold mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M12 20l9-5-9-5-9 5 9 5z" />
+                        <path d="M12 12V4" />
+                    </svg>
+                    Recommendations
+                </h4>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-blue-900 mb-2">92%</div>
+                    <div class="text-sm text-gray-500">Based on 50 reviews</div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-
-<!-- Chart.js CDN -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    // Revenue & Orders Trend Chart
-    const ctx1 = document.getElementById('revenueOrdersChart').getContext('2d');
-    new Chart(ctx1, {
-        type: 'line',
-        data: {
-            labels: ['Day 1', 'Day 5', 'Day 10', 'Day 15', 'Day 20', 'Day 25', 'Day 30'],
-            datasets: [{
-                    label: 'Revenue',
-                    data: [1200, 1800, 1500, 2200, 2000, 2500, 2300],
-                    borderColor: '#3b82f6',
-                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                    tension: 0.4,
-                    fill: true,
-                    pointRadius: 3,
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Revenue & Orders Trend Chart
+        const ctx1 = document.getElementById('revenueOrdersChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: ['Day 1', 'Day 5', 'Day 10', 'Day 15', 'Day 20', 'Day 25', 'Day 30'],
+                datasets: [{
+                        label: 'Revenue',
+                        data: [1200, 1800, 1500, 2200, 2000, 2500, 2300],
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 3,
+                    },
+                    {
+                        label: 'Orders',
+                        data: [5, 8, 7, 10, 9, 12, 11],
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        tension: 0.4,
+                        fill: false,
+                        pointRadius: 3,
+                    }
+                ]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: true
+                    }
                 },
-                {
-                    label: 'Orders',
-                    data: [5, 8, 7, 10, 9, 12, 11],
-                    borderColor: '#10b981',
-                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                    tension: 0.4,
-                    fill: false,
-                    pointRadius: 3,
-                }
-            ]
-        },
-        options: {
-            plugins: {
-                legend: {
-                    display: true
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            },
-            responsive: true,
-            maintainAspectRatio: false
-        }
-    });
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
 
-    // Quarterly Report Bar Chart
-    const ctx2 = document.getElementById('quarterlyReportChart').getContext('2d');
-    new Chart(ctx2, {
-        type: 'bar',
-        data: {
-            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-            datasets: [{
-                label: 'Revenue',
-                data: [5200, 6800, 4500, 2000],
-                backgroundColor: [
-                    '#3b82f6',
-                    '#10b981',
-                    '#f59e42',
-                    '#ef4444'
-                ],
-                borderRadius: 8,
-            }]
-        },
-        options: {
-            plugins: {
-                legend: {
-                    display: false
-                }
+        // Quarterly Report Bar Chart
+        const ctx2 = document.getElementById('quarterlyReportChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                datasets: [{
+                    label: 'Revenue',
+                    data: [5200, 6800, 4500, 2000],
+                    backgroundColor: [
+                        '#3b82f6',
+                        '#10b981',
+                        '#f59e42',
+                        '#ef4444'
+                    ],
+                    borderRadius: 8,
+                }]
             },
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            },
-            responsive: true,
-            maintainAspectRatio: false
-        }
-    });
-</script>
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
