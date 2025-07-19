@@ -25,8 +25,10 @@ use App\Controllers\App\ContactController;
 $router->get('/', [HomeController::class, 'index']);
 // Public routes
 $router->get('/about', [HomeController::class, 'about']);
+// Public quote routes
 $router->get('/quote', [QuotesController::class, 'index']);
 $router->post('/quote', [QuotesController::class, 'store']);
+// Public contact routes
 $router->get('/contact', [ContactController::class, 'create']);
 $router->post('/contact', [ContactController::class, 'store']);
 
@@ -67,4 +69,6 @@ $router->get('/setup', [AuthController::class, 'setup']);
 $router->post('/setup', [AuthController::class, 'storeSetup']);
 
 // Generic page route
+// this is for showing static pages based on the page title like privacy, terms, etc.
+// This route will call the page method in HomeController with the page title as a parameter
 $router->get('/{pageTitle}', [HomeController::class, 'page']);
