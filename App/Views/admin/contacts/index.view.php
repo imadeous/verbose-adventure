@@ -20,9 +20,6 @@
                 <?php else: ?>
                     <?php foreach ($contacts as $contact): ?>
                         <tr<?= $contact->opened_at === null ? ' class="bg-yellow-50"' : '' ?>>
-                            <td class="px-6 py-4 whitespace-nowrap text-gray-800 text-center">
-                                <span class="inline-block rounded bg-gray-100 px-2 py-1 text-xs font-mono"><?= htmlspecialchars($contact->id) ?></span>
-                            </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center space-x-2">
                                     <div class="flex-shrink-0 bg-blue-100 rounded-full w-8 h-8 flex items-center justify-center text-blue-600 font-bold uppercase">
