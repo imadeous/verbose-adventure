@@ -12,8 +12,12 @@ class ContactController extends Controller
      */
     protected function provideSharedData()
     {
-        $unreadContacts = Contact::where('opened_at', null);
-        $this->share('unreadContactsCount', count($unreadContacts));
+        // Efficient unread count query
+        $db = new \Core\Database\Db();
+        $pdo = $db::instance();
+        $stmt = $pdo->query("SELECT COUNT(*) AS unread_count FROM contacts WHERE opened_at IS NULL");
+        $row = $stmt->fetch();
+        $this->share('unreadContactsCount', (int)($row['unread_count'] ?? 0));
     }
 
     // List all contacts
