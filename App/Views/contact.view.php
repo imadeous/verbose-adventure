@@ -5,7 +5,7 @@
             <div class="bg-gray-900 relative flex flex-wrap py-6 rounded shadow-md">
                 <div class="lg:w-1/2 px-6">
                     <h2 class="title-font font-semibold text-white tracking-widest text-xs">ADDRESS</h2>
-                    <p class="mt-1">Aman, Chanbeylee Magu,<br>Funadhoo, SH 03150</p>
+                    <p class="mt-1">Aman, Funadhoo,<br>03150, Maldives</p>
                 </div>
                 <div class="lg:w-1/2 px-6 mt-4 lg:mt-0">
                     <h2 class="title-font font-semibold text-white tracking-widest text-xs">EMAIL</h2>
