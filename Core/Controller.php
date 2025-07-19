@@ -47,4 +47,13 @@ class Controller
         }
         exit;
     }
+    /**
+     * Share a variable with the view.
+     * @param string $key
+     * @param mixed $value
+     */
+    protected function share($key, $value)
+    {
+        $this->view->share($key, $value);
+    }
 }

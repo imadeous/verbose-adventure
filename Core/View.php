@@ -8,6 +8,9 @@ class View
     protected $layout = null;
     protected $sections = [];
     protected $currentSection = null;
+    protected $shared = [];
+
+
 
     public function __construct($basePath = null)
     {
@@ -41,6 +44,7 @@ class View
 
     public function render($name, $data = [])
     {
+        $data = array_merge($this->shared, $data);
         extract($data);
         $viewPath = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $name);
         $fullPath = $this->basePath . "App" . DIRECTORY_SEPARATOR . "Views" . DIRECTORY_SEPARATOR . $viewPath . ".view.php";
@@ -80,6 +84,7 @@ class View
 
     public function partial($partial, $data = [])
     {
+        $data = array_merge($this->shared, $data);
         extract($data);
         $partialPath = $this->basePath . "App" . DIRECTORY_SEPARATOR . "Views" . DIRECTORY_SEPARATOR . "partials" . DIRECTORY_SEPARATOR . $partial . ".php";
         if (!file_exists($partialPath)) {
@@ -98,5 +103,15 @@ class View
         ob_start();
         require $partialPath;
         return ob_get_clean();
+    }
+
+    /**
+     * Share a variable with all views and partials.
+     * @param string $key
+     * @param mixed $value
+     */
+    public function share($key, $value)
+    {
+        $this->shared[$key] = $value;
     }
 }
