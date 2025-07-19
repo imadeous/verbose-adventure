@@ -92,6 +92,21 @@ abstract class Model
         return array_map(fn($row) => new static($row), $rows);
     }
 
+
+    /**
+     * Get records where a column is NULL.
+     * @param string $column
+     * @return array
+     */
+    public static function whereNull($column)
+    {
+        $instance = new static();
+        $qb = new \Core\Database\QueryBuilder($instance->table);
+        $rows = $qb->whereNull($column)->get();
+        return array_map(fn($row) => new static($row), $rows);
+    }
+
+
     public function save()
     {
         $qb = new \Core\Database\QueryBuilder($this->table);

@@ -55,6 +55,18 @@ class QueryBuilder
     }
 
     /**
+     * Add a "where IS NULL" clause to the query.
+     * @param string $column
+     * @return $this
+     */
+    public function whereNull($column)
+    {
+        $this->wheres[] = ["$column IS NULL"];
+        // No binding needed for IS NULL
+        return $this;
+    }
+
+    /**
      * Get the count of rows matching the current query.
      * @return int
      */
