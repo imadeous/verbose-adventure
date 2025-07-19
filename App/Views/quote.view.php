@@ -320,18 +320,18 @@
             <div class="p-2 w-full flex justify-between items-center mt-6">
                 <form id="quoteForm" method="POST" action="/quote" enctype="multipart/form-data" autocomplete="off">
                     <!-- Hidden real form fields for PHP POST -->
-                    <input type="hidden" name="name" id="hidden_name">
-                    <input type="hidden" name="email" id="hidden_email">
-                    <input type="hidden" name="phone" id="hidden_phone">
-                    <input type="hidden" name="instagram" id="hidden_instagram">
-                    <input type="hidden" name="delivery_address" id="hidden_delivery_address">
-                    <input type="hidden" name="billing_address" id="hidden_billing_address">
-                    <input type="hidden" name="product_type" id="hidden_product_type">
-                    <input type="hidden" name="material" id="hidden_material">
-                    <input type="hidden" name="quantity" id="hidden_quantity">
-                    <input type="hidden" name="timeline" id="hidden_timeline">
+                    <input type="name" name="name" id="hidden_name">
+                    <input type="email" name="email" id="hidden_email">
+                    <input type="phone" name="phone" id="hidden_phone">
+                    <input type="instagram" name="instagram" id="hidden_instagram">
+                    <input type="delivery_address" name="delivery_address" id="hidden_delivery_address">
+                    <input type="billing_address" name="billing_address" id="hidden_billing_address">
+                    <input type="product_type" name="product_type" id="hidden_product_type">
+                    <input type="material" name="material" id="hidden_material">
+                    <input type="number" name="quantity" id="hidden_quantity">
+                    <input type="text" name="timeline" id="hidden_timeline">
                     <input type="hidden" name="description" id="hidden_description">
-                    <input type="hidden" name="budget" id="hidden_budget">
+                    <input type="text" name="budget" id="hidden_budget">
                     <div id="hidden_services"></div>
                     <button
                         x-show="step > 0"
