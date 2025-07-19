@@ -21,7 +21,7 @@
     <div x-data="{sidebar : (window.innerWidth > 768) ?? true }" class="flex min-h-screen sm:relative">
         <?php echo $this->partial('admin/sidebar'); ?>
         <main class="flex-1 flex flex-col h-screen bg-gray-100 overflow-y-scroll scrollbar">
-            <?php echo $this->view('admin/header', array_merge($this->shared, $data)); ?>
+            <?php echo $this->partial('admin/header'); ?>
             <!-- add breadcrumbs support here   -->
             <div class="flex flex-col flex-1 overflow-y-auto">
                 <?php echo $this->partial('_flash.view'); ?>
