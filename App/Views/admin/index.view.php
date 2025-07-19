@@ -173,15 +173,69 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div class="col-span-1 md:col-span-3 bg-white rounded-xl shadow-md p-6 border border-blue-100">
-            <h4 class="font-semibold mb-6 flex items-center gap-2">
-                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path d="M12 20l9-5-9-5-9 5 9 5z" />
-                    <path d="M12 12V4" />
-                </svg>
-                Recent Reviews
-            </h4>
+    <div class="grid grid-cols-1 gap-6 mb-8">
+        <div class="col-span-1 bg-white rounded-xl shadow-md p-6 border border-blue-100">
+            <div class="flex items-center justify-between mb-6">
+                <h4 class="font-semibold flex items-center gap-2">
+                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M12 20l9-5-9-5-9 5 9 5z" />
+                        <path d="M12 12V4" />
+                    </svg>
+                    Recent Reviews
+                </h4>
+                <div
+                    x-data="{
+                        reviews: [
+                            {
+                                name: 'Fathimath S.',
+                                product: 'Architectural Model',
+                                ratings: { quality: 5, pricing: 5, communication: 5, packaging: 5, delivery: 5 },
+                                comment: 'Impressed with the service!',
+                                recommendation: 10
+                            },
+                            {
+                                name: 'Ahmed R.',
+                                product: 'Custom Keychains',
+                                ratings: { quality: 4, pricing: 5, communication: 4, packaging: 5, delivery: 5 },
+                                comment: 'Great quality and fast delivery.',
+                                recommendation: 9
+                            },
+                            {
+                                name: 'Zuleikha M.',
+                                product: 'Miniature Figures',
+                                ratings: { quality: 5, pricing: 4, communication: 5, packaging: 4, delivery: 5 },
+                                comment: 'Very detailed work, will order again.',
+                                recommendation: 9
+                            },
+                            {
+                                name: 'Ibrahim A.',
+                                product: 'Architectural Model',
+                                ratings: { quality: 5, pricing: 5, communication: 5, packaging: 5, delivery: 4 },
+                                comment: 'Packaging could be improved, but overall excellent.',
+                                recommendation: 8
+                            },
+                            {
+                                name: 'Aishath L.',
+                                product: 'Custom Keychains',
+                                ratings: { quality: 5, pricing: 5, communication: 5, packaging: 5, delivery: 5 },
+                                comment: 'Perfect experience from start to finish!',
+                                recommendation: 10
+                            }
+                        ],
+                        get avgRating() {
+                            let total = 0, count = 0;
+                            this.reviews.forEach(r => {
+                                Object.values(r.ratings).forEach(val => { total += val; count++; });
+                            });
+                            return (total / count).toFixed(2);
+                        }
+                    }"
+                    x-init="$nextTick(() => { $el.__x = $data })">
+                    <span class="text-sm font-semibold text-yellow-600 bg-yellow-100 px-3 py-1 rounded-full">
+                        Avg. Rating: <span x-text="avgRating"></span> / 5
+                    </span>
+                </div>
+            </div>
             <div
                 x-data="{
                     reviews: [
@@ -189,46 +243,55 @@
                             name: 'Fathimath S.',
                             product: 'Architectural Model',
                             ratings: { quality: 5, pricing: 5, communication: 5, packaging: 5, delivery: 5 },
-                            comment: 'Impressed with the service!'
+                            comment: 'Impressed with the service!',
+                            recommendation: 10
                         },
                         {
                             name: 'Ahmed R.',
                             product: 'Custom Keychains',
                             ratings: { quality: 4, pricing: 5, communication: 4, packaging: 5, delivery: 5 },
-                            comment: 'Great quality and fast delivery.'
+                            comment: 'Great quality and fast delivery.',
+                            recommendation: 9
                         },
                         {
                             name: 'Zuleikha M.',
                             product: 'Miniature Figures',
                             ratings: { quality: 5, pricing: 4, communication: 5, packaging: 4, delivery: 5 },
-                            comment: 'Very detailed work, will order again.'
+                            comment: 'Very detailed work, will order again.',
+                            recommendation: 9
                         },
                         {
                             name: 'Ibrahim A.',
                             product: 'Architectural Model',
                             ratings: { quality: 5, pricing: 5, communication: 5, packaging: 5, delivery: 4 },
-                            comment: 'Packaging could be improved, but overall excellent.'
+                            comment: 'Packaging could be improved, but overall excellent.',
+                            recommendation: 8
                         },
                         {
                             name: 'Aishath L.',
                             product: 'Custom Keychains',
                             ratings: { quality: 5, pricing: 5, communication: 5, packaging: 5, delivery: 5 },
-                            comment: 'Perfect experience from start to finish!'
+                            comment: 'Perfect experience from start to finish!',
+                            recommendation: 10
                         }
                     ]
                 }">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="flex flex-col gap-6">
                     <template x-for="(review, idx) in reviews" :key="idx">
-                        <div class="flex flex-col gap-3 p-5 rounded-xl bg-blue-50 border border-blue-100 shadow-sm hover:shadow-md transition">
-                            <div class="flex items-center gap-3">
+                        <div class="flex flex-col gap-4 p-6 rounded-xl bg-blue-50 border border-blue-100 shadow-sm hover:shadow-md transition w-full">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
                                 <div>
                                     <span class="font-semibold text-blue-900" x-text="review.name"></span>
                                     <span class="block text-xs text-blue-400" x-text="review.product"></span>
                                 </div>
+                                <div class="flex items-center gap-2 mt-2 md:mt-0">
+                                    <span class="text-xs text-gray-500">Recommendation:</span>
+                                    <span class="font-semibold text-blue-700" x-text="`${review.recommendation}/10`"></span>
+                                </div>
                             </div>
-                            <div class="grid grid-cols-2 gap-2 mt-2 text-xs">
-                                <div class="flex items-center gap-2">
-                                    <span class="font-medium text-blue-700">Quality</span>
+                            <div class="flex flex-col gap-2 mt-2">
+                                <div class="flex items-center gap-3">
+                                    <span class="font-medium text-blue-700 w-28">Quality</span>
                                     <span class="flex items-center gap-1">
                                         <template x-for="n in review.ratings.quality">
                                             <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
@@ -237,8 +300,8 @@
                                         </template>
                                     </span>
                                 </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="font-medium text-blue-700">Pricing</span>
+                                <div class="flex items-center gap-3">
+                                    <span class="font-medium text-blue-700 w-28">Pricing</span>
                                     <span class="flex items-center gap-1">
                                         <template x-for="n in review.ratings.pricing">
                                             <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
@@ -247,8 +310,8 @@
                                         </template>
                                     </span>
                                 </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="font-medium text-blue-700">Communication</span>
+                                <div class="flex items-center gap-3">
+                                    <span class="font-medium text-blue-700 w-28">Communication</span>
                                     <span class="flex items-center gap-1">
                                         <template x-for="n in review.ratings.communication">
                                             <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
@@ -257,8 +320,8 @@
                                         </template>
                                     </span>
                                 </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="font-medium text-blue-700">Packaging</span>
+                                <div class="flex items-center gap-3">
+                                    <span class="font-medium text-blue-700 w-28">Packaging</span>
                                     <span class="flex items-center gap-1">
                                         <template x-for="n in review.ratings.packaging">
                                             <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
@@ -267,8 +330,8 @@
                                         </template>
                                     </span>
                                 </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="font-medium text-blue-700">Delivery</span>
+                                <div class="flex items-center gap-3">
+                                    <span class="font-medium text-blue-700 w-28">Delivery</span>
                                     <span class="flex items-center gap-1">
                                         <template x-for="n in review.ratings.delivery">
                                             <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
@@ -278,7 +341,11 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="text-blue-700 italic mt-3" x-text="`\" ${review.comment}\"`"></div>
+                            <div class="text-blue-700 italic mt-3 text-base" x-text="`\" ${review.comment}\"`"></div>
+                            <div class="flex justify-end mt-2">
+                                <span class="text-xs text-gray-500">Recommendation:</span>
+                                <span class="ml-2 font-semibold text-blue-700" x-text="`${review.recommendation}/10`"></span>
+                            </div>
                         </div>
                     </template>
                 </div>
