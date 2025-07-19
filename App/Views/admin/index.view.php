@@ -195,7 +195,7 @@
                 <template x-for="review in reviews" :key="review.name + review.product">
                     <li class="py-3">
                         <div class="flex justify-between items-center">
-                            <span class="font-semibold text-blue-900" x-text="review.name"></span>
+                            <span class="font-semibold text-blue-900 flex-1" x-text="review.name"></span>
                             <div class="flex flex-col justify-between gap-2">
                                 <span class="text-xs text-blue-400" x-text="review.product"></span>
                                 <div class="flex">
