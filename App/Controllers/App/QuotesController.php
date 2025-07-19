@@ -8,6 +8,14 @@ use Core\Controller;
 
 class QuotesController extends Controller
 {
+    public function index()
+    {
+        // Optionally, fetch all quotes for display
+        // $quotes = Quote::all();
+        // $this->view->quotes = $quotes;
+        $this->view->layout('app');
+        $this->view('quotes/index'); // expects App/Views/quotes/index.view.php
+    }
     // Show the quote form (if needed)
 
     public function create()
