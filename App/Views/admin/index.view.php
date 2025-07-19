@@ -181,77 +181,39 @@
                 </svg>
                 Recent Reviews
             </h4>
-            <ul class="divide-y divide-blue-100" x-data="{}">
-                <li class="py-3" x-data="{ rating: 5 }">
-                    <div class="flex justify-between items-center">
-                        <span class="font-semibold text-blue-900">Fathimath S.</span>
-                        <span class="text-xs text-blue-400">Architectural Model</span>
-                    </div>
-                    <div class="flex items-center mt-1 mb-1" x-data="{ rating: 5 }">
-                        <template x-for="star in 5" :key="star">
-                            <svg :class="star <= rating ? 'text-yellow-400' : 'text-gray-300'" class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                <polygon points="9.9,1.1 7.6,6.6 1.6,7.6 6,11.8 4.8,17.7 9.9,14.7 15,17.7 13.8,11.8 18.2,7.6 12.2,6.6" />
-                            </svg>
-                        </template>
-                    </div>
-                    <div class="text-blue-700 text-sm">Impressed with the service!</div>
-                </li>
-                <li class="py-3" x-data="{ rating: 5 }">
-                    <div class="flex justify-between items-center">
-                        <span class="font-semibold text-blue-900">Ahmed R.</span>
-                        <span class="text-xs text-blue-400">Custom Keychains</span>
-                    </div>
-                    <div class="flex items-center mt-1 mb-1" x-data="{ rating: 5 }">
-                        <template x-for="star in 5" :key="star">
-                            <svg :class="star <= rating ? 'text-yellow-400' : 'text-gray-300'" class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                <polygon points="9.9,1.1 7.6,6.6 1.6,7.6 6,11.8 4.8,17.7 9.9,14.7 15,17.7 13.8,11.8 18.2,7.6 12.2,6.6" />
-                            </svg>
-                        </template>
-                    </div>
-                    <div class="text-blue-700 text-sm">Great quality and fast delivery.</div>
-                </li>
-                <li class="py-3" x-data="{ rating: 4 }">
-                    <div class="flex justify-between items-center">
-                        <span class="font-semibold text-blue-900">Zuleikha M.</span>
-                        <span class="text-xs text-blue-400">Miniature Figures</span>
-                    </div>
-                    <div class="flex items-center mt-1 mb-1" x-data="{ rating: 4 }">
-                        <template x-for="star in 5" :key="star">
-                            <svg :class="star <= rating ? 'text-yellow-400' : 'text-gray-300'" class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                <polygon points="9.9,1.1 7.6,6.6 1.6,7.6 6,11.8 4.8,17.7 9.9,14.7 15,17.7 13.8,11.8 18.2,7.6 12.2,6.6" />
-                            </svg>
-                        </template>
-                    </div>
-                    <div class="text-blue-700 text-sm">Very detailed work, will order again.</div>
-                </li>
-                <li class="py-3" x-data="{ rating: 4 }">
-                    <div class="flex justify-between items-center">
-                        <span class="font-semibold text-blue-900">Ibrahim A.</span>
-                        <span class="text-xs text-blue-400">Architectural Model</span>
-                    </div>
-                    <div class="flex items-center mt-1 mb-1" x-data="{ rating: 4 }">
-                        <template x-for="star in 5" :key="star">
-                            <svg :class="star <= rating ? 'text-yellow-400' : 'text-gray-300'" class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                <polygon points="9.9,1.1 7.6,6.6 1.6,7.6 6,11.8 4.8,17.7 9.9,14.7 15,17.7 13.8,11.8 18.2,7.6 12.2,6.6" />
-                            </svg>
-                        </template>
-                    </div>
-                    <div class="text-blue-700 text-sm">Packaging could be improved, but overall excellent.</div>
-                </li>
-                <li class="py-3" x-data="{ rating: 5 }">
-                    <div class="flex justify-between items-center">
-                        <span class="font-semibold text-blue-900">Aishath L.</span>
-                        <span class="text-xs text-blue-400">Custom Keychains</span>
-                    </div>
-                    <div class="flex items-center mt-1 mb-1" x-data="{ rating: 5 }">
-                        <template x-for="star in 5" :key="star">
-                            <svg :class="star <= rating ? 'text-yellow-400' : 'text-gray-300'" class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                <polygon points="9.9,1.1 7.6,6.6 1.6,7.6 6,11.8 4.8,17.7 9.9,14.7 15,17.7 13.8,11.8 18.2,7.6 12.2,6.6" />
-                            </svg>
-                        </template>
-                    </div>
-                    <div class="text-blue-700 text-sm">Perfect experience from start to finish!</div>
-                </li>
+            <ul
+                class="divide-y divide-blue-100"
+                x-data="{
+                    reviews: [
+                        { name: 'Fathimath S.', product: 'Architectural Model', comment: 'Impressed with the service!', rating: 5 },
+                        { name: 'Ahmed R.', product: 'Custom Keychains', comment: 'Great quality and fast delivery.', rating: 4 },
+                        { name: 'Zuleikha M.', product: 'Miniature Figures', comment: 'Very detailed work, will order again.', rating: 5 },
+                        { name: 'Ibrahim A.', product: 'Architectural Model', comment: 'Packaging could be improved, but overall excellent.', rating: 4 },
+                        { name: 'Aishath L.', product: 'Custom Keychains', comment: 'Perfect experience from start to finish!', rating: 5 }
+                    ]
+                }">
+                <template x-for="review in reviews" :key="review.name + review.product">
+                    <li class="py-3">
+                        <div class="flex justify-between items-center">
+                            <span class="font-semibold text-blue-900" x-text="review.name"></span>
+                            <div class="flex flex-col justify-between gap-2">
+                                <span class="text-xs text-blue-400" x-text="review.product"></span>
+                                <div class="flex">
+                                    <template x-for="i in 5">
+                                        <svg
+                                            :class="i <= review.rating ? 'text-yellow-400' : 'text-gray-300'"
+                                            class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                            <polygon points="10 15 4 18 5.5 12 1 8 7 7 10 1 13 7 19 8 14.5 12 16 18"></polygon>
+                                        </svg>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 mt-1">
+                            <div class="text-blue-700 text-sm" x-text="review.comment"></div>
+                        </div>
+                    </li>
+                </template>
             </ul>
         </div>
     </div>
