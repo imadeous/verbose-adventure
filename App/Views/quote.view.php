@@ -320,19 +320,19 @@
             <div class="p-2 w-full flex justify-between items-center mt-6">
                 <form id="quoteForm" @submit.prevent="submitForm" method="POST" action="/quote" enctype="multipart/form-data" autocomplete="off">
                     <!-- add input fields that copy user input values from above  -->
-                    <input type="hidden" name="name" x-model="form.name">
-                    <input type="hidden" name="email" x-model="form.email">
-                    <input type="hidden" name="phone" x-model="form.phone">
-                    <input type="hidden" name="instagram" x-model="form.instagram">
-                    <input type="hidden" name="delivery_address" x-model="form.delivery_address">
-                    <input type="hidden" name="billing_address" x-model="form.billing_address">
-                    <input type="hidden" name="product_type" x-model="form.product_type">
-                    <input type="hidden" name="material" x-model="form.material">
-                    <input type="hidden" name="quantity" x-model="form.quantity">
-                    <input type="hidden" name="timeline" x-model="form.timeline">
-                    <input type="hidden" name="description" x-model="form.description">
-                    <input type="hidden" name="services[]" :value="'{{ service }}'" x-for="service in form.services">
-                    <input type="hidden" name="budget" x-model="form.budget">
+                    <input type="text" name="name" x-model="form.name">
+                    <input type="text" name="email" x-model="form.email">
+                    <input type="text" name="phone" x-model="form.phone">
+                    <input type="text" name="instagram" x-model="form.instagram">
+                    <input type="text" name="delivery_address" x-model="form.delivery_address">
+                    <input type="text" name="billing_address" x-model="form.billing_address">
+                    <input type="text" name="product_type" x-model="form.product_type">
+                    <input type="text" name="material" x-model="form.material">
+                    <input type="text" name="quantity" x-model="form.quantity">
+                    <input type="text" name="timeline" x-model="form.timeline">
+                    <input type="text" name="description" x-model="form.description">
+                    <input type="text" name="services[]" :value="'{{ service }}'" x-for="service in form.services">
+                    <input type="text" name="budget" x-model="form.budget">
                     <button
                         x-show="step > 0"
                         @click="step--"
