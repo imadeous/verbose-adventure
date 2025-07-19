@@ -19,7 +19,7 @@
                 <?php else: ?>
                     <?php foreach ($contacts as $contact): ?>
                         <tr<?= $contact->opened_at === null ? ' class="bg-yellow-50"' : '' ?>>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-6 py-4">
                                 <div class="flex items-center space-x-2">
                                     <div class="flex-shrink-0 bg-blue-100 rounded-full w-8 h-8 flex items-center justify-center text-blue-600 font-bold uppercase">
                                         <?= strtoupper(mb_substr($contact->name, 0, 1)) ?>
@@ -34,7 +34,7 @@
                                 <span class="block text-gray-700" title="<?= htmlspecialchars($contact->message) ?>">
                                     <?= htmlspecialchars(mb_strimwidth($contact->message, 0, 50, '...')) ?>
                                 </span>
-                                <span class="inline-block bg-gray-50 rounded px-2 py-1"><?= htmlspecialchars(date('Y-m-d H:i', strtotime($contact->created_at))) ?></span>
+                                <span class="inline-block text-xs text-gray-500 rounded px-2 py-1"><?= htmlspecialchars(date('Y-m-d H:i', strtotime($contact->created_at))) ?></span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center space-x-2">
