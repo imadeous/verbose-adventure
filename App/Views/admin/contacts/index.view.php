@@ -6,9 +6,7 @@
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sender</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Message</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created At</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
@@ -35,9 +33,6 @@
                                         <div class="text-xs text-gray-500"><?= htmlspecialchars($contact->email) ?></div>
                                     </div>
                                 </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-gray-700">
-                                <a href="mailto:<?= htmlspecialchars($contact->email) ?>" class="hover:underline"><?= htmlspecialchars($contact->email) ?></a>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap max-w-xs">
                                 <span class="block text-gray-700" title="<?= htmlspecialchars($contact->message) ?>">
