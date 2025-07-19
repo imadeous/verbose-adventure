@@ -83,10 +83,10 @@
             <div class="flex-1 flex flex-col items-center justify-center mt-2" style="height:180px;min-height:140px;max-height:180px;">
                 <canvas id="quarterlyReportChart" class="w-full max-w-xs" style="height:140px!important;max-height:140px;min-height:140px;" height="140"></canvas>
                 <ul class="text-gray-700 text-xs mt-4 w-full flex justify-between px-2">
-                    <li>Q1: <span class="font-semibold">MVR 5,200</span></li>
-                    <li>Q2: <span class="font-semibold">MVR 6,800</span></li>
-                    <li>Q3: <span class="font-semibold">MVR 4,500</span></li>
-                    <li>Q4: <span class="font-semibold">MVR 2,000</span></li>
+                    <li>Q1: <span class="font-semibold">5,200</span></li>
+                    <li>Q2: <span class="font-semibold">6,800</span></li>
+                    <li>Q3: <span class="font-semibold">4,500</span></li>
+                    <li>Q4: <span class="font-semibold">2,000</span></li>
                 </ul>
             </div>
         </div>
