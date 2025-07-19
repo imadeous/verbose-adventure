@@ -19,22 +19,12 @@ class QuotesController extends Controller
     // Handle quote form submission
     public function store()
     {
-        // DEBUG: Output POST data for troubleshooting
-        if (php_sapi_name() !== 'cli') {
-            header('Content-Type: text/plain');
-        }
-        // var_dump($_POST);
-        // die('Debugging POST data');
-        error_log('QUOTE DEBUG POST: ' . print_r($_POST, true));
-        if (empty($_POST)) {
-            echo "No POST data received.\n";
-            exit;
-        }
         // Validate required fields
         $required = ['name', 'email', 'phone', 'delivery_address', 'product_type', 'quantity', 'timeline'];
         foreach ($required as $field) {
             if (empty($_POST[$field]) || (is_string($_POST[$field]) && trim($_POST[$field]) === '')) {
-                echo "Missing required field: $field\n";
+                flash('error', "Missing required field: $field");
+                header('Location: /quotes/create');
                 exit;
             }
         }
@@ -69,7 +59,8 @@ class QuotesController extends Controller
             }
         }
 
-        echo "Quote saved.\n";
+        flash('success', 'Quote saved successfully.');
+        header('Location: /quotes/create');
         exit;
     }
 }

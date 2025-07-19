@@ -1,3 +1,4 @@
+
 <?php
 // This file is part of the YesFunadhoo project
 // It contains helper functions for the application 

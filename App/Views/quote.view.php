@@ -1,22 +1,7 @@
 <section
     x-data="quoteForm()"
     class="text-gray-400 bg-gray-900 body-font">
-    <!-- Toast Notification -->
-    <div x-data="{ show: false, message: '' }" x-show="show" x-transition.opacity.500ms
-        x-init="
-            window.addEventListener('quote-saved', e => {
-                message = e.detail || 'Quote saved.';
-                show = true;
-                setTimeout(() => show = false, 3500);
-            });
-        "
-        style="position: fixed; top: 32px; left: 50%; transform: translateX(-50%); z-index: 9999;"
-        class="bg-green-600 text-white px-6 py-3 rounded shadow-lg flex items-center space-x-2 min-w-[220px] max-w-[90vw]">
-        <svg class="w-6 h-6 text-white mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-        </svg>
-        <span x-text="message"></span>
-    </div>
+    <?php $this->insert('partials/flash'); ?>
     <!-- Hidden fallback form for native PHP POST -->
     <form id="fallbackQuoteForm" method="POST" action="/quote" style="display:none;">
         <input type="hidden" name="name">
