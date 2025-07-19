@@ -31,4 +31,20 @@ class Controller
         }
         echo $this->view->render($name, $data);
     }
+    /**
+     * Redirect to a given URL and exit.
+     * @param string $url
+     * @param int $statusCode
+     */
+    protected function redirect($url, $statusCode = 302)
+    {
+        if (!headers_sent()) {
+            header('Location: ' . $url, true, $statusCode);
+        } else {
+            echo "<script>
+        window.location.href = '" . addslashes($url) . "';
+    </script>";
+        }
+        exit;
+    }
 }

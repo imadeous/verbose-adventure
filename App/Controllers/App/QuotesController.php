@@ -24,8 +24,8 @@ class QuotesController extends Controller
         foreach ($required as $field) {
             if (empty($_POST[$field]) || (is_string($_POST[$field]) && trim($_POST[$field]) === '')) {
                 flash('error', "Missing required field: $field");
-                header('Location: /quotes/create');
-                exit;
+                $this->redirect('/quotes/create');
+                return;
             }
         }
 
@@ -60,7 +60,6 @@ class QuotesController extends Controller
         }
 
         flash('success', 'Quote saved successfully.');
-        header('Location: /quotes/create');
-        exit;
+        $this->redirect('/quotes/create');
     }
 }
