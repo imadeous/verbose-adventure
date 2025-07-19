@@ -186,15 +186,15 @@
         <h3 class="text-base font-semibold leading-6 text-blue-900">Reviews & Recommendations</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4 mb-8">
             <!-- Recent Reviews -->
-            <div class="col-span-1 bg-white rounded-xl shadow-md p-6 border border-blue-100">
-                <h4 class="font-semibold mb-4 flex items-center gap-2">
-                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <div class="col-span-1 bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col">
+                <h4 class="text-green-500 font-semibold mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path d="M12 20l9-5-9-5-9 5 9 5z" />
                         <path d="M12 12V4" />
                     </svg>
                     Recent Reviews
                 </h4>
-                <div class="grid grid-cols-1 gap-4">
+                <div class="flex flex-col gap-3">
                     <?php
                     $reviews = [
                         ['name' => 'Fathimath S.', 'product' => 'Architectural Model', 'comment' => 'Impressed with the service!', 'rating' => 5],
@@ -220,49 +220,41 @@
                 </div>
             </div>
             <!-- Recommendations -->
-            <div class="col-span-1 bg-white rounded-xl shadow-md p-6 border border-blue-100">
-                <h4 class="font-semibold mb-4 flex items-center gap-2">
-                    <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <div class="col-span-1 bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col items-center justify-center">
+                <h4 class="text-blue-500 font-semibold mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path d="M12 20l9-5-9-5-9 5 9 5z" />
                         <path d="M12 12V4" />
                     </svg>
                     Recommendations
                 </h4>
-                <div class="text-center">
+                <div class="flex flex-col items-center">
                     <div class="text-3xl font-bold text-blue-900 mb-2">92%</div>
                     <div class="text-sm text-gray-500">Based on 50 reviews</div>
                 </div>
             </div>
             <!-- Overall Ratings -->
-            <div class="col-span-1 bg-white rounded-xl shadow-md p-6 border border-blue-100">
-                <h4 class="font-semibold mb-4 flex items-center gap-2">
-                    <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <div class="col-span-1 bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col items-center">
+                <h4 class="text-blue-500 font-semibold mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path d="M12 20l9-5-9-5-9 5 9 5z" />
                         <path d="M12 12V4" />
                     </svg>
                     Overall Ratings
                 </h4>
-                <div class="text-center">
+                <div class="text-center w-full">
                     <div class="text-3xl font-bold text-blue-900 mb-2">4.5</div>
                     <div class="text-sm text-gray-500">Based on 50 reviews</div>
-                    <div class="mt-4">
-                        <div class="font-semibold">Product Quality:</div>
+                    <div class="mt-4 grid grid-cols-2 gap-x-4 gap-y-2">
+                        <div class="font-semibold text-blue-900">Product Quality:</div>
                         <div class="text-sm text-gray-500">4.6</div>
-                    </div>
-                    <div class="mt-2">
-                        <div class="font-semibold">Pricing:</div>
+                        <div class="font-semibold text-blue-900">Pricing:</div>
                         <div class="text-sm text-gray-500">4.2</div>
-                    </div>
-                    <div class="mt-2">
-                        <div class="font-semibold">Communication:</div>
+                        <div class="font-semibold text-blue-900">Communication:</div>
                         <div class="text-sm text-gray-500">4.8</div>
-                    </div>
-                    <div class="mt-2">
-                        <div class="font-semibold">Packaging:</div>
+                        <div class="font-semibold text-blue-900">Packaging:</div>
                         <div class="text-sm text-gray-500">4.7</div>
-                    </div>
-                    <div class="mt-2">
-                        <div class="font-semibold">Delivery:</div>
+                        <div class="font-semibold text-blue-900">Delivery:</div>
                         <div class="text-sm text-gray-500">4.5</div>
                     </div>
                 </div>
