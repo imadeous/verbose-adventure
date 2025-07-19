@@ -13,10 +13,10 @@
             <span class="ml-3 text-xl">Craftophile Shop</span>
         </a>
         <nav class="md:ml-auto md:mr-auto hidden md:flex flex-wrap items-center text-base justify-center">
-            <a href="<?= url('/gallery') ?>" :class="isActive('<?= parse_url(url('/gallery'), PHP_URL_PATH) ?>') ? 'text-yellow-500 mr-5' : 'mr-5 hover:text-white'">Gallery</a>
-            <a href="<?= url('/quote') ?>" :class="isActive('<?= parse_url(url('/quote'), PHP_URL_PATH) ?>') ? 'text-yellow-500 mr-5' : 'mr-5 hover:text-white'">Get Quote</a>
-            <a href="<?= url('/about') ?>" :class="isActive('<?= parse_url(url('/about'), PHP_URL_PATH) ?>') ? 'text-yellow-500 mr-5' : 'mr-5 hover:text-white'">About Us</a>
-            <a href="<?= url('/contact') ?>" :class="isActive('<?= parse_url(url('/contact'), PHP_URL_PATH) ?>') ? 'text-yellow-500 mr-5' : 'mr-5 hover:text-white'">Contact</a>
+            <a href="<?= url('/gallery') ?>" :class="isActive('<?= parse_url(url('/gallery'), PHP_URL_PATH) ?>') ? 'text-yellow-500 mr-5 border-b-2 border-yellow-500' : 'mr-5 hover:text-white'">Gallery</a>
+            <a href="<?= url('/quote') ?>" :class="isActive('<?= parse_url(url('/quote'), PHP_URL_PATH) ?>') ? 'text-yellow-500 mr-5 border-b-2 border-yellow-500' : 'mr-5 hover:text-white'">Get Quote</a>
+            <a href="<?= url('/about') ?>" :class="isActive('<?= parse_url(url('/about'), PHP_URL_PATH) ?>') ? 'text-yellow-500 mr-5 border-b-2 border-yellow-500' : 'mr-5 hover:text-white'">About Us</a>
+            <a href="<?= url('/contact') ?>" :class="isActive('<?= parse_url(url('/contact'), PHP_URL_PATH) ?>') ? 'text-yellow-500 mr-5 border-b-2 border-yellow-500' : 'mr-5 hover:text-white'">Contact</a>
         </nav>
         <span class="flex items-center space-x-1">
             <span class="text-sm hidden md:inline">Follow us on:</span>
