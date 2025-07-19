@@ -21,7 +21,7 @@
     </form>
     <div class="container px-5 mt-24 mx-auto flex flex-wrap flex-col">
         <!-- add a heading and helper text -->
-        <div class="flex mx-auto flex-wrap mb-20">
+        <div class="flex flex-col justify-center mx-auto flex-wrap mb-20">
             <h2 class="text-lg font-medium title-font mb-2 text-white">Get a Quote</h2>
             <p class="leading-relaxed text-base mb-4">Fill out the form to receive a personalized quote for your project.</p>
         </div>
