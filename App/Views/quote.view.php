@@ -61,37 +61,37 @@
                     <div class="p-2 w-full md:w-1/2">
                         <div class="relative">
                             <label for="name" class="leading-7 text-sm text-gray-400">Name*</label>
-                            <input type="text" id="name" name="name" x-model="form.name" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <input type="text" id="name" x-model="form.name" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                         </div>
                     </div>
                     <div class="p-2 w-full md:w-1/2">
                         <div class="relative">
                             <label for="email" class="leading-7 text-sm text-gray-400">Email*</label>
-                            <input type="email" id="email" name="email" x-model="form.email" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <input type="email" id="email" x-model="form.email" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                         </div>
                     </div>
                     <div class="p-2 w-full md:w-1/2">
                         <div class="relative">
                             <label for="phone" class="leading-7 text-sm text-gray-400">Phone Number*</label>
-                            <input type="text" id="phone" name="phone" x-model="form.phone" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <input type="text" id="phone" x-model="form.phone" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                         </div>
                     </div>
                     <div class="p-2 w-full md:w-1/2">
                         <div class="relative">
                             <label for="instagram" class="leading-7 text-sm text-gray-400">Instagram Username (Optional)</label>
-                            <input type="text" id="instagram" name="instagram" x-model="form.instagram" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <input type="text" id="instagram" x-model="form.instagram" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                         </div>
                     </div>
                     <div class="p-2 w-full">
                         <div class="relative">
                             <label for="delivery_address" class="leading-7 text-sm text-gray-400">Delivery Address*</label>
-                            <textarea id="delivery_address" name="delivery_address" x-model="form.delivery_address" rows="3" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out" placeholder="Enter your delivery address"></textarea>
+                            <textarea id="delivery_address" x-model="form.delivery_address" rows="3" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out" placeholder="Enter your delivery address"></textarea>
                         </div>
                     </div>
                     <div class="p-2 w-full">
                         <div class="relative">
                             <label for="billing_address" class="leading-7 text-sm text-gray-400">Billing Address (Optional)</label>
-                            <textarea id="billing_address" name="billing_address" x-model="form.billing_address" rows="3" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out" placeholder="Enter your billing address if different"></textarea>
+                            <textarea id="billing_address" x-model="form.billing_address" rows="3" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out" placeholder="Enter your billing address if different"></textarea>
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                     <div class="p-2 w-full md:w-1/2">
                         <div class="relative">
                             <label for="product_type" class="leading-7 text-sm text-gray-400">Product Type*</label>
-                            <select id="product_type" name="product_type" x-model="form.product_type" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <select id="product_type" x-model="form.product_type" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                 <option value="" disabled>Select a product</option>
                                 <option value="prototype">Prototype Model</option>
                                 <option value="figurine">Custom Figurine</option>
@@ -115,7 +115,7 @@
                     <div class="p-2 w-full md:w-1/2">
                         <div class="relative">
                             <label for="material" class="leading-7 text-sm text-gray-400">Preferred Material (Optional)</label>
-                            <select id="material" name="material" x-model="form.material" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <select id="material" x-model="form.material" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                 <option value="">Any</option>
                                 <option value="pla">PLA</option>
                                 <option value="petg">PETG</option>
@@ -128,7 +128,7 @@
                     <div class="p-2 w-full md:w-1/2">
                         <div class="relative">
                             <label for="quantity" class="leading-7 text-sm text-gray-400">Quantity*</label>
-                            <select id="quantity" name="quantity" x-model="form.quantity" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <select id="quantity" x-model="form.quantity" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                 <option value="" disabled>Select quantity</option>
                                 <?php for ($i = 1; $i <= 10; $i++): ?>
                                     <option value="<?= $i ?>"><?= $i ?></option>
@@ -140,7 +140,7 @@
                     <div class="p-2 w-full md:w-1/2">
                         <div class="relative">
                             <label for="timeline" class="leading-7 text-sm text-gray-400">Timeline*</label>
-                            <select id="timeline" name="timeline" x-model="form.timeline" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <select id="timeline" x-model="form.timeline" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                 <option value="" disabled>Select timeline</option>
                                 <option value="1-2 weeks">1-2 weeks</option>
                                 <option value="2-4 weeks">2-4 weeks</option>
@@ -152,7 +152,7 @@
                     <div class="p-2 w-full">
                         <div class="relative">
                             <label for="description" class="leading-7 text-sm text-gray-400">Project Description</label>
-                            <textarea id="description" name="description" x-model="form.description" rows="4" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out" placeholder="Describe your project, dimensions, style, etc."></textarea>
+                            <textarea id="description" x-model="form.description" rows="4" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out" placeholder="Describe your project, dimensions, style, etc."></textarea>
                         </div>
                     </div>
                 </div>
@@ -165,28 +165,28 @@
                         <div class="flex flex-col gap-3">
                             <label class="flex items-center justify-between bg-gray-800 bg-opacity-40 rounded px-3 py-2 border border-gray-700">
                                 <div class="flex items-center">
-                                    <input type="checkbox" name="services[]" value="design_consultation" x-model="form.services" class="form-checkbox text-yellow-500 mr-2">
+                                    <input type="checkbox" value="design_consultation" x-model="form.services" class="form-checkbox text-yellow-500 mr-2">
                                     <span class="text-gray-100">Design Consultation</span>
                                 </div>
                                 <span class="text-yellow-400 text-xs ml-2">+MVR 50/hour</span>
                             </label>
                             <label class="flex items-center justify-between bg-gray-800 bg-opacity-40 rounded px-3 py-2 border border-gray-700">
                                 <div class="flex items-center">
-                                    <input type="checkbox" name="services[]" value="post_processing" x-model="form.services" class="form-checkbox text-yellow-500 mr-2">
+                                    <input type="checkbox" value="post_processing" x-model="form.services" class="form-checkbox text-yellow-500 mr-2">
                                     <span class="text-gray-100">Post-processing & Finishing</span>
                                 </div>
                                 <span class="text-yellow-400 text-xs ml-2">+MVR 7,500</span>
                             </label>
                             <label class="flex items-center justify-between bg-gray-800 bg-opacity-40 rounded px-3 py-2 border border-gray-700">
                                 <div class="flex items-center">
-                                    <input type="checkbox" name="services[]" value="assembly" x-model="form.services" class="form-checkbox text-yellow-500 mr-2">
+                                    <input type="checkbox" value="assembly" x-model="form.services" class="form-checkbox text-yellow-500 mr-2">
                                     <span class="text-gray-100">Assembly</span>
                                 </div>
                                 <span class="text-yellow-400 text-xs ml-2">+MVR 50/hour</span>
                             </label>
                             <label class="flex items-center justify-between bg-gray-800 bg-opacity-40 rounded px-3 py-2 border border-gray-700">
                                 <div class="flex items-center">
-                                    <input type="checkbox" name="services[]" value="rush_delivery" x-model="form.services" class="form-checkbox text-yellow-500 mr-2">
+                                    <input type="checkbox" value="rush_delivery" x-model="form.services" class="form-checkbox text-yellow-500 mr-2">
                                     <span class="text-gray-100">Rush Delivery (24 hours)</span>
                                 </div>
                                 <span class="text-yellow-400 text-xs ml-2">+20%</span>
@@ -196,7 +196,7 @@
                     <div class="p-2 w-full md:w-1/2">
                         <div class="relative">
                             <label for="budget" class="leading-7 text-sm text-gray-400">Budget Range (Optional)</label>
-                            <select id="budget" name="budget" x-model="form.budget" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <select id="budget" x-model="form.budget" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                 <option value="">No preference</option>
                                 <option value="under_50k">Under MVR 500</option>
                                 <option value="50k_100k">MVR 500 - MVR 1,000</option>
