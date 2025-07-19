@@ -318,21 +318,21 @@
             <!-- Navigation Buttons -->
 
             <div class="p-2 w-full flex justify-between items-center mt-6">
-                <form id="quoteForm" @submit.prevent="submitForm" method="POST" action="/quote" enctype="multipart/form-data" autocomplete="off">
-                    <!-- add input fields that copy user input values from above  -->
-                    <input type="text" name="name" x-model="form.name">
-                    <input type="text" name="email" x-model="form.email">
-                    <input type="text" name="phone" x-model="form.phone">
-                    <input type="text" name="instagram" x-model="form.instagram">
-                    <input type="text" name="delivery_address" x-model="form.delivery_address">
-                    <input type="text" name="billing_address" x-model="form.billing_address">
-                    <input type="text" name="product_type" x-model="form.product_type">
-                    <input type="text" name="material" x-model="form.material">
-                    <input type="text" name="quantity" x-model="form.quantity">
-                    <input type="text" name="timeline" x-model="form.timeline">
-                    <input type="text" name="description" x-model="form.description">
-                    <input type="text" name="services[]" :value="'{{ service }}'" x-for="service in form.services">
-                    <input type="text" name="budget" x-model="form.budget">
+                <form id="quoteForm" method="POST" action="/quote" enctype="multipart/form-data" autocomplete="off">
+                    <!-- Hidden real form fields for PHP POST -->
+                    <input type="hidden" name="name" id="hidden_name">
+                    <input type="hidden" name="email" id="hidden_email">
+                    <input type="hidden" name="phone" id="hidden_phone">
+                    <input type="hidden" name="instagram" id="hidden_instagram">
+                    <input type="hidden" name="delivery_address" id="hidden_delivery_address">
+                    <input type="hidden" name="billing_address" id="hidden_billing_address">
+                    <input type="hidden" name="product_type" id="hidden_product_type">
+                    <input type="hidden" name="material" id="hidden_material">
+                    <input type="hidden" name="quantity" id="hidden_quantity">
+                    <input type="hidden" name="timeline" id="hidden_timeline">
+                    <input type="hidden" name="description" id="hidden_description">
+                    <input type="hidden" name="budget" id="hidden_budget">
+                    <div id="hidden_services"></div>
                     <button
                         x-show="step > 0"
                         @click="step--"
@@ -383,6 +383,57 @@
                         }
                     </style>
                 </form>
+                <script>
+                    // Sync visible fields to hidden fields before submit
+                    document.addEventListener('alpine:init', () => {
+                        Alpine.data('quoteForm', () => ({
+                            ...quoteForm(),
+                            $nextTick() {
+                                this.syncHiddenFields();
+                            },
+                            syncHiddenFields() {
+                                document.getElementById('hidden_name').value = this.form.name;
+                                document.getElementById('hidden_email').value = this.form.email;
+                                document.getElementById('hidden_phone').value = this.form.phone;
+                                document.getElementById('hidden_instagram').value = this.form.instagram;
+                                document.getElementById('hidden_delivery_address').value = this.form.delivery_address;
+                                document.getElementById('hidden_billing_address').value = this.form.billing_address;
+                                document.getElementById('hidden_product_type').value = this.form.product_type;
+                                document.getElementById('hidden_material').value = this.form.material;
+                                document.getElementById('hidden_quantity').value = this.form.quantity;
+                                document.getElementById('hidden_timeline').value = this.form.timeline;
+                                document.getElementById('hidden_description').value = this.form.description;
+                                document.getElementById('hidden_budget').value = this.form.budget;
+                                // Services[]
+                                const servicesDiv = document.getElementById('hidden_services');
+                                servicesDiv.innerHTML = '';
+                                (this.form.services || []).forEach(val => {
+                                    const input = document.createElement('input');
+                                    input.type = 'hidden';
+                                    input.name = 'services[]';
+                                    input.value = val;
+                                    servicesDiv.appendChild(input);
+                                });
+                            }
+                        }));
+                    });
+                    // Listen for input changes and sync
+                    document.addEventListener('input', function(e) {
+                        if (e.target.closest('[x-data]')) {
+                            const alpine = Alpine && Alpine.$data && Alpine.$data(document.querySelector('[x-data]'));
+                            if (alpine && typeof alpine.syncHiddenFields === 'function') {
+                                alpine.syncHiddenFields();
+                            }
+                        }
+                    });
+                    // Sync before submit
+                    document.getElementById('quoteForm').addEventListener('submit', function(e) {
+                        const alpine = Alpine && Alpine.$data && Alpine.$data(document.querySelector('[x-data]'));
+                        if (alpine && typeof alpine.syncHiddenFields === 'function') {
+                            alpine.syncHiddenFields();
+                        }
+                    });
+                </script>
             </div>
         </div>
     </div>
