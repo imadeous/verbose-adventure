@@ -300,7 +300,7 @@
                     </div>
                 </div>
             </div>
-            <!-- top rated products -->
+            <!-- Top Rated Products -->
             <div class="col-span-1 bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col">
                 <h4 class="text-blue-500 font-semibold mb-4 flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -309,11 +309,27 @@
                     </svg>
                     Top Rated Products
                 </h4>
-                <ul class="list-disc pl-5 text-blue-700 text-sm">
-                    <li>Architectural Models - 4.8/5</li>
-                    <li>Custom Keychains - 4.7/5</li>
-                    <li>Miniature Figures - 4.6/5</li>
-                </ul>
+                <div class="flex flex-col gap-3">
+                    <?php
+                    $topRated = [
+                        ['color' => 'bg-green-400', 'name' => 'Architectural Models', 'rating' => 4.8],
+                        ['color' => 'bg-blue-400', 'name' => 'Custom Keychains', 'rating' => 4.7],
+                        ['color' => 'bg-yellow-400', 'name' => 'Miniature Figures', 'rating' => 4.6],
+                    ];
+                    foreach ($topRated as $product): ?>
+                        <div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-blue-50 transition border border-transparent hover:border-blue-200 shadow-sm">
+                            <span class="inline-block w-3 h-3 rounded-full <?php echo $product['color']; ?>"></span>
+                            <span class="font-medium text-blue-900 flex-1"><?php echo htmlspecialchars($product['name']); ?></span>
+                            <div class="flex items-center gap-1 bg-blue-100 px-2 py-1 rounded-full">
+                                <span class="text-yellow-500 font-bold"><?php echo number_format($product['rating'], 1); ?></span>
+                                <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <polygon points="10 15 4 18 5.5 12 1 8 7 7 10 1 13 7 19 8 14.5 12 16 18"></polygon>
+                                </svg>
+                                <span class="text-xs text-gray-500">/5</span>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
 
