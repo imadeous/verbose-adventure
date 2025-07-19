@@ -3,7 +3,6 @@
 namespace App\Controllers\App;
 
 use Core\Controller;
-use App\Models\Event;
 
 class HomeController extends Controller
 {

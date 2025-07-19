@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Models\Quote;
 use App\Models\QuoteService;
 use Core\Controller;
-use Core\View;
 
 class QuotesController extends Controller
 {
