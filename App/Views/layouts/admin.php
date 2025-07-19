@@ -24,10 +24,10 @@
             <?php echo $this->partial('admin/header'); ?>
             <!-- add breadcrumbs support here   -->
             <div class="flex-1 overflow-y-auto">
-                <?php echo $this->yield('content'); ?>
                 <?php echo $this->partial('_flash.view'); ?>
                 <div class="p-6 lg:p-12 space-y-8 flex-1">
-                    <?= $content ?>
+                    <?php echo $this->yield('content'); ?>
+                    <!-- <?= $content ?> -->
                 </div>
                 <?php echo $this->partial('admin/footer'); ?>
         </main>
