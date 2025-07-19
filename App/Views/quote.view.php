@@ -23,7 +23,11 @@
         <!-- add a heading and helper text -->
         <div class="flex flex-col justify-center mx-auto flex-wrap mb-20">
             <h2 class="text-lg font-medium title-font mb-2 text-white">Get a Quote</h2>
-            <p class="leading-relaxed text-base mb-4">Fill out the form to receive a personalized quote for your project.</p>
+            <p class="leading-relaxed text-base mb-4">
+                Fill out the form below to <span class="text-yellow-400 font-semibold">receive a personalized quote</span> for your project.<br>
+                <span class="text-yellow-400 font-semibold">Important:</span> Please provide accurate contact details and as much information as possible.<br>
+                <span class="text-yellow-400 font-semibold">Tip:</span> The more details you share, the faster and more accurate your quote will be!
+            </p>
         </div>
         <!-- Step Tabs -->
         <div class="flex mx-auto flex-wrap mb-20">
