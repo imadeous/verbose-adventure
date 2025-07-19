@@ -19,7 +19,7 @@
             <h2 class="text-white text-lg mb-1 font-medium title-font">Contact Us</h2>
             <p class="leading-relaxed mb-5">Have a question, need a quote, or want to discuss your next project? Fill out the form below and our team will get back to you as soon as possible.</p>
 
-            <form method="POST" action="?<?= url('contact') ?>" autocomplete="off">
+            <form method="POST" action="<?= url('contact') ?>" autocomplete="off">
                 <?= csrf_field() ?>
                 <div class="relative mb-4">
                     <label for="name" class="leading-7 text-sm text-gray-400">Name</label>
