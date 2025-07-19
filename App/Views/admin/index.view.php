@@ -222,34 +222,34 @@
             <!-- Recommendations + Overall Ratings (Stacked) -->
             <div class="col-span-1 flex flex-col gap-6 h-full">
                 <!-- Recommendations (1x1) -->
-                <div class="bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col items-center justify-center">
-                    <h4 class="text-blue-500 font-semibold mb-4 flex gap-2">
+                <div class="bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col items-start justify-center">
+                    <h4 class="text-blue-500 font-semibold mb-4 flex gap-2 items-center">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path d="M12 20l9-5-9-5-9 5 9 5z" />
                             <path d="M12 12V4" />
                         </svg>
                         Recommendations
                     </h4>
-                    <div class="flex flex-col items-center">
+                    <div class="flex flex-col items-start">
                         <div class="text-3xl font-bold text-blue-900 mb-2">92%</div>
                         <div class="text-sm text-gray-500">Based on 50 reviews</div>
                     </div>
                 </div>
                 <!-- Overall Ratings (1x2) -->
-                <div class="flex-1 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-lg p-6 border border-blue-200 flex flex-col items-center">
-                    <h4 class="text-blue-700 font-bold mb-4 flex gap-2 text-lg tracking-wide">
-                        <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <div class="flex-1 bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col items-start">
+                    <h4 class="text-blue-700 font-bold mb-4 flex gap-2 items-center text-base tracking-wide">
+                        <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path d="M12 20l9-5-9-5-9 5 9 5z" />
                             <path d="M12 12V4" />
                         </svg>
                         Overall Ratings
                     </h4>
-                    <div class="flex flex-col items-center w-full">
+                    <div class="flex flex-col items-start w-full">
                         <div class="flex items-center gap-2 mb-1">
-                            <span class="text-4xl font-extrabold text-blue-900">4.5</span>
+                            <span class="text-3xl font-extrabold text-blue-900">4.5</span>
                             <div class="flex">
                                 <?php for ($i = 1; $i <= 5; $i++): ?>
-                                    <svg class="w-6 h-6 <?php echo $i <= 4 ? 'text-yellow-400' : 'text-gray-300'; ?>" fill="currentColor" viewBox="0 0 20 20">
+                                    <svg class="w-5 h-5 <?php echo $i <= 4 ? 'text-yellow-400' : 'text-gray-300'; ?>" fill="currentColor" viewBox="0 0 20 20">
                                         <polygon points="10 15 4 18 5.5 12 1 8 7 7 10 1 13 7 19 8 14.5 12 16 18"></polygon>
                                     </svg>
                                 <?php endfor; ?>
