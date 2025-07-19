@@ -45,15 +45,14 @@ class ContactController extends Controller
         $this->view('admin/contacts/show', ['contact' => $contact]);
     }
 
-    // Delete a contact
     public function destroy($id)
     {
         $contact = Contact::find($id);
         if ($contact) {
             $contact->delete();
-            flash('success', 'Contact deleted.');
         }
-        $this->redirect('/admin/contacts');
+        header('Location: ' . url('admin/contacts'));
+        exit;
     }
     // Mark a contact as read
     public function markAsRead($id)
