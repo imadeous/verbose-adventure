@@ -12,14 +12,17 @@
  * The HomeController handles the main application logic, while the AdminController manages admin-specific routes.
  */
 
+// Import necessary controller classes
 use App\Controllers\Admin\AdminController;
 use App\Controllers\App\HomeController;
 use App\Controllers\AuthController;
 use App\Controllers\Admin\UserController;
-use App\Middleware\AuthMiddleware;
-use App\Middleware\RoleMiddleware;
 use App\Controllers\App\QuotesController;
 use App\Controllers\App\ContactController;
+
+// Middleware imports
+use App\Middleware\AuthMiddleware;
+use App\Middleware\RoleMiddleware;
 
 // Define the base path for the application
 $router->get('/', [HomeController::class, 'index']);
