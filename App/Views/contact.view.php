@@ -3,7 +3,7 @@
         <div class="lg:w-2/3 md:w-1/2 bg-gray-900 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
             <!-- <iframe width="100%" height="100%" title="map" class="absolute inset-0" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" src="https://maps.google.com/maps?width=100%&height=600&hl=en&q=%C4%B0zmir+(My%20Business%20Name)&ie=UTF8&t=&z=14&iwloc=B&output=embed" style="filter: grayscale(1) contrast(1.2) opacity(0.16);"></iframe> -->
             <div style="text-decoration:none; overflow:hidden;max-width:100%;width:500px;height:500px;">
-                <div id="display-google-map" style="height:100%; width:100%;max-width:100%;"><iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/place?q=572Q+PXC,+Chanbeyleemagu+Rd,+Funadhoo+03105,+Maldives&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"></iframe></div><a class="my-codefor-googlemap" href="https://www.bootstrapskins.com/themes" id="authorize-maps-data">premium bootstrap themes</a>
+                <div id="display-google-map" class="absolute inset-0" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" style="height:100%; width:100%;max-width:100%;"><iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/place?q=572Q+PXC,+Chanbeyleemagu+Rd,+Funadhoo+03105,+Maldives&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"></iframe></div><a class="my-codefor-googlemap" href="https://www.bootstrapskins.com/themes" id="authorize-maps-data">premium bootstrap themes</a>
                 <style>
                     #display-google-map img.text-marker {
                         max-width: none !important;
