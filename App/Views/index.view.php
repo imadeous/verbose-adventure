@@ -223,7 +223,7 @@
                 <div class="h-full w-6 absolute inset-0 flex items-center justify-center">
                     <div class="h-full w-1 bg-gray-800 pointer-events-none"></div>
                 </div>
-                <div class="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-yellow-500 text-gr relative z-10 title-font font-medium text-sm">1</div>
+                <div class="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-yellow-500 text-gray-900 relative z-10 title-font font-medium text-sm">1</div>
                 <div class="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
                     <div class="flex-shrink-0 w-24 h-24 bg-gray-800 text-yellow-500 rounded-full inline-flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-12 w-12">
@@ -276,7 +276,7 @@
                 <div class="h-full w-6 absolute inset-0 flex items-center justify-center">
                     <div class="h-full w-1 bg-gray-800 pointer-events-none"></div>
                 </div>
-                <div class="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-yellow-500 text-gray-900 relative z-10 title-font font-medium text-sm">>4</div>
+                <div class="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-yellow-500 text-gray-900 relative z-10 title-font font-medium text-sm">4</div>
                 <div class="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
                     <div class="flex-shrink-0 w-24 h-24 bg-gray-800 text-yellow-500 rounded-full inline-flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-12 w-12">
