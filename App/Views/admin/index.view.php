@@ -220,19 +220,21 @@
                     <div class="text-blue-700 italic text-xs mt-2">"Very detailed and well-priced."</div>
                 </div>
                 <div class="flex flex-col gap-2 p-4 rounded-lg bg-blue-50 border border-blue-100">
-                    <div>
-                        <span class="font-semibold text-blue-900">Fathimath S.</span>
-                        <span class="block text-xs text-blue-400">Architectural Model</span>
-                    </div>
-                    <div class="flex items-center gap-3 mt-2">
-                        <div class="flex items-center gap-1">
-                            <span class="text-yellow-400">★</span><span>5</span>
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="font-semibold text-blue-900">Fathimath S.</span>
+                            <span class="block text-xs text-blue-400">Architectural Model</span>
                         </div>
-                        <div class="flex items-center gap-1">
-                            <span class="text-blue-500">💲</span><span>5</span>
-                        </div>
-                        <div class="flex items-center gap-1">
-                            <span class="text-blue-400">🚚</span><span>5</span>
+                        <div class="flex items-center gap-3 mt-2">
+                            <div class="flex items-center gap-1">
+                                <span class="text-yellow-400">★</span><span>5</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <span class="text-blue-500">💲</span><span>5</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <span class="text-blue-400">🚚</span><span>5</span>
+                            </div>
                         </div>
                     </div>
                     <div class="text-blue-700 italic text-xs mt-2">"Impressed with the service!"</div>
