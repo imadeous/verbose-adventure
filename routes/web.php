@@ -40,6 +40,7 @@ $router->middleware([AuthMiddleware::class], function ($router) {
     $router->get('/admin', [AdminController::class, 'index']);
     $router->resource('/admin/users', UserController::class)
         ->middleware(RoleMiddleware::class, ['create', 'store', 'destroy']);
+    $router->resource('/admin/contacts', \App\Controllers\Admin\ContactController::class);
     // Admin user profile route
     $router->get('/admin/profile', [UserController::class, 'profile']);
     // $router->resource('/admin/events', EventController::class);
