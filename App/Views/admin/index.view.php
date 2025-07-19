@@ -223,7 +223,7 @@
             <div class="col-span-1 flex flex-col gap-6 h-full">
                 <!-- Recommendations (1x1) -->
                 <div class="bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col items-center justify-center">
-                    <h4 class="text-blue-500 font-semibold mb-4 flex items-center gap-2">
+                    <h4 class="text-blue-500 font-semibold mb-4 flex gap-2">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path d="M12 20l9-5-9-5-9 5 9 5z" />
                             <path d="M12 12V4" />
@@ -237,7 +237,7 @@
                 </div>
                 <!-- Overall Ratings (1x2) -->
                 <div class="flex-1 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-lg p-6 border border-blue-200 flex flex-col items-center">
-                    <h4 class="text-blue-700 font-bold mb-4 flex items-center gap-2 text-lg tracking-wide">
+                    <h4 class="text-blue-700 font-bold mb-4 flex gap-2 text-lg tracking-wide">
                         <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path d="M12 20l9-5-9-5-9 5 9 5z" />
                             <path d="M12 12V4" />
