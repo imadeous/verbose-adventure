@@ -45,7 +45,6 @@ class ContactController extends Controller
         $contact->fill([
             'name' => $_POST['name'],
             'email' => $_POST['email'],
-            'phone' => $_POST['phone'] ?? null,
             'message' => $_POST['message'],
         ]);
         echo 'DEBUG: Before contact save<br>';
