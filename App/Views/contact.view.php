@@ -5,7 +5,7 @@
             <div class="bg-gray-900 relative flex flex-wrap py-6 rounded shadow-md">
                 <div class="lg:w-1/2 px-6">
                     <h2 class="title-font font-semibold text-white tracking-widest text-xs">ADDRESS</h2>
-                    <p class="mt-1">123 Maker Lane, Suite 100<br>Craft City, CA 90001</p>
+                    <p class="mt-1">Aman, 03150, a<br>Craft City, CA 90001</p>
                 </div>
                 <div class="lg:w-1/2 px-6 mt-4 lg:mt-0">
                     <h2 class="title-font font-semibold text-white tracking-widest text-xs">EMAIL</h2>
@@ -19,7 +19,8 @@
             <h2 class="text-white text-lg mb-1 font-medium title-font">Contact Us</h2>
             <p class="leading-relaxed mb-5">Have a question, need a quote, or want to discuss your next project? Fill out the form below and our team will get back to you as soon as possible.</p>
 
-            <form method="POST" action="/contact" autocomplete="off">
+            <form method="POST" action="?<?= url('contact') ?>" autocomplete="off">
+                <?= csrf_field() ?>
                 <div class="relative mb-4">
                     <label for="name" class="leading-7 text-sm text-gray-400">Name</label>
                     <input type="text" id="name" name="name" class="w-full bg-gray-800 rounded border border-gray-700 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
