@@ -20,6 +20,7 @@ use App\Middleware\RoleMiddleware;
 use App\Controllers\QuotesController;
 
 $router->get('/', [HomeController::class, 'index']);
+$router->get('/quote', [QuotesController::class, 'create']);
 $router->post('/quote', [QuotesController::class, 'store']);
 
 // Admin routes (protected by AuthMiddleware)
