@@ -61,6 +61,6 @@ class QuotesController extends Controller
         }
 
         flash('success', 'Quote saved successfully.');
-        $this->redirect('/quotes');
+        $this->redirect('/quote');
     }
 }

@@ -21,7 +21,7 @@ use App\Controllers\App\QuotesController;
 
 $router->get('/', [HomeController::class, 'index']);
 // $router->get('/quote', [QuotesController::class, 'create']);
-$router->post('/quote', [QuotesController::class, 'index']);
+$router->get('/quote', [QuotesController::class, 'index']);
 $router->post('/quote', [QuotesController::class, 'store']);
 
 // Admin routes (protected by AuthMiddleware)
