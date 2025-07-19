@@ -325,7 +325,6 @@
                                 <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
                                     <polygon points="10 15 4 18 5.5 12 1 8 7 7 10 1 13 7 19 8 14.5 12 16 18"></polygon>
                                 </svg>
-                                <span class="text-xs text-gray-500">/5</span>
                             </div>
                         </div>
                     <?php endforeach; ?>
