@@ -7,7 +7,7 @@
             <thead class="bg-gray-50">
                 <tr>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sender</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Message</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full">Message</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                 </tr>
             </thead>
@@ -30,7 +30,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap max-w-xs flex flex-col">
+                            <td class="px-6 py-4 whitespace-nowrap flex-1 max-w-2xl">
                                 <span class="block text-gray-700" title="<?= htmlspecialchars($contact->message) ?>">
                                     <?= htmlspecialchars(mb_strimwidth($contact->message, 0, 50, '...')) ?>
                                 </span>
