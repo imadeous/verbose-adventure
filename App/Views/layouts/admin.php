@@ -23,7 +23,7 @@
         <main class="flex-1 flex flex-col h-screen bg-gray-100 overflow-y-scroll scrollbar">
             <?php echo $this->partial('admin/header'); ?>
             <!-- add breadcrumbs support here   -->
-            <div class="flex-1 overflow-y-auto">
+            <div class="flex flex-col flex-1 overflow-y-auto">
                 <?php echo $this->partial('_flash.view'); ?>
                 <div class="p-6 lg:p-12 space-y-8 mx-6 m-auto flex-1">
                     <?php echo $this->yield('content'); ?>
