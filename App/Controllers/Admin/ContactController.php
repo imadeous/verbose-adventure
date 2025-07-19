@@ -7,9 +7,19 @@ use Core\Controller;
 
 class ContactController extends Controller
 {
+    /**
+     * Provide shared data for all admin views/partials (e.g., unread contacts count).
+     */
+    protected function provideSharedData()
+    {
+        $unreadContactsCount = Contact::where('opened_at', null);
+        $this->share('unreadContactsCount', count($unreadContactsCount));
+    }
+
     // List all contacts
     public function index()
     {
+        $this->provideSharedData();
         $this->view->layout('admin');
         $contacts = Contact::all();
         $this->view('admin/contacts/index', ['contacts' => $contacts]);
@@ -18,6 +28,7 @@ class ContactController extends Controller
     // Show a single contact
     public function show($id)
     {
+        $this->provideSharedData();
         $this->view->layout('admin');
         $contact = Contact::find($id);
         if (!$contact) {
@@ -35,6 +46,17 @@ class ContactController extends Controller
         if ($contact) {
             $contact->delete();
             flash('success', 'Contact deleted.');
+        }
+        $this->redirect('/admin/contacts');
+    }
+    // Mark a contact as read
+    public function markAsRead($id)
+    {
+        $contact = Contact::find($id);
+        if ($contact) {
+            $contact->opened_at = date('Y-m-d H:i:s');
+            $contact->save();
+            flash('success', 'Contact marked as read.');
         } else {
             flash('error', 'Contact not found.');
         }
