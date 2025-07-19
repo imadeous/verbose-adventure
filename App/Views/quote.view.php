@@ -396,13 +396,33 @@
                 if (this.step < this.tabs.length - 1) this.step++;
             },
             submitForm() {
-                // Only submit if all required fields are filled and not just whitespace
                 if (!this.isFormValid()) {
                     alert('Please fill all required fields before submitting.');
                     return;
                 }
-                // You can add AJAX or form submission logic here
-                alert('Form submitted!');
+                const formData = new FormData();
+                for (const key in this.form) {
+                    if (Array.isArray(this.form[key])) {
+                        this.form[key].forEach(val => formData.append(key + '[]', val));
+                    } else {
+                        formData.append(key, this.form[key]);
+                    }
+                }
+                fetch('/quote', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(async response => {
+                        if (response.redirected) {
+                            window.location.href = response.url;
+                            return;
+                        }
+                        const text = await response.text();
+                        alert('Quote submitted!');
+                    })
+                    .catch(() => {
+                        alert('There was an error submitting your quote. Please try again.');
+                    });
             },
             isFormValid() {
                 // Helper to check all required fields
