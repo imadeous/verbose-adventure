@@ -320,9 +320,9 @@
                         <div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-blue-50 transition border border-transparent hover:border-blue-200 shadow-sm">
                             <span class="inline-block w-3 h-3 rounded-full <?php echo $product['color']; ?>"></span>
                             <span class="font-medium text-blue-900 flex-1"><?php echo htmlspecialchars($product['name']); ?></span>
-                            <div class="flex items-center gap-1 bg-blue-100 px-2 py-1 rounded-full">
+                            <div class="flex items-center gap-1 bg-yellow-100 px-2 py-1 rounded-full">
                                 <span class="text-yellow-500 font-bold"><?php echo number_format($product['rating'], 1); ?></span>
-                                <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
                                     <polygon points="10 15 4 18 5.5 12 1 8 7 7 10 1 13 7 19 8 14.5 12 16 18"></polygon>
                                 </svg>
                             </div>
