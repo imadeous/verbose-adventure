@@ -25,9 +25,8 @@
             <!-- add breadcrumbs support here   -->
             <div class="flex-1 overflow-y-auto">
                 <?php echo $this->partial('_flash.view'); ?>
-                <div class="p-6 lg:p-12 space-y-8 flex-1">
+                <div class="p-6 lg:p-12 space-y-8 mx-6 m-auto flex-1">
                     <?php echo $this->yield('content'); ?>
-                    <!-- <?= $content ?> -->
                 </div>
                 <?php echo $this->partial('admin/footer'); ?>
         </main>
