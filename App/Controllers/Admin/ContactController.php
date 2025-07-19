@@ -14,7 +14,6 @@ class ContactController extends Controller
     {
 
         $unreadCount = count(Contact::whereNull('opened_at'));
-        echo "Unread messages: " . $unreadCount;
         $this->share('unreadContactsCount', (int)($unreadCount ?? 0));
     }
 
