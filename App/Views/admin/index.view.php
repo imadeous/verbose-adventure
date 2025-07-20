@@ -186,7 +186,8 @@
         <h3 class="text-base font-semibold leading-6 text-blue-900">Rating Insights</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4 mb-8 items-stretch">
             <!-- Recent Reviews -->
-            <div class="col-span-1 bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col overflow-y-auto h-full min-h-0 max-h-full">
+            <div class="col-span-1 bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col min-h-0"
+                style="overflow-y: auto; max-height: 600px; height: 100%;">
                 <h4 class="text-green-500 font-semibold mb-4 flex items-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path d="M12 20l9-5-9-5-9 5 9 5z" />
@@ -226,8 +227,7 @@
                             </svg>
                             Recommendations
                         </h4>
-                        <div
-                            class="flex items-center gap-2 w-full justify-between">
+                        <div class="flex items-center gap-2 w-full justify-between">
                             <div class="flex flex-col flex-1 items-start w-full">
                                 <div class="text-3xl font-bold text-blue-900 mb-2"><?= $recommendPercent ?? 0 ?>%</div>
                                 <div class="text-sm text-gray-500">Based on <?= $totalReviews ?? 0 ?> reviews</div>
@@ -301,7 +301,8 @@
                 </div>
             </div>
             <!-- Top Rated Products -->
-            <div class="col-span-1 bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col h-full min-h-0 max-h-full">
+            <div class="col-span-1 bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col min-h-0"
+                style="overflow-y: auto; max-height: 600px; height: 100%;">
                 <h4 class="text-blue-500 font-semibold mb-4 flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 20l9-5-9-5-9 5 9 5z" />
@@ -331,6 +332,24 @@
                 </div>
             </div>
         </div>
+        <script>
+            // Make columns 1 and 3 match the height of column 2
+            function syncColHeights() {
+                const grid = document.querySelector('.grid.grid-cols-1.sm\\:grid-cols-2.md\\:grid-cols-3');
+                if (!grid) return;
+                const cols = grid.children;
+                if (cols.length < 3) return;
+                // column 2 is always index 1
+                const col2 = cols[1];
+                const col2Height = col2.offsetHeight;
+                cols[0].style.maxHeight = col2Height + 'px';
+                cols[0].style.height = col2Height + 'px';
+                cols[2].style.maxHeight = col2Height + 'px';
+                cols[2].style.height = col2Height + 'px';
+            }
+            window.addEventListener('load', syncColHeights);
+            window.addEventListener('resize', syncColHeights);
+        </script>
 
         <!-- Chart.js CDN -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
