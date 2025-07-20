@@ -1,11 +1,11 @@
 <?php $this->layout('admin'); ?>
 
-<div class="container mx-auto px-4 py-8 max-w-2xl">
+<div class="w-full max-w-full px-2 sm:px-4 py-8 mx-auto">
     <div class="mb-6 flex items-center justify-between">
         <h1 class="text-2xl font-bold text-gray-800">Contact Message</h1>
         <a href="<?= url('admin/contacts') ?>" class="text-sm text-blue-600 hover:underline">&larr; Back to list</a>
     </div>
-    <div class="bg-white shadow rounded-lg p-6">
+    <div class="bg-white shadow rounded-lg p-4 sm:p-6">
         <div class="mb-4 flex items-center space-x-3">
             <div class="flex-shrink-0 bg-blue-100 rounded-full w-12 h-12 flex items-center justify-center text-blue-600 font-bold uppercase text-xl">
                 <?= strtoupper(mb_substr($contact->name, 0, 1)) ?>

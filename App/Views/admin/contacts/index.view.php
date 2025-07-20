@@ -1,9 +1,9 @@
-<div class="container mx-auto px-4 py-8">
+<div class="w-full max-w-full px-2 sm:px-4 py-8 mx-auto">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-gray-800">Contact Messages</h1>
     </div>
     <div class="bg-white shadow rounded-lg overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200">
+        <table class="min-w-full w-full divide-y divide-gray-200 text-sm sm:text-base">
             <thead class="bg-gray-50">
                 <tr>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sender</th>
