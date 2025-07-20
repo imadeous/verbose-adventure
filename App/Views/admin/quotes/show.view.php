@@ -34,9 +34,6 @@
                         <?php endif; ?>
                     </div>
                     <div class="flex items-center gap-2 mt-2">
-                        <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path d="M17 20h5v-2a4 4 0 0 0-3-3.87M9 20H4v-2a4 4 0 0 1 3-3.87M16 3.13a4 4 0 0 1 0 7.75M8 3.13a4 4 0 0 0 0 7.75" />
-                        </svg>
                         <span class="text-gray-600 font-semibold">Delivery:</span>
                         <span class="text-gray-700"><?= e($quote->delivery_address) ?></span>
                     </div>
@@ -48,23 +45,35 @@
             </div>
 
             <!-- Project Specifics Card -->
-            <div class="bg-white shadow rounded-xl p-6 flex flex-col gap-2">
-                <div class="flex items-center gap-2 mb-3">
+            <div class="bg-white shadow rounded-xl p-6 flex flex-col gap-4">
+                <div class="flex items-center gap-2 mb-2">
                     <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <rect width="20" height="14" x="2" y="5" rx="2" />
                         <path d="M2 7h20" />
                     </svg>
                     <span class="font-semibold text-gray-700">Project Specifics</span>
                 </div>
-                <div class="flex flex-wrap gap-4">
-                    <div><span class="text-gray-600 font-semibold">Product Type:</span> <span class="text-gray-700"><?= e($quote->product_type) ?></span></div>
-                    <div><span class="text-gray-600 font-semibold">Material:</span> <span class="text-gray-700"><?= e($quote->material) ?></span></div>
-                    <div><span class="text-gray-600 font-semibold">Quantity:</span> <span class="text-gray-700"><?= e($quote->quantity) ?></span></div>
-                    <div><span class="text-gray-600 font-semibold">Timeline:</span> <span class="text-gray-700"><?= e($quote->timeline) ?></span></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <span class="text-gray-600 font-semibold">Product Type:</span>
+                        <span class="text-gray-700"><?= e($quote->product_type) ?></span>
+                    </div>
+                    <div>
+                        <span class="text-gray-600 font-semibold">Material:</span>
+                        <span class="text-gray-700"><?= e($quote->material) ?></span>
+                    </div>
+                    <div>
+                        <span class="text-gray-600 font-semibold">Quantity:</span>
+                        <span class="text-gray-700"><?= e($quote->quantity) ?></span>
+                    </div>
+                    <div>
+                        <span class="text-gray-600 font-semibold">Timeline:</span>
+                        <span class="text-gray-700"><?= e($quote->timeline) ?></span>
+                    </div>
                 </div>
-                <div class="mt-2">
+                <div>
                     <span class="text-gray-600 font-semibold">Description:</span>
-                    <div class="text-gray-700 bg-gray-50 rounded p-2 mt-1 border border-gray-100 text-sm"><?= nl2br(e($quote->description)) ?></div>
+                    <div class="text-gray-700 bg-gray-50 rounded p-3 mt-1 border border-gray-100 text-sm"><?= nl2br(e($quote->description)) ?></div>
                 </div>
             </div>
 
