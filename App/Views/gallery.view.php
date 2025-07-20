@@ -54,7 +54,7 @@
 </section>
 
 <section class="text-gray-400 bg-gray-900 body-font">
-    <div class="container px-5 py-24 mx-auto">
+    <div class="container px-5 pt-12 pb-24 mx-auto">
         <div class="flex flex-col text-center w-full mb-20">
             <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Featured 3D Prints</h1>
             <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Explore a curated selection of our recent 3D printed projects. From engineering prototypes to custom art pieces, each item highlights our precision, creativity, and commitment to quality.</p>
