@@ -35,7 +35,7 @@
                                     <?php endfor; ?>
                                 </span>
                             </div>
-                            <div class="text-gray-700 text-sm break-words bg-gray-50 px-3 py-2 rounded" title="<?= e($review->comments) ?>">
+                            <div class="text-gray-700 text-sm break-words bg-gray-50 px-4 py-3 rounded-lg shadow-sm border border-gray-200 mt-2" title="<?= e($review->comments) ?>">
                                 <?= e($review->comments) ?>
                             </div>
                         </div>
