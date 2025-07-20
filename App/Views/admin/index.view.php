@@ -280,7 +280,6 @@
                                 <?php endfor; ?>
                             </div>
                         </div>
-                        <div class="text-xs text-blue-400 mb-4">Based on 50 reviews</div>
                         <div class="text-xs text-blue-400 mb-4">Based on <?= $totalReviews ?? 0 ?> reviews</div>
                         <div class="w-full">
                             <div class="grid grid-cols-1 gap-2">
@@ -288,10 +287,10 @@
                                     $percent = ($cat['score'] / 5) * 100;
                                 ?>
                                     <div class="flex items-center gap-2">
-                                        <span class="w-3 h-3 rounded-full <?= $cat['color'] ?>"></span>
+                                        <span class="w-3 h-3 rounded-full bg-blue-400"></span>
                                         <span class="flex-1 text-sm text-blue-900 font-medium"><?= e($cat['label']) ?></span>
                                         <div class="w-24 bg-blue-200 rounded-full h-2 mx-2">
-                                            <div class="<?= $cat['color'] ?> h-2 rounded-full" style="width: <?= $percent ?>%"></div>
+                                            <div class="bg-blue-400 h-2 rounded-full" style="width: <?= $percent ?>%"></div>
                                         </div>
                                         <span class="text-xs text-blue-700 font-semibold"><?= number_format($cat['score'], 1) ?></span>
                                     </div>

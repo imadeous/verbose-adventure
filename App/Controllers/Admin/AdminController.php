@@ -44,11 +44,11 @@ class AdminController extends AdminControllerBase
 
         // Prepare category averages for insights
         $categories = [
-            ['label' => 'Product Quality', 'score' => round($avgQuality, 1), 'color' => 'bg-blue-400'],
-            ['label' => 'Pricing', 'score' => round($avgPricing, 1), 'color' => 'bg-green-400'],
-            ['label' => 'Communication', 'score' => round($avgCommunication, 1), 'color' => 'bg-indigo-400'],
-            ['label' => 'Packaging', 'score' => round($avgPackaging, 1), 'color' => 'bg-yellow-400'],
-            ['label' => 'Delivery', 'score' => round($avgDelivery, 1), 'color' => 'bg-pink-400'],
+            ['label' => 'Product Quality', 'score' => round($avgQuality, 1)],
+            ['label' => 'Pricing', 'score' => round($avgPricing, 1)],
+            ['label' => 'Communication', 'score' => round($avgCommunication, 1)],
+            ['label' => 'Packaging', 'score' => round($avgPackaging, 1)],
+            ['label' => 'Delivery', 'score' => round($avgDelivery, 1)],
         ];
 
         // Render the view using section/yield system
