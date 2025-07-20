@@ -3,55 +3,7 @@
     class="text-gray-400 bg-gray-900 body-font">
     <!-- check if session flash message is set and echo this->partial('_flash') -->
     <?= $this->partial('_flash.view'); ?>
-    <!-- Hidden fallback form for native PHP POST -->
-    <form id="fallbackQuoteForm" method="POST" action="/quote" style="display:none;">
-        <input type="hidden" name="name">
-        <input type="hidden" name="email">
-        <input type="hidden" name="phone">
-        <input type="hidden" name="instagram">
-        <input type="hidden" name="delivery_address">
-        <input type="hidden" name="billing_address">
-        <input type="hidden" name="product_type">
-        <input type="hidden" name="material">
-        <input type="hidden" name="quantity">
-        <input type="hidden" name="timeline">
-        <input type="hidden" name="description">
-        <input type="hidden" name="budget">
-        <div id="fallback_hidden_services"></div>
-        <script>
-            // Sync fallbackQuoteForm hidden fields as well
-            function syncFallbackHiddenFieldsFromForm() {
-                const form = document.getElementById('fallbackQuoteForm');
-                form.elements['name'].value = quoteFormData.form.name;
-                form.elements['email'].value = quoteFormData.form.email;
-                form.elements['phone'].value = quoteFormData.form.phone;
-                form.elements['instagram'].value = quoteFormData.form.instagram;
-                form.elements['delivery_address'].value = quoteFormData.form.delivery_address;
-                form.elements['billing_address'].value = quoteFormData.form.billing_address;
-                form.elements['product_type'].value = quoteFormData.form.product_type;
-                form.elements['material'].value = quoteFormData.form.material;
-                form.elements['quantity'].value = quoteFormData.form.quantity;
-                form.elements['timeline'].value = quoteFormData.form.timeline;
-                form.elements['description'].value = quoteFormData.form.description;
-                form.elements['budget'].value = quoteFormData.form.budget;
-                // Services[]
-                const servicesDiv = document.getElementById('fallback_hidden_services');
-                servicesDiv.innerHTML = '';
-                quoteFormData.form.services.forEach(function(service) {
-                    const hidden = document.createElement('input');
-                    hidden.type = 'hidden';
-                    hidden.name = 'services[]';
-                    hidden.value = service;
-                    servicesDiv.appendChild(hidden);
-                });
-            }
-            document.addEventListener('DOMContentLoaded', function() {
-                document.body.addEventListener('input', syncFallbackHiddenFieldsFromForm);
-                document.body.addEventListener('change', syncFallbackHiddenFieldsFromForm);
-                syncFallbackHiddenFieldsFromForm();
-            });
-        </script>
-    </form>
+
     <div class="container px-5 mt-24 mx-auto flex flex-wrap flex-col">
         <!-- add a heading and helper text -->
         <div class="flex flex-col justify-center mx-auto flex-wrap mb-20">
@@ -364,18 +316,18 @@
             <div class="p-2 w-full flex justify-between items-center mt-6">
                 <form id="quoteForm" method="POST" action="/quote" enctype="multipart/form-data" autocomplete="off" style="display:none;">
                     <!-- Hidden real form fields for PHP POST (all hidden, form is not visible) -->
-                    <input type="hidden" name="name" id="hidden_name">
-                    <input type="hidden" name="email" id="hidden_email">
-                    <input type="hidden" name="phone" id="hidden_phone">
-                    <input type="hidden" name="instagram" id="hidden_instagram">
-                    <input type="hidden" name="delivery_address" id="hidden_delivery_address">
-                    <input type="hidden" name="billing_address" id="hidden_billing_address">
-                    <input type="hidden" name="product_type" id="hidden_product_type">
-                    <input type="hidden" name="material" id="hidden_material">
-                    <input type="hidden" name="quantity" id="hidden_quantity">
-                    <input type="hidden" name="timeline" id="hidden_timeline">
-                    <input type="hidden" name="description" id="hidden_description">
-                    <input type="hidden" name="budget" id="hidden_budget">
+                    <input type="text" name="name" id="hidden_name">
+                    <input type="text" name="email" id="hidden_email">
+                    <input type="text" name="phone" id="hidden_phone">
+                    <input type="text" name="instagram" id="hidden_instagram">
+                    <input type="text" name="delivery_address" id="hidden_delivery_address">
+                    <input type="text" name="billing_address" id="hidden_billing_address">
+                    <input type="text" name="product_type" id="hidden_product_type">
+                    <input type="text" name="material" id="hidden_material">
+                    <input type="number" name="quantity" id="hidden_quantity">
+                    <input type="text" name="timeline" id="hidden_timeline">
+                    <input type="text" name="description" id="hidden_description">
+                    <input type="text" name="budget" id="hidden_budget">
                     <div id="hidden_services"></div>
                 </form>
                 <!-- Navigation and submit buttons remain visible and functional -->
@@ -429,46 +381,6 @@
                         animation: bounce 1s infinite;
                     }
                 </style>
-                <script>
-                    // Sync visible fields to hidden fields in real time and before submit
-                    function syncHiddenFieldsFromForm() {
-                        const form = document.getElementById('quoteForm');
-                        document.getElementById('hidden_name').value = quoteFormData.form.name;
-                        document.getElementById('hidden_email').value = quoteFormData.form.email;
-                        document.getElementById('hidden_phone').value = quoteFormData.form.phone;
-                        document.getElementById('hidden_instagram').value = quoteFormData.form.instagram;
-                        document.getElementById('hidden_delivery_address').value = quoteFormData.form.delivery_address;
-                        document.getElementById('hidden_billing_address').value = quoteFormData.form.billing_address;
-                        document.getElementById('hidden_product_type').value = quoteFormData.form.product_type;
-                        document.getElementById('hidden_material').value = quoteFormData.form.material;
-                        document.getElementById('hidden_quantity').value = quoteFormData.form.quantity;
-                        document.getElementById('hidden_timeline').value = quoteFormData.form.timeline;
-                        document.getElementById('hidden_description').value = quoteFormData.form.description;
-                        document.getElementById('hidden_budget').value = quoteFormData.form.budget;
-                        // Services[]
-                        const servicesDiv = document.getElementById('hidden_services');
-                        servicesDiv.innerHTML = '';
-                        quoteFormData.form.services.forEach(function(service) {
-                            const hidden = document.createElement('input');
-                            hidden.type = 'hidden';
-                            hidden.name = 'services[]';
-                            hidden.value = service;
-                            servicesDiv.appendChild(hidden);
-                        });
-                    }
-                    // Alpine.js global for quote form data
-                    window.quoteFormData = quoteForm();
-                    document.addEventListener('alpine:init', () => {
-                        Alpine.data('quoteForm', () => window.quoteFormData);
-                    });
-                    document.addEventListener('DOMContentLoaded', function() {
-                        // Sync on input/change
-                        document.body.addEventListener('input', syncHiddenFieldsFromForm);
-                        document.body.addEventListener('change', syncHiddenFieldsFromForm);
-                        // Initial sync
-                        syncHiddenFieldsFromForm();
-                    });
-                </script>
             </div>
         </div>
     </div>
