@@ -3,24 +3,15 @@
 namespace App\Controllers\Admin;
 
 use App\Models\Contact;
-use Core\Controller;
+use Core\AdminControllerBase;
 
-class ContactController extends Controller
+class ContactController extends AdminControllerBase
 {
-    /**
-     * Provide shared data for all admin views/partials (e.g., unread contacts count).
-     */
-    protected function provideSharedData()
-    {
 
-        $unreadCount = count(Contact::whereNull('opened_at'));
-        $this->share('unreadContactsCount', (int)($unreadCount ?? 0));
-    }
 
     // List all contacts
     public function index()
     {
-        $this->provideSharedData();
         $this->view->layout('admin');
         $contacts = Contact::all();
         $this->view('admin/contacts/index', ['contacts' => $contacts]);
@@ -29,7 +20,6 @@ class ContactController extends Controller
     // Show a single contact
     public function show($id)
     {
-        $this->provideSharedData();
         $this->view->layout('admin');
         $contact = Contact::find($id);
         if (!$contact) {
