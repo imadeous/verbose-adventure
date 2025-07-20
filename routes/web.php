@@ -35,7 +35,6 @@ $router->get('/contact', [ContactController::class, 'index']);
 $router->post('/contact', [ContactController::class, 'store']);
 
 // Admin routes (protected by AuthMiddleware) => Login required
-require_once __DIR__ . '/admin_products.php';
 $router->middleware([AuthMiddleware::class], function ($router) {
     $router->get('/admin', [AdminController::class, 'index']);
     $router->resource('/admin/users', UserController::class)
@@ -44,6 +43,7 @@ $router->middleware([AuthMiddleware::class], function ($router) {
     $router->resource('/admin/quotes', \App\Controllers\Admin\QuotesController::class);
     $router->resource('/admin/reviews', \App\Controllers\Admin\ReviewsController::class);
     $router->resource('/admin/products', \App\Controllers\Admin\ProductsController::class);
+    $router->resource('/admin/categories', \App\Controllers\Admin\CategoriesController::class);
     // Admin user profile route
     $router->get('/admin/profile', [UserController::class, 'profile']);
     // $router->resource('/admin/events', EventController::class);
