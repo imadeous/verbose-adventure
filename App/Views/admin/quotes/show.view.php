@@ -56,11 +56,11 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <span class="text-blue-700 font-semibold">Product Type:</span>
-                        <span class="text-blue-900"><?= e($quote->product_type) ?></span>
+                        <span class="text-blue-900"><?= e(strtoupper($quote->product_type)) ?></span>
                     </div>
                     <div>
                         <span class="text-blue-700 font-semibold">Material:</span>
-                        <span class="text-blue-900"><?= e($quote->material) ?></span>
+                        <span class="text-blue-900"><?= e(strtoupper($quote->material)) ?></span>
                     </div>
                     <div>
                         <span class="text-blue-700 font-semibold">Quantity:</span>
