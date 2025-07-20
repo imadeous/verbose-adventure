@@ -12,9 +12,7 @@
         <table class="min-w-full bg-white rounded-xl text-sm">
             <thead>
                 <tr>
-                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">ID</th>
-                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Username</th>
-                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Email</th>
+                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Username & Email</th>
                     <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Role</th>
                     <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Actions</th>
                 </tr>
@@ -27,13 +25,10 @@
                 <?php else: ?>
                     <?php foreach ($users as $user): ?>
                         <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
-                            <td class="px-4 py-2 whitespace-nowrap font-semibold text-blue-900">
-                                <a href="<?= url('admin/users/' . $user->id) ?>" class="hover:underline text-blue-700">
-                                    <?= e($user->id) ?>
-                                </a>
+                            <td class="px-4 py-2 whitespace-nowrap">
+                                <div class="font-semibold text-blue-900"><?= e($user->username) ?></div>
+                                <div class="text-blue-500 text-xs"><?= e($user->email) ?></div>
                             </td>
-                            <td class="px-4 py-2 whitespace-nowrap text-blue-700"><?= e($user->username) ?></td>
-                            <td class="px-4 py-2 whitespace-nowrap text-blue-700"><?= e($user->email) ?></td>
                             <td class="px-4 py-2 whitespace-nowrap text-blue-700"><?= e($user->role) ?></td>
                             <td class="px-4 py-2 whitespace-nowrap flex items-center space-x-2">
                                 <?php if (Auth::isAdmin()): ?>
