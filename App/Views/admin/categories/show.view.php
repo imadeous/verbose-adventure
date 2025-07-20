@@ -34,30 +34,24 @@
 
 <h2 class="text-2xl font-bold mb-4 text-gray-800">Products in this Category</h2>
 <div class="overflow-x-auto">
-    <table class="min-w-full bg-gradient-to-br from-white via-blue-50 to-purple-50 shadow-2xl rounded-2xl border border-blue-100">
-        <thead>
-            <tr>
-                <th class="px-6 py-3 text-left text-blue-800 font-bold uppercase tracking-wider bg-blue-100">ID</th>
-                <th class="px-6 py-3 text-left text-blue-800 font-bold uppercase tracking-wider bg-blue-100">Name</th>
-                <th class="px-6 py-3 text-left text-blue-800 font-bold uppercase tracking-wider bg-blue-100">Price</th>
-                <th class="px-6 py-3 text-left text-blue-800 font-bold uppercase tracking-wider bg-blue-100">Created At</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if (!empty($products)): ?>
-                <?php foreach ($products as $i => $product): ?>
-                    <tr class="<?= $i % 2 === 0 ? 'bg-white' : 'bg-blue-50' ?> hover:bg-purple-100 transition-colors">
-                        <td class="px-6 py-4 font-mono text-blue-900"><?= e($product['id']) ?></td>
-                        <td class="px-6 py-4 text-gray-900"><?= e($product['name']) ?></td>
-                        <td class="px-6 py-4 text-green-700 font-semibold">MVR <?= e(number_format($product['price'], 2)) ?></td>
-                        <td class="px-6 py-4 text-gray-600"><?= e($product['created_at']) ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <tr>
-                    <td colspan="4" class="px-6 py-8 text-center text-gray-500 bg-white rounded-b-2xl">No products found in this category.</td>
-                </tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
+    <?php if (!empty($products)): ?>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <?php foreach ($products as $product): ?>
+                <div class="bg-white rounded-2xl shadow-xl border border-blue-100 p-6 flex flex-col space-y-4 hover:shadow-2xl transition-shadow">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-blue-600 bg-blue-100 rounded-full px-3 py-1">ID: <?= e($product['id']) ?></span>
+                        <span class="text-xs text-gray-500"><?= e($product['created_at']) ?></span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-1"><?= e($product['name']) ?></h3>
+                        <p class="text-green-700 font-semibold text-xl">MVR <?= e(number_format($product['price'], 2)) ?></p>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php else: ?>
+        <div class="text-center text-gray-500 bg-white rounded-2xl py-12 shadow-inner">
+            No products found in this category.
+        </div>
+    <?php endif; ?>
 </div>
