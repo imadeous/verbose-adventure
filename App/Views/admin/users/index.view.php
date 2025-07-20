@@ -1,4 +1,4 @@
-<div class="max-w-5xl mx-auto p-8">
+<div class="max-w-8xl mx-auto p-8">
     <?php
 
     use App\Helpers\Auth; ?>
