@@ -83,50 +83,47 @@
         </div>
     </div>
     <!-- Card 3: Transactions Table -->
-    <div class="bg-blue-50 rounded-xl shadow-md p-5 border border-blue-200">
-        <h2 class="text-2xl font-bold text-blue-900 mb-6 border-b border-blue-200 pb-4">Recent Transactions</h2>
-        <div class="overflow-x-auto">
-            <table class="min-w-full bg-blue-50 rounded-xl text-sm border border-blue-100">
-                <thead>
-                    <tr>
-                        <th class="px-4 py-3 text-left text-xs font-bold text-blue-800 uppercase tracking-wide bg-blue-100 border-b-2 border-blue-200">Date</th>
-                        <th class="px-4 py-3 text-left text-xs font-bold text-blue-800 uppercase tracking-wide bg-blue-100 border-b-2 border-blue-200">Order ID</th>
-                        <th class="px-4 py-3 text-left text-xs font-bold text-blue-800 uppercase tracking-wide bg-blue-100 border-b-2 border-blue-200">Customer</th>
-                        <th class="px-4 py-3 text-left text-xs font-bold text-blue-800 uppercase tracking-wide bg-blue-100 border-b-2 border-blue-200">Amount</th>
-                        <th class="px-4 py-3 text-left text-xs font-bold text-blue-800 uppercase tracking-wide bg-blue-100 border-b-2 border-blue-200">Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="hover:bg-blue-100 transition">
-                        <td class="px-4 py-2 border-b border-blue-100">2024-06-01</td>
-                        <td class="px-4 py-2 border-b border-blue-100">#1001</td>
-                        <td class="px-4 py-2 border-b border-blue-100">Alice Smith</td>
-                        <td class="px-4 py-2 border-b border-blue-100">$120.00</td>
-                        <td class="px-4 py-2 border-b border-blue-100"><span class="text-green-700 font-semibold">Completed</span></td>
-                    </tr>
-                    <tr class="hover:bg-blue-100 transition">
-                        <td class="px-4 py-2 border-b border-blue-100">2024-05-28</td>
-                        <td class="px-4 py-2 border-b border-blue-100">#1000</td>
-                        <td class="px-4 py-2 border-b border-blue-100">Bob Lee</td>
-                        <td class="px-4 py-2 border-b border-blue-100">$80.00</td>
-                        <td class="px-4 py-2 border-b border-blue-100"><span class="text-yellow-600 font-semibold">Pending</span></td>
-                    </tr>
-                    <tr class="hover:bg-blue-100 transition">
-                        <td class="px-4 py-2 border-b border-blue-100">2024-05-25</td>
-                        <td class="px-4 py-2 border-b border-blue-100">#0999</td>
-                        <td class="px-4 py-2 border-b border-blue-100">Carol King</td>
-                        <td class="px-4 py-2 border-b border-blue-100">$150.00</td>
-                        <td class="px-4 py-2 border-b border-blue-100"><span class="text-green-700 font-semibold">Completed</span></td>
-                    </tr>
-                    <tr class="hover:bg-blue-100 transition">
-                        <td class="px-4 py-2 border-b border-blue-100">2024-05-20</td>
-                        <td class="px-4 py-2 border-b border-blue-100">#0998</td>
-                        <td class="px-4 py-2 border-b border-blue-100">David Wu</td>
-                        <td class="px-4 py-2 border-b border-blue-100">$60.00</td>
-                        <td class="px-4 py-2 border-b border-blue-100"><span class="text-red-600 font-semibold">Failed</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="bg-white rounded-xl shadow-md border border-blue-100 overflow-x-auto">
+        <table class="min-w-full bg-white rounded-xl text-sm">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Date</th>
+                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Order ID</th>
+                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Customer</th>
+                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Amount</th>
+                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
+                    <td class="px-4 py-2 border-b border-blue-100">2024-06-01</td>
+                    <td class="px-4 py-2 border-b border-blue-100">#1001</td>
+                    <td class="px-4 py-2 border-b border-blue-100">Alice Smith</td>
+                    <td class="px-4 py-2 border-b border-blue-100">$120.00</td>
+                    <td class="px-4 py-2 border-b border-blue-100"><span class="text-green-700 font-semibold">Completed</span></td>
+                </tr>
+                <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
+                    <td class="px-4 py-2 border-b border-blue-100">2024-05-28</td>
+                    <td class="px-4 py-2 border-b border-blue-100">#1000</td>
+                    <td class="px-4 py-2 border-b border-blue-100">Bob Lee</td>
+                    <td class="px-4 py-2 border-b border-blue-100">$80.00</td>
+                    <td class="px-4 py-2 border-b border-blue-100"><span class="text-yellow-600 font-semibold">Pending</span></td>
+                </tr>
+                <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
+                    <td class="px-4 py-2 border-b border-blue-100">2024-05-25</td>
+                    <td class="px-4 py-2 border-b border-blue-100">#0999</td>
+                    <td class="px-4 py-2 border-b border-blue-100">Carol King</td>
+                    <td class="px-4 py-2 border-b border-blue-100">$150.00</td>
+                    <td class="px-4 py-2 border-b border-blue-100"><span class="text-green-700 font-semibold">Completed</span></td>
+                </tr>
+                <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
+                    <td class="px-4 py-2 border-b border-blue-100">2024-05-20</td>
+                    <td class="px-4 py-2 border-b border-blue-100">#0998</td>
+                    <td class="px-4 py-2 border-b border-blue-100">David Wu</td>
+                    <td class="px-4 py-2 border-b border-blue-100">$60.00</td>
+                    <td class="px-4 py-2 border-b border-blue-100"><span class="text-red-600 font-semibold">Failed</span></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
