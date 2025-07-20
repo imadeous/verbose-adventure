@@ -9,7 +9,7 @@
                     <li class="py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between hover:bg-gray-50 transition">
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center space-x-3 mb-2">
-                                <span class="text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded">#<?= e($review->id) ?></span>
+                                <span class="text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded-r">#<?= e($review->id) ?></span>
                                 <span class="font-semibold text-gray-800"><?= e($review->customer_name) ?></span>
                                 <span class="ml-2 flex items-center text-yellow-500 font-medium">
                                     <?php
@@ -35,7 +35,7 @@
                                     <?php endfor; ?>
                                 </span>
                             </div>
-                            <div class="text-gray-700 text-sm break-words bg-gray-50 px-4 py-3 rounded-lg shadow-sm border border-gray-200 mt-2" title="<?= e($review->comments) ?>">
+                            <div class="text-gray-700 text-sm break-words bg-gray-50 px-4 py-3 border border-gray-200 mt-2" title="<?= e($review->comments) ?>">
                                 <?= e($review->comments) ?>
                             </div>
                         </div>
