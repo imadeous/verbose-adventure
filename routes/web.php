@@ -34,7 +34,7 @@ $router->post('/quote', [QuotesController::class, 'store']);
 $router->get('/contact', [ContactController::class, 'index']);
 $router->post('/contact', [ContactController::class, 'store']);
 
-// Admin routes (protected by AuthMiddleware)
+// Admin routes (protected by AuthMiddleware) => Login required
 $router->middleware([AuthMiddleware::class], function ($router) {
     $router->get('/admin', [AdminController::class, 'index']);
     $router->resource('/admin/users', UserController::class)
