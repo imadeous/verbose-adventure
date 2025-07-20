@@ -22,19 +22,17 @@ class AdminController extends AdminControllerBase
 
         // Calculate recommendation percentage
         $totalReviews = count($allReviews);
-        $recommendCount = 0;
+        $sumRecommend = 0;
         $sumQuality = $sumPricing = $sumCommunication = $sumPackaging = $sumDelivery = 0;
         foreach ($allReviews as $review) {
-            if (isset($review->recommendation_score) && $review->recommendation_score >= 4) {
-                $recommendCount++;
-            }
+            $sumRecommend += (float)($review->recommendation_score ?? 0);
             $sumQuality += (float)($review->quality_rating ?? 0);
             $sumPricing += (float)($review->pricing_rating ?? 0);
             $sumCommunication += (float)($review->communication_rating ?? 0);
             $sumPackaging += (float)($review->packaging_rating ?? 0);
             $sumDelivery += (float)($review->delivery_rating ?? 0);
         }
-        $recommendPercent = $totalReviews > 0 ? round(($recommendCount / $totalReviews) * 100) : 0;
+        $recommendPercent = $totalReviews > 0 ? round(($sumRecommend / ($totalReviews * 10)) * 100) : 0;
 
         // Calculate averages
         $avgQuality = $totalReviews > 0 ? $sumQuality / $totalReviews : 0;
