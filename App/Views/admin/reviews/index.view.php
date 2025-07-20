@@ -4,34 +4,29 @@
         <div class="bg-yellow-100 text-yellow-700 border border-yellow-300 px-4 py-3 rounded mb-4">No reviews found.</div>
     <?php else: ?>
         <div class="bg-white shadow rounded-lg overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rating</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Review</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    <?php foreach ($reviews as $review): ?>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?= e($review->id) ?></td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?= e($review->name) ?></td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?= e($review->rating) ?></td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 max-w-xs truncate" title="<?= e($review->review) ?>"><?= e($review->review) ?></td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                <a href="<?= url('admin/reviews/' . $review->id) ?>" class="text-blue-600 hover:underline mr-2">View</a>
-                                <form action="<?= url('admin/reviews/' . $review->id . '/delete') ?>" method="POST" style="display:inline;">
-                                    <?= csrf_field() ?>
-                                    <button type="submit" class="text-red-600 hover:underline" onclick="return confirm('Delete this review?')">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+            <ul class="divide-y divide-gray-200">
+                <?php foreach ($reviews as $review): ?>
+                    <li class="py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="text-xs text-gray-400">#<?= e($review->id) ?></span>
+                                <span class="font-semibold text-gray-800"><?= e($review->customer_name) ?></span>
+                                <span class="ml-2 text-yellow-500 font-medium"><?= e($review->quality_rating) ?>/5</span>
+                            </div>
+                            <div class="text-gray-700 text-sm break-words" title="<?= e($review->comments) ?>">
+                                <?= e($review->comments) ?>
+                            </div>
+                        </div>
+                        <div class="mt-3 sm:mt-0 sm:ml-4 flex-shrink-0 flex space-x-2">
+                            <a href="<?= url('admin/reviews/' . $review->id) ?>" class="text-blue-600 hover:underline text-sm">View</a>
+                            <form action="<?= url('admin/reviews/' . $review->id . '/delete') ?>" method="POST" onsubmit="return confirm('Delete this review?')" class="inline">
+                                <?= csrf_field() ?>
+                                <button type="submit" class="text-red-600 hover:underline text-sm">Delete</button>
+                            </form>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
         </div>
     <?php endif; ?>
 </div>
