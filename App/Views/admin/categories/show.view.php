@@ -49,7 +49,7 @@
                     <tr class="<?= $i % 2 === 0 ? 'bg-white' : 'bg-blue-50' ?> hover:bg-purple-100 transition-colors">
                         <td class="px-6 py-4 font-mono text-blue-900"><?= e($product['id']) ?></td>
                         <td class="px-6 py-4 text-gray-900"><?= e($product['name']) ?></td>
-                        <td class="px-6 py-4 text-green-700 font-semibold">$<?= e(number_format($product['price'], 2)) ?></td>
+                        <td class="px-6 py-4 text-green-700 font-semibold">MVR<?= e(number_format($product['price'], 2)) ?></td>
                         <td class="px-6 py-4 text-gray-600"><?= e($product['created_at']) ?></td>
                     </tr>
                 <?php endforeach; ?>
