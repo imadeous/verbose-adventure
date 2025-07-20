@@ -1,4 +1,4 @@
-<div class="container mx-auto px-4 py-8 max-w-3xl">
+<div class="container mx-auto px-4 py-8 max-w-4xl">
     <h1 class="text-2xl font-bold text-gray-800 mb-6">Reviews</h1>
     <?php if (empty($reviews)): ?>
         <div class="bg-yellow-100 text-yellow-700 border border-yellow-300 px-4 py-3 rounded mb-4">No reviews found.</div>
