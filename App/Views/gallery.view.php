@@ -6,21 +6,45 @@
                 <h1 class="title-font font-medium text-xl mb-2 text-white">Gallery Highlights</h1>
                 <div class="leading-relaxed">Discover some of our favorite 3D printed projects, from intricate prototypes to finished products. Each piece demonstrates our commitment to quality, detail, and customer satisfaction.</div>
             </div>
-            <div class="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
-                <h2 class="title-font font-medium text-3xl text-yellow-500">2</h2>
-                <p class="leading-relaxed">Machines</p>
-            </div>
-            <div class="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
-                <h2 class="title-font font-medium text-3xl text-yellow-500">74</h2>
-                <p class="leading-relaxed">Filament Rolls</p>
-            </div>
-            <div class="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
-                <h2 class="title-font font-medium text-3xl text-yellow-500">153</h2>
-                <p class="leading-relaxed">Prints</p>
-            </div>
-            <div class="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
-                <h2 class="title-font font-medium text-3xl text-yellow-500">1.3K</h2>
-                <p class="leading-relaxed">Happy Clients</p>
+            <div
+                x-data="{
+                    stats: [
+                        { label: 'Machines', value: 2, display: 0 },
+                        { label: 'Filament Rolls', value: 74, display: 0 },
+                        { label: 'Prints', value: 153, display: 0 },
+                        { label: 'Happy Clients', value: 1300, display: 0, format: v => v >= 1000 ? (v/1000).toFixed(1) + 'K' : v }
+                    ],
+                    animate(idx) {
+                        let stat = this.stats[idx];
+                        let start = 0;
+                        let end = stat.value;
+                        let duration = 1200;
+                        let stepTime = Math.abs(Math.floor(duration / end));
+                        let startTime = null;
+                        const step = (timestamp) => {
+                            if (!startTime) startTime = timestamp;
+                            let progress = timestamp - startTime;
+                            let current = Math.min(Math.round((progress / duration) * end), end);
+                            this.stats[idx].display = current;
+                            if (progress < duration) {
+                                requestAnimationFrame(step);
+                            } else {
+                                this.stats[idx].display = end;
+                            }
+                        };
+                        requestAnimationFrame(step);
+                    }
+                }"
+                x-init="stats.forEach((_, idx) => animate(idx))"
+                class="flex flex-wrap w-full">
+                <template x-for="(stat, idx) in stats" :key="stat.label">
+                    <div class="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
+                        <h2 class="title-font font-medium text-3xl text-yellow-500">
+                            <span x-text="stat.format ? stat.format(stat.display) : stat.display"></span>
+                        </h2>
+                        <p class="leading-relaxed" x-text="stat.label"></p>
+                    </div>
+                </template>
             </div>
         </div>
         <div class="lg:w-1/2 sm:w-1/3 w-full rounded-lg overflow-hidden mt-6 sm:mt-0">
