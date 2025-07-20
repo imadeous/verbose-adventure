@@ -186,7 +186,7 @@
         <h3 class="text-base font-semibold leading-6 text-blue-900">Rating Insights</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4 mb-8">
             <!-- Recent Reviews -->
-            <div class="col-span-1 bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col">
+            <div class="col-span-1 bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col overflow-y-scroll h-full">
                 <h4 class="text-green-500 font-semibold mb-4 flex items-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path d="M12 20l9-5-9-5-9 5 9 5z" />
