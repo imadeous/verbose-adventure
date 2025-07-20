@@ -37,16 +37,20 @@
     <?php if (!empty($products)): ?>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             <?php foreach ($products as $product): ?>
-                <div class="bg-white rounded-2xl shadow-xl border border-blue-100 p-6 flex flex-col hover:shadow-2xl transition-shadow">
+                <div class="bg-white rounded-3xl shadow-2xl border border-blue-100 p-6 flex flex-col hover:shadow-3xl transition-all duration-300 group relative overflow-hidden">
+                    <!-- Ribbon for featured/new products (optional) -->
+                    <?php if (!empty($product['is_featured'])): ?>
+                        <span class="absolute top-4 left-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg z-10">Featured</span>
+                    <?php endif; ?>
                     <div class="flex items-center justify-between mb-2">
-                        <span class="text-xs font-bold text-blue-600 bg-blue-100 rounded-full px-3 py-1">ID: <?= e($product['id']) ?></span>
-                        <span class="text-xs text-gray-500"><?= e(date('F j, Y', strtotime($product['created_at']))) ?></span>
+                        <span class="text-xs font-bold text-blue-700 bg-blue-100 rounded-full px-3 py-1">ID: <?= e($product['id']) ?></span>
+                        <span class="text-xs text-gray-400"><?= e(date('M j, Y', strtotime($product['created_at']))) ?></span>
                     </div>
-                    <div class="mb-3 flex justify-center">
+                    <div class="mb-4 flex justify-center items-center relative">
                         <?php if (!empty($product['image_url'])): ?>
-                            <img src="<?= e($product['image_url']) ?>" alt="<?= e($product['name']) ?>" class="h-32 w-32 object-cover rounded-xl border border-gray-200 shadow-sm" />
+                            <img src="<?= e($product['image_url']) ?>" alt="<?= e($product['name']) ?>" class="h-32 w-32 object-cover rounded-xl border border-gray-200 shadow-md group-hover:scale-105 transition-transform duration-300" />
                         <?php else: ?>
-                            <div class="h-32 w-32 flex items-center justify-center bg-gray-100 rounded-xl text-gray-400 text-4xl">
+                            <div class="h-32 w-32 flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl text-gray-300 text-4xl">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a4 4 0 004 4h10a4 4 0 004-4V7a4 4 0 00-4-4H7a4 4 0 00-4 4z" />
                                 </svg>
@@ -54,11 +58,19 @@
                         <?php endif; ?>
                     </div>
                     <div class="flex-1 flex flex-col">
-                        <h3 class="text-lg font-bold text-gray-900 mb-1"><?= e($product['name']) ?></h3>
+                        <h3 class="text-lg font-extrabold text-gray-900 mb-1 group-hover:text-blue-700 transition-colors"><?= e($product['name']) ?></h3>
                         <?php if (!empty($product['description'])): ?>
-                            <p class="text-gray-600 text-sm mb-2 line-clamp-3"><?= e($product['description']) ?></p>
+                            <p class="text-gray-500 text-sm mb-2 line-clamp-3"><?= e($product['description']) ?></p>
                         <?php endif; ?>
-                        <p class="text-green-700 font-semibold text-xl mt-auto">MVR <?= e(number_format($product['price'], 2)) ?></p>
+                        <div class="flex items-center justify-between mt-auto">
+                            <p class="text-green-700 font-bold text-xl">MVR <?= e(number_format($product['price'], 2)) ?></p>
+                            <a href="/admin/products/<?= e($product['id']) ?>" class="inline-flex items-center px-3 py-1.5 bg-blue-600 text-white text-xs font-semibold rounded-full shadow hover:bg-blue-700 transition-colors">
+                                View
+                                <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                </svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
             <?php endforeach; ?>
