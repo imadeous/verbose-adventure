@@ -1,4 +1,3 @@
-
 <?php
 
 /**
@@ -44,6 +43,7 @@ $router->middleware([AuthMiddleware::class], function ($router) {
     $router->resource('/admin/reviews', \App\Controllers\Admin\ReviewsController::class);
     $router->resource('/admin/products', \App\Controllers\Admin\ProductsController::class);
     $router->resource('/admin/categories', \App\Controllers\Admin\CategoriesController::class);
+    $router->resource('/admin/gallery', \App\Controllers\Admin\GalleryController::class);
     // Admin user profile route
     $router->get('/admin/profile', [UserController::class, 'profile']);
     // $router->resource('/admin/events', EventController::class);
