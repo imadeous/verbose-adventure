@@ -195,26 +195,21 @@
                     Recent Reviews
                 </h4>
                 <div class="flex flex-col gap-3">
-                    <?php
-                    $reviews = [
-                        ['name' => 'Fathimath S.', 'product' => 'Architectural Model', 'comment' => 'Impressed with the service!', 'rating' => 5],
-                        ['name' => 'Ahmed R.', 'product' => 'Custom Keychains', 'comment' => 'Great quality and fast delivery.', 'rating' => 4],
-                        ['name' => 'Zuleikha M.', 'product' => 'Miniature Figures', 'comment' => 'Very detailed work, will order again.', 'rating' => 5]
-                    ];
-                    foreach ($reviews as $review): ?>
+                    <?php foreach (($recentReviews ?? []) as $review): ?>
                         <div class="bg-blue-50 border border-blue-100 rounded-lg p-4 flex flex-col gap-2 shadow-sm">
                             <div class="flex items-center gap-2">
-                                <span class="font-semibold text-blue-900"><?php echo htmlspecialchars($review['name']); ?></span>
-                                <span class="text-xs text-blue-400 ml-auto"><?php echo htmlspecialchars($review['product']); ?></span>
+                                <span class="font-semibold text-blue-900"><?= e($review->customer_name) ?></span>
+                                <span class="text-xs text-blue-400 ml-auto"><?= e($review->product_id ?? $review->quote_id ?? '-') ?></span>
                             </div>
                             <div class="flex items-center gap-1">
-                                <?php for ($i = 1; $i <= 5; $i++): ?>
-                                    <svg class="w-4 h-4 <?php echo $i <= $review['rating'] ? 'text-yellow-400' : 'text-gray-300'; ?>" fill="currentColor" viewBox="0 0 20 20">
+                                <?php $stars = round($review->quality_rating ?? 0);
+                                for ($i = 1; $i <= 5; $i++): ?>
+                                    <svg class="w-4 h-4 <?= $i <= $stars ? 'text-yellow-400' : 'text-gray-300' ?>" fill="currentColor" viewBox="0 0 20 20">
                                         <polygon points="10 15 4 18 5.5 12 1 8 7 7 10 1 13 7 19 8 14.5 12 16 18"></polygon>
                                     </svg>
                                 <?php endfor; ?>
                             </div>
-                            <div class="text-blue-700 text-sm"><?php echo htmlspecialchars($review['comment']); ?></div>
+                            <div class="text-blue-700 text-sm"><?= e($review->comments) ?></div>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -232,11 +227,10 @@
                             Recommendations
                         </h4>
                         <div
-                            x-data="{ percent: 92 }"
                             class="flex items-center gap-2 w-full justify-between">
                             <div class="flex flex-col flex-1 items-start w-full">
-                                <div class="text-3xl font-bold text-blue-900 mb-2" x-text="percent + '%'"></div>
-                                <div class="text-sm text-gray-500">Based on 50 reviews</div>
+                                <div class="text-3xl font-bold text-blue-900 mb-2"><?= $recommendPercent ?? 0 ?>%</div>
+                                <div class="text-sm text-gray-500">Based on <?= $totalReviews ?? 0 ?> reviews</div>
                             </div>
                             <div class="flex-shrink-0 flex items-center justify-end">
                                 <svg
@@ -245,8 +239,7 @@
                                     viewBox="0 0 24 24"
                                     stroke-width="1.5"
                                     stroke="currentColor"
-                                    class="size-12"
-                                    :class="percent > 50 ? 'text-green-500' : 'text-red-500'">
+                                    class="size-12 <?= ($recommendPercent ?? 0) > 50 ? 'text-green-500' : 'text-red-500' ?>">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z" />
                                 </svg>
                             </div>
@@ -264,36 +257,30 @@
                     </h4>
                     <div class="flex flex-col items-start w-full">
                         <div class="flex items-center gap-2 mb-1">
-                            <span class="text-3xl font-extrabold text-blue-900">4.5</span>
+                            <span class="text-3xl font-extrabold text-blue-900"><?= number_format($overallAvg ?? 0, 1) ?></span>
                             <div class="flex">
-                                <?php for ($i = 1; $i <= 5; $i++): ?>
-                                    <svg class="w-5 h-5 <?php echo $i <= 4 ? 'text-yellow-400' : 'text-gray-300'; ?>" fill="currentColor" viewBox="0 0 20 20">
+                                <?php $stars = round($overallAvg ?? 0);
+                                for ($i = 1; $i <= 5; $i++): ?>
+                                    <svg class="w-5 h-5 <?= $i <= $stars ? 'text-yellow-400' : 'text-gray-300' ?>" fill="currentColor" viewBox="0 0 20 20">
                                         <polygon points="10 15 4 18 5.5 12 1 8 7 7 10 1 13 7 19 8 14.5 12 16 18"></polygon>
                                     </svg>
                                 <?php endfor; ?>
                             </div>
                         </div>
                         <div class="text-xs text-gray-500 mb-4">Based on 50 reviews</div>
+                        <div class="text-xs text-gray-500 mb-4">Based on <?= $totalReviews ?? 0 ?> reviews</div>
                         <div class="w-full">
                             <div class="grid grid-cols-1 gap-2">
-                                <?php
-                                $categories = [
-                                    ['label' => 'Product Quality', 'score' => 4.6, 'color' => 'bg-blue-400'],
-                                    ['label' => 'Pricing', 'score' => 4.2, 'color' => 'bg-green-400'],
-                                    ['label' => 'Communication', 'score' => 4.8, 'color' => 'bg-indigo-400'],
-                                    ['label' => 'Packaging', 'score' => 4.7, 'color' => 'bg-yellow-400'],
-                                    ['label' => 'Delivery', 'score' => 4.5, 'color' => 'bg-pink-400'],
-                                ];
-                                foreach ($categories as $cat):
+                                <?php foreach (($categories ?? []) as $cat):
                                     $percent = ($cat['score'] / 5) * 100;
                                 ?>
                                     <div class="flex items-center gap-2">
-                                        <span class="w-3 h-3 rounded-full <?php echo $cat['color']; ?>"></span>
-                                        <span class="flex-1 text-sm text-blue-900 font-medium"><?php echo $cat['label']; ?></span>
+                                        <span class="w-3 h-3 rounded-full <?= $cat['color'] ?>"></span>
+                                        <span class="flex-1 text-sm text-blue-900 font-medium"><?= e($cat['label']) ?></span>
                                         <div class="w-24 bg-blue-200 rounded-full h-2 mx-2">
-                                            <div class="<?php echo $cat['color']; ?> h-2 rounded-full" style="width: <?php echo $percent; ?>%"></div>
+                                            <div class="<?= $cat['color'] ?> h-2 rounded-full" style="width: <?= $percent ?>%"></div>
                                         </div>
-                                        <span class="text-xs text-blue-700 font-semibold"><?php echo number_format($cat['score'], 1); ?></span>
+                                        <span class="text-xs text-blue-700 font-semibold"><?= number_format($cat['score'], 1) ?></span>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
