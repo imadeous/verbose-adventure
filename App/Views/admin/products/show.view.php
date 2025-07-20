@@ -1,8 +1,8 @@
-<div class="max-w-5xl mx-auto bg-white rounded-xl shadow-md p-8">
-    <!-- Top Section: 2 Columns -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-        <!-- Column 1: Product Details -->
-        <div>
+<div class="max-w-5xl mx-auto p-8 space-y-10">
+    <!-- Top Section: 2 Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Card 1: Product Details -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
             <h1 class="text-3xl font-extrabold text-gray-800 mb-6 border-b pb-4">Product Details</h1>
             <div class="space-y-4 mb-6">
                 <div class="flex items-center">
@@ -22,28 +22,28 @@
                     <span class="text-gray-900"><?= e($product->description) ?></span>
                 </div>
             </div>
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between items-center mt-6">
                 <a href="<?= url('admin/products/edit/' . $product->id) ?>" class="btn btn-primary">Edit Product</a>
                 <form action="<?= url('admin/products/delete/' . $product->id) ?>" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
                     <button type="submit" class="btn btn-danger">Delete Product</button>
                 </form>
             </div>
         </div>
-        <!-- Column 2: Stats -->
-        <div>
-            <h2 class="text-xl font-bold text-gray-700 mb-4">Stats</h2>
-            <div class="space-y-4">
+        <!-- Card 2: Stats -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 flex flex-col justify-between">
+            <h2 class="text-xl font-bold text-gray-700 mb-6 border-b pb-4">Stats</h2>
+            <div class="space-y-6">
                 <div class="flex items-center">
                     <span class="w-40 text-gray-500 font-semibold">Total Revenue:</span>
-                    <span class="text-green-700 font-bold">$12,340</span>
+                    <span class="text-green-700 font-bold text-lg">$12,340</span>
                 </div>
                 <div class="flex items-center">
                     <span class="w-40 text-gray-500 font-semibold">Total Orders:</span>
-                    <span class="text-blue-700 font-bold">154</span>
+                    <span class="text-blue-700 font-bold text-lg">154</span>
                 </div>
                 <div class="flex items-center">
                     <span class="w-40 text-gray-500 font-semibold">Overall Rating:</span>
-                    <span class="text-yellow-600 font-bold flex items-center">
+                    <span class="text-yellow-600 font-bold flex items-center text-lg">
                         4.7
                         <svg class="w-5 h-5 ml-1 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.175c.969 0 1.371 1.24.588 1.81l-3.38 2.455a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.38-2.454a1 1 0 00-1.175 0l-3.38 2.454c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.049 9.394c-.783-.57-.38-1.81.588-1.81h4.175a1 1 0 00.95-.69l1.286-3.967z" />
@@ -53,11 +53,11 @@
             </div>
         </div>
     </div>
-    <!-- Bottom Section: Transactions Table -->
-    <div>
-        <h2 class="text-2xl font-bold text-gray-800 mb-4">Recent Transactions</h2>
+    <!-- Card 3: Transactions Table -->
+    <div class="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-4">Recent Transactions</h2>
         <div class="overflow-x-auto">
-            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+            <table class="min-w-full bg-white rounded-lg">
                 <thead>
                     <tr>
                         <th class="px-4 py-2 border-b text-left text-gray-600">Date</th>
