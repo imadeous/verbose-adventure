@@ -184,9 +184,9 @@
 
     <div class="mb-8">
         <h3 class="text-base font-semibold leading-6 text-blue-900">Rating Insights</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4 mb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4 mb-8 items-stretch">
             <!-- Recent Reviews -->
-            <div class="col-span-1 bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col overflow-y-auto h-full min-h-[400px]">
+            <div class="col-span-1 bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col overflow-y-auto h-full min-h-0 max-h-full">
                 <h4 class="text-green-500 font-semibold mb-4 flex items-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path d="M12 20l9-5-9-5-9 5 9 5z" />
@@ -215,7 +215,7 @@
                 </div>
             </div>
             <!-- Recommendations + Overall Ratings (Stacked) -->
-            <div class="col-span-1 flex flex-col gap-6 h-full">
+            <div class="col-span-1 flex flex-col gap-6 h-full min-h-0">
                 <!-- Recommendations (1x1) -->
                 <div class="bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col items-start justify-center">
                     <div class="flex flex-col w-full">
@@ -259,7 +259,7 @@
                     </div>
                 </div>
                 <!-- Overall Ratings (1x2) -->
-                <div class="flex-1 bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col items-start">
+                <div class="flex-1 bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col items-start min-h-0">
                     <h4 class="text-blue-700 font-bold mb-4 flex gap-2 items-center text-base tracking-wide">
                         <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path d="M12 20l9-5-9-5-9 5 9 5z" />
@@ -301,7 +301,7 @@
                 </div>
             </div>
             <!-- Top Rated Products -->
-            <div class="col-span-1 bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col">
+            <div class="col-span-1 bg-white rounded-xl shadow-md p-5 border border-blue-100 hover:shadow-lg transition flex flex-col h-full min-h-0 max-h-full">
                 <h4 class="text-blue-500 font-semibold mb-4 flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 20l9-5-9-5-9 5 9 5z" />
