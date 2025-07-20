@@ -314,21 +314,22 @@
             <!-- Navigation Buttons -->
 
             <div class="p-2 w-full flex justify-between items-center mt-6">
-                <form id="quoteForm" method="POST" action="/quote" enctype="multipart/form-data" autocomplete="off">
+                <form id="quoteForm" method="POST" action="/quote" enctype="multipart/form-data" autocomplete="off" class="hidden">
                     <!-- Hidden real form fields for PHP POST (all hidden, form is not visible) -->
-                    <input type="text" name="name" id="hidden_name" x-model="form.name">
-                    <input type="text" name="email" id="hidden_email" x-model="form.email">
-                    <input type="text" name="phone" id="hidden_phone" x-model="form.phone">
-                    <input type="text" name="instagram" id="hidden_instagram" x-model="form.instagram">
-                    <input type="text" name="delivery_address" id="hidden_delivery_address" x-model="form.delivery_address">
-                    <input type="text" name="billing_address" id="hidden_billing_address" x-model="form.billing_address">
-                    <input type="text" name="product_type" id="hidden_product_type" x-model="form.product_type">
-                    <input type="text" name="material" id="hidden_material" x-model="form.material">
-                    <input type="number" name="quantity" id="hidden_quantity" x-model="form.quantity">
-                    <input type="text" name="timeline" id="hidden_timeline" x-model="form.timeline">
-                    <input type="text" name="description" id="hidden_description" x-model="form.description">
-                    <input type="text" name="budget" id="hidden_budget" x-model="form.budget">
-                    <div id="hidden_services"></div>
+                    <input type=" text" name="name" id="hidden_name" x-model="form.name" class="hidden">
+                    <input type=" text" name="email" id="hidden_email" x-model="form.email" class="hidden">
+                    <input type=" text" name="phone" id="hidden_phone" x-model="form.phone" class="hidden">
+                    <input type=" text" name="instagram" id="hidden_instagram" x-model="form.instagram" class="hidden">
+                    <input type=" text" name="delivery_address" id="hidden_delivery_address" x-model="form.delivery_address" class="hidden">
+                    <input type=" text" name="billing_address" id="hidden_billing_address" x-model="form.billing_address" class="hidden">
+                    <input type=" text" name="product_type" id="hidden_product_type" x-model="form.product_type" class="hidden">
+                    <input type=" text" name="material" id="hidden_material" x-model="form.material" class="hidden">
+                    <input type=" number" name="quantity" id="hidden_quantity" x-model="form.quantity" class="hidden">
+                    <input type=" text" name="timeline" id="hidden_timeline" x-model="form.timeline" class="hidden">
+                    <input type=" text" name="description" id="hidden_description" x-model="form.description" class="hidden">
+                    <input type=" text" name="budget" id="hidden_budget" x-model="form.budget" class="hidden">
+                    <div id=" hidden_services">
+                    </div>
 
                     <!-- Navigation and submit buttons remain visible and functional -->
                     <button
