@@ -26,7 +26,7 @@ class CategoriesController extends AdminControllerBase
             return;
         }
         // Assuming Category has a products() relationship
-        $products = $category->getProductsWithCategory();
+        $products = $category->getProductsWithCategory($id);
         $this->view('admin/categories/show', [
             'category' => $category,
             'products' => $products
