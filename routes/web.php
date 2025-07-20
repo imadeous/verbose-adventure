@@ -35,6 +35,7 @@ $router->get('/contact', [ContactController::class, 'index']);
 $router->post('/contact', [ContactController::class, 'store']);
 
 // Admin routes (protected by AuthMiddleware) => Login required
+require_once __DIR__ . '/admin_products.php';
 $router->middleware([AuthMiddleware::class], function ($router) {
     $router->get('/admin', [AdminController::class, 'index']);
     $router->resource('/admin/users', UserController::class)
