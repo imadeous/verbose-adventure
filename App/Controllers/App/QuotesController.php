@@ -21,7 +21,7 @@ class QuotesController extends Controller
     public function store()
     {
         // CSRF check
-        if (!isset($_POST['csrf_token']) || !\App\Helpers\Csrf::check($_POST['csrf_token'])) {
+        if (!isset($_POST['_csrf']) || !\App\Helpers\Csrf::check($_POST['_csrf'])) {
             flash('error', 'Invalid or missing CSRF token. Please try again.');
             $this->redirect('/quote');
             return;
