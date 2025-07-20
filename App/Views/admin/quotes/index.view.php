@@ -1,4 +1,4 @@
-<div class="max-w-5xl mx-auto p-8">
+<div class="max-w-8xl mx-auto p-8">
     <h1 class="text-3xl font-extrabold text-blue-900 mb-8">Quotes</h1>
     <div class="bg-white rounded-xl shadow-md border border-blue-100 overflow-x-auto">
         <table class="min-w-full bg-white rounded-xl text-sm">
