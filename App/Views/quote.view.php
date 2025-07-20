@@ -329,8 +329,8 @@
             <!-- Navigation Buttons -->
 
             <div class="p-2 w-full flex justify-between items-center mt-6">
-                <form id="quoteForm" method="POST" action="/quote" enctype="multipart/form-data" autocomplete="off">
-                    <!-- Hidden real form fields for PHP POST -->
+                <form id="quoteForm" method="POST" action="/quote" enctype="multipart/form-data" autocomplete="off" style="display:none;">
+                    <!-- Hidden real form fields for PHP POST (all hidden, form is not visible) -->
                     <input type="name" name="name" id="hidden_name">
                     <input type="email" name="email" id="hidden_email">
                     <input type="phone" name="phone" id="hidden_phone">
@@ -344,98 +344,96 @@
                     <input type="hidden" name="description" id="hidden_description">
                     <input type="text" name="budget" id="hidden_budget">
                     <div id="hidden_services"></div>
-                    <button
-                        x-show="step > 0"
-                        @click="step--"
-                        type="button"
-                        class="flex mx-auto text-white bg-gray-600 border-0 py-2 px-8 focus:outline-none hover:bg-gray-700 rounded text-lg">Previous</button>
-                    <button
-                        x-show="step < tabs.length - 1"
-                        @click="nextStep"
-                        type="button"
-                        class="flex mx-auto text-white bg-yellow-500 border-0 py-2 px-8 focus:outline-none hover:bg-yellow-600 rounded text-lg">Next</button>
-                    <template x-if="step === tabs.length - 1">
-                        <div class="flex mx-auto">
-                            <button
-                                x-show="isFormValid()"
-                                type="submit"
-                                class="text-white bg-yellow-500 border-0 py-2 px-8 focus:outline-none hover:bg-yellow-600 rounded text-lg transition-all duration-200">
-                                Submit
-                            </button>
-                            <div
-                                x-show="!isFormValid()"
-                                class="flex items-center justify-center h-12 px-8 bg-gray-700 rounded text-lg text-gray-300 ml-0"
-                                style="min-width: 100px;">
-                                <span>Validating</span>
-                                <span class="ml-2 flex space-x-1">
-                                    <span class="dot bg-yellow-400 rounded-full w-2 h-2 inline-block animate-bounce" style="animation-delay:0s"></span>
-                                    <span class="dot bg-yellow-400 rounded-full w-2 h-2 inline-block animate-bounce" style="animation-delay:0.2s"></span>
-                                    <span class="dot bg-yellow-400 rounded-full w-2 h-2 inline-block animate-bounce" style="animation-delay:0.4s"></span>
-                                </span>
-                            </div>
-                        </div>
-                    </template>
-                    <style>
-                        @keyframes bounce {
-
-                            0%,
-                            80%,
-                            100% {
-                                transform: scale(1);
-                            }
-
-                            40% {
-                                transform: scale(1.5);
-                            }
-                        }
-
-                        .animate-bounce {
-                            animation: bounce 1s infinite;
-                        }
-                    </style>
                 </form>
+                <!-- Navigation and submit buttons remain visible and functional -->
+                <button
+                    x-show="step > 0"
+                    @click="step--"
+                    type="button"
+                    class="flex mx-auto text-white bg-gray-600 border-0 py-2 px-8 focus:outline-none hover:bg-gray-700 rounded text-lg">Previous</button>
+                <button
+                    x-show="step < tabs.length - 1"
+                    @click="nextStep"
+                    type="button"
+                    class="flex mx-auto text-white bg-yellow-500 border-0 py-2 px-8 focus:outline-none hover:bg-yellow-600 rounded text-lg">Next</button>
+                <template x-if="step === tabs.length - 1">
+                    <div class="flex mx-auto">
+                        <button
+                            x-show="isFormValid()"
+                            @click="document.getElementById('quoteForm').submit()"
+                            type="button"
+                            class="text-white bg-yellow-500 border-0 py-2 px-8 focus:outline-none hover:bg-yellow-600 rounded text-lg transition-all duration-200">
+                            Submit
+                        </button>
+                        <div
+                            x-show="!isFormValid()"
+                            class="flex items-center justify-center h-12 px-8 bg-gray-700 rounded text-lg text-gray-300 ml-0"
+                            style="min-width: 100px;">
+                            <span>Validating</span>
+                            <span class="ml-2 flex space-x-1">
+                                <span class="dot bg-yellow-400 rounded-full w-2 h-2 inline-block animate-bounce" style="animation-delay:0s"></span>
+                                <span class="dot bg-yellow-400 rounded-full w-2 h-2 inline-block animate-bounce" style="animation-delay:0.2s"></span>
+                                <span class="dot bg-yellow-400 rounded-full w-2 h-2 inline-block animate-bounce" style="animation-delay:0.4s"></span>
+                            </span>
+                        </div>
+                    </div>
+                </template>
+                <style>
+                    @keyframes bounce {
+
+                        0%,
+                        80%,
+                        100% {
+                            transform: scale(1);
+                        }
+
+                        40% {
+                            transform: scale(1.5);
+                        }
+                    }
+
+                    .animate-bounce {
+                        animation: bounce 1s infinite;
+                    }
+                </style>
                 <script>
                     // Sync visible fields to hidden fields in real time and before submit
-                    function syncHiddenFieldsFromForm(form) {
-                        document.getElementById('hidden_name').value = form.name.value;
-                        document.getElementById('hidden_email').value = form.email.value;
-                        document.getElementById('hidden_phone').value = form.phone.value;
-                        document.getElementById('hidden_instagram').value = form.instagram.value;
-                        document.getElementById('hidden_delivery_address').value = form.delivery_address.value;
-                        document.getElementById('hidden_billing_address').value = form.billing_address.value;
-                        document.getElementById('hidden_product_type').value = form.product_type.value;
-                        document.getElementById('hidden_material').value = form.material.value;
-                        document.getElementById('hidden_quantity').value = form.quantity.value;
-                        document.getElementById('hidden_timeline').value = form.timeline.value;
-                        document.getElementById('hidden_description').value = form.description.value;
-                        document.getElementById('hidden_budget').value = form.budget.value;
+                    function syncHiddenFieldsFromForm() {
+                        const form = document.getElementById('quoteForm');
+                        document.getElementById('hidden_name').value = quoteFormData.form.name;
+                        document.getElementById('hidden_email').value = quoteFormData.form.email;
+                        document.getElementById('hidden_phone').value = quoteFormData.form.phone;
+                        document.getElementById('hidden_instagram').value = quoteFormData.form.instagram;
+                        document.getElementById('hidden_delivery_address').value = quoteFormData.form.delivery_address;
+                        document.getElementById('hidden_billing_address').value = quoteFormData.form.billing_address;
+                        document.getElementById('hidden_product_type').value = quoteFormData.form.product_type;
+                        document.getElementById('hidden_material').value = quoteFormData.form.material;
+                        document.getElementById('hidden_quantity').value = quoteFormData.form.quantity;
+                        document.getElementById('hidden_timeline').value = quoteFormData.form.timeline;
+                        document.getElementById('hidden_description').value = quoteFormData.form.description;
+                        document.getElementById('hidden_budget').value = quoteFormData.form.budget;
                         // Services[]
                         const servicesDiv = document.getElementById('hidden_services');
                         servicesDiv.innerHTML = '';
-                        const checkedServices = form.querySelectorAll('input[name="services[]"]:checked');
-                        checkedServices.forEach(input => {
+                        quoteFormData.form.services.forEach(function(service) {
                             const hidden = document.createElement('input');
                             hidden.type = 'hidden';
                             hidden.name = 'services[]';
-                            hidden.value = input.value;
+                            hidden.value = service;
                             servicesDiv.appendChild(hidden);
                         });
                     }
+                    // Alpine.js global for quote form data
+                    window.quoteFormData = quoteForm();
+                    document.addEventListener('alpine:init', () => {
+                        Alpine.data('quoteForm', () => window.quoteFormData);
+                    });
                     document.addEventListener('DOMContentLoaded', function() {
-                        const form = document.getElementById('quoteForm');
                         // Sync on input/change
-                        form.addEventListener('input', function() {
-                            syncHiddenFieldsFromForm(form);
-                        });
-                        form.addEventListener('change', function() {
-                            syncHiddenFieldsFromForm(form);
-                        });
-                        // Sync before submit
-                        form.addEventListener('submit', function(e) {
-                            syncHiddenFieldsFromForm(form);
-                        });
+                        document.body.addEventListener('input', syncHiddenFieldsFromForm);
+                        document.body.addEventListener('change', syncHiddenFieldsFromForm);
                         // Initial sync
-                        syncHiddenFieldsFromForm(form);
+                        syncHiddenFieldsFromForm();
                     });
                 </script>
             </div>
