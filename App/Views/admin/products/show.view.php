@@ -2,27 +2,35 @@
     <!-- Top Section: 2 Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <!-- Card 1: Product Details -->
-        <div class="bg-white rounded-2xl shadow-lg p-8 border border-blue-100">
-            <h1 class="text-3xl font-extrabold text-blue-900 mb-6 border-b border-blue-100 pb-4">Product Details</h1>
-            <div class="space-y-4 mb-6">
-                <div class="flex items-center">
-                    <span class="w-32 text-blue-700 font-semibold">Name:</span>
-                    <span class="text-blue-900 font-bold"><?= e($product->name) ?></span>
+        <div class="bg-blue-50 rounded-xl shadow-md p-5 flex flex-col gap-4 border border-blue-200 hover:shadow-lg transition">
+            <div class="flex items-center gap-4 mb-2">
+                <div class="bg-blue-200 text-blue-700 rounded-lg p-3 flex items-center justify-center">
+                    <!-- Product icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25M6.364 6.364l-1.591 1.591M3 12h2.25m1.114 5.636-1.591 1.591m5.636 1.114V21m5.636-1.114 1.591 1.591m1.114-5.636H21m-1.114-5.636 1.591-1.591M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z" />
+                    </svg>
                 </div>
-                <div class="flex items-center">
-                    <span class="w-32 text-blue-700 font-semibold">Category:</span>
+                <h1 class="text-xl font-bold text-blue-900">Product Details</h1>
+            </div>
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center gap-2">
+                    <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">Name</span>
+                    <span class="text-lg font-bold text-blue-900"><?= e($product->name) ?></span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">Category</span>
                     <span class="text-blue-900"><?= e($product->category) ?></span>
                 </div>
-                <div class="flex items-center">
-                    <span class="w-32 text-blue-700 font-semibold">Price:</span>
+                <div class="flex items-center gap-2">
+                    <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">Price</span>
                     <span class="text-blue-900"><?= e($product->price) ?></span>
                 </div>
-                <div class="flex items-start">
-                    <span class="w-32 text-blue-700 font-semibold">Description:</span>
+                <div class="flex items-start gap-2">
+                    <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">Description</span>
                     <span class="text-blue-800"><?= e($product->description) ?></span>
                 </div>
             </div>
-            <div class="flex justify-between items-center mt-6">
+            <div class="flex gap-3 mt-2">
                 <a href="<?= url('admin/products/edit/' . $product->id) ?>" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold shadow border border-blue-700 transition">Edit Product</a>
                 <form action="<?= url('admin/products/delete/' . $product->id) ?>" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
                     <button type="submit" class="bg-red-100 text-red-700 hover:bg-red-200 border border-red-200 rounded px-5 py-2 font-semibold shadow transition">Delete Product</button>
@@ -75,42 +83,42 @@
         </div>
     </div>
     <!-- Card 3: Transactions Table -->
-    <div class="bg-white rounded-2xl shadow-lg p-8 border border-blue-100">
-        <h2 class="text-2xl font-bold text-blue-900 mb-6 border-b border-blue-100 pb-4">Recent Transactions</h2>
+    <div class="bg-blue-50 rounded-xl shadow-md p-5 border border-blue-200">
+        <h2 class="text-2xl font-bold text-blue-900 mb-6 border-b border-blue-200 pb-4">Recent Transactions</h2>
         <div class="overflow-x-auto">
-            <table class="min-w-full bg-white rounded-lg text-sm">
+            <table class="min-w-full bg-blue-50 rounded-xl text-sm border border-blue-100">
                 <thead>
                     <tr>
-                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Date</th>
-                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Order ID</th>
-                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Customer</th>
-                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Amount</th>
-                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Status</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold text-blue-800 uppercase tracking-wide bg-blue-100 border-b-2 border-blue-200">Date</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold text-blue-800 uppercase tracking-wide bg-blue-100 border-b-2 border-blue-200">Order ID</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold text-blue-800 uppercase tracking-wide bg-blue-100 border-b-2 border-blue-200">Customer</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold text-blue-800 uppercase tracking-wide bg-blue-100 border-b-2 border-blue-200">Amount</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold text-blue-800 uppercase tracking-wide bg-blue-100 border-b-2 border-blue-200">Status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr class="hover:bg-blue-100 transition">
                         <td class="px-4 py-2 border-b border-blue-100">2024-06-01</td>
                         <td class="px-4 py-2 border-b border-blue-100">#1001</td>
                         <td class="px-4 py-2 border-b border-blue-100">Alice Smith</td>
                         <td class="px-4 py-2 border-b border-blue-100">$120.00</td>
                         <td class="px-4 py-2 border-b border-blue-100"><span class="text-green-700 font-semibold">Completed</span></td>
                     </tr>
-                    <tr>
+                    <tr class="hover:bg-blue-100 transition">
                         <td class="px-4 py-2 border-b border-blue-100">2024-05-28</td>
                         <td class="px-4 py-2 border-b border-blue-100">#1000</td>
                         <td class="px-4 py-2 border-b border-blue-100">Bob Lee</td>
                         <td class="px-4 py-2 border-b border-blue-100">$80.00</td>
                         <td class="px-4 py-2 border-b border-blue-100"><span class="text-yellow-600 font-semibold">Pending</span></td>
                     </tr>
-                    <tr>
+                    <tr class="hover:bg-blue-100 transition">
                         <td class="px-4 py-2 border-b border-blue-100">2024-05-25</td>
                         <td class="px-4 py-2 border-b border-blue-100">#0999</td>
                         <td class="px-4 py-2 border-b border-blue-100">Carol King</td>
                         <td class="px-4 py-2 border-b border-blue-100">$150.00</td>
                         <td class="px-4 py-2 border-b border-blue-100"><span class="text-green-700 font-semibold">Completed</span></td>
                     </tr>
-                    <tr>
+                    <tr class="hover:bg-blue-100 transition">
                         <td class="px-4 py-2 border-b border-blue-100">2024-05-20</td>
                         <td class="px-4 py-2 border-b border-blue-100">#0998</td>
                         <td class="px-4 py-2 border-b border-blue-100">David Wu</td>
