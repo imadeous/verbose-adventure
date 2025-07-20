@@ -1,4 +1,3 @@
-<?php $this->section('content'); ?>
 <h1 class="text-2xl font-bold mb-4">Edit Product</h1>
 <form action="<?= url('admin/products/' . $product->id . '/update') ?>" method="POST">
     <div class="mb-4">
@@ -20,4 +19,3 @@
     <button type="submit" class="btn btn-primary">Update</button>
     <a href="<?= url('admin/products') ?>" class="btn">Cancel</a>
 </form>
-<?php $this->endSection(); ?>
