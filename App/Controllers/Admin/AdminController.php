@@ -43,7 +43,7 @@ class AdminController extends AdminControllerBase
         $overallAvg = $totalReviews > 0 ? round((($avgQuality + $avgPricing + $avgCommunication + $avgPackaging + $avgDelivery) / 5), 2) : 0;
 
         // Prepare category averages for insights
-        $categories = [
+        $matrices = [
             ['label' => 'Product Quality', 'score' => round($avgQuality, 1)],
             ['label' => 'Pricing', 'score' => round($avgPricing, 1)],
             ['label' => 'Communication', 'score' => round($avgCommunication, 1)],
@@ -60,7 +60,7 @@ class AdminController extends AdminControllerBase
             'recentReviews' => $recentReviews,
             'recommendPercent' => $recommendPercent,
             'overallAvg' => $overallAvg,
-            'categories' => $categories,
+            'matrices' => $matrices,
             'totalReviews' => $totalReviews
         ]);
     }
