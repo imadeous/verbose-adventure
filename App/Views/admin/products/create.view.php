@@ -6,7 +6,12 @@
     </div>
     <div class="mb-4">
         <label>Category</label>
-        <input type="text" name="category" class="input">
+        <select name="category_id" class="input" required>
+            <option value="">Select a category</option>
+            <?php foreach ($categories as $category): ?>
+                <option value="<?= e($category->id) ?>"><?= e($category->name) ?></option>
+            <?php endforeach; ?>
+        </select>
     </div>
     <div class="mb-4">
         <label>Price</label>

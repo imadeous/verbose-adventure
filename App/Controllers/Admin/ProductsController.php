@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Models\Product;
+use App\Models\Category;
 use Core\AdminControllerBase;
 
 class ProductsController extends AdminControllerBase
@@ -33,7 +34,10 @@ class ProductsController extends AdminControllerBase
     public function create()
     {
         $this->view->layout('admin');
-        $this->view('admin/products/create');
+        $categories = Category::all();
+        $this->view('admin/products/create', [
+            'categories' => $categories
+        ]);
     }
 
     public function store()
