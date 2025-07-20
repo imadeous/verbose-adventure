@@ -17,7 +17,40 @@
         <input type="hidden" name="timeline">
         <input type="hidden" name="description">
         <input type="hidden" name="budget">
-        <input type="hidden" name="services[]">
+        <div id="fallback_hidden_services"></div>
+        <script>
+            // Sync fallbackQuoteForm hidden fields as well
+            function syncFallbackHiddenFieldsFromForm() {
+                const form = document.getElementById('fallbackQuoteForm');
+                form.elements['name'].value = quoteFormData.form.name;
+                form.elements['email'].value = quoteFormData.form.email;
+                form.elements['phone'].value = quoteFormData.form.phone;
+                form.elements['instagram'].value = quoteFormData.form.instagram;
+                form.elements['delivery_address'].value = quoteFormData.form.delivery_address;
+                form.elements['billing_address'].value = quoteFormData.form.billing_address;
+                form.elements['product_type'].value = quoteFormData.form.product_type;
+                form.elements['material'].value = quoteFormData.form.material;
+                form.elements['quantity'].value = quoteFormData.form.quantity;
+                form.elements['timeline'].value = quoteFormData.form.timeline;
+                form.elements['description'].value = quoteFormData.form.description;
+                form.elements['budget'].value = quoteFormData.form.budget;
+                // Services[]
+                const servicesDiv = document.getElementById('fallback_hidden_services');
+                servicesDiv.innerHTML = '';
+                quoteFormData.form.services.forEach(function(service) {
+                    const hidden = document.createElement('input');
+                    hidden.type = 'hidden';
+                    hidden.name = 'services[]';
+                    hidden.value = service;
+                    servicesDiv.appendChild(hidden);
+                });
+            }
+            document.addEventListener('DOMContentLoaded', function() {
+                document.body.addEventListener('input', syncFallbackHiddenFieldsFromForm);
+                document.body.addEventListener('change', syncFallbackHiddenFieldsFromForm);
+                syncFallbackHiddenFieldsFromForm();
+            });
+        </script>
     </form>
     <div class="container px-5 mt-24 mx-auto flex flex-wrap flex-col">
         <!-- add a heading and helper text -->
