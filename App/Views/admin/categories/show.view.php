@@ -1,35 +1,31 @@
-<h1 class="text-3xl font-extrabold mb-6 text-gray-800">Category Details</h1>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<h1 class="text-3xl font-extrabold mb-8 text-gray-900 tracking-tight">Category Details</h1>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
     <!-- Category Details -->
-    <div class="bg-white shadow rounded-lg p-6">
-        <div class="mb-2">
-            <span class="font-semibold text-gray-700">Name:</span>
-            <span class="text-gray-900"><?= e($category->name) ?></span>
+    <div class="bg-gradient-to-br from-blue-50 to-white shadow-xl rounded-2xl p-8 border border-blue-100">
+        <div class="mb-4 flex items-center space-x-3">
+            <span class="inline-block bg-blue-100 text-blue-600 rounded-full px-3 py-1 text-xs font-bold">ID: <?= e($category->id) ?></span>
+            <span class="inline-block bg-green-100 text-green-600 rounded-full px-3 py-1 text-xs font-bold"><?= e($category->created_at) ?></span>
         </div>
         <div class="mb-2">
-            <span class="font-semibold text-gray-700">ID:</span>
-            <span class="text-gray-900"><?= e($category->id) ?></span>
-        </div>
-        <div>
-            <span class="font-semibold text-gray-700">Created At:</span>
-            <span class="text-gray-900"><?= e($category->created_at) ?></span>
+            <span class="block text-lg font-semibold text-gray-700">Name</span>
+            <span class="text-2xl font-bold text-gray-900"><?= e($category->name) ?></span>
         </div>
     </div>
     <!-- Category Stats -->
-    <div class="bg-white shadow rounded-lg p-6 flex flex-col space-y-4">
-        <div>
-            <span class="font-semibold text-gray-700">Product Count:</span>
-            <span class="text-gray-900"><?= isset($stats['product_count']) ? e($stats['product_count']) : count($products) ?></span>
+    <div class="bg-gradient-to-br from-purple-50 to-white shadow-xl rounded-2xl p-8 border border-purple-100 flex flex-col space-y-6">
+        <div class="flex items-center space-x-3">
+            <span class="text-sm font-medium text-gray-600">Product Count</span>
+            <span class="text-xl font-bold text-purple-700"><?= isset($stats['product_count']) ? e($stats['product_count']) : count($products) ?></span>
         </div>
-        <div>
-            <span class="font-semibold text-gray-700">Total Revenue:</span>
-            <span class="text-gray-900">
-                <?= isset($stats['total_revenue']) ? e(number_format($stats['total_revenue'], 2)) : '0.00' ?>
+        <div class="flex items-center space-x-3">
+            <span class="text-sm font-medium text-gray-600">Total Revenue</span>
+            <span class="text-xl font-bold text-green-700">
+                $<?= isset($stats['total_revenue']) ? e(number_format($stats['total_revenue'], 2)) : '0.00' ?>
             </span>
         </div>
-        <div>
-            <span class="font-semibold text-gray-700">Overall Rating:</span>
-            <span class="text-gray-900">
+        <div class="flex items-center space-x-3">
+            <span class="text-sm font-medium text-gray-600">Overall Rating</span>
+            <span class="text-xl font-bold text-yellow-500">
                 <?= isset($stats['overall_rating']) ? e(number_format($stats['overall_rating'], 1)) : 'N/A' ?>
             </span>
         </div>
