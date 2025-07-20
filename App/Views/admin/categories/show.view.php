@@ -40,7 +40,7 @@
                 <div class="bg-white rounded-2xl shadow-xl border border-blue-100 p-6 flex flex-col space-y-4 hover:shadow-2xl transition-shadow">
                     <div class="flex items-center justify-between">
                         <span class="text-xs font-bold text-blue-600 bg-blue-100 rounded-full px-3 py-1">ID: <?= e($product['id']) ?></span>
-                        <span class="text-xs text-gray-500"><?= e($product['created_at']) ?></span>
+                        <span class="text-xs text-gray-500"><?= e(date('F j, Y', strtotime($product['created_at']))) ?></span>
                     </div>
                     <div>
                         <h3 class="text-lg font-bold text-gray-900 mb-1"><?= e($product['name']) ?></h3>
