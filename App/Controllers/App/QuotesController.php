@@ -20,6 +20,12 @@ class QuotesController extends Controller
     // Handle quote form submission
     public function store()
     {
+        // CSRF check
+        if (!isset($_POST['csrf_token']) || !\App\Helpers\Csrf::check($_POST['csrf_token'])) {
+            flash('error', 'Invalid or missing CSRF token. Please try again.');
+            $this->redirect('/quote');
+            return;
+        }
         // Validate required fields
         $required = ['name', 'email', 'phone', 'delivery_address', 'product_type', 'quantity', 'timeline'];
         foreach ($required as $field) {

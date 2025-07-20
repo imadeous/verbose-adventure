@@ -316,6 +316,7 @@
             <div class="p-2 w-full flex justify-between items-center mt-6">
                 <form id="quoteForm" method="POST" action="/quote" enctype="multipart/form-data" autocomplete="off" class="hidden">
                     <!-- Hidden real form fields for PHP POST (all hidden, form is not visible) -->
+                    <?= csrf_field() ?>
                     <input type=" text" name="name" id="hidden_name" x-model="form.name" class="hidden">
                     <input type=" text" name="email" id="hidden_email" x-model="form.email" class="hidden">
                     <input type=" text" name="phone" id="hidden_phone" x-model="form.phone" class="hidden">
