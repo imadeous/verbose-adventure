@@ -25,8 +25,11 @@ class CategoriesController extends AdminControllerBase
             $this->redirect('/admin/categories');
             return;
         }
+        // Assuming Category has a products() relationship
+        $products = $category->getProductsWithCategory();
         $this->view('admin/categories/show', [
-            'category' => $category
+            'category' => $category,
+            'products' => $products
         ]);
     }
 
