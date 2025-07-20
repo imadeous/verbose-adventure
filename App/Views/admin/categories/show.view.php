@@ -43,10 +43,10 @@ foreach ($products as $product): ?>
             <?php if (!empty($products)): ?>
                 <?php foreach ($products as $product): ?>
                     <tr class="border-t">
-                        <td class="px-4 py-2"><?= ($product->id) ?></td>
-                        <td class="px-4 py-2"><?= ($product->name) ?></td>
-                        <td class="px-4 py-2"><?= ($product->price) ?></td>
-                        <td class="px-4 py-2"><?= ($product->created_at) ?></td>
+                        <td class="px-4 py-2"><?= e($product['id']) ?></td>
+                        <td class="px-4 py-2"><?= e($product['name']) ?></td>
+                        <td class="px-4 py-2"><?= e($product['price']) ?></td>
+                        <td class="px-4 py-2"><?= e($product['created_at']) ?></td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
