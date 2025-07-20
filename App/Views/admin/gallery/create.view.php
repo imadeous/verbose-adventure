@@ -3,6 +3,7 @@
 ?>
 <h1 class="text-2xl font-bold mb-6">Add Image</h1>
 <form action="<?= url('admin/gallery') ?>" method="POST" enctype="multipart/form-data" class="space-y-6 max-w-lg">
+    <?php csrf_field(); ?>
     <div>
         <label class="block font-semibold mb-1">Image</label>
         <input type="file" name="image" required class="block w-full border rounded px-3 py-2">
