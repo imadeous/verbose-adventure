@@ -313,7 +313,7 @@
             </div>
             <!-- Navigation Buttons -->
 
-            <div class="p-2 w-full flex justify-between items-center mt-6">
+            <div class="p-2 w-full mt-6">
                 <form id="quoteForm" method="POST" action="/quote" enctype="multipart/form-data" autocomplete="off">
                     <!-- Hidden real form fields for PHP POST (all hidden, form is not visible) -->
                     <?= csrf_field() ?>
@@ -332,57 +332,59 @@
                     <div id=" hidden_services">
                     </div>
 
-                    <!-- Navigation and submit buttons remain visible and functional -->
-                    <button
-                        x-show="step > 0"
-                        @click="step--"
-                        type="button"
-                        class="flex mx-auto text-white bg-gray-600 border-0 py-2 px-8 focus:outline-none hover:bg-gray-700 rounded text-lg">Previous</button>
-                    <button
-                        x-show="step < tabs.length - 1"
-                        @click="nextStep"
-                        type="button"
-                        class="flex mx-auto text-white bg-yellow-500 border-0 py-2 px-8 focus:outline-none hover:bg-yellow-600 rounded text-lg">Next</button>
-                    <template x-if="step === tabs.length - 1">
-                        <div class="flex mx-auto">
-                            <button
-                                x-show="isFormValid()"
-                                @click="document.getElementById('quoteForm').submit()"
-                                type="button"
-                                class="text-white bg-yellow-500 border-0 py-2 px-8 focus:outline-none hover:bg-yellow-600 rounded text-lg transition-all duration-200">
-                                Submit
-                            </button>
-                            <div
-                                x-show="!isFormValid()"
-                                class="flex items-center justify-center h-12 px-8 bg-gray-700 rounded text-lg text-gray-300 ml-0"
-                                style="min-width: 100px;">
-                                <span>Validating</span>
-                                <span class="ml-2 flex space-x-1">
-                                    <span class="dot bg-yellow-400 rounded-full w-2 h-2 inline-block animate-bounce" style="animation-delay:0s"></span>
-                                    <span class="dot bg-yellow-400 rounded-full w-2 h-2 inline-block animate-bounce" style="animation-delay:0.2s"></span>
-                                    <span class="dot bg-yellow-400 rounded-full w-2 h-2 inline-block animate-bounce" style="animation-delay:0.4s"></span>
-                                </span>
+                    <div class="flex justify-between items-center ">
+                        <!-- Navigation and submit buttons remain visible and functional -->
+                        <button
+                            x-show="step > 0"
+                            @click="step--"
+                            type="button"
+                            class="flex mx-auto text-white bg-gray-600 border-0 py-2 px-8 focus:outline-none hover:bg-gray-700 rounded text-lg">Previous</button>
+                        <button
+                            x-show="step < tabs.length - 1"
+                            @click="nextStep"
+                            type="button"
+                            class="flex mx-auto text-white bg-yellow-500 border-0 py-2 px-8 focus:outline-none hover:bg-yellow-600 rounded text-lg">Next</button>
+                        <template x-if="step === tabs.length - 1">
+                            <div class="flex mx-auto">
+                                <button
+                                    x-show="isFormValid()"
+                                    @click="document.getElementById('quoteForm').submit()"
+                                    type="button"
+                                    class="text-white bg-yellow-500 border-0 py-2 px-8 focus:outline-none hover:bg-yellow-600 rounded text-lg transition-all duration-200">
+                                    Submit
+                                </button>
+                                <div
+                                    x-show="!isFormValid()"
+                                    class="flex items-center justify-center h-12 px-8 bg-gray-700 rounded text-lg text-gray-300 ml-0"
+                                    style="min-width: 100px;">
+                                    <span>Validating</span>
+                                    <span class="ml-2 flex space-x-1">
+                                        <span class="dot bg-yellow-400 rounded-full w-2 h-2 inline-block animate-bounce" style="animation-delay:0s"></span>
+                                        <span class="dot bg-yellow-400 rounded-full w-2 h-2 inline-block animate-bounce" style="animation-delay:0.2s"></span>
+                                        <span class="dot bg-yellow-400 rounded-full w-2 h-2 inline-block animate-bounce" style="animation-delay:0.4s"></span>
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                    </template>
-                    <style>
-                        @keyframes bounce {
+                        </template>
+                        <style>
+                            @keyframes bounce {
 
-                            0%,
-                            80%,
-                            100% {
-                                transform: scale(1);
+                                0%,
+                                80%,
+                                100% {
+                                    transform: scale(1);
+                                }
+
+                                40% {
+                                    transform: scale(1.5);
+                                }
                             }
 
-                            40% {
-                                transform: scale(1.5);
+                            .animate-bounce {
+                                animation: bounce 1s infinite;
                             }
-                        }
-
-                        .animate-bounce {
-                            animation: bounce 1s infinite;
-                        }
-                    </style>
+                        </style>
+                    </div>
                 </form>
             </div>
         </div>
