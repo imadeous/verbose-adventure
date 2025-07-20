@@ -2,8 +2,8 @@
 
 namespace App\Controllers\Admin;
 
-use Core\AdminControllerBase;
 use App\Models\Category;
+use Core\AdminControllerBase;
 
 class CategoriesController extends AdminControllerBase
 {

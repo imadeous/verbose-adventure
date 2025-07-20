@@ -2,8 +2,8 @@
 
 namespace App\Controllers\Admin;
 
-use Core\AdminControllerBase;
 use App\Models\Product;
+use Core\AdminControllerBase;
 
 class ProductsController extends AdminControllerBase
 {
