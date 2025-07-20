@@ -314,7 +314,7 @@
             <!-- Navigation Buttons -->
 
             <div class="p-2 w-full flex justify-between items-center mt-6">
-                <form id="quoteForm" method="POST" action="/quote" enctype="multipart/form-data" autocomplete="off" class="hidden">
+                <form id="quoteForm" method="POST" action="/quote" enctype="multipart/form-data" autocomplete="off">
                     <!-- Hidden real form fields for PHP POST (all hidden, form is not visible) -->
                     <?= csrf_field() ?>
                     <input type=" text" name="name" id="hidden_name" x-model="form.name" class="hidden">
