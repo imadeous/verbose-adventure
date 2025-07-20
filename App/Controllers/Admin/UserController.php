@@ -5,9 +5,9 @@ namespace App\Controllers\Admin;
 use App\Models\User;
 
 
-use Core\Controller;
+use Core\AdminControllerBase;
 
-class UserController extends Controller
+class UserController extends AdminControllerBase
 {
     /**
      * The model class for resource route key binding.

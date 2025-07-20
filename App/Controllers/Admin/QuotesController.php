@@ -3,9 +3,9 @@
 namespace App\Controllers\Admin;
 
 use App\Models\Quote;
-use Core\Controller;
+use Core\AdminControllerBase;
 
-class QuotesController extends Controller
+class QuotesController extends AdminControllerBase
 {
     public function index()
     {
