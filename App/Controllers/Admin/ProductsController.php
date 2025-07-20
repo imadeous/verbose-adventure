@@ -18,8 +18,13 @@ class ProductsController extends AdminControllerBase
 
     public function show($id)
     {
-        $product = Product::find($id);
         $this->view->layout('admin');
+        $product = Product::find($id);
+        if (!$product) {
+            flash('error', 'Product not found.');
+            $this->redirect('/admin/products');
+            return;
+        }
         $this->view('admin/products/show', [
             'product' => $product
         ]);
@@ -41,8 +46,13 @@ class ProductsController extends AdminControllerBase
 
     public function edit($id)
     {
-        $product = Product::find($id);
         $this->view->layout('admin');
+        $product = Product::find($id);
+        if (!$product) {
+            flash('error', 'Product not found.');
+            $this->redirect('/admin/products');
+            return;
+        }
         $this->view('admin/products/edit', [
             'product' => $product
         ]);
@@ -51,8 +61,14 @@ class ProductsController extends AdminControllerBase
     public function update($id)
     {
         $product = Product::find($id);
+        if (!$product) {
+            flash('error', 'Product not found.');
+            $this->redirect('/admin/products');
+            return;
+        }
         $product->fill($_POST);
         $product->save();
+        flash('success', 'Product updated successfully.');
         $this->redirect('/admin/products');
     }
 

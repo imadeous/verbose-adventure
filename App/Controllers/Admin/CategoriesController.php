@@ -18,8 +18,13 @@ class CategoriesController extends AdminControllerBase
 
     public function show($id)
     {
-        $category = Category::find($id);
         $this->view->layout('admin');
+        $category = Category::find($id);
+        if (!$category) {
+            flash('error', 'Category not found.');
+            $this->redirect('/admin/categories');
+            return;
+        }
         $this->view('admin/categories/show', [
             'category' => $category
         ]);
@@ -41,8 +46,13 @@ class CategoriesController extends AdminControllerBase
 
     public function edit($id)
     {
-        $category = Category::find($id);
         $this->view->layout('admin');
+        $category = Category::find($id);
+        if (!$category) {
+            flash('error', 'Category not found.');
+            $this->redirect('/admin/categories');
+            return;
+        }
         $this->view('admin/categories/edit', [
             'category' => $category
         ]);
@@ -51,8 +61,14 @@ class CategoriesController extends AdminControllerBase
     public function update($id)
     {
         $category = Category::find($id);
+        if (!$category) {
+            flash('error', 'Category not found.');
+            $this->redirect('/admin/categories');
+            return;
+        }
         $category->fill($_POST);
         $category->save();
+        flash('success', 'Category updated successfully.');
         $this->redirect('/admin/categories');
     }
 
