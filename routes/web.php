@@ -1,3 +1,5 @@
+// Admin Reviews resource routes
+$router->resource('admin/reviews', 'App\\Controllers\\Admin\\ReviewsController');
 
 <?php
 
