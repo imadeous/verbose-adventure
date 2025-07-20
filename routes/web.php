@@ -43,6 +43,7 @@ $router->middleware([AuthMiddleware::class], function ($router) {
     $router->resource('/admin/contacts', \App\Controllers\Admin\ContactController::class);
     $router->resource('/admin/quotes', \App\Controllers\Admin\QuotesController::class);
     $router->resource('/admin/reviews', \App\Controllers\Admin\ReviewsController::class);
+    $router->resource('/admin/products', \App\Controllers\Admin\ProductsController::class);
     // Admin user profile route
     $router->get('/admin/profile', [UserController::class, 'profile']);
     // $router->resource('/admin/events', EventController::class);
