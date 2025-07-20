@@ -7,6 +7,7 @@ use PDO;
 
 
 class QueryBuilder
+
 {
     protected $table;
     protected $pdo;
@@ -29,6 +30,22 @@ class QueryBuilder
         } else {
             $this->select = $columns;
         }
+        return $this;
+    }
+
+    protected $joins = [];
+    /**
+     * Add a JOIN clause to the query.
+     * @param string $table
+     * @param string $first
+     * @param string $operator
+     * @param string $second
+     * @param string $type
+     * @return $this
+     */
+    public function join($table, $first, $operator, $second, $type = 'INNER')
+    {
+        $this->joins[] = strtoupper($type) . " JOIN `$table` ON $first $operator $second";
         return $this;
     }
 
@@ -103,6 +120,9 @@ class QueryBuilder
     public function get()
     {
         $sql = "SELECT {$this->select} FROM `{$this->table}`";
+        if (!empty($this->joins)) {
+            $sql .= ' ' . implode(' ', $this->joins);
+        }
         if ($this->wheres) {
             $whereSql = [];
             foreach ($this->wheres as $i => $where) {
@@ -125,6 +145,7 @@ class QueryBuilder
         $this->bindings = [];
         $this->orderBy = '';
         $this->limit = '';
+        $this->joins = [];
         return $results;
     }
 

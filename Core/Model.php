@@ -4,6 +4,8 @@ namespace Core;
 
 
 abstract class Model
+
+
 {
     /**
      * The route key for model binding in resource routes (default: 'id').
@@ -15,7 +17,17 @@ abstract class Model
     protected $table = null;
     protected $primaryKey = 'id';
     protected $attributes = [];
-
+    /**
+     * Begin a query with a custom select clause.
+     * @param string|array $columns
+     * @return \Core\Database\QueryBuilder
+     */
+    public static function select($columns)
+    {
+        $instance = new static();
+        $qb = new \Core\Database\QueryBuilder($instance->table);
+        return $qb->select($columns);
+    }
 
     /**
      * Get the count of all records in the table.

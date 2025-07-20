@@ -12,8 +12,11 @@ class Category extends Model
         'name',
         'created_at'
     ];
-    public function getProducts()
+    public function getProductsWithCategory()
     {
-        return Product::where('category_id', $this->id);
+        return Product::select('products.*', 'categories.name as category_name')
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->where('products.category_id', $this->id)
+            ->get();
     }
 }
