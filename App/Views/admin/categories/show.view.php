@@ -77,7 +77,7 @@
 <h2 class="text-2xl font-bold mb-4 text-gray-800">Products in this Category</h2>
 <div class="overflow-x-auto">
     <?php if (!empty($products)): ?>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 py-6">
             <?php foreach ($products as $product): ?>
                 <div class="bg-white rounded-3xl shadow-2xl border border-blue-100 p-6 flex flex-col hover:shadow-3xl transition-all duration-300 group relative overflow-hidden">
                     <!-- Ribbon for featured/new products (optional) -->
