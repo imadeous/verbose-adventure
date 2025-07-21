@@ -66,7 +66,7 @@
             </div>
             <div>
                 <div class="text-xs text-blue-500 font-medium uppercase tracking-wide">Overall Rating</div>
-                <div class="text-2xl font-bold text-yellow-500">
+                <div class="text-2xl font-bold text-blue-900">
                     <?= isset($stats['overall_rating']) ? e(number_format($stats['overall_rating'], 1)) : 'N/A' ?>
                 </div>
             </div>
