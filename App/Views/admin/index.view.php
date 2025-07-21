@@ -405,18 +405,14 @@
                             '#60a5fa',
                             '#93c5fd'
                         ],
-                        borderRadius: 8,
+                        borderWidth: 1,
                     }]
                 },
                 options: {
                     plugins: {
                         legend: {
-                            display: false
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true
+                            display: true,
+                            position: 'bottom'
                         }
                     },
                     responsive: true,
