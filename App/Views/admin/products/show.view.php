@@ -30,7 +30,7 @@
                     <span class="text-blue-800"><?= e($product->description) ?></span>
                 </div>
             </div>
-            <div class="flex gap-3 mt-2 justify-end items-center py-5 bg-white rounded-b-xl">
+            <div class="flex gap-3 mt-2 justify-end items-center p-5 bg-white rounded-b-xl">
                 <a href="<?= url('admin/products/' . $product->id) ?>" class="bg-blue-100 text-blue-700 hover:bg-blue-200 border border-blue-200 rounded px-3 py-1 font-semibold transition shadow-sm">View</a>
                 <a href="<?= url('admin/products/' . $product->id . '/edit') ?>" class="bg-yellow-100 text-yellow-700 hover:bg-yellow-200 border border-yellow-300 rounded px-3 py-1 font-semibold transition shadow-sm">Edit</a>
                 <form action="<?= url('admin/products/' . $product->id . '/delete') ?>" method="POST" style="display:inline;">
