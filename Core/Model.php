@@ -145,3 +145,11 @@ abstract class Model
         return $qb->delete($this->attributes[$this->primaryKey], $this->primaryKey);
     }
 }
+
+// write the example sysntax for the Model class
+// Example usage:
+// $user = new User(['username' => 'john_doe', 'email' => 'john@example.com']);
+// $user->save();
+// $users = User::all();
+// $user = User::find(1);
+// $user->delete();  
