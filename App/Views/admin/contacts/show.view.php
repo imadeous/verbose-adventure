@@ -29,7 +29,7 @@
             <form action="<?= url('admin/contacts/' . $contact->id . '/delete') ?>" method="POST" onsubmit="return confirm('Delete this contact?')">
                 <input type="hidden" name="_method" value="DELETE">
                 <?= csrf_field() ?>
-                <button type="submit" class="bg-red-100 hover:bg-red-200 text-red-700 px-4 py-2 rounded text-sm border border-red-200 transition-colors">
+                <button type="submit" class="bg-red-100 hover:bg-red-200 text-red-700 px-4 py-2 rounded text-sm border border-red-200 transition-colors hover:cursor-pointer">
                     Delete
                 </button>
             </form>
