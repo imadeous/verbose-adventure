@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Core\Model;
+use App\Models\Category;
 use App\Models\Review;
 
 class Product extends Model
@@ -19,13 +20,12 @@ class Product extends Model
         'created_at'
     ];
 
-    public function getCategoryName($category_id)
+    public static function getCategoryName($category_id)
     {
-        if (!$category_id) return 'Uncategorized';
-        $category = \App\Models\Category::find($category_id);
-        return $category ? $category->name : 'Uncategorized';
+        if (!$category_id) return null;
+        // Assuming Category has a products() relationship
+        return Category::find($category_id)->name ?? 'Uncategorized';
     }
-
     // get all products by category
     public static function getByCategory($category_id)
     {
