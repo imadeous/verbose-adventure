@@ -127,7 +127,7 @@ class UserController extends AdminControllerBase
         if ($user) {
             $user->delete();
         }
-        header('Location: ' . url('admin/users'));
+        $this->redirect('/admin/users');
         exit;
     }
 
@@ -135,7 +135,7 @@ class UserController extends AdminControllerBase
     {
         $user = User::find($_SESSION['user_id']);
         if (!$user) {
-            header('Location: ' . url('admin/users'));
+            $this->redirect('/admin/users');
             exit;
         }
         $this->view->layout('admin');
