@@ -1,38 +1,74 @@
 <h1 class="text-3xl font-extrabold mb-8 text-gray-900 tracking-tight">Category Details</h1>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-    <!-- Category Details -->
-    <div class="col-span-2 bg-gradient-to-br from-blue-50 to-white shadow-xl rounded-2xl p-8 border border-blue-100">
-        <div class="mb-4 flex items-center space-x-3">
-            <span class="inline-block bg-blue-100 text-blue-600 rounded-full px-3 py-1 text-xs font-bold">ID: <?= e($category->id) ?></span>
-            <span class="inline-block bg-green-100 text-green-600 rounded-full px-3 py-1 text-xs font-bold"><?= e($category->created_at) ?></span>
+    <!-- Category Details Card -->
+    <div class="col-span-2 bg-blue-50 rounded-xl shadow-md p-5 flex flex-col gap-4 border border-blue-200 hover:shadow-lg transition">
+        <div class="flex items-center gap-4 mb-2">
+            <div class="bg-blue-200 text-blue-700 rounded-lg p-3 flex items-center justify-center">
+                <!-- Category icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25M6.364 6.364l-1.591 1.591M3 12h2.25m1.114 5.636-1.591 1.591m5.636 1.114V21m5.636-1.114 1.591 1.591m1.114-5.636H21m-1.114-5.636 1.591-1.591M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z" />
+                </svg>
+            </div>
+            <h2 class="text-xl font-bold text-blue-900">Category Details</h2>
         </div>
-        <div class="mb-2">
-            <span class="block text-lg font-semibold text-gray-700">Name</span>
-            <span class="text-2xl font-bold text-gray-900"><?= e($category->name) ?></span>
+        <div class="flex flex-col gap-2">
+            <div class="flex items-center gap-2">
+                <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">ID</span>
+                <span class="text-blue-900 font-semibold"><?= e($category->id) ?></span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">Created</span>
+                <span class="text-green-700 font-semibold"><?= e($category->created_at) ?></span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">Name</span>
+                <span class="text-lg font-bold text-blue-900"><?= e($category->name) ?></span>
+            </div>
         </div>
     </div>
-    <!-- Category Stats -->
-    <div class="grid grid-cols-1 gap-6">
-        <div class="bg-gradient-to-br from-purple-50 to-white shadow-xl rounded-2xl p-8 border border-purple-100 flex flex-col space-y-3">
-            <div class="flex items-center space-x-3">
-                <span class="text-sm font-medium text-gray-600">Product Count</span>
-                <span class="text-xl font-bold text-purple-700"><?= isset($stats['product_count']) ? e($stats['product_count']) : count($products) ?></span>
+    <!-- Category Stats (Stacked Cards) -->
+    <div class="flex flex-col gap-5">
+        <!-- Product Count Card -->
+        <div class="bg-blue-50 rounded-xl shadow-md p-5 flex items-center gap-4 border border-blue-200 hover:shadow-lg transition">
+            <div class="bg-blue-200 text-blue-700 rounded-lg p-3 flex items-center justify-center">
+                <!-- Product count icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a4 4 0 004 4h10a4 4 0 004-4V7a4 4 0 00-4-4H7a4 4 0 00-4 4z" />
+                </svg>
+            </div>
+            <div>
+                <div class="text-xs text-blue-500 font-medium uppercase tracking-wide">Product Count</div>
+                <div class="text-2xl font-bold text-blue-900"><?= isset($stats['product_count']) ? e($stats['product_count']) : count($products) ?></div>
             </div>
         </div>
-        <div class="bg-gradient-to-br from-purple-50 to-white shadow-xl rounded-2xl p-8 border border-purple-100 flex flex-col space-y-3">
-            <div class="flex items-center space-x-3">
-                <span class="text-sm font-medium text-gray-600">Total Revenue</span>
-                <span class="text-xl font-bold text-green-700">
+        <!-- Total Revenue Card -->
+        <div class="bg-blue-50 rounded-xl shadow-md p-5 flex items-center gap-4 border border-blue-200 hover:shadow-lg transition">
+            <div class="bg-blue-200 text-blue-700 rounded-lg p-3 flex items-center justify-center">
+                <!-- Revenue icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-2.21 0-4 1.343-4 3s1.79 3 4 3 4-1.343 4-3-1.79-3-4-3Zm0 0V6m0 8v2m-6 2a9 9 0 1 1 18 0 9 9 0 0 1-18 0Z" />
+                </svg>
+            </div>
+            <div>
+                <div class="text-xs text-blue-500 font-medium uppercase tracking-wide">Total Revenue</div>
+                <div class="text-2xl font-bold text-green-700">
                     $<?= isset($stats['total_revenue']) ? e(number_format($stats['total_revenue'], 2)) : '0.00' ?>
-                </span>
+                </div>
             </div>
         </div>
-        <div class="bg-gradient-to-br from-purple-50 to-white shadow-xl rounded-2xl p-8 border border-purple-100 flex flex-col space-y-3">
-            <div class="flex items-center space-x-3">
-                <span class="text-sm font-medium text-gray-600">Overall Rating</span>
-                <span class="text-xl font-bold text-yellow-500">
+        <!-- Overall Rating Card -->
+        <div class="bg-blue-50 rounded-xl shadow-md p-5 flex items-center gap-4 border border-blue-200 hover:shadow-lg transition">
+            <div class="bg-blue-200 text-blue-700 rounded-lg p-3 flex items-center justify-center">
+                <!-- Star icon -->
+                <svg class="size-6 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.175c.969 0 1.371 1.24.588 1.81l-3.38 2.455a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.38-2.454a1 1 0 00-1.175 0l-3.38 2.454c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.049 9.394c-.783-.57-.38-1.81.588-1.81h4.175a1 1 0 00.95-.69l1.286-3.967z" />
+                </svg>
+            </div>
+            <div>
+                <div class="text-xs text-blue-500 font-medium uppercase tracking-wide">Overall Rating</div>
+                <div class="text-2xl font-bold text-yellow-500">
                     <?= isset($stats['overall_rating']) ? e(number_format($stats['overall_rating'], 1)) : 'N/A' ?>
-                </span>
+                </div>
             </div>
         </div>
     </div>
