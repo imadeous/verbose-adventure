@@ -79,16 +79,18 @@
                     x-model="relatedId"
                     :required="type !== 'site'">
                     <option value="">Select Related</option>
-                    <template x-if="type === 'category'">
-                        <template x-for="cat in <?= json_encode($categories) ?>" :key="cat.id">
-                            <option :value="cat.id" x-text="cat.name"></option>
-                        </template>
-                    </template>
-                    <template x-if="type === 'product'">
-                        <template x-for="prod in <?= json_encode($products) ?>" :key="prod.id">
-                            <option :value="prod.id" x-text="prod.name"></option>
-                        </template>
-                    </template>
+                    <?php if (!empty($categories) && !empty($products)): ?>
+                        <optgroup label="Categories" x-show="type === 'category'">
+                            <?php foreach ($categories as $category): ?>
+                                <option value="<?= e($category->id) ?>" x-show="type === 'category'"><?= e($category->name) ?></option>
+                            <?php endforeach; ?>
+                        </optgroup>
+                        <optgroup label="Products" x-show="type === 'product'">
+                            <?php foreach ($products as $product): ?>
+                                <option value="<?= e($product->id) ?>" x-show="type === 'product'"><?= e($product->name) ?></option>
+                            <?php endforeach; ?>
+                        </optgroup>
+                    <?php endif; ?>
                 </select>
             </div>
             <div class="flex justify-end">
