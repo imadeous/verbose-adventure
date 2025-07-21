@@ -40,8 +40,8 @@
                                             <?php endif; ?>
                                         <?php endfor; ?>
                                     </span>
-                                    <span class="text-xs text-blue-400 bg-blue-100 px-2 py-1 rounded-r"><?= e(date('F j, Y', strtotime($review->created_at))) ?></span>
                                 </div>
+                                <span class="text-xs text-blue-400 bg-blue-100 px-2 py-1 rounded-r"><?= e(date('F j, Y', strtotime($review->created_at))) ?></span>
                             </div>
                             <div class="text-blue-800 text-sm break-words bg-blue-50 px-4 py-3 border border-blue-100 mt-2 rounded-lg shadow-sm" title="<?= e($review->comments) ?>">
                                 <?= e($review->comments) ?>
