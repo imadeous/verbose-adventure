@@ -11,9 +11,11 @@ class ProductsController extends AdminControllerBase
     public function index()
     {
         $products = Product::all();
+        $reviews = \App\Models\Review::all();
         $this->view->layout('admin');
         $this->view('admin/products/index', [
-            'products' => $products
+            'products' => $products,
+            'reviews' => $reviews
         ]);
     }
 
