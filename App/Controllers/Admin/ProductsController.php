@@ -22,13 +22,15 @@ class ProductsController extends AdminControllerBase
     {
         $this->view->layout('admin');
         $product = Product::find($id);
+        $reviews = $product ? $product->getReviews($id) : [];
         if (!$product) {
             flash('error', 'Product not found.');
             $this->redirect('/admin/products');
             return;
         }
         $this->view('admin/products/show', [
-            'product' => $product
+            'product' => $product,
+            'reviews' => $reviews
         ]);
     }
 
