@@ -1,3 +1,8 @@
+<?php
+
+use App\Models\Product;
+use App\Models\Transaction;
+?>
 <div class="max-w-5xl mx-auto p-8 space-y-10">
     <!-- Top Section: 2 Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -19,7 +24,7 @@
                 </div>
                 <div class="flex items-center gap-2">
                     <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">Category</span>
-                    <span class="text-blue-900"><?php var_dump($product->getCategoryName($product->category_id)) ?></span>
+                    <span class="text-blue-900"><?= e(Product::getCategoryName($product->category_id)) ?></span>
                 </div>
                 <div class="flex items-center gap-2">
                     <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">Price</span>
@@ -104,11 +109,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-
-                        use App\Models\Product;
-
-                        if (empty($transactions)): ?>
+                        <?php if (empty($transactions)): ?>
                             <tr>
                                 <td colspan="3" class="px-4 py-4 text-center text-blue-400">No transactions found for this product.</td>
                             </tr>
