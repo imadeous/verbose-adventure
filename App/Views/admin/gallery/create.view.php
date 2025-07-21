@@ -7,20 +7,20 @@
             <div>
                 <label class="block text-blue-700 font-semibold mb-1">Image</label>
                 <label class="block cursor-pointer group w-fit">
-                    <input
-                        type="file"
-                        name="image"
-                        class="hidden"
-                        required
-                        accept="image/*"
-                        @change="onFileChange"
-                        x-ref="fileInput">
                     <img
                         :src="imageUrl"
                         alt="Select Image"
                         class="rounded border border-blue-200 shadow w-64 h-48 object-cover transition ring-2 ring-transparent group-hover:ring-blue-400"
                         @click="$refs.fileInput.click()">
                 </label>
+                <input
+                    type="file"
+                    name="image"
+                    class="hidden"
+                    required
+                    accept="image/*"
+                    @change="onFileChange"
+                    x-ref="fileInput">
             </div>
             <div>
                 <label class="block text-blue-700 font-semibold mb-1">Title</label>
