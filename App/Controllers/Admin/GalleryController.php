@@ -35,8 +35,8 @@ class GalleryController extends AdminController
     public function create()
     {
         $this->view->layout('admin');
-        $categories = \App\Models\Category::sort('id, name', 'name');
-        $products = \App\Models\Product::sort('id, name', 'name');
+        $categories = \App\Models\Category::all();
+        $products = \App\Models\Product::all();
         $this->view('admin/gallery/create', [
             'categories' => $categories,
             'products' => $products
