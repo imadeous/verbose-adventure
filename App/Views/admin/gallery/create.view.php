@@ -4,18 +4,18 @@
         <form class="space-y-5" autocomplete="off">
             <div>
                 <label class="block text-blue-700 font-semibold mb-1">Image</label>
-                <input type="file" name="image" class="w-full border border-blue-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-blue-900" disabled>
+                <input type="file" name="image" class="w-full border border-blue-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-blue-900" required>
                 <div class="mt-2">
                     <img src="https://placehold.co/100x80/3b82f6/fff?text=Preview" alt="Preview" class="rounded border border-blue-200 shadow w-24 h-20 object-cover">
                 </div>
             </div>
             <div>
                 <label class="block text-blue-700 font-semibold mb-1">Caption</label>
-                <input type="text" name="caption" class="w-full border border-blue-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-blue-900" value="Sample Caption" disabled>
+                <input type="text" name="caption" class="w-full border border-blue-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-blue-900" value="Sample Caption" required>>
             </div>
             <div>
                 <label class="block text-blue-700 font-semibold mb-1">Type</label>
-                <select name="image_type" class="w-full border border-blue-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-blue-900" disabled>
+                <select name="image_type" class="w-full border border-blue-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-blue-900" required>
                     <option value="site">Site</option>
                     <option value="category">Category</option>
                     <option value="product">Product</option>
@@ -23,7 +23,7 @@
             </div>
             <div>
                 <label class="block text-blue-700 font-semibold mb-1">Related ID</label>
-                <input type="number" name="related_id" class="w-full border border-blue-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-blue-900" value="" disabled>
+                <input type="number" name="related_id" class="w-full border border-blue-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-blue-900" value="">>
             </div>
             <div class="flex justify-end">
                 <button type="button" class="bg-blue-400 text-white px-5 py-2 rounded-lg font-semibold shadow border border-blue-400 opacity-60 cursor-not-allowed" disabled>Upload</button>
