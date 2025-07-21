@@ -84,10 +84,10 @@ var_dump($products);
                     x-model="relatedId"
                     :required="type !== 'site'">
                     <option value="">Select Related</option>
-                    <template x-for="cat in type === 'category' ? categories : []" :key="cat.attributes.id">
+                    <template x-for="cat in type === 'category'" :key="cat.attributes.id">
                         <option :value="cat.attributes.id" x-text="cat.attributes.name"></option>
                     </template>
-                    <template x-for="prod in type === 'product' ? products : []" :key="prod.attributes.id">
+                    <template x-for="prod in type === 'product'" :key="prod.attributes.id">
                         <option :value="prod.attributes.id" x-text="prod.attributes.name"></option>
                     </template>
                 </select>
@@ -110,6 +110,8 @@ var_dump($products);
                 title: '',
                 type: '',
                 relatedId: '',
+                categories: <?= json_encode($categories) ?>,
+                products: <?= json_encode($products) ?>,
                 isValid() {
                     if (!this.imageFile || !this.title.trim() || !this.type) return false;
                     if (this.type !== 'site' && !this.relatedId) return false;
