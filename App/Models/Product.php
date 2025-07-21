@@ -26,7 +26,7 @@ class Product extends Model
         return Product::select('products.*', 'categories.name as category_name')
             ->join('categories', 'products.category_id', '=', 'categories.id')
             ->where('products.category_id', $category_id)
-            ->get()->name;
+            ->get()->category_name;
     }
 
     // get all products by category
