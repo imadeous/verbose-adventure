@@ -1,8 +1,8 @@
 <div class="max-w-5xl mx-auto p-8 space-y-10">
     <!-- Top Section: 2 Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Card 1: Product Details -->
-        <div class="bg-blue-50 rounded-xl shadow-md p-5 flex flex-col gap-4 border border-blue-200 hover:shadow-lg transition">
+        <div class="col-span-2 bg-blue-50 rounded-xl shadow-md p-5 flex flex-col gap-4 border border-blue-200 hover:shadow-lg transition">
             <div class="flex items-center gap-4 mb-2">
                 <div class="bg-blue-200 text-blue-700 rounded-lg p-3 flex items-center justify-center">
                     <!-- Product icon -->
