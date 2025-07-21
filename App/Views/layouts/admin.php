@@ -15,7 +15,7 @@
     </style>
 </head>
 
-<body class="bg-gray-900">
+<body class="bg-gray-900 overflow-x-hidden">
     <div x-data="{sidebar : (window.innerWidth > 768) ?? true }" class="flex min-h-screen sm:relative">
         <?php echo $this->partial('admin/sidebar'); ?>
         <main class="flex-1 flex flex-col h-screen bg-gray-100 overflow-y-scroll scrollbar">
@@ -23,7 +23,7 @@
             <!-- add breadcrumbs support here   -->
             <div class="flex flex-col flex-1 overflow-y-auto">
                 <?php echo $this->partial('_flash.view'); ?>
-                <div class="p-4 sm:p-6 lg:p-12 space-y-8 mx-2 sm:mx-6 m-auto flex-1 w-full max-w-full overflow-x-hidden">
+                <div class="p-4 sm:p-6 lg:p-12 space-y-8 mx-2 sm:mx-6 flex-1 w-full max-w-full">
                     <?php echo $this->yield('content'); ?>
                 </div>
                 <?php echo $this->partial('admin/footer'); ?>
