@@ -1,13 +1,19 @@
-<div class="max-w-8xl mx-auto p-8">
+<div class="max-w-4xl mx-auto p-8">
     <h1 class="text-3xl font-extrabold text-blue-900 mb-8">Reviews</h1>
     <?php if (empty($reviews)): ?>
         <div class="bg-yellow-50 text-yellow-700 border border-yellow-200 px-4 py-3 rounded-lg mb-6">No reviews found.</div>
     <?php else: ?>
-        <div class="bg-white rounded-xl shadow-md border border-blue-100 overflow-x-auto">
-            <ul class="divide-y divide-blue-100">
-                <?php foreach ($reviews as $review): ?>
-                    <li class="py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between hover:bg-blue-50 transition">
-                        <div class="flex-1 min-w-0">
+        <div class="relative">
+            <div class="absolute left-6 top-0 bottom-0 w-1 bg-blue-100 rounded-full"></div>
+            <ul class="space-y-0">
+                <?php foreach ($reviews as $i => $review): ?>
+                    <li class="relative flex items-start group">
+                        <!-- Timeline dot -->
+                        <div class="z-10 flex flex-col items-center">
+                            <span class="w-4 h-4 rounded-full border-4 border-blue-400 bg-white shadow absolute left-3 top-8"></span>
+                        </div>
+                        <!-- Review Card -->
+                        <div class="ml-16 flex-1 mb-10">
                             <div class="flex items-center space-x-3 mb-2">
                                 <span class="text-xs text-blue-400 bg-blue-100 px-2 py-1 rounded-r">#<?= e($review->id) ?></span>
                                 <span class="font-semibold text-blue-900"><?= e($review->customer_name) ?></span>
@@ -35,7 +41,7 @@
                                     <?php endfor; ?>
                                 </span>
                             </div>
-                            <div class="text-blue-800 text-sm break-words bg-blue-50 mx-4 px-4 py-3 border border-blue-100 mt-2 rounded-lg" title="<?= e($review->comments) ?>">
+                            <div class="text-blue-800 text-sm break-words bg-blue-50 px-4 py-3 border border-blue-100 mt-2 rounded-lg shadow-sm" title="<?= e($review->comments) ?>">
                                 <?= e($review->comments) ?>
                             </div>
                         </div>
