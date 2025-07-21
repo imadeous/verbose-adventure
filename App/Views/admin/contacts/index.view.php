@@ -16,7 +16,7 @@
         <thead>
             <tr>
                 <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Sender</th>
-                <th class="contacts-table-message-col max-w-2xl px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Message</th>
+                <th class="contacts-table-message-col max-w-xl px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Message</th>
                 <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Actions</th>
             </tr>
         </thead>
