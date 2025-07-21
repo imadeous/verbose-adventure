@@ -90,6 +90,9 @@ var_dump($products);
                     <template x-for="prod in type === 'product'" :key="prod.attributes.id">
                         <option :value="prod.attributes.id" x-text="prod.attributes.name"></option>
                     </template>
+                    <?php foreach ($categories as $category): ?>
+                        <option value="<?= e($category->id) ?>"><?= e($category->name) ?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
             <div class="flex justify-end">
