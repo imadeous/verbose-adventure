@@ -100,7 +100,7 @@
                         <?php endif; ?>
                     </div>
                     <div class="flex-1 flex flex-col">
-                        <h3 class="text-lg font-extrabold text-gray-900 mb-1 group-hover:text-blue-700 transition-colors"><?= e($product['name']) ?></h3>
+                        <h3 class="text-lg font-bold text-gray-900 mb-0.5 group-hover:text-blue-700 transition-colors"><?= e($product['name']) ?></h3>
                         <?php if (!empty($product['description'])): ?>
                             <p class="text-gray-500 text-sm mb-2 line-clamp-3"><?= e($product['description']) ?></p>
                         <?php endif; ?>
