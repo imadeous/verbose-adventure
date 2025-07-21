@@ -2,8 +2,8 @@
     <!-- Top Section: 2 Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Card 1: Product Details -->
-        <div class="col-span-2 bg-blue-50 rounded-xl shadow-md px-5 pt-5 flex flex-col gap-4 border border-blue-200 hover:shadow-lg transition">
-            <div class="flex items-center gap-4 mb-2">
+        <div class="col-span-2 bg-blue-50 rounded-xl shadow-md flex flex-col gap-4 border border-blue-200 hover:shadow-lg transition">
+            <div class="flex items-center gap-4 mb-2 px-5 pt-5">
                 <div class="bg-blue-200 text-blue-700 rounded-lg p-3 flex items-center justify-center">
                     <!-- Product icon -->
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -12,7 +12,7 @@
                 </div>
                 <h1 class="text-xl font-bold text-blue-900">Product Details</h1>
             </div>
-            <div class="flex flex-col gap-2">
+            <div class="flex flex-col gap-2 px-5">
                 <div class="flex items-center gap-2">
                     <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">Name</span>
                     <span class="text-lg font-bold text-blue-900"><?= e($product->name) ?></span>
