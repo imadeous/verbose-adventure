@@ -15,7 +15,7 @@
                         <!-- Review Card -->
                         <div class="ml-16 flex-1 mb-10">
                             <div class="flex items-center space-x-3 mb-2">
-                                <span class="text-xs text-blue-400 bg-blue-100 px-2 py-1 rounded-r">#<?= e($review->id) ?></span>
+                                <span class="text-xs text-blue-400 bg-blue-100 px-2 py-1 rounded-r"><?= e(date('F j, Y', strtotime($review->created_at))) ?></span>
                                 <span class="font-semibold text-blue-900"><?= e($review->customer_name) ?></span>
                                 <span class="ml-2 flex items-center text-yellow-400 font-medium">
                                     <?php
