@@ -111,14 +111,12 @@ $products = Product::all();
 
     <script>
         document.addEventListener('alpine:init', () => {
-            Alpine.data('galleryForm', (categories, products) => ({
+            Alpine.data('galleryForm', () => ({
                 imageUrl: 'https://placehold.co/100x80/3b82f6/fff?text=Preview',
                 imageFile: null,
                 title: '',
                 type: '',
                 relatedId: '',
-                categories: categories,
-                products: products,
                 isValid() {
                     if (!this.imageFile || !this.title.trim() || !this.type) return false;
                     if (this.type !== 'site' && !this.relatedId) return false;
