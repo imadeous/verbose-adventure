@@ -117,7 +117,7 @@ class UserController extends AdminControllerBase
             $user->$key = $value;
         }
         $user->save();
-        header('Location: ' . url('admin/users/'));
+        $this->redirect('/admin/users/' . $id);
         exit;
     }
 
