@@ -2,7 +2,7 @@
     <!-- Top Section: 2 Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Card 1: Product Details -->
-        <div class="col-span-2 bg-blue-50 rounded-xl shadow-md flex flex-col gap-4 border border-blue-200 hover:shadow-lg transition">
+        <div class="col-span-2 bg-blue-50 rounded-xl shadow-md px-5 pt-5 flex flex-col gap-4 border border-blue-200 hover:shadow-lg transition">
             <div class="flex items-center gap-4 mb-2">
                 <div class="bg-blue-200 text-blue-700 rounded-lg p-3 flex items-center justify-center">
                     <!-- Product icon -->
@@ -30,7 +30,7 @@
                     <span class="text-blue-800"><?= e($product->description) ?></span>
                 </div>
             </div>
-            <div class="flex gap-3 mt-2 justify-end items-center">
+            <div class="flex gap-3 mt-2 justify-end items-center py-5">
                 <a href="<?= url('admin/products/' . $product->id) ?>" class="bg-blue-100 text-blue-700 hover:bg-blue-200 border border-blue-200 rounded px-3 py-1 font-semibold transition shadow-sm">View</a>
                 <a href="<?= url('admin/products/' . $product->id . '/edit') ?>" class="bg-yellow-100 text-yellow-700 hover:bg-yellow-200 border border-yellow-300 rounded px-3 py-1 font-semibold transition shadow-sm">Edit</a>
                 <form action="<?= url('admin/products/' . $product->id . '/delete') ?>" method="POST" style="display:inline;">
