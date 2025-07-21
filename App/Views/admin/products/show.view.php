@@ -30,7 +30,7 @@
                     <span class="text-blue-800"><?= e($product->description) ?></span>
                 </div>
             </div>
-            <div class="flex gap-3 mt-2">
+            <div class="flex gap-3 mt-2 bg-blue-50 rounded-b-lg">
                 <a href="<?= url('admin/products/edit/' . $product->id) ?>" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold shadow border border-blue-700 transition">Edit Product</a>
                 <form action="<?= url('admin/products/delete/' . $product->id) ?>" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
                     <button type="submit" class="bg-red-100 text-red-700 hover:bg-red-200 border border-red-200 rounded px-5 py-2 font-semibold shadow transition">Delete Product</button>
