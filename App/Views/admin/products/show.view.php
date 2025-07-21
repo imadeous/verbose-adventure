@@ -144,7 +144,6 @@
                     Product Reviews
                 </h2>
                 <?php $reviews = Product::getReviews($product->id) ?>
-                <?php var_dump($reviews) ?>
                 <?php if (empty($reviews)): ?>
                     <div class="text-blue-400 text-center py-8">No reviews yet for this product.</div>
                 <?php else: ?>
