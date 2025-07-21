@@ -3,7 +3,7 @@
 use App\Models\Product;
 use App\Models\Transaction;
 ?>
-<div class="max-w-5xl mx-auto p-8 space-y-10">
+<div class="max-w-8xl mx-auto p-8 space-y-10">
     <!-- Top Section: 2 Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Card 1: Product Details -->
