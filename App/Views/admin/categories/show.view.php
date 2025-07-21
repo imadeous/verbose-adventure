@@ -1,7 +1,7 @@
 <h1 class="text-3xl font-extrabold mb-8 text-gray-900 tracking-tight">Category Details</h1>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
     <!-- Category Details -->
-    <div class="bg-gradient-to-br from-blue-50 to-white shadow-xl rounded-2xl p-8 border border-blue-100">
+    <div class="col-span-2 bg-gradient-to-br from-blue-50 to-white shadow-xl rounded-2xl p-8 border border-blue-100">
         <div class="mb-4 flex items-center space-x-3">
             <span class="inline-block bg-blue-100 text-blue-600 rounded-full px-3 py-1 text-xs font-bold">ID: <?= e($category->id) ?></span>
             <span class="inline-block bg-green-100 text-green-600 rounded-full px-3 py-1 text-xs font-bold"><?= e($category->created_at) ?></span>
