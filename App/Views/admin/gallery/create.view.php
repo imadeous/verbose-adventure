@@ -85,14 +85,14 @@ var_dump($products);
                     :required="type !== 'site'">
                     <option value="">Select Related</option>
                     <template x-for="cat in type === 'category'" :key="cat.attributes.id">
-                        <option :value="cat.attributes.id" x-text="cat.attributes.name"></option>
+                        <?php foreach ($categories as $category): ?>
+                            <option value="<?= e($category->id) ?>"><?= e($category->name) ?></option>
+                        <?php endforeach; ?>
                     </template>
                     <template x-for="prod in type === 'product'" :key="prod.attributes.id">
                         <option :value="prod.attributes.id" x-text="prod.attributes.name"></option>
                     </template>
-                    <?php foreach ($categories as $category): ?>
-                        <option value="<?= e($category->id) ?>"><?= e($category->name) ?></option>
-                    <?php endforeach; ?>
+
                 </select>
             </div>
             <div class="flex justify-end">
