@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Review;
 use Core\AdminControllerBase;
 
 class ProductsController extends AdminControllerBase
@@ -11,11 +12,9 @@ class ProductsController extends AdminControllerBase
     public function index()
     {
         $products = Product::all();
-        $reviews = \App\Models\Review::all();
         $this->view->layout('admin');
         $this->view('admin/products/index', [
-            'products' => $products,
-            'reviews' => $reviews
+            'products' => $products
         ]);
     }
 

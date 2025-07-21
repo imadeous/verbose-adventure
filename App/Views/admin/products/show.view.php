@@ -139,6 +139,7 @@
                     </svg>
                     Product Reviews
                 </h2>
+                <?php $reviews = $product->getReviews($product->id); ?>
                 <?php if (empty($reviews)): ?>
                     <div class="text-blue-400 text-center py-8">No reviews yet for this product.</div>
                 <?php else: ?>
@@ -146,7 +147,7 @@
                         <?php foreach ($reviews as $review): ?>
                             <div class="border border-blue-100 rounded-lg p-3 bg-blue-50">
                                 <div class="flex items-center gap-2 mb-1">
-                                    <span class="font-semibold text-blue-900"><?= e($review->reviewer_name) ?></span>
+                                    <span class="font-semibold text-blue-900"><?= e($review->customer_name) ?></span>
                                     <span class="text-xs text-blue-500"><?= date('M d, Y', strtotime($review->created_at)) ?></span>
                                 </div>
                                 <div class="flex items-center gap-1 mb-1">
