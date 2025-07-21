@@ -17,7 +17,7 @@
                 <?php foreach ($products as $product): ?>
                     <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
                         <td class="px-4 py-2 whitespace-nowrap font-semibold text-blue-900"><?= e($product->name) ?></td>
-                        <td class="px-4 py-2 whitespace-nowrap text-blue-700"><?= e($product->category) ?></td>
+                        <td class="px-4 py-2 whitespace-nowrap text-blue-700"><?= e($product->getCategoryName($product->category_id)) ?></td>
                         <td class="px-4 py-2 whitespace-nowrap text-blue-700"><?= e($product->price) ?></td>
                         <td class="px-4 py-2 whitespace-nowrap flex items-center space-x-2">
                             <a href="<?= url('admin/products/' . $product->id) ?>" class="bg-blue-100 text-blue-700 hover:bg-blue-200 border border-blue-200 rounded px-3 py-1 font-semibold transition shadow-sm">View</a>

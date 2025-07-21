@@ -18,10 +18,13 @@ class Product extends Model
         'created_at'
     ];
 
-    public function getCategoryName()
+    public function getCategoryName($category_id)
     {
-        if (!$this->category_id) return null;
-        $category = \App\Models\Category::find($this->category_id);
-        return $category ? $category->name : null;
+        if (!$category_id) return null;
+        // Assuming Category has a products() relationship
+        return Product::select('products.*', 'categories.name as category_name')
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->where('products.category_id', $category_id)
+            ->get();
     }
 }
