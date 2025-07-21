@@ -90,40 +90,78 @@
             </div>
         </div>
     </div>
-    <!-- Card 3: Transactions Table -->
-    <div class="bg-white rounded-xl shadow-md border border-blue-100 overflow-x-auto">
-        <table class="min-w-full bg-white rounded-xl text-sm">
-            <thead>
-                <tr>
-                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">productname & Email</th>
-                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Role</th>
-                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (empty($transactions)): ?>
-                    <tr>
-                        <td colspan="3" class="px-4 py-4 text-center text-blue-400">No transactions found for this product.</td>
-                    </tr>
-                <?php else: ?>
-                    <?php foreach ($transactions as $transaction): ?>
-                        <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
-                            <td class="px-4 py-2 whitespace-nowrap">
-                                <div class="font-semibold text-blue-900"><?= e($transaction->customer_name) ?></div>
-                                <div class="text-blue-500 text-xs"><?= e($transaction->customer_email) ?></div>
-                            </td>
-                            <td class="px-4 py-2 whitespace-nowrap text-blue-700"><?= e($transaction->role ?? 'Customer') ?></td>
-                            <td class="px-4 py-2 whitespace-nowrap flex items-center space-x-2">
-                                <a href="<?= url('admin/transactions/' . $transaction->id) ?>" class="bg-blue-100 text-blue-700 hover:bg-blue-200 border border-blue-300 rounded px-2 py-1 flex items-center gap-1 transition shadow-sm" title="View">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-3A2.25 2.25 0 0 0 8.25 5.25V9m7.5 0v10.5A2.25 2.25 0 0 1 13.5 21h-3A2.25 2.25 0 0 1 8.25 19.5V9m7.5 0H8.25m7.5 0a2.25 2.25 0 0 1 2.25 2.25v7.5A2.25 2.25 0 0 1 15.75 21H8.25A2.25 2.25 0 0 1 6 19.5v-7.5A2.25 2.25 0 0 1 8.25 9h7.5z" />
-                                    </svg>
-                                </a>
-                            </td>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Transactions Table: spans 2 columns -->
+        <div class="md:col-span-2">
+            <!-- Card 3: Transactions Table -->
+            <div class="bg-white rounded-xl shadow-md border border-blue-100 overflow-x-auto">
+                <table class="min-w-full bg-white rounded-xl text-sm">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">productname & Email</th>
+                            <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Role</th>
+                            <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Actions</th>
                         </tr>
-                    <?php endforeach; ?>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($transactions)): ?>
+                            <tr>
+                                <td colspan="3" class="px-4 py-4 text-center text-blue-400">No transactions found for this product.</td>
+                            </tr>
+                        <?php else: ?>
+                            <?php foreach ($transactions as $transaction): ?>
+                                <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
+                                    <td class="px-4 py-2 whitespace-nowrap">
+                                        <div class="font-semibold text-blue-900"><?= e($transaction->customer_name) ?></div>
+                                        <div class="text-blue-500 text-xs"><?= e($transaction->customer_email) ?></div>
+                                    </td>
+                                    <td class="px-4 py-2 whitespace-nowrap text-blue-700"><?= e($transaction->role ?? 'Customer') ?></td>
+                                    <td class="px-4 py-2 whitespace-nowrap flex items-center space-x-2">
+                                        <a href="<?= url('admin/transactions/' . $transaction->id) ?>" class="bg-blue-100 text-blue-700 hover:bg-blue-200 border border-blue-300 rounded px-2 py-1 flex items-center gap-1 transition shadow-sm" title="View">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-3A2.25 2.25 0 0 0 8.25 5.25V9m7.5 0v10.5A2.25 2.25 0 0 1 13.5 21h-3A2.25 2.25 0 0 1 8.25 19.5V9m7.5 0H8.25m7.5 0a2.25 2.25 0 0 1 2.25 2.25v7.5A2.25 2.25 0 0 1 15.75 21H8.25A2.25 2.25 0 0 1 6 19.5v-7.5A2.25 2.25 0 0 1 8.25 9h7.5z" />
+                                            </svg>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Product Reviews: spans 1 column -->
+        <div class="md:col-span-1">
+            <div class="bg-white rounded-xl shadow-md border border-blue-100 p-6 h-full flex flex-col">
+                <h2 class="text-lg font-bold text-blue-900 mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.175c.969 0 1.371 1.24.588 1.81l-3.38 2.455a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.38-2.454a1 1 0 00-1.175 0l-3.38 2.454c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.049 9.394c-.783-.57-.38-1.81.588-1.81h4.175a1 1 0 00.95-.69l1.286-3.967z" />
+                    </svg>
+                    Product Reviews
+                </h2>
+                <?php if (empty($reviews)): ?>
+                    <div class="text-blue-400 text-center py-8">No reviews yet for this product.</div>
+                <?php else: ?>
+                    <div class="flex flex-col gap-4">
+                        <?php foreach ($reviews as $review): ?>
+                            <div class="border border-blue-100 rounded-lg p-3 bg-blue-50">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="font-semibold text-blue-900"><?= e($review->reviewer_name) ?></span>
+                                    <span class="text-xs text-blue-500"><?= date('M d, Y', strtotime($review->created_at)) ?></span>
+                                </div>
+                                <div class="flex items-center gap-1 mb-1">
+                                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                                        <svg class="w-4 h-4 <?= $i <= $review->rating ? 'text-yellow-400' : 'text-blue-200' ?>" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.175c.969 0 1.371 1.24.588 1.81l-3.38 2.455a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.38-2.454a1 1 0 00-1.175 0l-3.38 2.454c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.049 9.394c-.783-.57-.38-1.81.588-1.81h4.175a1 1 0 00.95-.69l1.286-3.967z" />
+                                        </svg>
+                                    <?php endfor; ?>
+                                </div>
+                                <div class="text-blue-800"><?= e($review->comment) ?></div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
                 <?php endif; ?>
-            </tbody>
-        </table>
+            </div>
+        </div>
     </div>
 </div>
