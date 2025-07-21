@@ -41,6 +41,12 @@ class UserController extends AdminControllerBase
     public function store()
     {
         $data = $_POST;
+        // CSRF validation
+        if (empty($data['_csrf']) || !\App\Helpers\Csrf::check($data['_csrf'])) {
+            flash('error', 'Invalid or missing CSRF token. Please try again.');
+            $this->redirect('/admin/users/create');
+            return;
+        }
         // Ensure role is set to a valid value or NULL
         $validRoles = ['admin', 'user'];
         if (empty($data['role']) || !in_array($data['role'], $validRoles, true)) {
@@ -89,6 +95,14 @@ class UserController extends AdminControllerBase
     {
         $user = User::find($id);
         $data = $_POST;
+        // CSRF validation
+        if (empty($data['_csrf']) || !\App\Helpers\Csrf::check($data['_csrf'])) {
+            flash('error', 'Invalid or missing CSRF token. Please try again.');
+            $this->redirect('/admin/users/' . $id . '/edit');
+            return;
+        }
+        // Remove _csrf and _method fields if present
+        unset($data['_csrf'], $data['_method']);
         if (!empty($data['password'])) {
             $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
         } else {
@@ -103,7 +117,7 @@ class UserController extends AdminControllerBase
             $user->$key = $value;
         }
         $user->save();
-        header('Location: ' . url('admin/users/' . $id));
+        header('Location: ' . url('admin/users/'));
         exit;
     }
 
