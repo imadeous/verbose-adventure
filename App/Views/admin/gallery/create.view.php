@@ -78,7 +78,6 @@
                     class="w-full border border-blue-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-blue-900"
                     x-model="relatedId"
                     :required="type !== 'site'">
-                    <option value="">Select Related</option>
                     <?php if (!empty($categories) && !empty($products)): ?>
                         <optgroup label="Categories" x-show="type === 'category'">
                             <?php foreach ($categories as $category): ?>
