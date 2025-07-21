@@ -406,6 +406,7 @@
                             '#93c5fd'
                         ],
                         borderWidth: 1,
+                        borderRadius: 4 // <-- Add border radius to pie sectors
                     }]
                 },
                 options: {
@@ -413,9 +414,6 @@
                         legend: {
                             display: true,
                             position: 'bottom'
-                        },
-                        borderRadius: {
-                            value: 4
                         }
                     },
                     responsive: true,
