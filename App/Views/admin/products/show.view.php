@@ -162,7 +162,7 @@
                                         </svg>
                                     <?php endfor; ?>
                                 </div>
-                                <div class="text-blue-800"><?= e($review->comments) ?></div>
+                                <div class="text-blue-800"><?= e($review->customer_email) ?></div>
                             </div>
                         <?php endforeach; ?>
                     </div>
