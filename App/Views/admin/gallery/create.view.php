@@ -4,23 +4,40 @@
         class="bg-white rounded-xl shadow-md border border-blue-100 p-8">
         <h1 class="text-3xl font-extrabold text-blue-900 mb-8">Add Gallery Image</h1>
         <form class="space-y-5" autocomplete="off" @submit.prevent>
-            <div>
-                <label class="block text-blue-700 font-semibold mb-1">Image</label>
-                <label class="block cursor-pointer group w-fit">
-                    <img
-                        :src="imageUrl"
-                        alt="Select Image"
-                        class="rounded border border-blue-200 shadow w-64 h-48 object-cover transition ring-2 ring-transparent group-hover:ring-blue-400"
-                        @click="$refs.fileInput.click()">
-                </label>
-                <input
-                    type="file"
-                    name="image"
-                    class="hidden"
-                    required
-                    accept="image/*"
-                    @change="onFileChange"
-                    x-ref="fileInput">
+            <div class="flex flex-col md:flex-row gap-6">
+                <!-- Left Column: Label, Input, Preview -->
+                <div class="flex-1">
+                    <label class="block text-blue-700 font-semibold mb-1">Image</label>
+                    <label class="block cursor-pointer group w-fit">
+                        <img
+                            :src="imageUrl"
+                            alt="Select Image"
+                            class="rounded border border-blue-200 shadow w-64 h-48 object-cover transition ring-2 ring-transparent group-hover:ring-blue-400"
+                            @click="$refs.fileInput.click()">
+                    </label>
+                    <input
+                        type="file"
+                        name="image"
+                        class="hidden"
+                        required
+                        accept="image/*"
+                        @change="onFileChange"
+                        x-ref="fileInput">
+                </div>
+                <!-- Right Column: Image Data -->
+                <div class="flex-1 flex flex-col justify-center">
+                    <template x-if="imageFile">
+                        <div class="bg-blue-50 rounded-lg p-4 border border-blue-200 text-blue-900 text-sm space-y-2">
+                            <div><span class="font-semibold">Name:</span> <span x-text="imageFile.name"></span></div>
+                            <div><span class="font-semibold">Size:</span> <span x-text="(imageFile.size/1024).toFixed(2) + ' KB'"></span></div>
+                            <div><span class="font-semibold">Type:</span> <span x-text="imageFile.type"></span></div>
+                            <div><span class="font-semibold">Extension:</span> <span x-text="imageFile.name.split('.').pop()"></span></div>
+                        </div>
+                    </template>
+                    <template x-if="!imageFile">
+                        <div class="text-blue-400 italic">No image selected</div>
+                    </template>
+                </div>
             </div>
             <div>
                 <label class="block text-blue-700 font-semibold mb-1">Title</label>
