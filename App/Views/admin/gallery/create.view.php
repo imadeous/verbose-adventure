@@ -29,7 +29,10 @@
                     <template x-if="imageFile">
                         <div class="bg-blue-50 rounded-lg p-4 border border-blue-200 text-blue-900 text-sm space-y-2">
                             <div><span class="font-semibold">Name:</span> <span x-text="imageFile.name"></span></div>
-                            <div><span class="font-semibold">Size:</span> <span x-text="(imageFile.size/1024).toFixed(2) + ' KB'"></span></div>
+                            <div>
+                                <span class="font-semibold">Size:</span>
+                                <span :class="imageFile.size > 2 * 1024 * 1024 ? 'text-red-600' : ''" x-text="(imageFile.size/1024).toFixed(2) + ' KB'"></span>
+                            </div>
                             <div><span class="font-semibold">Type:</span> <span x-text="imageFile.type"></span></div>
                             <div><span class="font-semibold">Extension:</span> <span x-text="imageFile.name.split('.').pop()"></span></div>
                         </div>
