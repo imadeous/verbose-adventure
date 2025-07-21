@@ -6,6 +6,9 @@
         /* Make the message column take all available space */
         .contacts-table-message-col {
             width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     </style>
 </div>
