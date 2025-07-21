@@ -4,11 +4,22 @@ namespace App\Models;
 
 use Core\Model;
 
+
 class User extends Model
 {
     protected $table = 'users';
     protected $primaryKey = 'id';
     public static $routeKey = 'username'; // Default route key for user model
+    protected $fillable = [
+        'username',
+        'name',
+        'email',
+        'password',
+        'role',
+        'verified_at',
+        'created_at',
+        'forgot_key',
+    ];
 
     // Find user by email
     public static function findByAttribute($email, $attribute = 'email')
