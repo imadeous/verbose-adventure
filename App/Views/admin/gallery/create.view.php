@@ -88,14 +88,14 @@ $products = Product::all();
                     :required="type !== 'site'">
                     <option value="">Select Related</option>
                     <template x-if="type === 'category'">
-                        <template x-for="cat in categories" :key="cat.id">
-                            <option :value="cat.id" x-text="cat.name"></option>
-                        </template>
+                        <?php foreach ($categories as $cat): ?>
+                            <option value="<?= htmlspecialchars($cat->id) ?>"><?= htmlspecialchars($cat->name) ?></option>
+                        <?php endforeach; ?>
                     </template>
                     <template x-if="type === 'product'">
-                        <template x-for="prod in products" :key="prod.id">
-                            <option :value="prod.id" x-text="prod.name"></option>
-                        </template>
+                        <?php foreach ($products as $prod): ?>
+                            <option value="<?= htmlspecialchars($prod->id) ?>"><?= htmlspecialchars($prod->name) ?></option>
+                        <?php endforeach; ?>
                     </template>
                 </select>
             </div>
