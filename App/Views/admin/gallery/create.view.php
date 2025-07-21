@@ -6,16 +6,21 @@
         <form class="space-y-5" autocomplete="off" @submit.prevent>
             <div>
                 <label class="block text-blue-700 font-semibold mb-1">Image</label>
-                <input
-                    type="file"
-                    name="image"
-                    class="w-full border border-blue-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-blue-900"
-                    required
-                    accept="image/*"
-                    @change="onFileChange">
-                <div class="mt-2">
-                    <img :src="imageUrl" alt="Preview" class="rounded border border-blue-200 shadow w-24 h-20 object-cover">
-                </div>
+                <label class="block cursor-pointer group w-fit">
+                    <input
+                        type="file"
+                        name="image"
+                        class="hidden"
+                        required
+                        accept="image/*"
+                        @change="onFileChange"
+                        x-ref="fileInput">
+                    <img
+                        :src="imageUrl"
+                        alt="Preview"
+                        class="rounded border border-blue-200 shadow w-64 h-48 object-cover transition ring-2 ring-transparent group-hover:ring-blue-400"
+                        @click="$refs.fileInput.click()">
+                </label>
             </div>
             <div>
                 <label class="block text-blue-700 font-semibold mb-1">Title</label>
