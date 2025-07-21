@@ -30,10 +30,11 @@
                     <span class="text-blue-800"><?= e($product->description) ?></span>
                 </div>
             </div>
-            <div class="flex gap-3 mt-2 bg-white rounded-b-lg">
-                <a href="<?= url('admin/products/edit/' . $product->id) ?>" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold shadow border border-blue-700 transition">Edit Product</a>
-                <form action="<?= url('admin/products/delete/' . $product->id) ?>" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
-                    <button type="submit" class="bg-red-100 text-red-700 hover:bg-red-200 border border-red-200 rounded px-5 py-2 font-semibold shadow transition">Delete Product</button>
+            <div class="flex gap-3 mt-2 justify-end items-center">
+                <a href="<?= url('admin/products/' . $product->id) ?>" class="bg-blue-100 text-blue-700 hover:bg-blue-200 border border-blue-200 rounded px-3 py-1 font-semibold transition shadow-sm">View</a>
+                <a href="<?= url('admin/products/' . $product->id . '/edit') ?>" class="bg-yellow-100 text-yellow-700 hover:bg-yellow-200 border border-yellow-300 rounded px-3 py-1 font-semibold transition shadow-sm">Edit</a>
+                <form action="<?= url('admin/products/' . $product->id . '/delete') ?>" method="POST" style="display:inline;">
+                    <button type="submit" class="bg-red-100 text-red-700 hover:bg-red-200 border border-red-200 rounded px-3 py-1 font-semibold transition shadow-sm" onclick="return confirm('Delete this product?')">Delete</button>
                 </form>
             </div>
         </div>
