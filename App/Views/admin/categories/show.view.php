@@ -79,7 +79,7 @@
     <?php if (!empty($products)): ?>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 py-6">
             <?php foreach ($products as $product): ?>
-                <div class="bg-white rounded-3xl shadow-xl border border-blue-100 p-6 flex flex-col hover:shadow-2xl transition-all duration-300 group relative overflow-hidden">
+                <div class="bg-white rounded-3xl shadow-lg border border-blue-100 p-6 flex flex-col hover:shadow-xl transition-all duration-300 group relative overflow-hidden">
                     <!-- Ribbon for featured/new products (optional) -->
                     <?php if (!empty($product['is_featured'])): ?>
                         <span class="absolute top-4 left-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg z-10">Featured</span>
