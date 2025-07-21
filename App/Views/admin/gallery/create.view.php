@@ -86,12 +86,12 @@ var_dump($products);
                     <option value="">Select Related</option>
                     <template x-if="type === 'category'">
                         <?php foreach ($categories as $cat): ?>
-                            <option value="<?= htmlspecialchars($cat->id) ?>"><?= htmlspecialchars($cat->name) ?></option>
+                            <option value="<?= htmlspecialchars($cat->attributes['id']) ?>"><?= htmlspecialchars($cat->attributes['name']) ?></option>
                         <?php endforeach; ?>
                     </template>
                     <template x-if="type === 'product'">
                         <?php foreach ($products as $prod): ?>
-                            <option value="<?= htmlspecialchars($prod->id) ?>"><?= htmlspecialchars($prod->name) ?></option>
+                            <option value="<?= htmlspecialchars($prod->attributes['id']) ?>"><?= htmlspecialchars($prod->attributes['name']) ?></option>
                         <?php endforeach; ?>
                     </template>
                 </select>
