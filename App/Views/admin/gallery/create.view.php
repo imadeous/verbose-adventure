@@ -1,10 +1,7 @@
 <?php
 // Load categories and products for dynamic selects
-use App\Models\Category;
-use App\Models\Product;
-
-$categories = Category::all();
-$products = Product::all();
+var_dump($categories);
+var_dump($products);
 ?>
 <div class="max-w-xl mx-auto overflow-x-hidden">
     <div
