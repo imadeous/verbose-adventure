@@ -1,4 +1,4 @@
-<div class="max-w-xl mx-auto p-8">
+<div class="max-w-xl mx-auto">
     <div
         x-data="galleryForm"
         class="bg-white rounded-xl shadow-md border border-blue-100 p-8">
