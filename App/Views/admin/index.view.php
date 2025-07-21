@@ -331,13 +331,14 @@
         <!-- Chart.js CDN -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
-            // Revenue & Orders Trend Chart
+            // Revenue & Orders Trend Chart (Bar for Orders, Line for Revenue, Dual Y-Axis)
             const ctx1 = document.getElementById('revenueOrdersChart').getContext('2d');
             new Chart(ctx1, {
-                type: 'line',
+                type: 'bar',
                 data: {
                     labels: ['Day 1', 'Day 5', 'Day 10', 'Day 15', 'Day 20', 'Day 25', 'Day 30'],
                     datasets: [{
+                            type: 'line',
                             label: 'Revenue',
                             data: [1200, 1800, 1500, 2200, 2000, 2500, 2300],
                             borderColor: '#2563eb',
@@ -345,15 +346,15 @@
                             tension: 0.4,
                             fill: true,
                             pointRadius: 3,
+                            yAxisID: 'y1',
                         },
                         {
+                            type: 'bar',
                             label: 'Orders',
                             data: [5, 8, 7, 10, 9, 12, 11],
-                            borderColor: '#60a5fa',
-                            backgroundColor: 'rgba(96, 165, 250, 0.1)',
-                            tension: 0.4,
-                            fill: false,
-                            pointRadius: 3,
+                            backgroundColor: '#60a5fa',
+                            borderRadius: 6,
+                            yAxisID: 'y',
                         }
                     ]
                 },
@@ -365,7 +366,23 @@
                     },
                     scales: {
                         y: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Orders'
+                            }
+                        },
+                        y1: {
+                            beginAtZero: true,
+                            position: 'right',
+                            grid: {
+                                drawOnChartArea: false
+                            },
+                            title: {
+                                display: true,
+                                text: 'Revenue'
+                            }
                         }
                     },
                     responsive: true,
