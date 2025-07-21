@@ -17,7 +17,7 @@
                         x-ref="fileInput">
                     <img
                         :src="imageUrl"
-                        alt="Preview"
+                        alt="Select Image"
                         class="rounded border border-blue-200 shadow w-64 h-48 object-cover transition ring-2 ring-transparent group-hover:ring-blue-400"
                         @click="$refs.fileInput.click()">
                 </label>
