@@ -393,7 +393,7 @@
             // Quarterly Report Bar Chart
             const ctx2 = document.getElementById('quarterlyReportChart').getContext('2d');
             new Chart(ctx2, {
-                type: 'bar',
+                type: 'pie',
                 data: {
                     labels: ['Q1', 'Q2', 'Q3', 'Q4'],
                     datasets: [{
