@@ -2,17 +2,16 @@
 
 namespace Core;
 
-
 abstract class Model
 
 
 {
+    // Common model functionality goes here
     /**
      * The route key for model binding in resource routes (default: 'id').
      * Override in child models to use a different column (e.g., 'username', 'slug').
      */
     public static $routeKey = 'id';
-
     // Optionally, you can define a protected $table property in child models
     protected $table = null;
     protected $primaryKey = 'id';
@@ -115,6 +114,22 @@ abstract class Model
         $instance = new static();
         $qb = new \Core\Database\QueryBuilder($instance->table);
         $rows = $qb->whereNull($column)->get();
+        return array_map(fn($row) => new static($row), $rows);
+    }
+
+    /**
+     * Get sorted model objects by column and direction.
+     *
+     * @param string|array $selectArray Columns to select (e.g. '*', ['id','name'])
+     * @param string $orderby Column to order by
+     * @param string $direction 'asc' or 'desc'
+     * @return array Array of model objects
+     */
+    public static function sort($selectArray = '*', $orderby = 'id', $direction = 'asc')
+    {
+        $instance = new static();
+        $qb = new \Core\Database\QueryBuilder($instance->table);
+        $rows = $qb->select($selectArray)->orderBy($orderby, $direction)->get();
         return array_map(fn($row) => new static($row), $rows);
     }
 
