@@ -28,12 +28,12 @@
                 </tr>
             <?php else: ?>
                 <?php foreach ($contacts as $contact): ?>
-                    <tr class="border-t border-blue-100 hover:bg-blue-50 transition<?= is_null($contact->opened_at) ? ' bg-yellow-50' : '' ?>">
-                        <td class="px-4 py-2 whitespace-nowrap">
+                    <tr class="border-t border-blue-100 hover:bg-blue-50 transition <?= is_null($contact->opened_at) ? ' bg-yellow-50' : '' ?>">
+                        <td class="px-4 py-2 whitespace-nowrap ">
                             <div class="font-semibold text-blue-900"><?= e($contact->name) ?></div>
                             <div class="text-blue-500 text-xs"><?= e($contact->email) ?></div>
                         </td>
-                        <td class="px-4 py-2 whitespace-nowrap text-blue-700"><?= e($contact->message) ?></td>
+                        <td class="px-4 py-2 whitespace-nowrap text-blue-700 <?= is_null($contact->opened_at) ? 'font-semibold' : '' ?>"><?= e($contact->message) ?></td>
                         <td class="px-4 py-2 whitespace-nowrap flex items-center space-x-2">
                             <a href="<?= url('admin/contacts/' . $contact->id) ?>" class="bg-blue-100 text-blue-700 hover:bg-blue-200 border border-blue-300 rounded px-2 py-1 flex items-center gap-1 transition shadow-sm" title="View">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
