@@ -32,7 +32,9 @@ CREATE TABLE quote_services (
 CREATE TABLE gallery (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(150) NOT NULL,
-    description TEXT,
+    caption TEXT NULL,
+    image_type ENUM('site','category','product') NOT NULL,
+    related_id INT(11) NULL,
     image_url VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -51,7 +53,6 @@ CREATE TABLE products (
     category_id INT,
     description TEXT,
     price DECIMAL(10,2) NOT NULL,
-    image_url VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
 );
