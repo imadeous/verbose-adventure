@@ -17,7 +17,7 @@ use App\Models\Transaction;
                 </div>
                 <h1 class="text-xl font-bold text-blue-900">Product Details</h1>
             </div>
-            <div class="mdflex items-center justify-between">
+            <div class="md:flex items-center justify-between">
                 <div class="flex flex-col gap-2 px-5">
                     <div class="flex items-center gap-2">
                         <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">Name</span>
