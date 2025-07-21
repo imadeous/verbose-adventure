@@ -17,22 +17,27 @@ use App\Models\Transaction;
                 </div>
                 <h1 class="text-xl font-bold text-blue-900">Product Details</h1>
             </div>
-            <div class="flex flex-col gap-2 px-5">
-                <div class="flex items-center gap-2">
-                    <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">Name</span>
-                    <span class="text-lg font-bold text-blue-900"><?= e($product->name) ?></span>
+            <div class="flex items-center justify-between">
+                <div class="flex flex-col gap-2 px-5">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">Name</span>
+                        <span class="text-lg font-bold text-blue-900"><?= e($product->name) ?></span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">Category</span>
+                        <span class="text-blue-900"><?= e(Product::getCategoryName($product->category_id)) ?></span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">Price</span>
+                        <span class="text-blue-900"><?= e($product->price) ?></span>
+                    </div>
+                    <div class="flex items-start gap-2">
+                        <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">Description</span>
+                        <span class="text-blue-800"><?= e($product->description) ?></span>
+                    </div>
                 </div>
-                <div class="flex items-center gap-2">
-                    <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">Category</span>
-                    <span class="text-blue-900"><?= e(Product::getCategoryName($product->category_id)) ?></span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">Price</span>
-                    <span class="text-blue-900"><?= e($product->price) ?></span>
-                </div>
-                <div class="flex items-start gap-2">
-                    <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">Description</span>
-                    <span class="text-blue-800"><?= e($product->description) ?></span>
+                <div class="flex justify-center items-center mt-4">
+                    <img src="<?= e($product->image_url) ?>" alt="<?= e($product->name) ?>" class="max-w-full h-auto rounded-lg shadow-md" />
                 </div>
             </div>
             <div class="flex gap-3 mt-2 justify-end items-center p-5 bg-white rounded-b-xl">
