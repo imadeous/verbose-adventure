@@ -5,9 +5,7 @@
     <style>
         /* Make the message column take all available space */
         .contacts-table-message-col {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            width: 100%;
         }
     </style>
 </div>
@@ -16,7 +14,7 @@
         <thead>
             <tr>
                 <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Sender</th>
-                <th class="contacts-table-message-col w-96 px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Message</th>
+                <th class="contacts-table-message-col px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Message</th>
                 <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Actions</th>
             </tr>
         </thead>
@@ -32,7 +30,9 @@
                             <div class="font-semibold text-blue-900"><?= e($contact->name) ?></div>
                             <div class="text-blue-500 text-xs"><?= e($contact->email) ?></div>
                         </td>
-                        <td class="px-4 py-2 whitespace-nowrap text-blue-700 <?= is_null($contact->opened_at) ? 'font-semibold' : '' ?>"><?= e($contact->message) ?></td>
+                        <td class="px-4 py-2 whitespace-nowrap text-blue-700 <?= is_null($contact->opened_at) ? 'font-semibold' : '' ?>">
+                            <?= e(mb_strimwidth($contact->message, 0, 80, '...')) ?>
+                        </td>
                         <td class="px-4 py-2 whitespace-nowrap flex items-center space-x-2">
                             <a href="<?= url('admin/contacts/' . $contact->id) ?>" class="bg-blue-100 text-blue-700 hover:bg-blue-200 border border-blue-300 rounded px-2 py-1 flex items-center gap-1 transition shadow-sm" title="View">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
