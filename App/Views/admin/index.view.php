@@ -413,6 +413,9 @@
                         legend: {
                             display: true,
                             position: 'bottom'
+                        },
+                        borderRadius: {
+                            value: 4
                         }
                     },
                     responsive: true,
