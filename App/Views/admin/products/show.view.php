@@ -19,7 +19,7 @@
                 </div>
                 <div class="flex items-center gap-2">
                     <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">Category</span>
-                    <span class="text-blue-900"><?= e($product->category) ?></span>
+                    <span class="text-blue-900"><?= e($product->getCategoryName($product->category_id)) ?></span>
                 </div>
                 <div class="flex items-center gap-2">
                     <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">Price</span>
