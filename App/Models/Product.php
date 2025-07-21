@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Core\Model;
+use App\Models\Review;
 
 class Product extends Model
 
@@ -38,18 +39,18 @@ class Product extends Model
     }
 
     // get product reviews()
-    public function getReviews($id)
+    public static function getReviews($id)
     {
-        return \App\Models\Review::select('reviews.*')
+        return Review::select('reviews.*')
             ->join('products', 'reviews.product_id', '=', 'products.id')
             ->where('reviews.product_id', $id)
             ->get();
     }
 
     // return an object with overall product rating
-    public function getOverallRating($id)
+    public static function getOverallRating($id)
     {
-        $reviews = $this->getReviews($id);
+        $reviews = Product::getReviews($id);
         if (empty($reviews)) return 0;
 
         $totalRating = 0;

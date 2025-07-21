@@ -104,7 +104,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if (empty($transactions)): ?>
+                        <?php
+
+                        use App\Models\Product;
+
+                        if (empty($transactions)): ?>
                             <tr>
                                 <td colspan="3" class="px-4 py-4 text-center text-blue-400">No transactions found for this product.</td>
                             </tr>
@@ -139,7 +143,7 @@
                     </svg>
                     Product Reviews
                 </h2>
-                <?php if (empty($reviews)): ?>
+                <?php if (empty(Product::getReviews($product->id))): ?>
                     <div class="text-blue-400 text-center py-8">No reviews yet for this product.</div>
                 <?php else: ?>
                     <div class="flex flex-col gap-4">
