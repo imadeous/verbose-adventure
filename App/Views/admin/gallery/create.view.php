@@ -73,12 +73,23 @@
             </div>
             <div x-show="type && type !== 'site'" x-transition>
                 <label class="block text-blue-700 font-semibold mb-1">Related ID</label>
-                <input
-                    type="number"
+                <select
                     name="related_id"
                     class="w-full border border-blue-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-blue-900"
                     x-model="relatedId"
                     :required="type !== 'site'">
+                    <option value="">Select Related</option>
+                    <template x-if="type === 'category'">
+                        <template x-for="cat in categories" :key="cat.id">
+                            <option :value="cat.id" x-text="cat.name"></option>
+                        </template>
+                    </template>
+                    <template x-if="type === 'product'">
+                        <template x-for="prod in products" :key="prod.id">
+                            <option :value="prod.id" x-text="prod.name"></option>
+                        </template>
+                    </template>
+                </select>
             </div>
             <div class="flex justify-end">
                 <button
