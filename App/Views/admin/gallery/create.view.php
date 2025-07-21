@@ -93,7 +93,7 @@
                         };
                         reader.readAsDataURL(file);
                     } else {
-                        this.imageUrl = 'https://placehold.co/100x80/3b82f6/fff?text=Preview';
+                        this.imageUrl = 'https://placehold.co/100x80/3b82f6/fff?text=Select+Image';
                     }
                 }
             }));
