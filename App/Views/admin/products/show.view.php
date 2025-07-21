@@ -157,7 +157,7 @@
                                         </svg>
                                     <?php endfor; ?>
                                 </div>
-                                <div class="text-blue-800"><?= e($review->comment) ?></div>
+                                <div class="text-blue-800"><?= e($review->message) ?></div>
                             </div>
                         <?php endforeach; ?>
                     </div>
