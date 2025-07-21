@@ -1,6 +1,14 @@
+<?php
+// Load categories and products for dynamic selects
+use App\Models\Category;
+use App\Models\Product;
+
+$categories = Category::all();
+$products = Product::all();
+?>
 <div class="max-w-xl mx-auto overflow-x-hidden">
     <div
-        x-data="galleryForm"
+        x-data='galleryForm(<?= json_encode($categories) ?>, <?= json_encode($products) ?>)'
         class="bg-white rounded-xl shadow-md border border-blue-100 p-8">
         <h1 class="text-3xl font-extrabold text-blue-900 mb-8">Add Gallery Image</h1>
         <form class="space-y-5" autocomplete="off" @submit.prevent>
@@ -103,12 +111,14 @@
 
     <script>
         document.addEventListener('alpine:init', () => {
-            Alpine.data('galleryForm', () => ({
+            Alpine.data('galleryForm', (categories, products) => ({
                 imageUrl: 'https://placehold.co/100x80/3b82f6/fff?text=Preview',
                 imageFile: null,
                 title: '',
                 type: '',
                 relatedId: '',
+                categories: categories,
+                products: products,
                 isValid() {
                     if (!this.imageFile || !this.title.trim() || !this.type) return false;
                     if (this.type !== 'site' && !this.relatedId) return false;

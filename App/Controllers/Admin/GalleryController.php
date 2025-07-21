@@ -35,7 +35,12 @@ class GalleryController extends AdminController
     public function create()
     {
         $this->view->layout('admin');
-        $this->view('admin/gallery/create');
+        $categories = \App\Models\Category::all();
+        $products = \App\Models\Product::all();
+        $this->view('admin/gallery/create', [
+            'categories' => $categories,
+            'products' => $products
+        ]);
     }
 
     public function store()
