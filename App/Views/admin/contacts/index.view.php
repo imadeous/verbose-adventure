@@ -18,7 +18,7 @@
                     </tr>
                 <?php else: ?>
                     <?php foreach ($contacts as $contact): ?>
-                        <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
+                        <tr class="border-t border-blue-100 hover:bg-blue-50 transition<?= is_null($contact->opened_at) ? ' bg-yellow-50' : '' ?>">
                             <td class="px-4 py-2 whitespace-nowrap">
                                 <div class="font-semibold text-blue-900"><?= e($contact->name) ?></div>
                                 <div class="text-blue-500 text-xs"><?= e($contact->email) ?></div>
