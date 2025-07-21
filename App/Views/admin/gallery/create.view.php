@@ -1,8 +1,3 @@
-<?php
-// Load categories and products for dynamic selects
-var_dump($categories);
-var_dump($products);
-?>
 <div class="max-w-xl mx-auto overflow-x-hidden">
     <div
         x-data='galleryForm(<?= json_encode($categories) ?>, <?= json_encode($products) ?>)'
