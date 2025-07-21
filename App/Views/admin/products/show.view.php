@@ -37,7 +37,7 @@ use App\Models\Transaction;
                     </div>
                 </div>
                 <div class="flex justify-center items-center mt-4">
-                    <img src="<?= e($product->image_url) ?>" alt="<?= e($product->name) ?>" class="max-w-full h-auto rounded-lg shadow-md" />
+                    <img src="<?= e($product->image_url) ?>" alt="<?= e($product->name) ?>" class="max-w-full h-full rounded-lg shadow-md" />
                 </div>
             </div>
             <div class="flex gap-3 mt-2 justify-end items-center p-5 bg-white rounded-b-xl">
