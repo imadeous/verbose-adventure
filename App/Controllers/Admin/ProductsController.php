@@ -9,6 +9,7 @@ use Core\AdminControllerBase;
 
 class ProductsController extends AdminControllerBase
 {
+
     public function index()
     {
         $products = Product::all();
@@ -94,6 +95,51 @@ class ProductsController extends AdminControllerBase
         $product->fill($data);
         $product->save();
         flash('success', 'Product updated successfully.');
+        $this->redirect('/admin/products/' . $id);
+    }
+
+    public function addImage($id)
+    {
+        $this->view->layout('admin');
+        $product = Product::find($id);
+        if (!$product) {
+            flash('error', 'Product not found.');
+            $this->redirect('/admin/products');
+            return;
+        }
+        $this->view('admin/products/addImage', [
+            'product' => $product
+        ]);
+    }
+
+    public function storeImage($id)
+    {
+        $product = Product::find($id);
+        if (!$product) {
+            flash('error', 'Product not found.');
+            $this->redirect('/admin/products');
+            return;
+        }
+        $data = $_POST;
+        // CSRF validation
+        if (empty($data['_csrf']) || !\App\Helpers\Csrf::check($data['_csrf'])) {
+            flash('error', 'Invalid or missing CSRF token. Please try again.');
+            $this->redirect('/admin/products/' . $id . '/addImage');
+            return;
+        }
+        // Handle file upload
+        if (!empty($_FILES['image']['name'])) {
+            $upload = \App\Helpers\File::upload($_FILES['image'], 'site');
+            if ($upload['success']) {
+                $product->image = $upload['filename'];
+                $product->save();
+                flash('success', 'Image uploaded successfully.');
+            } else {
+                flash('error', $upload['error'] ?? 'Image upload failed.');
+            }
+        } else {
+            flash('error', 'No image selected.');
+        }
         $this->redirect('/admin/products/' . $id);
     }
 
