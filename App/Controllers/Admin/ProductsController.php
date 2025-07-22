@@ -46,6 +46,13 @@ class ProductsController extends AdminControllerBase
     public function store()
     {
         $data = $_POST;
+        // CSRF validation
+        if (empty($data['_csrf']) || !\App\Helpers\Csrf::check($data['_csrf'])) {
+            flash('error', 'Invalid or missing CSRF token. Please try again.');
+            $this->redirect('/admin/products/create');
+            return;
+        }
+        unset($data['_csrf'], $data['_method']);
         $product = new Product($data);
         $product->save();
         $this->redirect('/admin/products');

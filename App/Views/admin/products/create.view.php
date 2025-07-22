@@ -1,5 +1,6 @@
 <h1 class="text-2xl font-bold mb-4">Add Product</h1>
 <form action="<?= url('admin/products') ?>" method="POST">
+    <?= csrf_field() ?>
     <div class="mb-4">
         <label>Name</label>
         <input type="text" name="name" class="input" required>
