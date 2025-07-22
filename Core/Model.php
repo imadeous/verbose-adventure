@@ -95,12 +95,11 @@ abstract class Model
         return $row ? new static($row) : null;
     }
 
-    public static function where($column, $value)
+    public static function where($column, $operator = null, $value = null)
     {
         $instance = new static();
         $qb = new \Core\Database\QueryBuilder($instance->table);
-        $rows = $qb->where($column, $value)->get();
-        return array_map(fn($row) => new static($row), $rows);
+        return $qb->where($column, $operator, $value);
     }
 
 
