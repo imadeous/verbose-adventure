@@ -65,11 +65,6 @@ abstract class Model
         return $this->attributes;
     }
 
-    public function raw()
-    {
-        return $this->toArray();
-    }
-
     /**
      * Mass-assign attributes to the model instance.
      * @param array $attributes
@@ -162,6 +157,14 @@ abstract class Model
         if (empty($this->attributes[$this->primaryKey])) return false;
         $qb = new \Core\Database\QueryBuilder($this->table);
         return $qb->delete($this->attributes[$this->primaryKey], $this->primaryKey);
+    }
+
+    public static function rawQuery($sql, $params = [])
+    {
+        $instance = new static();
+        $qb = new \Core\Database\QueryBuilder($instance->table);
+        $rows = $qb->rawQuery($sql, $params);
+        return array_map(fn($row) => new static($row), $rows);
     }
 }
 
