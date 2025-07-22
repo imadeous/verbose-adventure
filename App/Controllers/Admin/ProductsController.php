@@ -25,10 +25,11 @@ class ProductsController extends AdminControllerBase
         $this->view->layout('admin');
         $product = Product::find($id);
         $reviews = $product ? $product->getReviews($id) : [];
-        $gallery = Gallery::where([
-            'image_type' => 'product',
-            'related_id' => $id
-        ]);
+        // Get all gallery images for this product
+        $gallery = array_filter(
+            Gallery::where('related_id', $id),
+            fn($g) => $g->image_type === 'product'
+        );
         if (!$product) {
             flash('error', 'Product not found.');
             $this->redirect('/admin/products');
