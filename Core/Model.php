@@ -67,7 +67,7 @@ abstract class Model
 
     public function raw()
     {
-        return $this->attributes;
+        return $this->toArray();
     }
 
     /**
@@ -171,4 +171,4 @@ abstract class Model
 // $user->save();
 // $users = User::all();
 // $user = User::find(1);
-// $user->delete();  
+// $user->delete();
