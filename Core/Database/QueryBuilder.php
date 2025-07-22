@@ -8,7 +8,6 @@ use PDO;
 
 class QueryBuilder
 
-
 {
     protected $table;
     protected $pdo;
@@ -22,6 +21,19 @@ class QueryBuilder
     {
         $this->table = $table;
         $this->pdo = Db::instance();
+    }
+
+    /**
+     * Execute a raw SQL query and return results.
+     * @param string $sql
+     * @param array $params
+     * @return array
+     */
+    public function rawQuery($sql, $params = [])
+    {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll();
     }
 
     public function select($columns)

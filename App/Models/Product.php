@@ -39,7 +39,8 @@ class Product extends Model
 
     public static function getImages($id)
     {
-        return Gallery::rawQuery("SELECT * FROM galleries WHERE related_id = ? AND image_type = 'product'", [$id]);
+        $gallery = new Gallery();
+        return $gallery->raw("SELECT * FROM galleries WHERE related_id = ? AND image_type = 'product'", [$id]);
     }
 
     // get product reviews()

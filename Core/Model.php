@@ -65,6 +65,11 @@ abstract class Model
         return $this->attributes;
     }
 
+    public function raw()
+    {
+        return $this->attributes;
+    }
+
     /**
      * Mass-assign attributes to the model instance.
      * @param array $attributes
@@ -76,23 +81,6 @@ abstract class Model
             $this->$key = $value;
         }
         return $this;
-    }
-
-    /**
-     * Execute a raw SQL query and return model objects.
-     * @param string $sql
-     * @param array $params
-     * @return array Array of model objects
-     */
-    public static function rawQuery($sql, $params = [])
-    {
-        $instance = new static();
-        $pdo = \Core\Database\Db::instance();
-        $stmt = $pdo->prepare($sql);
-        var_dump($stmt);
-        $stmt->execute($params);
-        $rows = $stmt->fetchAll();
-        return array_map(fn($row) => new static($row), $rows);
     }
 
     // --- Active Record style methods ---
