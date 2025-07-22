@@ -37,8 +37,6 @@ use App\Models\Transaction;
                     </div>
                 </div>
                 <div class="flex justify-center items-center mt-4 gap-4 flex-wrap">
-                    <?php var_dump($gallery); // Debugging line to check gallery data 
-                    ?>
                     <?php if (!empty($gallery)): ?>
                         <?php foreach ($gallery as $image): ?>
                             <img src="<?= url('storage/products/' . e($image->image_url)) ?>" alt="<?= e($product->name) ?>" class="max-w-xs h-40 object-cover rounded-lg shadow-md border border-blue-100" />
