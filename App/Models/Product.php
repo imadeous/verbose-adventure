@@ -5,6 +5,7 @@ namespace App\Models;
 use Core\Model;
 use Core\Database\QueryBuilder;
 use App\Models\Category;
+use App\Models\Gallery;
 use App\Models\Review;
 
 class Product extends Model
@@ -38,11 +39,8 @@ class Product extends Model
 
     public static function getImages($id)
     {
-        $qb = new QueryBuilder((new Gallery())->table);
-        $galleryRows = $qb->where('image_type', '=', 'product')
-            ->andWhere('related_id', '=', $id)
-            ->get();
-        return array_map(fn($row) => new Gallery($row), $galleryRows);
+        $g = Gallery::all();
+        return array_map(fn($row) => new Gallery($row), $g);
     }
 
     // get product reviews()
