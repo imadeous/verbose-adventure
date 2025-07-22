@@ -110,7 +110,6 @@ abstract class Model
             foreach ($column as $col => $val) {
                 $qb = $qb->where($col, $val);
             }
-            var_dump($qb->get());
             $rows = $qb->get();
         } else {
             $rows = $qb->where($column, $value)->get();
