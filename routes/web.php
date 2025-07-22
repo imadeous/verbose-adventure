@@ -42,6 +42,9 @@ $router->middleware([AuthMiddleware::class], function ($router) {
     $router->resource('/admin/quotes', \App\Controllers\Admin\QuotesController::class);
     $router->resource('/admin/reviews', \App\Controllers\Admin\ReviewsController::class);
     $router->resource('/admin/products', \App\Controllers\Admin\ProductsController::class);
+    // Product image upload routes
+    $router->get('/admin/products/{id}/addImage', [\App\Controllers\Admin\ProductsController::class, 'addImage']);
+    $router->post('/admin/products/{id}/addImage', [\App\Controllers\Admin\ProductsController::class, 'storeImage']);
     $router->resource('/admin/categories', \App\Controllers\Admin\CategoriesController::class);
     $router->resource('/admin/gallery', \App\Controllers\Admin\GalleryController::class);
     // Admin user profile route
