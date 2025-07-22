@@ -37,6 +37,7 @@ class ProductsController extends AdminControllerBase
             ->andWhere('related_id', '=', $id)
             ->get();
         $gallery = array_map(fn($row) => new Gallery($row), $galleryRows);
+        var_dump($gallery); // Debugging line to check gallery data
         $this->view('admin/products/show', [
             'product' => $product,
             'reviews' => $reviews,
