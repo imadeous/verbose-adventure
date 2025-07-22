@@ -7,7 +7,13 @@
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
-            <input type="text" name="category" class="w-full rounded-lg border border-blue-300 focus:border-blue-500 focus:ring-blue-500 px-4 py-2 text-gray-900 bg-blue-50" value="<?= e($product->category) ?>">
+            <select name="category" class="w-full rounded-lg border border-blue-300 focus:border-blue-500 focus:ring-blue-500 px-4 py-2 text-gray-900 bg-blue-50">
+                <?php foreach ($categories as $cat): ?>
+                    <option value="<?= e($cat) ?>" <?= $product->category === $cat ? 'selected' : '' ?>>
+                        <?= e($cat) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Price</label>

@@ -56,8 +56,10 @@ class CategoriesController extends AdminControllerBase
             $this->redirect('/admin/categories');
             return;
         }
+        $categories = Category::sort('*', 'name', 'asc');
         $this->view('admin/categories/edit', [
-            'category' => $category
+            'category' => $category,
+            'categories' => $categories
         ]);
     }
 
