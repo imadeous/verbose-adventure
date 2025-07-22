@@ -107,8 +107,14 @@ abstract class Model
         $instance = new static();
         $qb = new \Core\Database\QueryBuilder($instance->table);
         if (is_array($column)) {
+            $first = true;
             foreach ($column as $col => $val) {
-                $qb = $qb->where($col, $val);
+                if ($first) {
+                    $qb = $qb->where($col, $val);
+                    $first = false;
+                } else {
+                    $qb = $qb->andWhere($col, $val);
+                }
             }
             $rows = $qb->get();
         } else {
