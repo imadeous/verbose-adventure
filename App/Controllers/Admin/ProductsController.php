@@ -24,18 +24,17 @@ class ProductsController extends AdminControllerBase
     {
         $this->view->layout('admin');
         $product = Product::find($id);
-        $reviews = $product ? $product->getReviews($id) : [];
-        // Get all gallery images for this product using explicit andWhere chaining
-        $qb = new \Core\Database\QueryBuilder((new Gallery())->table);
-        $galleryRows = $qb->where('image_type', 'product')
-            ->andWhere('related_id', $id)
-            ->get();
-        $gallery = array_map(fn($row) => new Gallery($row), $galleryRows);
         if (!$product) {
             flash('error', 'Product not found.');
             $this->redirect('/admin/products');
             return;
         }
+        $reviews = $product ? $product->getReviews($id) : [];
+        // Get all gallery images for this product using new Model::where syntax
+        $gallery = Gallery::where([
+            ['image_type', 'product'],
+            ['related_id', $id]
+        ]);
         $this->view('admin/products/show', [
             'product' => $product,
             'reviews' => $reviews,
