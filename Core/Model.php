@@ -78,6 +78,22 @@ abstract class Model
         return $this;
     }
 
+    /**
+     * Execute a raw SQL query and return model objects.
+     * @param string $sql
+     * @param array $params
+     * @return array Array of model objects
+     */
+    public static function rawQuery($sql, $params = [])
+    {
+        $instance = new static();
+        $pdo = \Core\Database\Db::instance();
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
+        $rows = $stmt->fetchAll();
+        return array_map(fn($row) => new static($row), $rows);
+    }
+
     // --- Active Record style methods ---
     public static function all()
     {
@@ -102,7 +118,6 @@ abstract class Model
         $rows = $qb->where($column, $value)->get();
         return array_map(fn($row) => new static($row), $rows);
     }
-
 
     /**
      * Get records where a column is NULL.
