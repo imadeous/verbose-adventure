@@ -39,7 +39,8 @@ class Product extends Model
 
     public static function getImages($id)
     {
-        $g = Gallery::all();
+        $g = Gallery::where('image_type', 'product');
+
         return array_map(fn($row) => new Gallery($row), $g);
     }
 
