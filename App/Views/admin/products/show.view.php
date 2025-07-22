@@ -36,8 +36,14 @@ use App\Models\Transaction;
                         <span class="text-blue-800"><?= e($product->description) ?></span>
                     </div>
                 </div>
-                <div class="flex justify-center items-center mt-4">
-                    <img src="<?= e($product->image_url) ?>" alt="<?= e($product->name) ?>" class="max-w-full h-full rounded-lg shadow-md" />
+                <div class="flex justify-center items-center mt-4 gap-4 flex-wrap">
+                    <?php if (!empty($gallery)): ?>
+                        <?php foreach ($gallery as $image): ?>
+                            <img src="<?= url('storage/products/' . e($image->image_url)) ?>" alt="<?= e($product->name) ?>" class="max-w-xs h-40 object-cover rounded-lg shadow-md border border-blue-100" />
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <span class="text-blue-400">No product images uploaded.</span>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="flex gap-3 mt-2 justify-end items-center p-5 bg-white rounded-b-xl">

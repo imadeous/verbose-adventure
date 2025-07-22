@@ -25,6 +25,10 @@ class ProductsController extends AdminControllerBase
         $this->view->layout('admin');
         $product = Product::find($id);
         $reviews = $product ? $product->getReviews($id) : [];
+        $gallery = Gallery::where([
+            'image_type' => 'product',
+            'related_id' => $id
+        ]);
         if (!$product) {
             flash('error', 'Product not found.');
             $this->redirect('/admin/products');
@@ -32,7 +36,8 @@ class ProductsController extends AdminControllerBase
         }
         $this->view('admin/products/show', [
             'product' => $product,
-            'reviews' => $reviews
+            'reviews' => $reviews,
+            'gallery' => $gallery
         ]);
     }
 
