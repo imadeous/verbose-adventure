@@ -35,7 +35,7 @@ class ProductsController extends AdminControllerBase
         $gallery = Product::getImages($id);
         foreach ($gallery as $image) {
             // Debugging line to check gallery data
-            echo '<img src="' . url('public/storage/site/' . $image->image_url) . '" alt="' . $image->title . '" />';
+            echo '<img src="' . url('public/storage/products/' . $image->image_url) . '" alt="' . $image->title . '" />';
         }
         $this->view('admin/products/show', [
             'product' => $product,
