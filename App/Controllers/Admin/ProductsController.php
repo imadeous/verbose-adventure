@@ -87,7 +87,7 @@ class ProductsController extends AdminControllerBase
         $product->fill($data);
         $product->save();
         flash('success', 'Product updated successfully.');
-        $this->redirect('/admin/products');
+        $this->redirect('/admin/products/' . $id);
     }
 
     public function destroy($id)
