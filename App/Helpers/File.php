@@ -28,7 +28,7 @@ class File
         if ($maxSize && $file['size'] > $maxSize) {
             return ['success' => false, 'path' => null, 'error' => 'File too large.'];
         }
-        $baseDir = '/';
+        $baseDir = '/storage'; // Adjust base directory as needed
         $dir = rtrim($baseDir . '/' . ltrim($targetDir, '/\\'), '/\\');
         if (!is_dir($dir)) {
             mkdir($dir, 0777, true);
