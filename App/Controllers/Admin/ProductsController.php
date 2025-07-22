@@ -132,20 +132,24 @@ class ProductsController extends AdminControllerBase
         if (!empty($_FILES['image']['name'])) {
             $upload = \App\Helpers\File::upload($_FILES['image'], 'site');
             if ($upload['success']) {
-                $gallery = new \App\Models\Gallery([
-                    'title' => $product->name,
-                    'caption' => null,
-                    'image_type' => 'product',
-                    'related_id' => $product->id,
-                    'image_url' => $upload['filename'],
-                ]);
-                $gallery->save();
-                flash('success', 'Image uploaded and added to gallery.');
+                try {
+                    $gallery = new \App\Models\Gallery([
+                        'title' => $product->name,
+                        'caption' => null,
+                        'image_type' => 'product',
+                        'related_id' => $product->id,
+                        'image_url' => $upload['filename'],
+                    ]);
+                    $gallery->save();
+                    flash('success', 'Image uploaded and added to gallery.');
+                } catch (\Throwable $e) {
+                    flash('error', 'Gallery save error: ' . $e->getMessage());
+                }
             } else {
-                flash('error', $upload['error'] ?? 'Image upload failed.');
+                flash('error', 'File upload error: ' . ($upload['error'] ?? 'Image upload failed.'));
             }
         } else {
-            flash('error', 'No image selected.');
+            flash('error', 'No image selected. Debug: ' . print_r($_FILES, true));
         }
         $this->redirect('/admin/products/' . $id);
     }
