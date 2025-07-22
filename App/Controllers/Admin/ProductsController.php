@@ -30,6 +30,7 @@ class ProductsController extends AdminControllerBase
             'image_type' => 'product',
             'related_id' => $id
         ]);
+        var_dump($gallery);
         if (!$product) {
             flash('error', 'Product not found.');
             $this->redirect('/admin/products');
