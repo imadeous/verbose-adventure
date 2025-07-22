@@ -8,9 +8,10 @@
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
             <select name="category" class="w-full rounded-lg border border-blue-300 focus:border-blue-500 focus:ring-blue-500 px-4 py-2 text-gray-900 bg-blue-50">
+                <?php var_dump($categories); ?>
                 <?php foreach ($categories as $cat): ?>
-                    <option value="<?= e($cat) ?>" <?= $product->category === $cat ? 'selected' : '' ?>>
-                        <?= e($cat) ?>
+                    <option value="<?= e($cat) ?>" <?= $product->category_id === $cat->id ? 'selected' : '' ?>>
+                        <?= e($cat->name) ?>
                     </option>
                 <?php endforeach; ?>
             </select>
