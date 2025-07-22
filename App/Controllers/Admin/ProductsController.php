@@ -30,7 +30,7 @@ class ProductsController extends AdminControllerBase
             return;
         }
         $reviews = $product ? $product->getReviews($id) : [];
-        // Get all gallery images for this product using new Model::where syntax
+        // Get all gallery images for this product using new Model::where syntax (array of condition arrays)
         $gallery = Gallery::where([
             ['image_type', 'product'],
             ['related_id', $id]

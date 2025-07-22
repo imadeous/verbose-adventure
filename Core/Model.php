@@ -95,41 +95,11 @@ abstract class Model
         return $row ? new static($row) : null;
     }
 
-    /**
-     * Get records matching one or more conditions.
-     * Accepts either (column, value) or an associative array of conditions.
-     * @param string|array $column
-     * @param mixed $value
-     * @return array
-     */
-    public static function where($column, $value = null)
+    public static function where($column, $value)
     {
         $instance = new static();
         $qb = new \Core\Database\QueryBuilder($instance->table);
-        if (!is_array($column)) {
-            throw new \InvalidArgumentException('where() now only accepts an array of condition arrays: [[$column, $operator, $value], ...]');
-        }
-        $first = true;
-        foreach ($column as $cond) {
-            if (!is_array($cond) || count($cond) < 2) {
-                throw new \InvalidArgumentException('Each condition must be an array: [$column, $operator, $value] or [$column, $value]');
-            }
-            $col = $cond[0];
-            if (count($cond) == 2) {
-                $op = '=';
-                $val = $cond[1];
-            } else {
-                $op = $cond[1];
-                $val = $cond[2];
-            }
-            if ($first) {
-                $qb = $qb->where($col, $op, $val);
-                $first = false;
-            } else {
-                $qb = $qb->andWhere($col, $op, $val);
-            }
-        }
-        $rows = $qb->get();
+        $rows = $qb->where($column, $value)->get();
         return array_map(fn($row) => new static($row), $rows);
     }
 

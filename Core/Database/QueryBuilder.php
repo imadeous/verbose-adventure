@@ -7,6 +7,7 @@ use PDO;
 
 
 class QueryBuilder
+
 {
     protected $table;
     protected $pdo;
@@ -71,24 +72,6 @@ class QueryBuilder
     }
 
     /**
-     * Add an explicit AND WHERE clause to the query.
-     * @param string $column
-     * @param string $operator
-     * @param mixed $value
-     * @return $this
-     */
-    public function andWhere($column, $operator, $value = null)
-    {
-        if (func_num_args() == 2) {
-            $value = $operator;
-            $operator = '=';
-        }
-        $this->wheres[] = ["AND $column $operator ?"];
-        $this->bindings[] = $value;
-        return $this;
-    }
-
-    /**
      * Add a "where IS NULL" clause to the query.
      * @param string $column
      * @return $this
@@ -141,10 +124,11 @@ class QueryBuilder
             $sql .= ' ' . implode(' ', $this->joins);
         }
         if ($this->wheres) {
-            $whereClauses = array_map(function ($where) {
-                return $where[0];
-            }, $this->wheres);
-            $sql .= ' WHERE ' . implode(' AND ', $whereClauses);
+            $whereSql = [];
+            foreach ($this->wheres as $i => $where) {
+                $whereSql[] = ($i === 0 ? 'WHERE ' : '') . $where[0];
+            }
+            $sql .= ' ' . implode(' ', $whereSql);
         }
         if ($this->orderBy) {
             $sql .= ' ' . $this->orderBy;
