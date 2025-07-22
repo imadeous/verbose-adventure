@@ -1,21 +1,25 @@
-<h1 class="text-2xl font-bold mb-4">Edit Product</h1>
-<form action="<?= url('admin/products/' . $product->id . '/update') ?>" method="POST">
-    <div class="mb-4">
-        <label>Name</label>
-        <input type="text" name="name" class="input" value="<?= e($product->name) ?>" required>
-    </div>
-    <div class="mb-4">
-        <label>Category</label>
-        <input type="text" name="category" class="input" value="<?= e($product->category) ?>">
-    </div>
-    <div class="mb-4">
-        <label>Price</label>
-        <input type="number" name="price" class="input" step="0.01" value="<?= e($product->price) ?>">
-    </div>
-    <div class="mb-4">
-        <label>Description</label>
-        <textarea name="description" class="input"><?= e($product->description) ?></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Update</button>
-    <a href="<?= url('admin/products') ?>" class="btn">Cancel</a>
-</form>
+<div class="max-w-xl mx-auto bg-white rounded-xl shadow-md p-8">
+    <h1 class="text-2xl font-bold text-blue-700 mb-6">Edit Product</h1>
+    <form action="<?= url('admin/products/' . $product->id . '/update') ?>" method="POST" class="space-y-6">
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+            <input type="text" name="name" class="w-full rounded-lg border border-blue-300 focus:border-blue-500 focus:ring-blue-500 px-4 py-2 text-gray-900 bg-blue-50" value="<?= e($product->name) ?>" required>
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+            <input type="text" name="category" class="w-full rounded-lg border border-blue-300 focus:border-blue-500 focus:ring-blue-500 px-4 py-2 text-gray-900 bg-blue-50" value="<?= e($product->category) ?>">
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Price</label>
+            <input type="number" name="price" step="0.01" class="w-full rounded-lg border border-blue-300 focus:border-blue-500 focus:ring-blue-500 px-4 py-2 text-gray-900 bg-blue-50" value="<?= e($product->price) ?>">
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            <textarea name="description" class="w-full rounded-lg border border-blue-300 focus:border-blue-500 focus:ring-blue-500 px-4 py-2 text-gray-900 bg-blue-50" rows="4"><?= e($product->description) ?></textarea>
+        </div>
+        <div class="flex items-center gap-4 mt-6">
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg shadow">Update</button>
+            <a href="<?= url('admin/products') ?>" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-6 py-2 rounded-lg">Cancel</a>
+        </div>
+    </form>
+</div>
