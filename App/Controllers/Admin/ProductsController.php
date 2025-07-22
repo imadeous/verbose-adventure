@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Gallery;
 use App\Models\Review;
 use Core\AdminControllerBase;
 
@@ -127,13 +128,19 @@ class ProductsController extends AdminControllerBase
             $this->redirect('/admin/products/' . $id . '/addImage');
             return;
         }
-        // Handle file upload
+        // Handle file upload and insert into gallery using Gallery model and File helper
         if (!empty($_FILES['image']['name'])) {
             $upload = \App\Helpers\File::upload($_FILES['image'], 'site');
             if ($upload['success']) {
-                $product->image = $upload['filename'];
-                $product->save();
-                flash('success', 'Image uploaded successfully.');
+                $gallery = new \App\Models\Gallery([
+                    'title' => $product->name,
+                    'caption' => null,
+                    'image_type' => 'product',
+                    'related_id' => $product->id,
+                    'image_url' => $upload['filename'],
+                ]);
+                $gallery->save();
+                flash('success', 'Image uploaded and added to gallery.');
             } else {
                 flash('error', $upload['error'] ?? 'Image upload failed.');
             }
