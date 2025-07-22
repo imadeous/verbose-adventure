@@ -60,8 +60,10 @@ class ProductsController extends AdminControllerBase
             $this->redirect('/admin/products');
             return;
         }
+        $categories = Category::sort('*', 'name', 'asc');
         $this->view('admin/products/edit', [
-            'product' => $product
+            'product' => $product,
+            'categories' => $categories
         ]);
     }
 

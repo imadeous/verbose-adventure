@@ -56,10 +56,8 @@ class CategoriesController extends AdminControllerBase
             $this->redirect('/admin/categories');
             return;
         }
-        $categories = Category::all();
         $this->view('admin/categories/edit', [
             'category' => $category,
-            'categories' => $categories
         ]);
     }
 
