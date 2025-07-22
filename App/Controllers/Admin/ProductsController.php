@@ -32,8 +32,7 @@ class ProductsController extends AdminControllerBase
         }
         $reviews = $product ? $product->getReviews($id) : [];
         // Manually load gallery images using QueryBuilder for compatibility
-        $gallery = Product::getImages($id);
-        var_dump($gallery); // Debugging line to check gallery data
+        $gallery = Product::getImages($id); // Debugging line to check gallery data
         $this->view('admin/products/show', [
             'product' => $product,
             'reviews' => $reviews,
