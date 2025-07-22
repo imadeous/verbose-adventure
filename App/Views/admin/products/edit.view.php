@@ -1,6 +1,8 @@
 <div class="max-w-xl mx-auto bg-white rounded-xl shadow-md p-8">
     <h1 class="text-2xl font-bold text-blue-700 mb-6">Edit Product</h1>
     <form action="<?= url('admin/products/' . $product->id . '/update') ?>" method="POST" class="space-y-6">
+        <?= csrf_field() ?>
+        <input type="hidden" name="_method" value="POST">
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
             <input type="text" name="name" class="w-full rounded-lg border border-blue-300 focus:border-blue-500 focus:ring-blue-500 px-4 py-2 text-gray-900 bg-blue-50" value="<?= e($product->name) ?>" required>

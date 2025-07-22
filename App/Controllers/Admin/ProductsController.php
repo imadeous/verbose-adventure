@@ -75,7 +75,16 @@ class ProductsController extends AdminControllerBase
             $this->redirect('/admin/products');
             return;
         }
-        $product->fill($_POST);
+        $data = $_POST;
+        // CSRF validation
+        if (empty($data['_csrf']) || !\App\Helpers\Csrf::check($data['_csrf'])) {
+            flash('error', 'Invalid or missing CSRF token. Please try again.');
+            $this->redirect('/admin/products/' . $id . '/edit');
+            return;
+        }
+        // Remove _csrf and _method fields if present
+        unset($data['_csrf'], $data['_method']);
+        $product->fill($data);
         $product->save();
         flash('success', 'Product updated successfully.');
         $this->redirect('/admin/products');
