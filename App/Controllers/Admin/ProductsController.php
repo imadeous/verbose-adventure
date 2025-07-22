@@ -138,14 +138,16 @@ class ProductsController extends AdminControllerBase
                     'max_size' => 5 * 1024 * 1024 // 5MB
                 ]
             );
-            if ($upload['success'] && !empty($upload['filename'])) {
+            // Extract just the filename for DB
+            $filename = $upload['success'] && !empty($upload['path']) ? basename($upload['path']) : null;
+            if ($upload['success'] && $filename) {
                 try {
                     $gallery = new \App\Models\Gallery([
                         'title' => $product->name,
                         'caption' => null,
                         'image_type' => 'product',
                         'related_id' => $product->id,
-                        'image_url' => $upload['filename'],
+                        'image_url' => $filename,
                     ]);
                     $gallery->save();
                     flash('success', 'Image uploaded and added to gallery.');
