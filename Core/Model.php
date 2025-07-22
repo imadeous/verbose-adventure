@@ -89,6 +89,7 @@ abstract class Model
         $instance = new static();
         $pdo = \Core\Database\Db::instance();
         $stmt = $pdo->prepare($sql);
+        var_dump($stmt);
         $stmt->execute($params);
         $rows = $stmt->fetchAll();
         return array_map(fn($row) => new static($row), $rows);
