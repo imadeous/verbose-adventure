@@ -28,7 +28,8 @@ class File
         if ($maxSize && $file['size'] > $maxSize) {
             return ['success' => false, 'path' => null, 'error' => 'File too large.'];
         }
-        $dir = rtrim($targetDir, '/\\');
+        $baseDir = 'public/storage';
+        $dir = rtrim($baseDir . '/' . ltrim($targetDir, '/\\'), '/\\');
         if (!is_dir($dir)) {
             mkdir($dir, 0777, true);
         }

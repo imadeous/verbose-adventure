@@ -130,7 +130,7 @@ class ProductsController extends AdminControllerBase
         }
         // Handle file upload and insert into gallery using Gallery model and File helper
         if (!empty($_FILES['image']['name'])) {
-            $upload = \App\Helpers\File::upload($_FILES['image'], 'site');
+            $upload = \App\Helpers\File::upload($_FILES['image'], 'products');
             if ($upload['success'] && !empty($upload['filename'])) {
                 try {
                     $gallery = new \App\Models\Gallery([
