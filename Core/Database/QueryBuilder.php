@@ -32,6 +32,7 @@ class QueryBuilder
     public function rawQuery($sql, $params = [])
     {
         $stmt = $this->pdo->prepare($sql);
+        var_dump($stmt);
         $stmt->execute($params);
         return $stmt->fetchAll();
     }
