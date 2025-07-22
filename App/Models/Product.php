@@ -39,9 +39,7 @@ class Product extends Model
 
     public static function getImages($id)
     {
-        $g = Gallery::where('image_type', 'product');
-
-        return array_map(fn($row) => new Gallery($row), $g);
+        return Gallery::where('image_type', 'product');
     }
 
     // get product reviews()
