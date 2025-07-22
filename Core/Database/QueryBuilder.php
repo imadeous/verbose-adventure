@@ -8,6 +8,7 @@ use PDO;
 
 class QueryBuilder
 
+
 {
     protected $table;
     protected $pdo;
@@ -67,6 +68,24 @@ class QueryBuilder
             $operator = '=';
         }
         $this->wheres[] = ["OR $column $operator ?"];
+        $this->bindings[] = $value;
+        return $this;
+    }
+
+    /**
+     * Add an explicit AND WHERE clause to the query.
+     * @param string $column
+     * @param string $operator
+     * @param mixed $value
+     * @return $this
+     */
+    public function andWhere($column, $operator, $value = null)
+    {
+        if (func_num_args() == 2) {
+            $value = $operator;
+            $operator = '=';
+        }
+        $this->wheres[] = ["AND $column $operator ?"];
         $this->bindings[] = $value;
         return $this;
     }

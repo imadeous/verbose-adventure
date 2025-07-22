@@ -2,11 +2,12 @@
 
 namespace App\Controllers\Admin;
 
+use Core\Database\QueryBuilder;
+use Core\AdminControllerBase;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Gallery;
 use App\Models\Review;
-use Core\AdminControllerBase;
 
 class ProductsController extends AdminControllerBase
 {
@@ -30,11 +31,12 @@ class ProductsController extends AdminControllerBase
             return;
         }
         $reviews = $product ? $product->getReviews($id) : [];
-        // Get all gallery images for this product using new Model::where syntax (array of condition arrays)
-        $gallery = Gallery::where([
-            ['image_type', 'product'],
-            ['related_id', $id]
-        ]);
+        // Manually load gallery images using QueryBuilder for compatibility
+        $qb = new QueryBuilder((new Gallery())->table);
+        $galleryRows = $qb->where('image_type', '=', 'product')
+            ->andWhere('related_id', '=', $id)
+            ->get();
+        $gallery = array_map(fn($row) => new Gallery($row), $galleryRows);
         $this->view('admin/products/show', [
             'product' => $product,
             'reviews' => $reviews,
