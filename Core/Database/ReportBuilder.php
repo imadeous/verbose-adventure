@@ -37,7 +37,6 @@ class ReportBuilder extends QueryBuilder
         return new static($table);
     }
 
-
     public function forPeriod(string $start, string $end): static
     {
         $this->startDate = $start;
