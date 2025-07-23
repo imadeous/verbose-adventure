@@ -6,7 +6,7 @@ use Core\Model;
 
 class Transaction extends Model
 {
-    protected $table = 'transactions';
+    protected ?string $table = 'transactions';
     protected $fillable = [
         'type',
         'category',

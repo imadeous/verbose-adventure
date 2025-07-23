@@ -7,7 +7,7 @@ use App\Models\Product;
 
 class Category extends Model
 {
-    protected $table = 'categories';
+    protected ?string $table = 'categories';
     protected $fillable = [
         'name',
         'created_at'

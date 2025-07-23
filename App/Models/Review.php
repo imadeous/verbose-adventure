@@ -6,7 +6,7 @@ use Core\Model;
 
 class Review extends Model
 {
-    protected $table = 'reviews';
+    protected ?string $table = 'reviews';
     protected $fillable = [
         'product_id',
         'quote_id',

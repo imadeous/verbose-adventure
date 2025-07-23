@@ -6,7 +6,7 @@ use Core\Model;
 
 class Gallery extends Model
 {
-    protected $table = 'gallery';
+    protected ?string $table = 'gallery';
     protected $fillable = [
         'title',
         'description',

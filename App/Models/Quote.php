@@ -6,7 +6,7 @@ use Core\Model;
 
 class Quote extends Model
 {
-    protected $table = 'quotes';
+    protected ?string $table = 'quotes';
     protected $fillable = [
         'name',
         'email',

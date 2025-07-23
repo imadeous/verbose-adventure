@@ -6,7 +6,7 @@ use Core\Model;
 
 class PromoCode extends Model
 {
-    protected $table = 'promo_codes';
+    protected ?string $table = 'promo_codes';
     protected $fillable = [
         'code',
         'type',
