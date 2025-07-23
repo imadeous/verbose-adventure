@@ -9,7 +9,7 @@ class User extends Model
 {
     public static string $routeKey = 'username';
     protected ?string $table = 'users';
-    protected ?string $primaryKey = 'id';
+    protected string $primaryKey = 'id';
     protected $fillable = [
         'username',
         'name',
