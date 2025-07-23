@@ -31,29 +31,60 @@ class ReportBuilder extends QueryBuilder
     protected ?string $reportFormat = null; // e.g., 'json', 'csv', 'html'
     protected ?string $reportDescription = null; // Optional description for the report             
     protected ?string $reportTitle = 'Report'; // Optional title for the report
-
+    /**
+     * Create a new ReportBuilder instance for the given table.
+     *
+     * @param string $table
+     * @return static
+     */
     public static function build(string $table): static
     {
         return new static($table);
     }
 
+    /**
+     * Set the reporting period (start and end dates).
+     *
+     * @param string $start
+     * @param string $end
+     * @return static
+     */
     public function forPeriod(string $start, string $end): static
     {
         $this->startDate = $start;
         $this->endDate = $end;
+        // Add date filters to the query
         return $this->where('date', '>=', $start)->where('date', '<=', $end);
     }
 
+    /**
+     * Group results by user ID.
+     *
+     * @return static
+     */
     public function groupByUser(): static
     {
         return $this->groupBy('user_id');
     }
 
+    /**
+     * Group results by a date column.
+     *
+     * @param string $column
+     * @return static
+     */
     public function groupByDate(string $column = 'date'): static
     {
         return $this->groupBy($column);
     }
 
+    /**
+     * Add a SUM aggregate for a column.
+     *
+     * @param string $column
+     * @param string|null $alias
+     * @return static
+     */
     public function withSum(string $column, ?string $alias = null): static
     {
         $alias = $alias ?? "sum_{$column}";
@@ -62,6 +93,13 @@ class ReportBuilder extends QueryBuilder
         return $this;
     }
 
+    /**
+     * Add an AVG aggregate for a column.
+     *
+     * @param string $column
+     * @param string|null $alias
+     * @return static
+     */
     public function withAverage(string $column, ?string $alias = null): static
     {
         $alias = $alias ?? "avg_{$column}";
@@ -70,6 +108,13 @@ class ReportBuilder extends QueryBuilder
         return $this;
     }
 
+    /**
+     * Add a MIN aggregate for a column.
+     *
+     * @param string $column
+     * @param string|null $alias
+     * @return static
+     */
     public function withMin(string $column, ?string $alias = null): static
     {
         $alias = $alias ?? "min_{$column}";
@@ -78,6 +123,13 @@ class ReportBuilder extends QueryBuilder
         return $this;
     }
 
+    /**
+     * Add a MAX aggregate for a column.
+     *
+     * @param string $column
+     * @param string|null $alias
+     * @return static
+     */
     public function withMax(string $column, ?string $alias = null): static
     {
         $alias = $alias ?? "max_{$column}";
@@ -86,6 +138,13 @@ class ReportBuilder extends QueryBuilder
         return $this;
     }
 
+    /**
+     * Add a COUNT aggregate.
+     *
+     * @param string $column
+     * @param string $alias
+     * @return static
+     */
     public function withCount(string $column = '*', string $alias = 'count'): static
     {
         $this->aggregates[] = "COUNT({$column}) AS `{$alias}`";
@@ -93,13 +152,23 @@ class ReportBuilder extends QueryBuilder
         return $this;
     }
 
-
+    /**
+     * Set the report title.
+     *
+     * @param string $title
+     * @return static
+     */
     public function setTitle(string $title): static
     {
         $this->reportTitle = $title;
         return $this;
     }
 
+    /**
+     * Get the report title, auto-generating if not set.
+     *
+     * @return string
+     */
     public function getTitle(): string
     {
         if ($this->reportTitle) return $this->reportTitle;
@@ -112,8 +181,14 @@ class ReportBuilder extends QueryBuilder
         return $base;
     }
 
+    /**
+     * Generate the report data as an array.
+     *
+     * @return array
+     */
     public function generate(): array
     {
+        // Add aggregate columns to the select statement
         if (!empty($this->aggregates)) {
             $this->select($this->aggregates);
         }
@@ -131,6 +206,11 @@ class ReportBuilder extends QueryBuilder
         ];
     }
 
+    /**
+     * Get the report period as an array.
+     *
+     * @return array|null
+     */
     public function getReportPeriod(): ?array
     {
         if ($this->startDate && $this->endDate) {
@@ -139,13 +219,22 @@ class ReportBuilder extends QueryBuilder
         return null;
     }
 
+    /**
+     * Get custom labels for the report.
+     *
+     * @return array
+     */
     public function getLabels(): array
     {
         return $this->labels;
     }
 
     /**
-     * Convert something like "sum", "total_sales" to "Total Sales"
+     * Convert a prefix and column name to a human-readable label.
+     *
+     * @param string $prefix
+     * @param string $column
+     * @return string
      */
     protected function makeLabel(string $prefix, string $column): string
     {
@@ -153,8 +242,12 @@ class ReportBuilder extends QueryBuilder
         return ucfirst(implode(' ', array_map('ucfirst', $parts)));
     }
 
-    // Group by a specific period (hourly, daily, etc.)
-    // This allows for flexible grouping based on the date column
+    /**
+     * Group by a specific period (hourly, daily, etc.) using the date column.
+     *
+     * @param string $unit
+     * @return static
+     */
     public function groupByPeriod(string $unit): static
     {
         $periodExpressions = [
@@ -174,31 +267,61 @@ class ReportBuilder extends QueryBuilder
         return $this;
     }
 
+    /**
+     * Group by hour.
+     *
+     * @return static
+     */
     public function hourly(): static
     {
         return $this->groupByPeriod('hourly');
     }
 
+    /**
+     * Group by day.
+     *
+     * @return static
+     */
     public function daily(): static
     {
         return $this->groupByPeriod('daily');
     }
 
+    /**
+     * Group by week.
+     *
+     * @return static
+     */
     public function weekly(): static
     {
         return $this->groupByPeriod('weekly');
     }
 
+    /**
+     * Group by month.
+     *
+     * @return static
+     */
     public function monthly(): static
     {
         return $this->groupByPeriod('monthly');
     }
 
+    /**
+     * Group by quarter.
+     *
+     * @return static
+     */
     public function quarterly(): static
     {
         return $this->groupByPeriod('quarterly');
     }
 
+    /**
+     * Group by year.
+     *
+     * @return static
+     */
     public function annual(): static
     {
         return $this->groupByPeriod('annual');
