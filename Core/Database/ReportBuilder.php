@@ -6,15 +6,15 @@ use Core\Database\QueryBuilder;
 
 // $report = (new ReportBuilder('orders'))
 //     ->forPeriod('2024-01-01', '2024-12-31')
+//     ->monthly()
 //     ->groupByUser()
 //     ->withSum('total_amount')
 //     ->withAverage('rating')
 //     ->withCount()
-//     ->setTitle('User Performance Report');
+//     ->setTitle('Monthly Sales Report');
 
-// $data = $report->generate();
-// $labels = $report->getLabels();
-// $title = $report->getTitle();
+// $reportData = $report->generate();
+
 
 class ReportBuilder extends QueryBuilder
 {
@@ -31,6 +31,12 @@ class ReportBuilder extends QueryBuilder
     protected ?string $reportFormat = null; // e.g., 'json', 'csv', 'html'
     protected ?string $reportDescription = null; // Optional description for the report             
     protected ?string $reportTitle = 'Report'; // Optional title for the report
+
+    public static function build(string $table): static
+    {
+        return new static($table);
+    }
+
 
     public function forPeriod(string $start, string $end): static
     {
