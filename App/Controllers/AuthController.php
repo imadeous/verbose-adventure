@@ -48,7 +48,7 @@ class AuthController extends Controller
         if ($user && hash_equals($user->password, crypt($password, $user->password)) && password_verify($password, $user->password)) {
             Auth::login($user->id);
             flash('success', 'Welcome back!');
-            $this->redirect('/admin');
+            $this->view('admix/index'); // Redirect to admin dashboard
             exit;
         }
 
