@@ -20,39 +20,51 @@ class AuthController extends Controller
 
     public function login()
     {
-        // CSRF check
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_POST['_csrf']) || !Csrf::check($_POST['_csrf'])) {
-            flash('error', 'Invalid request or CSRF token.');
+        try {
+            // CSRF check
+            if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_POST['_csrf']) || !Csrf::check($_POST['_csrf'])) {
+                flash('error', 'Invalid request or CSRF token.');
+                $this->view('auth/login');
+                return;
+            }
+
+            $email = trim($_POST['email'] ?? '');
+            $password = $_POST['password'] ?? '';
+
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL) || empty($password)) {
+                flash('error', 'Valid email and password are required.');
+                $this->view('auth/login');
+                return;
+            }
+
+            // Use new query builder syntax to find user by email
+            $userRow = User::query()
+                ->where('email', '=', $email)
+                ->limit(1)
+                ->get();
+
+            if (empty($userRow) || !isset($userRow[0]['password'])) {
+                flash('error', 'Invalid credentials.');
+                $this->view('auth/login');
+                return;
+            }
+
+            $user = new User($userRow[0]);
+
+            // Security: password_verify only
+            if ($user && password_verify($password, $user->password)) {
+                Auth::login($user->id);
+                flash('success', 'Welcome back!');
+                header('Location: ' . url('admin'));
+                exit;
+            }
+
+            flash('error', 'Invalid credentials.');
             $this->view('auth/login');
-            return;
-        }
-
-        $email = trim($_POST['email'] ?? '');
-        $password = $_POST['password'] ?? '';
-
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL) || empty($password)) {
-            flash('error', 'Valid email and password are required.');
+        } catch (\Throwable $e) {
+            flash('error', 'Login error: ' . $e->getMessage());
             $this->view('auth/login');
-            return;
         }
-
-        // Use new query builder syntax to find user by email
-        $userRow = User::query()
-            ->where('email', '=', $email)
-            ->limit(1)
-            ->get();
-        $user = !empty($userRow) ? new User($userRow[0]) : null;
-
-        // Security: timing attack safe password check
-        if ($user && hash_equals($user->password, crypt($password, $user->password)) && password_verify($password, $user->password)) {
-            Auth::login($user->id);
-            flash('success', 'Welcome back!');
-            header('Location: ' . url('admin')); // Redirect to admin dashboard
-            exit;
-        }
-
-        flash('error', 'Invalid credentials.');
-        $this->view('auth/login');
     }
 
     public function logout()
