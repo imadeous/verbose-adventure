@@ -165,11 +165,24 @@ abstract class Model
         $data = $this->attributes;
         unset($data['_csrf']);
 
+        $now = date('Y-m-d H:i:s');
+
         if (!empty($this->attributes[$this->primaryKey])) {
             $id = $this->attributes[$this->primaryKey];
             unset($data[$this->primaryKey]);
+            // Set updated_at timestamp if column exists
+            if (array_key_exists('updated_at', $data)) {
+                $data['updated_at'] = $now;
+            }
             return $qb->update($data, $id, $this->primaryKey);
         } else {
+            // Set created_at and updated_at timestamps if columns exist
+            if (array_key_exists('created_at', $data)) {
+                $data['created_at'] = $now;
+            }
+            if (array_key_exists('updated_at', $data)) {
+                $data['updated_at'] = $now;
+            }
             $id = $qb->insert($data);
             $this->attributes[$this->primaryKey] = $id;
             return $id;
