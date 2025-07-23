@@ -7,9 +7,9 @@ use Core\Model;
 
 class User extends Model
 {
+    public string $routeKey = 'username';
     protected $table = 'users';
     protected $primaryKey = 'id';
-    public static $routeKey = 'username'; // Default route key for user model
     protected $fillable = [
         'username',
         'name',
