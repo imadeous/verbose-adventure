@@ -113,7 +113,17 @@ class ReportBuilder extends QueryBuilder
             $this->select($this->aggregates);
         }
 
-        return $this->get();
+        $results = $this->get();
+
+        return [
+            'title' => $this->reportTitle,
+            'period' => [
+                'from' => $this->startDate,
+                'to' => $this->endDate,
+            ],
+            'columns' => $this->columnAliases,
+            'data' => $results,
+        ];
     }
 
     public function getReportPeriod(): ?array
