@@ -5,10 +5,10 @@ namespace App\Controllers;
 use Core\Controller;
 use App\Models\User;
 use App\Helpers\Auth;
+use App\Helpers\Csrf;
 
 class AuthController extends Controller
 {
-
     public function showLogin()
     {
         if (Auth::check()) {
@@ -21,38 +21,46 @@ class AuthController extends Controller
     public function login()
     {
         // CSRF check
-        if (empty($_POST['_csrf']) || !\App\Helpers\Csrf::check($_POST['_csrf'])) {
-            flash('error', 'Invalid CSRF token.');
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_POST['_csrf']) || !Csrf::check($_POST['_csrf'])) {
+            flash('error', 'Invalid request or CSRF token.');
             $this->view('auth/login');
             return;
         }
-        $email = $_POST['email'] ?? '';
+
+        $email = trim($_POST['email'] ?? '');
         $password = $_POST['password'] ?? '';
-        if (empty($email) || empty($password)) {
-            flash('error', 'Email and password are required.');
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL) || empty($password)) {
+            flash('error', 'Valid email and password are required.');
             $this->view('auth/login');
             return;
         }
+
         // Use new query builder syntax to find user by email
         $userRow = User::query()
             ->where('email', '=', $email)
             ->limit(1)
             ->get();
+
         $user = !empty($userRow) ? new User($userRow[0]) : null;
-        var_dump($user);
-        if ($user && password_verify($password, $user->password)) {
+
+        // Security: timing attack safe password check
+        if ($user && hash_equals($user->password, crypt($password, $user->password)) && password_verify($password, $user->password)) {
             Auth::login($user->id);
-            $this->redirect('/admin'); // Redirect to admin dashboard
+            flash('success', 'Welcome back!');
+            $this->redirect('/admin');
+            exit;
         }
+
         flash('error', 'Invalid credentials.');
         $this->view('auth/login');
     }
 
     public function logout()
     {
-        // CSRF check
+        // CSRF check for POST logout
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (empty($_POST['_csrf']) || !\App\Helpers\Csrf::check($_POST['_csrf'])) {
+            if (empty($_POST['_csrf']) || !Csrf::check($_POST['_csrf'])) {
                 flash('error', 'Invalid CSRF token.');
                 header('Location: ' . url('login'));
                 exit;
