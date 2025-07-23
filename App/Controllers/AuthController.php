@@ -39,6 +39,7 @@ class AuthController extends Controller
             ->limit(1)
             ->get();
         $user = !empty($userRow) ? new User($userRow[0]) : null;
+        var_dump($user);
         if ($user && password_verify($password, $user->password)) {
             Auth::login($user->id);
             flash('success', 'Welcome back!');
