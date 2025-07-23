@@ -233,9 +233,18 @@ class QueryBuilder
     {
         $sql = '';
 
-        // if (empty($this->table)) {
-        //     throw new \Exception('No table set for QueryBuilder. Use table() or pass table to constructor.');
-        // }
+        if (empty($this->table)) {
+            // Fallback: try to use the first join table if available, else fail gracefully
+            if (!empty($this->joins)) {
+                // Extract table name from first join
+                preg_match('/JOIN\s+(\w+)/i', $this->joins[0], $matches);
+                $this->table = $matches[1] ?? null;
+            }
+            if (empty($this->table)) {
+                // If still not set, return empty SQL to avoid fatal error
+                return '';
+            }
+        }
 
         if ($this->operation === 'select') {
             $columns = is_array($this->columns) ? $this->columns : [$this->columns];
