@@ -49,8 +49,6 @@ class Product extends Model
     public static function getReviews($id)
     {
         $reviewRows = QueryBuilder::table('reviews')
-            ->select('reviews.*')
-            ->join('products', 'reviews.product_id', '=', 'products.id')
             ->where('reviews.product_id', '=', $id)
             ->get();
         return $reviewRows;
