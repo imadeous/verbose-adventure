@@ -27,7 +27,7 @@
         </div>
     </div>
     <!-- Category Stats (Stacked Cards) -->
-    <div class="flex flex-col gap-x-5 md:gap-5">
+    <div class="flex flex-col gap-x-4 md:gap-5">
         <!-- Product Count Card -->
         <div class="bg-blue-50 rounded-xl shadow-md p-5 flex items-center gap-4 border border-blue-200 hover:shadow-lg transition">
             <div class="bg-blue-200 text-blue-700 rounded-lg p-3 flex items-center justify-center">
