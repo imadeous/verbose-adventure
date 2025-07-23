@@ -37,9 +37,34 @@ class ReportBuilder extends QueryBuilder
      * @param string $table
      * @return static
      */
-    public static function build(string $table): static
+    public static function build(string $table, string $dateColumn = 'date'): static
     {
-        return new static($table);
+        return new static($table, $dateColumn);
+    }
+
+    /**
+     * Generate the report data as an array.
+     *
+     * @return array
+     */
+    public function generate(): array
+    {
+        // Add aggregate columns to the select statement
+        if (!empty($this->aggregates)) {
+            $this->select($this->aggregates);
+        }
+
+        $results = $this->get();
+
+        return [
+            'title' => $this->reportTitle,
+            'period' => [
+                'from' => $this->startDate,
+                'to' => $this->endDate,
+            ],
+            'columns' => $this->columnAliases,
+            'data' => $results,
+        ];
     }
 
     /**
@@ -182,29 +207,15 @@ class ReportBuilder extends QueryBuilder
     }
 
     /**
-     * Generate the report data as an array.
+     * Get the column aliases for the report (aggregate and period columns).
      *
      * @return array
      */
-    public function generate(): array
+    public function getColumnAliases(): array
     {
-        // Add aggregate columns to the select statement
-        if (!empty($this->aggregates)) {
-            $this->select($this->aggregates);
-        }
-
-        $results = $this->get();
-
-        return [
-            'title' => $this->reportTitle,
-            'period' => [
-                'from' => $this->startDate,
-                'to' => $this->endDate,
-            ],
-            'columns' => $this->columnAliases,
-            'data' => $results,
-        ];
+        return $this->columnAliases;
     }
+
 
     /**
      * Get the report period as an array.
