@@ -7,7 +7,7 @@ use Core\Model;
 
 class User extends Model
 {
-    public string $routeKey = 'username';
+    public static string $routeKey = 'username';
     protected $table = 'users';
     protected $primaryKey = 'id';
     protected $fillable = [
