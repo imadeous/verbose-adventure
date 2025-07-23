@@ -74,7 +74,7 @@ class ProductsController extends AdminControllerBase
             $this->redirect('/admin/products');
             return;
         }
-        $categories = Category::sort('*', 'name', 'asc');
+        $categories = Category::sort(['*'], 'name', 'asc');
         $this->view('admin/products/edit', [
             'product' => $product,
             'categories' => $categories
