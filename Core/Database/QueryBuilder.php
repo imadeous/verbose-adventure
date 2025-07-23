@@ -336,11 +336,12 @@ class QueryBuilder
             $this->bindings[":update_$col"] = $val;
         }
 
+        // Assume only one WHERE clause for primary key
         $sql = "UPDATE {$this->table} SET " . implode(', ', $setParts);
         if ($this->wheres) {
-            $sql .= ' WHERE ' . implode(' AND ', array_map(function ($w) {
-                return "{$w[0]} {$w[1]} :{$w[0]}" . count($this->bindings);
-            }, $this->wheres));
+            [$col, $op, $val] = $this->wheres[0];
+            $sql .= " WHERE $col $op :id";
+            $this->bindings[':id'] = $val;
         }
 
         $stmt = $this->pdo->prepare($sql);
