@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Core\Model;
-use Core\Database\QueryBuilder;
 use App\Models\Category;
 use App\Models\Gallery;
 use App\Models\Review;
