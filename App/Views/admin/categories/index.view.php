@@ -19,7 +19,7 @@
                     <?php foreach ($categories as $category): ?>
                         <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
                             <td class="px-4 py-2 whitespace-nowrap">
-                                <div class="font-semibold text-blue-900"><?= e($category->name) ?></div>
+                                <div class="font-semibold text-blue-900"><?= e($category['name']) ?></div>
                             </td>
                             <td class="px-4 py-2 whitespace-nowrap flex items-center space-x-2">
                                 <a href="<?= url('admin/categories/' . $category->id) ?>" class="bg-blue-100 text-blue-700 hover:bg-blue-200 border border-blue-300 rounded px-2 py-1 flex items-center gap-1 transition shadow-sm" title="Edit">
