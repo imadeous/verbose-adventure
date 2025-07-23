@@ -22,6 +22,7 @@ class ReportBuilder extends QueryBuilder
     protected ?string $endDate = null;
     protected array $aggregates = [];
     protected array $labels = [];
+    protected array $columnAliases = [];
     protected ?string $reportTitle = null;
 
     public function forPeriod(string $start, string $end): static
@@ -41,29 +42,45 @@ class ReportBuilder extends QueryBuilder
         return $this->groupBy($column);
     }
 
-    public function withSum(string $column, string $alias): static
+    public function withSum(string $column, ?string $alias = null): static
     {
-        $alias ??= "sum_{$column}";
-        $this->aggregates[] = "SUM({$column}) AS {$alias}";
-        $this->labels[$alias] = $this->makeLabel("sum", $column);
+        $alias = $alias ?? "sum_{$column}";
+        $this->aggregates[] = "SUM(`{$column}`) AS `{$alias}`";
+        $this->columnAliases[$alias] = ucwords(str_replace('_', ' ', $alias));
         return $this;
     }
 
-    public function withAverage(string $column, string $alias): static
+    public function withAverage(string $column, ?string $alias = null): static
     {
-        $alias ??= "avg_{$column}";
-        $this->aggregates[] = "AVG({$column}) AS {$alias}";
-        $this->labels[$alias] = $this->makeLabel("avg", $column);
+        $alias = $alias ?? "avg_{$column}";
+        $this->aggregates[] = "AVG(`{$column}`) AS `{$alias}`";
+        $this->columnAliases[$alias] = ucwords(str_replace('_', ' ', $alias));
+        return $this;
+    }
+
+    public function withMin(string $column, ?string $alias = null): static
+    {
+        $alias = $alias ?? "min_{$column}";
+        $this->aggregates[] = "MIN(`{$column}`) AS `{$alias}`";
+        $this->columnAliases[$alias] = ucwords(str_replace('_', ' ', $alias));
+        return $this;
+    }
+
+    public function withMax(string $column, ?string $alias = null): static
+    {
+        $alias = $alias ?? "max_{$column}";
+        $this->aggregates[] = "MAX(`{$column}`) AS `{$alias}`";
+        $this->columnAliases[$alias] = ucwords(str_replace('_', ' ', $alias));
         return $this;
     }
 
     public function withCount(string $column = '*', string $alias = 'count'): static
     {
-        $this->aggregates[] = "COUNT({$column}) AS {$alias}";
-        $label = $column === '*' ? "Total Count" : "Count of {$this->makeLabel('',$column)}";
-        $this->labels[$alias] = $label;
+        $this->aggregates[] = "COUNT({$column}) AS `{$alias}`";
+        $this->columnAliases[$alias] = ucwords(str_replace('_', ' ', $alias));
         return $this;
     }
+
 
     public function setTitle(string $title): static
     {
