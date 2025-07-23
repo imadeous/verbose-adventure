@@ -54,4 +54,18 @@ class File
         }
         return file_get_contents($path);
     }
+
+    /**
+     * Delete a file by path.
+     *
+     * @param string $path
+     * @return bool True if deleted, false otherwise
+     */
+    public static function delete($path)
+    {
+        if (file_exists($path)) {
+            return unlink($path);
+        }
+        return false;
+    }
 }

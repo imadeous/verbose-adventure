@@ -172,6 +172,18 @@ class ProductsController extends AdminControllerBase
     {
         $product = Product::find($id);
         if ($product) {
+            // Delete associated images from Gallery and filesystem
+            $galleryImages = \App\Models\Gallery::query()
+                ->where('image_type', '=', 'product')
+                ->where('related_id', '=', $id)
+                ->get();
+            foreach ($galleryImages as $img) {
+                $imgPath = 'public/storage/products/' . $img['image_url'];
+                \App\Helpers\File::delete($imgPath);
+                // Optionally delete gallery record
+                $gallery = new \App\Models\Gallery($img);
+                $gallery->delete();
+            }
             $product->delete();
             flash('success', 'Product deleted successfully.');
         } else {
