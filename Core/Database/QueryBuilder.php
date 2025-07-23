@@ -154,16 +154,22 @@ class QueryBuilder
         return $this->executeInsert();
     }
 
-    public function update(array $data)
+    public function update(array $data, $id, $primaryKey = 'id')
     {
         $this->operation = 'update';
         $this->updateData = $data;
+        // Add WHERE clause for primary key
+        $this->wheres = [[$primaryKey, '=', $id, false]];
         return $this->executeUpdate();
     }
 
-    public function delete()
+    public function delete($id = null, $primaryKey = 'id')
     {
         $this->operation = 'delete';
+        // Add WHERE clause for primary key if id is provided
+        if ($id !== null) {
+            $this->wheres = [[$primaryKey, '=', $id, false]];
+        }
         return $this->executeDelete();
     }
 
