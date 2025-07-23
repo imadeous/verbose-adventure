@@ -41,7 +41,7 @@ class ReportBuilder extends QueryBuilder
         return $this->groupBy($column);
     }
 
-    public function withSum(string $column, string $alias = null): static
+    public function withSum(string $column, string $alias): static
     {
         $alias ??= "sum_{$column}";
         $this->aggregates[] = "SUM({$column}) AS {$alias}";
@@ -49,7 +49,7 @@ class ReportBuilder extends QueryBuilder
         return $this;
     }
 
-    public function withAverage(string $column, string $alias = null): static
+    public function withAverage(string $column, string $alias): static
     {
         $alias ??= "avg_{$column}";
         $this->aggregates[] = "AVG({$column}) AS {$alias}";
