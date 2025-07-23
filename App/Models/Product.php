@@ -38,7 +38,7 @@ class Product extends Model
 
     public static function getImages($id)
     {
-        $galleryRows = Gallery::query()
+        $galleryRows = QueryBuilder::table('gallery')
             ->where('image_type', '=', 'product')
             ->andWhere('related_id', '=', $id)
             ->get();
