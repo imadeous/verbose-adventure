@@ -11,7 +11,7 @@ class AuthController extends Controller
     // Show initial setup page if no users exist
     public function setup()
     {
-        if (User::count() > 0) {
+        if (User::query()->count() > 0) {
             header('Location: ' . url('login'));
             exit;
         }
@@ -21,7 +21,7 @@ class AuthController extends Controller
     // Handle initial admin creation
     public function storeSetup()
     {
-        if (User::count() > 0) {
+        if (User::query()->count() > 0) {
             flash('error', 'Setup already completed. Please log in.');
             header('Location: ' . url('login'));
             exit;
@@ -47,6 +47,7 @@ class AuthController extends Controller
         header('Location: ' . url('login'));
         exit;
     }
+
     public function showLogin()
     {
         if (Auth::check()) {
@@ -71,7 +72,12 @@ class AuthController extends Controller
             $this->view('auth/login');
             return;
         }
-        $user = User::findByAttribute($email, 'email');
+        // Use new query builder syntax to find user by email
+        $userRow = User::query()
+            ->where('email', '=', $email)
+            ->limit(1)
+            ->get();
+        $user = !empty($userRow) ? new User($userRow[0]) : null;
         if ($user && password_verify($password, $user->password)) {
             Auth::login($user->id);
             flash('success', 'Welcome back!');
