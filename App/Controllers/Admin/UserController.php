@@ -42,7 +42,7 @@ class UserController extends AdminControllerBase
     {
         $data = $_POST;
         $now = date('Y-m-d H:i:s');
-        array_push($data, 'created_at', $now);
+        $data['created_at'] = $now;
         // CSRF validation
         if (empty($data['_csrf']) || !\App\Helpers\Csrf::check($data['_csrf'])) {
             flash('error', 'Invalid or missing CSRF token. Please try again.');
