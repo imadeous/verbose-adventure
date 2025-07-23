@@ -1,5 +1,5 @@
 <h1 class="text-3xl font-semibold text-gray-800 mb-6">Edit Category</h1>
-<form action="<?= url('admin/categories/' . $category->id . '/update') ?>" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-md">
+<form action="<?= url('admin/categories/' . $category->id) ?>" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-md">
     <div class="mb-6">
         <label class="block text-gray-700 text-sm font-bold mb-2">Name</label>
         <input
