@@ -10,7 +10,7 @@
                     <li class="relative flex items-start group">
                         <!-- Timeline dot -->
                         <div class="z-10 flex flex-col items-center">
-                            <span class="w-6 h-6 rounded-full border-4 border-blue-400 bg-white shadow absolute left-3 top-8"></span>
+                            <span class="w-6 h-6 rounded-full border-4 border-blue-400 bg-white shadow absolute left-2 top-8"></span>
                         </div>
                         <!-- Review Card -->
                         <div class="ml-16 flex-1 mb-10">
