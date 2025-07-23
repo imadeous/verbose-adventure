@@ -37,19 +37,17 @@ class AuthController extends Controller
         }
 
         // Use new query builder syntax to find user by email
-        $userRow = User::findByAttribute($email, 'email');
-        // $userRow = User::query()
-        //     ->where('email', '=', $email)
-        //     ->limit(1)
-        //     ->get();
-
+        $userRow = User::query()
+            ->where('email', '=', $email)
+            ->limit(1)
+            ->get();
         $user = !empty($userRow) ? new User($userRow[0]) : null;
 
         // Security: timing attack safe password check
         if ($user && hash_equals($user->password, crypt($password, $user->password)) && password_verify($password, $user->password)) {
             Auth::login($user->id);
             flash('success', 'Welcome back!');
-            $this->view('admix/index'); // Redirect to admin dashboard
+            header('Location: ' . url('admin')); // Redirect to admin dashboard
             exit;
         }
 
