@@ -2,53 +2,23 @@
 
 namespace Core;
 
+use Core\Database\QueryBuilder;
+
 abstract class Model
-
-
 {
-    // Common model functionality goes here
-    /**
-     * The route key for model binding in resource routes (default: 'id').
-     * Override in child models to use a different column (e.g., 'username', 'slug').
-     */
-    public static $routeKey = 'id';
-    // Optionally, you can define a protected $table property in child models
-    protected $table = null;
-    protected $primaryKey = 'id';
-    protected $attributes = [];
-    /**
-     * Begin a query with a custom select clause.
-     * @param string|array $columns
-     * @return \Core\Database\QueryBuilder
-     */
-    public static function select($columns)
-    {
-        $instance = new static();
-        $qb = new \Core\Database\QueryBuilder($instance->table);
-        return $qb->select($columns);
-    }
+    public static string $routeKey = 'id';
+    protected ?string $table = null;
+    protected string $primaryKey = 'id';
+    protected array $attributes = [];
 
-    /**
-     * Get the count of all records in the table.
-     * @return int
-     */
-    public static function count(): int
-    {
-        $instance = new static();
-        $qb = new \Core\Database\QueryBuilder($instance->table);
-        if (method_exists($qb, 'count')) {
-            return $qb->count();
-        }
-        // Fallback: count all rows manually if QueryBuilder has no count()
-        $rows = $qb->all();
-        return is_array($rows) ? count($rows) : 0;
-    }
-
-
-    public function __construct($attributes = [])
+    public function __construct(array $attributes = [])
     {
         $this->attributes = $attributes;
     }
+
+    // ------------------------------
+    //  ATTRIBUTES
+    // ------------------------------
 
     public function __get($key)
     {
@@ -60,17 +30,12 @@ abstract class Model
         $this->attributes[$key] = $value;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->attributes;
     }
 
-    /**
-     * Mass-assign attributes to the model instance.
-     * @param array $attributes
-     * @return $this
-     */
-    public function fill(array $attributes)
+    public function fill(array $attributes): static
     {
         foreach ($attributes as $key => $value) {
             $this->$key = $value;
@@ -78,100 +43,133 @@ abstract class Model
         return $this;
     }
 
-    // --- Active Record style methods ---
-    public static function all()
+    // ------------------------------
+    //  QUERY ENTRY POINT
+    // ------------------------------
+
+    public static function newQuery(): QueryBuilder
     {
-        $instance = new static();
-        $qb = new \Core\Database\QueryBuilder($instance->table);
-        $rows = $qb->all();
-        return array_map(fn($row) => new static($row), $rows);
+        return new QueryBuilder((new static())->getTable());
     }
 
-    public static function find($id)
+    public static function getQueryBuilder(): QueryBuilder
     {
-        $instance = new static();
-        $qb = new \Core\Database\QueryBuilder($instance->table);
-        $row = $qb->find($id, $instance->primaryKey);
-        return $row ? new static($row) : null;
+        return static::newQuery();
     }
 
-    public static function where($column, $value)
+    protected function getTable(): string
     {
-        $instance = new static();
-        $qb = new \Core\Database\QueryBuilder($instance->table);
-        $rows = $qb->where($column, $value)->get();
-        return array_map(fn($row) => new static($row), $rows);
-    }
-
-    /**
-     * Get records where a column is NULL.
-     * @param string $column
-     * @return array
-     */
-    public static function whereNull($column)
-    {
-        $instance = new static();
-        $qb = new \Core\Database\QueryBuilder($instance->table);
-        $rows = $qb->whereNull($column)->get();
-        return array_map(fn($row) => new static($row), $rows);
-    }
-
-    /**
-     * Get sorted model objects by column and direction.
-     *
-     * @param string|array $selectArray Columns to select (e.g. '*', ['id','name'])
-     * @param string $orderby Column to order by
-     * @param string $direction 'asc' or 'desc'
-     * @return array Array of model objects
-     */
-    public static function sort($selectArray = '*', $orderby = 'id', $direction = 'asc')
-    {
-        $instance = new static();
-        $qb = new \Core\Database\QueryBuilder($instance->table);
-        $rows = $qb->select($selectArray)->orderBy($orderby, $direction)->get();
-        return array_map(fn($row) => new static($row), $rows);
+        if (!isset($this->table)) {
+            throw new \Exception("Table name not set. Please define protected \$table in your model.");
+        }
+        return $this->table;
     }
 
 
-    public function save()
+    // ------------------------------
+    //  STATIC FLUENT INTERFACE
+    // ------------------------------
+
+    public static function select(array|string $columns): QueryBuilder
     {
-        $qb = new \Core\Database\QueryBuilder($this->table);
-        // Remove CSRF field if present
+        return static::newQuery()->select($columns);
+    }
+
+    public static function where(string $column, mixed $operatorOrValue, mixed $value = null): QueryBuilder
+    {
+        return static::newQuery()->where($column, $operatorOrValue, $value);
+    }
+
+    public static function whereNull(string $column): QueryBuilder
+    {
+        return static::newQuery()->whereNull($column);
+    }
+
+    public static function whereNotNull(string $column): QueryBuilder
+    {
+        return static::newQuery()->whereNotNull($column);
+    }
+
+    public static function join(string $table, string $localKey, string $operator, string $foreignKey): QueryBuilder
+    {
+        return static::newQuery()->join($table, $localKey, $operator, $foreignKey);
+    }
+
+    public static function groupBy(string|array $columns): QueryBuilder
+    {
+        return static::newQuery()->groupBy($columns);
+    }
+
+    public static function having(string $column, string $operator, mixed $value): QueryBuilder
+    {
+        return static::newQuery()->having($column, $operator, $value);
+    }
+
+    public static function orderBy(string $column, string $direction = 'asc'): QueryBuilder
+    {
+        return static::newQuery()->orderBy($column, $direction);
+    }
+
+    public static function limit(int $limit): QueryBuilder
+    {
+        return static::newQuery()->limit($limit);
+    }
+
+    public static function offset(int $offset): QueryBuilder
+    {
+        return static::newQuery()->offset($offset);
+    }
+
+    public static function count(): int
+    {
+        return static::newQuery()->count();
+    }
+
+    public static function all(): array
+    {
+        return array_map(fn($row) => new static($row), static::newQuery()->get());
+    }
+
+
+
+
+    // ------------------------------
+    //  SORTING CONVENIENCE
+    // ------------------------------
+
+    public static function sort($select = '*', $orderby = 'id', $direction = 'asc'): array
+    {
+        return array_map(
+            fn($row) => new static($row),
+            static::newQuery()->select($select)->orderBy($orderby, $direction)->get()
+        );
+    }
+
+    // ------------------------------
+    //  ACTIVE RECORD STYLE
+    // ------------------------------
+
+    public function save(): int|bool
+    {
+        $qb = new QueryBuilder($this->getTable());
         $data = $this->attributes;
         unset($data['_csrf']);
+
         if (!empty($this->attributes[$this->primaryKey])) {
-            // Update
             $id = $this->attributes[$this->primaryKey];
             unset($data[$this->primaryKey]);
             return $qb->update($id, $data, $this->primaryKey);
         } else {
-            // Insert
             $id = $qb->insert($data);
             $this->attributes[$this->primaryKey] = $id;
             return $id;
         }
     }
 
-    public function delete()
+    public function delete(): bool
     {
         if (empty($this->attributes[$this->primaryKey])) return false;
-        $qb = new \Core\Database\QueryBuilder($this->table);
+        $qb = new QueryBuilder($this->getTable());
         return $qb->delete($this->attributes[$this->primaryKey], $this->primaryKey);
     }
-
-    public static function rawQuery($sql, $params = [])
-    {
-        $instance = new static();
-        $qb = new \Core\Database\QueryBuilder($instance->table);
-        $rows = $qb->rawQuery($sql, $params);
-        return array_map(fn($row) => new static($row), $rows);
-    }
 }
-
-// write the example sysntax for the Model class
-// Example usage:
-// $user = new User(['username' => 'john_doe', 'email' => 'john@example.com']);
-// $user->save();
-// $users = User::all();
-// $user = User::find(1);
-// $user->delete();

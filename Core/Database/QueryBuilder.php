@@ -5,224 +5,330 @@ namespace Core\Database;
 use Core\Database\Db;
 use PDO;
 
-
 class QueryBuilder
-
 {
-    protected $table;
     protected $pdo;
-    protected $select = '*';
-    protected $wheres = [];
+    protected $table;
+    protected $columns = ['*'];
     protected $bindings = [];
+    protected $wheres = [];
+    protected $orWheres = [];
+    protected $whereNulls = [];
+    protected $not = false;
     protected $orderBy = '';
-    protected $limit = '';
+    protected $limit;
+    protected $offset;
+    protected $groupBy = [];
+    protected $having = [];
+    protected $joins = [];
+    protected $aliases = [];
+    protected $operation = 'select';
+    protected $insertData = [];
+    protected $updateData = [];
 
-    public function __construct($table)
+    public function __construct()
     {
-        $this->table = $table;
         $this->pdo = Db::instance();
     }
 
-    /**
-     * Execute a raw SQL query and return results.
-     * @param string $sql
-     * @param array $params
-     * @return array
-     */
-    public function rawQuery($sql, $params = [])
+    public static function table($table)
     {
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($params);
-        return $stmt->fetchAll();
+        $instance = new static();
+        $instance->table = $table;
+        return $instance;
     }
 
-    public function select($columns)
+    public static function select($columns = ['*'])
     {
-        if (is_array($columns)) {
-            $this->select = '`' . implode('`,`', $columns) . '`';
-        } else {
-            $this->select = $columns;
-        }
+        $instance = new static();
+        $instance->columns = $columns;
+        $instance->operation = 'select';
+        return $instance;
+    }
+
+    public function alias($original, $as)
+    {
+        $this->aliases[$original] = $as;
         return $this;
     }
 
-    protected $joins = [];
-    /**
-     * Add a JOIN clause to the query.
-     * @param string $table
-     * @param string $first
-     * @param string $operator
-     * @param string $second
-     * @param string $type
-     * @return $this
-     */
-    public function join($table, $first, $operator, $second, $type = 'INNER')
+    public function where($column, $operator, $value)
     {
-        $this->joins[] = strtoupper($type) . " JOIN `$table` ON $first $operator $second";
+        $this->wheres[] = [$column, $operator, $value, $this->not];
+        $this->not = false;
         return $this;
     }
 
-    public function where($column, $operator, $value = null)
+    public function andWhere($column, $operator, $value)
     {
-        if (func_num_args() == 2) {
-            $value = $operator;
-            $operator = '=';
-        }
-        $this->wheres[] = ["$column $operator ?"];
-        $this->bindings[] = $value;
+        return $this->where($column, $operator, $value);
+    }
+
+    public function orWhere($column, $operator, $value)
+    {
+        $this->orWheres[] = [$column, $operator, $value];
         return $this;
     }
 
-    public function orWhere($column, $operator, $value = null)
-    {
-        if (func_num_args() == 2) {
-            $value = $operator;
-            $operator = '=';
-        }
-        $this->wheres[] = ["OR $column $operator ?"];
-        $this->bindings[] = $value;
-        return $this;
-    }
-
-    /**
-     * Add an explicit AND WHERE clause to the query.
-     * @param string $column
-     * @param string $operator
-     * @param mixed $value
-     * @return $this
-     */
-    public function andWhere($column, $operator, $value = null)
-    {
-        if (func_num_args() == 2) {
-            $value = $operator;
-            $operator = '=';
-        }
-        $this->wheres[] = ["AND $column $operator ?"];
-        $this->bindings[] = $value;
-        return $this;
-    }
-
-    /**
-     * Add a "where IS NULL" clause to the query.
-     * @param string $column
-     * @return $this
-     */
     public function whereNull($column)
     {
-        $this->wheres[] = ["$column IS NULL"];
-        // No binding needed for IS NULL
+        $this->whereNulls[] = [$column, $this->not];
+        $this->not = false;
         return $this;
     }
 
-    /**
-     * Get the count of rows matching the current query.
-     * @return int
-     */
-    public function count(): int
+    public function whereNotNull(string $column, string $boolean = 'AND'): static
     {
-        $sql = "SELECT COUNT(*) as count FROM `{$this->table}`";
-        $params = [];
-        if (!empty($this->wheres)) {
-            $whereClauses = [];
-            foreach ($this->wheres as $where) {
-                $whereClauses[] = $where[0] . ' ' . $where[1] . ' ?';
-                $params[] = $where[2];
-            }
-            $sql .= ' WHERE ' . implode(' AND ', $whereClauses);
-        }
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($params);
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return (int)($row['count'] ?? 0);
+        $this->wheres[] = [
+            'type'    => 'Basic',
+            'column'  => $column,
+            'operator' => 'IS NOT NULL',
+            'value'   => null,
+            'boolean' => strtoupper($boolean),
+        ];
+        return $this;
+    }
+
+    public function not()
+    {
+        $this->not = true;
+        return $this;
     }
 
     public function orderBy($column, $direction = 'ASC')
     {
-        $this->orderBy = "ORDER BY `$column` $direction";
+        $this->orderBy = "ORDER BY $column $direction";
         return $this;
     }
 
     public function limit($limit)
     {
-        $this->limit = "LIMIT $limit";
+        $this->limit = (int)$limit;
         return $this;
+    }
+
+    public function offset($offset)
+    {
+        $this->offset = (int)$offset;
+        return $this;
+    }
+
+    public function groupBy(...$columns)
+    {
+        $this->groupBy = array_merge($this->groupBy, $columns);
+        return $this;
+    }
+
+    public function groupByRef($column)
+    {
+        return $this->groupBy($column);
+    }
+
+    public function having($column, $operator, $value)
+    {
+        $this->having[] = [$column, $operator, $value];
+        return $this;
+    }
+
+    public function join($table, $col1, $operator, $col2, $type = 'INNER')
+    {
+        $this->joins[] = "$type JOIN $table ON $col1 $operator $col2";
+        return $this;
+    }
+
+    public function leftJoin($table, $col1, $operator, $col2)
+    {
+        return $this->join($table, $col1, $operator, $col2, 'LEFT');
+    }
+
+    public function rightJoin($table, $col1, $operator, $col2)
+    {
+        return $this->join($table, $col1, $operator, $col2, 'RIGHT');
+    }
+
+    public function insert(array $data)
+    {
+        $this->operation = 'insert';
+        $this->insertData = $data;
+        return $this->executeInsert();
+    }
+
+    public function update(array $data)
+    {
+        $this->operation = 'update';
+        $this->updateData = $data;
+        return $this->executeUpdate();
+    }
+
+    public function delete()
+    {
+        $this->operation = 'delete';
+        return $this->executeDelete();
+    }
+
+    public function count($column = '*')
+    {
+        $this->columns = ["COUNT($column) as count"];
+        return $this->get();
+    }
+
+    public function sum($column)
+    {
+        $this->columns = ["SUM($column) as sum"];
+        return $this->get();
+    }
+
+    public function avg($column)
+    {
+        $this->columns = ["AVG($column) as avg"];
+        return $this->get();
+    }
+
+    public function max($column)
+    {
+        $this->columns = ["MAX($column) as max"];
+        return $this->get();
+    }
+
+    public function min($column)
+    {
+        $this->columns = ["MIN($column) as min"];
+        return $this->get();
     }
 
     public function get()
     {
-        $sql = "SELECT {$this->select} FROM `{$this->table}`";
-        if (!empty($this->joins)) {
-            $sql .= ' ' . implode(' ', $this->joins);
-        }
-        if ($this->wheres) {
-            $whereSql = [];
-            foreach ($this->wheres as $i => $where) {
-                $whereSql[] = ($i === 0 ? 'WHERE ' : '') . $where[0];
-            }
-            $sql .= ' ' . implode(' ', $whereSql);
-        }
-        if ($this->orderBy) {
-            $sql .= ' ' . $this->orderBy;
-        }
-        if ($this->limit) {
-            $sql .= ' ' . $this->limit;
-        }
+        $sql = $this->buildSql();
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($this->bindings);
-        $results = $stmt->fetchAll();
-        // Reset state for next query
-        $this->select = '*';
-        $this->wheres = [];
-        $this->bindings = [];
-        $this->orderBy = '';
-        $this->limit = '';
-        $this->joins = [];
-        return $results;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function find(int|string $id, string $column = 'id'): static
+    {
+        return $this->where($column, '=', $id)->limit(1);
     }
 
     public function first()
     {
-        $this->limit(1);
+        $this->limit = 1;
         $results = $this->get();
         return $results[0] ?? null;
     }
 
-    public function all()
+    public function toSql()
     {
-        return $this->get();
+        return $this->buildSql();
     }
 
-    public function find($id, $primaryKey = 'id')
+    protected function buildSql()
     {
-        return $this->where($primaryKey, $id)->first();
+        $sql = '';
+
+        if ($this->operation === 'select') {
+            $cols = implode(', ', array_map(function ($col) {
+                return $this->aliases[$col] ?? $col;
+            }, $this->columns));
+
+            $sql .= "SELECT {$cols} FROM {$this->table}";
+
+            if ($this->joins) {
+                $sql .= ' ' . implode(' ', $this->joins);
+            }
+
+            if ($this->wheres || $this->orWheres || $this->whereNulls) {
+                $sql .= ' WHERE ';
+                $conditions = [];
+
+                foreach ($this->wheres as [$col, $op, $val, $neg]) {
+                    $param = ':' . str_replace('.', '_', $col) . count($this->bindings);
+                    $conditions[] = ($neg ? "NOT " : "") . "$col $op $param";
+                    $this->bindings[$param] = $val;
+                }
+
+                foreach ($this->whereNulls as [$col, $neg]) {
+                    $conditions[] = "$col IS " . ($neg ? "NOT NULL" : "NULL");
+                }
+
+                foreach ($this->orWheres as [$col, $op, $val]) {
+                    $param = ':' . str_replace('.', '_', $col) . count($this->bindings);
+                    $conditions[] = "OR $col $op $param";
+                    $this->bindings[$param] = $val;
+                }
+
+                $sql .= implode(' AND ', $conditions);
+            }
+
+            if (!empty($this->groupBy)) {
+                $sql .= ' GROUP BY ' . implode(', ', $this->groupBy);
+            }
+
+            if (!empty($this->having)) {
+                $sql .= ' HAVING ' . implode(' AND ', array_map(function ($h) {
+                    return "{$h[0]} {$h[1]} '{$h[2]}'";
+                }, $this->having));
+            }
+
+            if ($this->orderBy) {
+                $sql .= ' ' . $this->orderBy;
+            }
+
+            if ($this->limit !== null) {
+                $sql .= ' LIMIT ' . $this->limit;
+            }
+
+            if ($this->offset !== null) {
+                $sql .= ' OFFSET ' . $this->offset;
+            }
+        } elseif ($this->operation === 'insert') {
+            // insert handled separately
+        } elseif ($this->operation === 'update') {
+            // update handled separately
+        } elseif ($this->operation === 'delete') {
+            // delete handled separately
+        }
+
+        return $sql;
     }
 
-    public function insert($data)
+    protected function executeInsert()
     {
-        $columns = array_keys($data);
-        $placeholders = implode(',', array_fill(0, count($columns), '?'));
-        $sql = "INSERT INTO `{$this->table}` (`" . implode('`,`', $columns) . "`) VALUES ($placeholders)";
+        $columns = implode(', ', array_keys($this->insertData));
+        $params = ':' . implode(', :', array_keys($this->insertData));
+        $sql = "INSERT INTO {$this->table} ($columns) VALUES ($params)";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute(array_values($data));
-        return $this->pdo->lastInsertId();
+        return $stmt->execute($this->insertData);
     }
 
-    public function update($id, $data, $primaryKey = 'id')
+    protected function executeUpdate()
     {
-        $columns = array_keys($data);
-        $set = implode(', ', array_map(function ($col) {
-            return "`$col` = ?";
-        }, $columns));
-        $sql = "UPDATE `{$this->table}` SET $set WHERE `$primaryKey` = ?";
+        $setParts = [];
+        foreach ($this->updateData as $col => $val) {
+            $setParts[] = "$col = :update_$col";
+            $this->bindings[":update_$col"] = $val;
+        }
+
+        $sql = "UPDATE {$this->table} SET " . implode(', ', $setParts);
+        if ($this->wheres) {
+            $sql .= ' WHERE ' . implode(' AND ', array_map(function ($w) {
+                return "{$w[0]} {$w[1]} :{$w[0]}" . count($this->bindings);
+            }, $this->wheres));
+        }
+
         $stmt = $this->pdo->prepare($sql);
-        $values = array_values($data);
-        $values[] = $id;
-        return $stmt->execute($values);
+        return $stmt->execute($this->bindings);
     }
 
-    public function delete($id, $primaryKey = 'id')
+    protected function executeDelete()
     {
-        $stmt = $this->pdo->prepare("DELETE FROM `{$this->table}` WHERE `$primaryKey` = ?");
-        return $stmt->execute([$id]);
+        $sql = "DELETE FROM {$this->table}";
+        if ($this->wheres) {
+            $sql .= ' WHERE ' . implode(' AND ', array_map(function ($w) {
+                return "{$w[0]} {$w[1]} :{$w[0]}" . count($this->bindings);
+            }, $this->wheres));
+        }
+
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute($this->bindings);
     }
 }
