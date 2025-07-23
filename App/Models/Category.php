@@ -14,8 +14,7 @@ class Category extends Model
     ];
     public function getProductsWithCategory($id)
     {
-        return Product::select('products.*', 'categories.name as category_name')
-            ->join('categories', 'products.category_id', '=', 'categories.id')
+        return Product::select('products.*')
             ->where('products.category_id', '=', $id)
             ->get();
     }
