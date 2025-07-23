@@ -6,6 +6,37 @@ use Core\Database\ReportBuilder;
 
 class ChartBuilder extends ReportBuilder
 {
+    /**
+     * ChartBuilder provides a fluent interface for building chart configuration and datasets.
+     * Supports multiple chart types (bar, line, pie, doughnut), custom options, axes, themes, and datasets.
+     *
+     * @property string $chartType The type of chart (bar, line, pie, doughnut).
+     * @property string $xAxisLabel Label for the X axis.
+     * @property string $yAxisLabel Label for the Y axis.
+     * @property array $chartOptions Chart configuration options (responsive, plugins, scales, etc.).
+     * @property array $customDatasets Custom datasets to be included in the chart.
+     *
+     * @method static build(string $table, string $dateColumn = 'date') Create a new ChartBuilder instance for a table.
+     * @method bar() Set chart type to 'bar'.
+     * @method line() Set chart type to 'line'.
+     * @method pie() Set chart type to 'pie'.
+     * @method doughnut() Set chart type to 'doughnut'.
+     * @method responsive(bool $value = true) Enable or disable chart responsiveness.
+     * @method title(string $text) Set chart title.
+     * @method legend(string $position = 'top') Set legend position.
+     * @method scaleY(float|int $min, float|int $max) Set Y axis min/max values.
+     * @method scaleX(float|int $min, float|int $max) Set X axis min/max values.
+     * @method colors(array $colors) Set chart colors.
+     * @method theme(string $name) Set chart theme.
+     * @method setXAxis(string $label) Set X axis label.
+     * @method setYAxis(string $label) Set Y axis label.
+     * @method withOptions(array $options) Merge additional chart options.
+     * @method addDataset(string $label, array $data, array $options = []) Add a custom dataset.
+     * @method stacked(bool $enable = true) Enable or disable stacked charts.
+     * @method multiAxis(array $axesConfig) Configure multiple axes for multi-axis charts.
+     * @method toArray() Convert chart configuration and data to array.
+     * @method toJson() Convert chart configuration and data to JSON.
+     */
     protected string $chartType = 'bar';
     protected string $xAxisLabel = 'Period';
     protected string $yAxisLabel = 'Value';
@@ -17,7 +48,6 @@ class ChartBuilder extends ReportBuilder
         ],
         'scales' => [],
     ];
-
 
     public function bar(): static
     {
