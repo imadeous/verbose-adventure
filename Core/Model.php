@@ -130,9 +130,10 @@ abstract class Model
         return array_map(fn($row) => new static($row), static::newQuery()->get());
     }
 
-    public static function query(): QueryBuilder
+    public static function query()
     {
-        return static::newQuery();
+        $instance = new static();
+        return (new QueryBuilder())->table($instance->table);
     }
 
     public static function find($id): ?static
