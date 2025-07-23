@@ -14,6 +14,11 @@
                 </tr>
             </thead>
             <tbody>
+                <?php if (empty($products)): ?>
+                    <tr>
+                        <td colspan="4" class="px-4 py-2 text-center text-gray-500">No products found.</td>
+                    </tr>
+                <?php endif; ?>
                 <?php foreach ($products as $product): ?>
                     <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
                         <td class="px-4 py-2 whitespace-nowrap font-semibold text-blue-900"><?= e($product->name) ?></td>
