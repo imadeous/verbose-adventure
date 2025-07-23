@@ -204,10 +204,15 @@ class QueryBuilder
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function find(int|string $id, string $column = 'id'): static
+    public function find($id, $primaryKey = 'id')
     {
-        return $this->where($column, '=', $id)->limit(1);
+        $this->where($primaryKey, '=', $id)->limit(1);
+        $sql = $this->toSql();
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($this->bindings);
+        return $stmt->fetch(PDO::FETCH_ASSOC); // ✅ returns array
     }
+
 
     public function first()
     {

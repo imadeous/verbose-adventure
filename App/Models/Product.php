@@ -33,23 +33,28 @@ class Product extends Model
     {
         return Product::select('products.*')
             ->join('categories', 'products.category_id', '=', 'categories.id')
-            ->where('products.category_id', $category_id)
+            ->where('products.category_id', '=', $category_id)
             ->get();
     }
 
     public static function getImages($id)
     {
-        $gallery = new Gallery();
-        return $gallery->rawQuery("SELECT * FROM gallery WHERE related_id = ? AND image_type = ?", [$id, 'product']);
+        $galleryRows = Gallery::query()
+            ->where('image_type', '=', 'product')
+            ->andWhere('related_id', '=', $id)
+            ->get();
+        return array_map(fn($row) => new Gallery($row), $galleryRows);
     }
 
     // get product reviews()
     public static function getReviews($id)
     {
-        return Review::select('reviews.*')
+        $reviewRows = Review::query()
+            ->select('reviews.*')
             ->join('products', 'reviews.product_id', '=', 'products.id')
-            ->where('reviews.product_id', $id)
+            ->where('reviews.product_id', '=', $id)
             ->get();
+        return array_map(fn($row) => new Review($row), $reviewRows);
     }
 
     // return an object with overall product rating
