@@ -206,11 +206,11 @@ class QueryBuilder
 
     public function find($id, $primaryKey = 'id')
     {
-        $this->where($primaryKey, '=', $id)->limit(1);
-        $sql = $this->toSql();
+        // Make sure $this->table is set and used
+        $sql = "SELECT * FROM {$this->table} WHERE {$primaryKey} = :id LIMIT 1";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($this->bindings);
-        return $stmt->fetch(PDO::FETCH_ASSOC); // ✅ returns array
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
 
