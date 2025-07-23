@@ -5,7 +5,7 @@ namespace App\Models;
 use Core\Model;
 use App\Models\Category;
 use App\Models\Gallery;
-use App\Models\Review;
+use Core\Database\QueryBuilder;
 
 class Product extends Model
 
@@ -48,7 +48,7 @@ class Product extends Model
     // get product reviews()
     public static function getReviews($id)
     {
-        $reviewRows = Review::query()
+        $reviewRows = QueryBuilder::table('reviews')
             ->select('reviews.*')
             ->join('products', 'reviews.product_id', '=', 'products.id')
             ->where('reviews.product_id', '=', $id)
