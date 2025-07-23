@@ -132,8 +132,7 @@ abstract class Model
 
     public static function query()
     {
-        $instance = new static();
-        return (new QueryBuilder())->table($instance->table);
+        return new QueryBuilder((new static())->getTable());
     }
 
     public static function find($id): ?static
