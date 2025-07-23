@@ -3,6 +3,12 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+// Enable error reporting for debugging
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // The following duplicate PHP opening tag and session_start block have been removed.
 use Core\Router;
 
@@ -41,12 +47,11 @@ spl_autoload_register(function ($class) {
 $router = new Router();
 require __DIR__ . '/../routes/web.php';
 
-
-
 // Get the URI robustly for both Windows and Linux hosting, using the same logic as url() helper
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 require_once __DIR__ . '/../App/Helpers/Functions.php'; // ensure base_path() is available
 $base = base_path();
+
 if ($base && strpos($uri, $base) === 0) {
     $uri = substr($uri, strlen($base));
 }
