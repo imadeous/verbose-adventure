@@ -11,10 +11,8 @@ use Core\Database\QueryBuilder;
 //     ->withSum('total_amount')
 //     ->withAverage('rating')
 //     ->withCount()
-//     ->setTitle('Monthly Sales Report');
-
-// $reportData = $report->generate();
-
+//     ->setTitle('Monthly Sales Report')
+//     ->generate();
 
 class ReportBuilder extends QueryBuilder
 {
