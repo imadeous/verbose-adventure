@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Core\Model;
-use App\Models\Product;
+use Core\Database\QueryBuilder;
 
 class Category extends Model
 {
@@ -14,8 +14,8 @@ class Category extends Model
     ];
     public function getProductsWithCategory($id)
     {
-        return Product::select('products.*')
-            ->where('products.category_id', '=', $id)
+        return QueryBuilder::table('products')
+            ->select('products.*')
+            ->where('categories.id', '=', $id)
             ->get();
-    }
 }
