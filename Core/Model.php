@@ -168,7 +168,7 @@ abstract class Model
         if (!empty($this->attributes[$this->primaryKey])) {
             $id = $this->attributes[$this->primaryKey];
             unset($data[$this->primaryKey]);
-            return $qb->update($id, $data, $this->primaryKey);
+            return $qb->update($data, $id, $this->primaryKey);
         } else {
             $id = $qb->insert($data);
             $this->attributes[$this->primaryKey] = $id;
