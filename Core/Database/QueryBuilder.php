@@ -26,16 +26,17 @@ class QueryBuilder
     protected $insertData = [];
     protected $updateData = [];
 
-    public function __construct()
+    public function __construct($table = null)
     {
         $this->pdo = Db::instance();
+        if ($table) {
+            $this->table = $table;
+        }
     }
 
     public static function table($table)
     {
-        $instance = new static();
-        $instance->table = $table;
-        return $instance;
+        return new static($table);
     }
 
     public static function select($columns = ['*'])
@@ -206,7 +207,9 @@ class QueryBuilder
 
     public function find($id, $primaryKey = 'id')
     {
-        // Make sure $this->table is set and used
+        if (!$this->table) {
+            throw new \Exception("No table set for QueryBuilder. Use table() or pass table to constructor.");
+        }
         $sql = "SELECT * FROM {$this->table} WHERE {$primaryKey} = :id LIMIT 1";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute(['id' => $id]);
