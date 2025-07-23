@@ -1,10 +1,15 @@
 <?php
 
-namespace App\Support;
+namespace Core\Database;
 
 use Core\Database\Db;
 use Core\Database\QueryBuilder;
-
+// $report = (new ReportBuilder('orders'))
+//     ->forPeriod('2025-01-01', '2025-07-01')
+//     ->groupByUser()
+//     ->withSum('total_amount', 'total_spent')
+//     ->withCount('id', 'order_count')
+//     ->generate();
 class ReportBuilder extends QueryBuilder
 {
     protected ?string $startDate = null;
