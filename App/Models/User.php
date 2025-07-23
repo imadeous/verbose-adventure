@@ -32,9 +32,12 @@ class User extends Model
     }
 
     // Find user by email
-    public static function findByAttribute($email, $attribute = 'email')
+    public static function findByAttribute($value, $attribute = 'email')
     {
-        $results = parent::where($attribute, $email);
-        return $results ? $results[0] : null;
+        $result = static::query()
+            ->where($attribute, '=', $value)
+            ->limit(1)
+            ->get();
+        return !empty($result) ? new static($result[0]) : null;
     }
 }
