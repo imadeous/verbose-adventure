@@ -1,9 +1,8 @@
 <?php
 
 use App\Models\Product;
-use App\Models\Transaction;
 ?>
-<div class="max-w-8xl mx-auto p-8 space-y-10">
+<div class="max-w-full space-y-10">
     <!-- Top Section: 2 Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-y-8 md:gap-8 w-full">
         <!-- Card 1: Product Details -->
