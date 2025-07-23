@@ -41,7 +41,7 @@ class Product extends Model
         $galleryRows = QueryBuilder::table('gallery')
             ->where('image_type', '=', 'product')
             ->andWhere('related_id', '=', $id)
-            ->get();
+            ->toSql();
         return $galleryRows;
     }
 
@@ -52,7 +52,7 @@ class Product extends Model
             ->select('reviews.*')
             ->join('products', 'reviews.product_id', '=', 'products.id')
             ->where('reviews.product_id', '=', $id)
-            ->get();
+            ->toSql();
         return $reviewRows;
     }
 
