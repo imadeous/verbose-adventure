@@ -23,7 +23,14 @@ class ReportBuilder extends QueryBuilder
     protected array $aggregates = [];
     protected array $labels = [];
     protected array $columnAliases = [];
-    protected ?string $reportTitle = null;
+    protected string $dateColumn = 'date'; // Default date column
+    protected string $groupByColumn = 'order_id'; // Default group by column
+    protected array $selects = [];
+    protected array $groups = [];
+    protected ?string $reportType = null; // e.g., 'summary', 'detailed'
+    protected ?string $reportFormat = null; // e.g., 'json', 'csv', 'html'
+    protected ?string $reportDescription = null; // Optional description for the report             
+    protected ?string $reportTitle = 'Report'; // Optional title for the report
 
     public function forPeriod(string $start, string $end): static
     {
@@ -129,5 +136,56 @@ class ReportBuilder extends QueryBuilder
     {
         $parts = array_filter(explode('_', "{$prefix}_{$column}"));
         return ucfirst(implode(' ', array_map('ucfirst', $parts)));
+    }
+
+    // Group by a specific period (hourly, daily, etc.)
+    // This allows for flexible grouping based on the date column
+    public function groupByPeriod(string $unit): static
+    {
+        $periodExpressions = [
+            'hourly' => "DATE_FORMAT({$this->dateColumn}, '%Y-%m-%d %H:00:00')",
+            'daily' => "DATE({$this->dateColumn})",
+            'weekly' => "YEARWEEK({$this->dateColumn}, 1)", // ISO week
+            'monthly' => "DATE_FORMAT({$this->dateColumn}, '%Y-%m')",
+            'quarterly' => "CONCAT(YEAR({$this->dateColumn}), '-Q', QUARTER({$this->dateColumn}))",
+            'annual' => "YEAR({$this->dateColumn})"
+        ];
+
+        $alias = "period_{$unit}";
+        $this->selects[] = "{$periodExpressions[$unit]} AS {$alias}";
+        $this->groups[] = $alias;
+        $this->columnAliases[$alias] = ucfirst($unit);
+
+        return $this;
+    }
+
+    public function hourly(): static
+    {
+        return $this->groupByPeriod('hourly');
+    }
+
+    public function daily(): static
+    {
+        return $this->groupByPeriod('daily');
+    }
+
+    public function weekly(): static
+    {
+        return $this->groupByPeriod('weekly');
+    }
+
+    public function monthly(): static
+    {
+        return $this->groupByPeriod('monthly');
+    }
+
+    public function quarterly(): static
+    {
+        return $this->groupByPeriod('quarterly');
+    }
+
+    public function annual(): static
+    {
+        return $this->groupByPeriod('annual');
     }
 }
