@@ -38,22 +38,20 @@ class Product extends Model
 
     public static function getImages($id)
     {
-        $galleryRows = QueryBuilder::table('gallery')
+        return QueryBuilder::table('gallery')
             ->where('image_type', '=', 'product')
             ->andWhere('related_id', '=', $id)
-            ->toSql();
-        return $galleryRows;
+            ->get();
     }
 
     // get product reviews()
     public static function getReviews($id)
     {
-        $reviewRows = QueryBuilder::table('reviews')
+        return QueryBuilder::table('reviews')
             ->select('reviews.*')
             ->join('products', 'reviews.product_id', '=', 'products.id')
             ->where('reviews.product_id', '=', $id)
-            ->toSql();
-        return $reviewRows;
+            ->get();
     }
 
     // return an object with overall product rating
