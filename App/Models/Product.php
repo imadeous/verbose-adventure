@@ -42,7 +42,7 @@ class Product extends Model
             ->where('image_type', '=', 'product')
             ->andWhere('related_id', '=', $id)
             ->get();
-        return array_map(fn($row) => new Gallery($row), $galleryRows);
+        return $galleryRows;
     }
 
     // get product reviews()
