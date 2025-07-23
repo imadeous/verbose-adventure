@@ -15,7 +15,6 @@ class Category extends Model
     public function getProductsWithCategory($id)
     {
         return QueryBuilder::table('products')
-            ->select('products.*')
             ->where('products.category_id', '=', $id)
             ->get();
     }
