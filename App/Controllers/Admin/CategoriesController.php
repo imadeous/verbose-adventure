@@ -70,6 +70,8 @@ class CategoriesController extends AdminControllerBase
             return;
         }
         $category->fill($_POST);
+        // Ensure the primary key is set for update
+        $category->id = $id;
         $category->save();
         flash('success', 'Category updated successfully.');
         $this->redirect('/admin/categories');
