@@ -4,7 +4,7 @@
         <div class="bg-yellow-50 text-yellow-700 border border-yellow-200 px-4 py-3 rounded-lg mb-6">No reviews found.</div>
     <?php else: ?>
         <div class="relative">
-            <div class="absolute left-6 top-0 bottom-0 w-1 bg-blue-100 rounded-full"></div>
+            <div class="absolute left-8 top-0 bottom-0 w-1 bg-blue-100 rounded-full"></div>
             <ul class="space-y-0">
                 <?php foreach ($reviews as $i => $review): ?>
                     <li class="relative flex items-start group">
