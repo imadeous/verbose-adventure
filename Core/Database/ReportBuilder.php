@@ -4,7 +4,7 @@ namespace Core\Database;
 
 use Core\Database\QueryBuilder;
 
-// $report = (new ReportBuilder('orders'))
+// $report = ReportBuilder::build('orders')
 //     ->forPeriod('2024-01-01', '2024-12-31')
 //     ->monthly()
 //     ->groupByUser()
