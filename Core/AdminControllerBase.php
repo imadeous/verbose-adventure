@@ -14,7 +14,8 @@ class AdminControllerBase extends Controller
     public function __construct()
     {
         parent::__construct();
-        $unreadCount = count(Contact::whereNull('opened_at'));
-        $this->share('unreadContactsCount', (int)($unreadCount ?? 0));
+        // Use new QueryBuilder syntax for unread contacts count
+        $unreadCount = Contact::whereNull('opened_at')->get();
+        $this->share('unreadContactsCount', count($unreadCount));
     }
 }
