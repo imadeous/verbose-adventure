@@ -42,8 +42,7 @@ class AuthController extends Controller
         var_dump($user);
         if ($user && password_verify($password, $user->password)) {
             Auth::login($user->id);
-            $this->view('/admin'); // Redirect to admin dashboard
-            exit;
+            $this->redirect('/admin'); // Redirect to admin dashboard
         }
         flash('error', 'Invalid credentials.');
         $this->view('auth/login');
