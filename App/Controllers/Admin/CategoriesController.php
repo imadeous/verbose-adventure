@@ -9,7 +9,7 @@ class CategoriesController extends AdminControllerBase
 {
     public function index()
     {
-        $categories = Category::sort('*', 'name', 'asc');
+        $categories = Category::query()->orderBy('name', 'asc')->get();
         $this->view->layout('admin');
         $this->view('admin/categories/index', [
             'categories' => $categories

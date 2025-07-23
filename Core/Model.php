@@ -151,7 +151,7 @@ abstract class Model
     {
         return array_map(
             fn($row) => new static($row),
-            static::newQuery()->select($select)->orderBy($orderby, $direction)->get()
+            static::query()->select($select)->orderBy($orderby, $direction)->get()
         );
     }
 
