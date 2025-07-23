@@ -233,6 +233,10 @@ class QueryBuilder
     {
         $sql = '';
 
+        if (empty($this->table)) {
+            throw new \Exception('No table set for QueryBuilder. Use table() or pass table to constructor.');
+        }
+
         if ($this->operation === 'select') {
             $columns = is_array($this->columns) ? $this->columns : [$this->columns];
             $cols = implode(', ', array_map(function ($col) {
