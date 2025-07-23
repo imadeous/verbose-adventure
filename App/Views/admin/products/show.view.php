@@ -42,7 +42,7 @@ use App\Models\Transaction;
                             <!-- Images -->
                             <?php foreach ($gallery as $idx => $image): ?>
                                 <img
-                                    src="<?= url('storage/products/' . e($image->image_url)) ?>"
+                                    src="<?= url('storage/products/' . e($image['image_url'])) ?>"
                                     alt="<?= e($product->name) ?>"
                                     class="absolute inset-0 w-full h-full object-cover rounded-lg shadow-md border border-blue-100 transition duration-300"
                                     x-show="active === <?= $idx ?>"
