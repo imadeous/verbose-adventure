@@ -234,9 +234,10 @@ class QueryBuilder
         $sql = '';
 
         if ($this->operation === 'select') {
+            $columns = is_array($this->columns) ? $this->columns : [$this->columns];
             $cols = implode(', ', array_map(function ($col) {
                 return $this->aliases[$col] ?? $col;
-            }, $this->columns));
+            }, $columns));
 
             $sql .= "SELECT {$cols} FROM {$this->table}";
 
