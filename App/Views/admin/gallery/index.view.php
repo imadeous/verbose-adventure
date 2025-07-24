@@ -10,6 +10,7 @@
         <?php if (empty($images)): ?>
             <div class="p-4 text-center text-blue-400">No images found.</div>
         <?php endif; ?>
+        <?php var_dump($images); ?>
         <?php foreach ($images as $image): ?>
             <img src="<?= url('storage/product/' . e($image->image_url)) ?>" alt="<?= $image->alt ?>" class="w-full h-28 object-cover">
             <div class="p-2 flex-1 flex flex-col justify-between">
