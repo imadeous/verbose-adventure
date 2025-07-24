@@ -12,17 +12,14 @@ class GalleryController extends AdminController
     public function index()
     {
         $gallery = Gallery::query()
-            ->select('id', 'image_url', 'title', 'created_at', 'image_type')
+            ->select(['id', 'image_url', 'title', 'created_at', 'image_type'])
+            ->groupBy('image_type')
             ->orderBy('created_at', 'desc')
             ->get();
 
-        $galleryByType = [];
-        foreach ($gallery as $item) {
-            $galleryByType[$item->image_type][] = $item;
-        }
         $this->view->layout('admin');
         $this->view('admin/gallery/index', [
-            'images' => $galleryByType
+            'images' => $gallery
         ]);
     }
 
