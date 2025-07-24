@@ -3,7 +3,7 @@
         x-data='galleryForm(<?= json_encode($categories) ?>, <?= json_encode($products) ?>)'
         class="bg-white rounded-xl shadow-md border border-blue-100 p-8">
         <h1 class="text-3xl font-extrabold text-blue-900 mb-8">Add Gallery Image</h1>
-        <form class="space-y-5" autocomplete="off" method="POST">
+        <form class="space-y-5" autocomplete="off" method="POST" action="<?= url('admin/gallery/store') ?>">
             <div class="flex flex-col md:flex-row gap-6">
                 <?php csrf_field(); ?>
                 <!-- Left Column: Label, Input, Preview -->
