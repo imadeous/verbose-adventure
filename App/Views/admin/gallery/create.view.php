@@ -96,8 +96,7 @@
             <div class="flex justify-end">
                 <button
                     type="submit"
-                    class="bg-blue-400 text-white px-5 py-2 rounded-lg font-semibold shadow border border-blue-400"
-                    :class="isValid() ? 'opacity-100 cursor-pointer' : 'opacity-60 cursor-not-allowed'">Upload</button>
+                    class="bg-blue-400 text-white px-5 py-2 rounded-lg font-semibold shadow border border-blue-400">Upload</button>
             </div>
         </form>
     </div>
