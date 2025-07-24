@@ -27,12 +27,10 @@ class QueryBuilder
     protected $updateData = [];
     protected $groupResultsBy = null;
 
-    public function __construct($table = null)
+    public function __construct($table)
     {
         $this->pdo = Db::instance();
-        if ($table) {
-            $this->table = $table;
-        }
+        $this->table = $table;
     }
 
     public static function table($table)
@@ -40,9 +38,9 @@ class QueryBuilder
         return new static($table);
     }
 
-    public static function select($columns = ['*'])
+    public static function select($columns = ['*'], $table = null)
     {
-        $instance = new static();
+        $instance = new static($table);
         $instance->columns = $columns;
         $instance->operation = 'select';
         return $instance;
