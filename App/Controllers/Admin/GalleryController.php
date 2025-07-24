@@ -18,7 +18,7 @@ class GalleryController extends AdminController
 
         $this->view->layout('admin');
         $this->view('admin/gallery/index', [
-            'images' => $gallery
+            'gallery' => $gallery
         ]);
     }
 
