@@ -130,6 +130,12 @@
                     } else {
                         this.imageUrl = 'https://placehold.co/100x80/3b82f6/fff?text=Select+Image';
                     }
+                },
+                // Watch for type changes and clear relatedId if type is 'site'
+                init() {
+                    this.$watch('type', value => {
+                        if (value === 'site') this.relatedId = '';
+                    });
                 }
             }));
         });
