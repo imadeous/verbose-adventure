@@ -137,7 +137,7 @@ class ProductsController extends AdminControllerBase
         if (!empty($_FILES['image']['name'])) {
             $upload = \App\Helpers\File::upload(
                 $_FILES['image'],
-                'products',
+                'product',
                 [
                     'allowed_types' => ['jpg', 'jpeg', 'png', 'gif', 'webp'],
                     'max_size' => 5 * 1024 * 1024 // 5MB
