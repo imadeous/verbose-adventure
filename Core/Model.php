@@ -72,7 +72,7 @@ abstract class Model
 
     public static function select(array|string $columns): QueryBuilder
     {
-        return static::newQuery()->select($columns);
+        return static::newQuery()->select($columns, (new static())->getTable());
     }
 
     public static function where(string $column, mixed $operatorOrValue, mixed $value = null): QueryBuilder
