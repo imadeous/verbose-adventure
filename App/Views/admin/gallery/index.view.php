@@ -4,11 +4,10 @@
 </div>
 
 <!-- Site Images Section -->
-<h2 class="text-lg font-bold text-blue-700 mb-2 mt-8">Site Images</h2>
-<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
-    <div class="bg-white rounded-lg shadow border border-blue-100 overflow-hidden flex flex-col">
-        <?php foreach ($gallery as $category => $images): ?>
-            <h3 class="text-blue-800 font-semibold text-sm px-2 py-1 bg-blue-50 rounded-t-lg"><?= htmlspecialchars($category) ?></h3>
+<?php foreach ($gallery as $category => $images): ?>
+    <h2 class="text-lg font-bold text-blue-700 mb-2 mt-8"><?= htmlspecialchars($category) ?></h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
+        <div class="bg-white rounded-lg shadow border border-blue-100 overflow-hidden flex flex-col">
             <?php if (empty($images)): ?>
                 <div class="p-4 text-center text-blue-400">No images found.</div>
             <?php endif; ?>
@@ -23,6 +22,6 @@
                     </div>
                 </div>
             <?php endforeach; ?>
-        <?php endforeach; ?>
+        </div>
     </div>
-</div>
+<?php endforeach; ?>
