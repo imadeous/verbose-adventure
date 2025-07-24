@@ -72,13 +72,18 @@ class GalleryController extends AdminController
         }
         $imagePath = str_replace('public/', '', $upload['path']);
 
-        $gallery = new Gallery([
+        $galleryData = [
             'title' => $_POST['title'] ?? null,
             'caption' => $_POST['caption'] ?? null,
             'image_type' => $_POST['image_type'] ?? 'site',
-            'related_id' => $_POST['related_id'] ?? null,
             'image_url' => $imagePath,
-        ]);
+        ];
+        if (!empty($_POST['related_id']) && $_POST['image_type'] !== 'site') {
+            $galleryData['related_id'] = $_POST['related_id'];
+        } else {
+            $galleryData['related_id'] = null;
+        }
+        $gallery = new Gallery($galleryData);
         $gallery->save();
         Notification::log('created', 'Gallery', $gallery->id, ['image' => $imagePath]);
         flash('success', 'Image uploaded and added to gallery.');
