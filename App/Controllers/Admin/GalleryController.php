@@ -13,9 +13,8 @@ class GalleryController extends AdminController
     {
         $gallery = Gallery::query()
             ->select('id', 'image_url', 'title', 'created_at', 'image_type')
-            ->groupBy('image_type')
             ->orderBy('created_at', 'desc')
-            ->toSql();
+            ->get();
         var_dump($gallery); // Debugging line to check gallery data
         $gallery = Gallery::query()
             ->select('id', 'image_url', 'title', 'created_at', 'image_type')
