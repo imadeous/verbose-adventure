@@ -96,7 +96,7 @@
             <div class="flex justify-end">
                 <button
                     type="submit"
-                    class="bg-blue-400 text-white px-5 py-2 rounded-lg font-semibold shadow border border-blue-400">Upload</button>
+                    class="bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold shadow border border-blue-400">Upload</button>
             </div>
         </form>
     </div>
