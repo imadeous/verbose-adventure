@@ -12,9 +12,9 @@
                 <div class="p-4 text-center text-blue-400">No images found.</div>
             <?php endif; ?>
             <?php foreach ($images as $image): ?>
-                <img src="<?= url('storage/product/' . e($image->image_url)) ?>" alt="<?= $image->alt ?>" class="w-full h-28 object-cover">
+                <img src="<?= url('storage/product/' . e($image['image_url'])) ?>" alt="<?= $image['alt'] ?>" class="w-full h-28 object-cover">
                 <div class="p-2 flex-1 flex flex-col justify-between">
-                    <div class="font-semibold text-blue-900 text-xs truncate mb-1"><?= $image->title ?></div>
+                    <div class="font-semibold text-blue-900 text-xs truncate mb-1"><?= $image['title'] ?></div>
                     <div class="flex gap-1 mt-auto">
                         <a href="#" class="bg-blue-100 text-blue-700 hover:bg-blue-200 border border-blue-200 rounded px-2 py-0.5 font-semibold transition shadow-sm text-[10px]">View</a>
                         <a href="#" class="bg-blue-100 text-blue-700 hover:bg-blue-200 border border-blue-200 rounded px-2 py-0.5 font-semibold transition shadow-sm text-[10px]">Edit</a>
