@@ -2,7 +2,7 @@
     <h1 class="text-2xl font-bold text-blue-900">Gallery</h1>
     <a href="<?= url('admin/gallery/create') ?>" class="bg-blue-600 text-white hover:bg-blue-700 border border-blue-700 rounded px-4 py-2 font-semibold transition shadow-sm text-sm">Add Image</a>
 </div>
-
+<?php var_dump($gallery); ?>
 <!-- Site Images Section -->
 <?php foreach ($gallery as $category => $images): ?>
     <h2 class="text-lg font-bold text-blue-700 mb-2 mt-8"><?= htmlspecialchars($category) ?></h2>
