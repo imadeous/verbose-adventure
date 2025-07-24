@@ -49,6 +49,13 @@ class GalleryController extends AdminController
 
     public function store()
     {
+        // CSRF check
+        if (!isset($_POST['_csrf']) || !\App\Helpers\Csrf::check($_POST['_csrf'])) {
+            flash('error', 'Invalid CSRF token.');
+            $this->redirect('/admin/gallery/create');
+            return;
+        }
+
         if (!isset($_FILES['image'])) {
             flash('error', 'No file uploaded.');
             $this->redirect('/admin/gallery/create');
@@ -64,13 +71,17 @@ class GalleryController extends AdminController
             return;
         }
         $imagePath = str_replace('public/', '', $upload['path']);
+
         $gallery = new Gallery([
-            'image' => $imagePath,
-            'caption' => $_POST['caption'] ?? null
+            'title' => $_POST['title'] ?? null,
+            'caption' => $_POST['caption'] ?? null,
+            'image_type' => $_POST['image_type'] ?? 'site',
+            'related_id' => $_POST['related_id'] ?? null,
+            'image_url' => $imagePath,
         ]);
         $gallery->save();
         Notification::log('created', 'Gallery', $gallery->id, ['image' => $imagePath]);
-        flash('success', 'Image uploaded.');
+        flash('success', 'Image uploaded and added to gallery.');
         $this->redirect('/admin/gallery');
     }
 

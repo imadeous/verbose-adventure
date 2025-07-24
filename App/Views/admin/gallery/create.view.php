@@ -5,6 +5,7 @@
         <h1 class="text-3xl font-extrabold text-blue-900 mb-8">Add Gallery Image</h1>
         <form class="space-y-5" autocomplete="off" @submit.prevent>
             <div class="flex flex-col md:flex-row gap-6">
+                <?php csrf_field(); ?>
                 <!-- Left Column: Label, Input, Preview -->
                 <div class="flex-1">
                     <label class="block text-blue-700 font-semibold mb-1">Image</label>
