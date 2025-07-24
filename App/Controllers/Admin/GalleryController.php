@@ -11,12 +11,10 @@ class GalleryController extends AdminController
 {
     public function index()
     {
-        $query = Gallery::query()
+        $gallery = Gallery::query()
             ->orderBy('created_at', 'desc')
-            ->groupResultsBy('image_type');
-        var_dump($query->toSql()); // Show the SQL being generated
-        $gallery = $query->get();
-        var_dump($gallery); // Show the grouped result
+            ->groupResultsBy('image_type')
+            ->get(); // Fetch the grouped results
 
         $this->view->layout('admin');
         $this->view('admin/gallery/index', [
