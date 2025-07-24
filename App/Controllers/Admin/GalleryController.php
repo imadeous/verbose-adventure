@@ -12,7 +12,6 @@ class GalleryController extends AdminController
     public function index()
     {
         $query = Gallery::query()
-            ->select(['*'])
             ->orderBy('created_at', 'desc')
             ->groupResultsBy('image_type');
         var_dump($query->toSql()); // Show the SQL being generated
