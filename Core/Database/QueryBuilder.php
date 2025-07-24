@@ -25,6 +25,7 @@ class QueryBuilder
     protected $operation = 'select';
     protected $insertData = [];
     protected $updateData = [];
+    protected $groupResultsBy = null;
 
     public function __construct($table = null)
     {
@@ -120,6 +121,18 @@ class QueryBuilder
         return $this;
     }
 
+
+    /**
+     * Group the result set into arrays by a column after fetching.
+     * @param string $column
+     * @return $this
+     */
+    public function groupResultsBy(string $column)
+    {
+        $this->groupResultsBy = $column;
+        return $this;
+    }
+
     public function groupByRef($column)
     {
         return $this->groupBy($column);
@@ -208,7 +221,15 @@ class QueryBuilder
         $sql = $this->buildSql();
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($this->bindings);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($this->groupResultsBy) {
+            $grouped = [];
+            foreach ($results as $row) {
+                $grouped[$row[$this->groupResultsBy]][] = $row;
+            }
+            return $grouped;
+        }
+        return $results;
     }
 
     public function find($id, $primaryKey = 'id')

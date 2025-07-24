@@ -13,8 +13,8 @@ class GalleryController extends AdminController
     {
         $gallery = Gallery::query()
             ->select(['id', 'image_url', 'title', 'created_at', 'image_type'])
-            ->groupBy('image_type')
             ->orderBy('created_at', 'desc')
+            ->groupResultsBy('image_type')
             ->get();
 
         $this->view->layout('admin');

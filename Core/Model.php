@@ -100,6 +100,16 @@ abstract class Model
         return static::newQuery()->groupBy($columns);
     }
 
+    // /**
+    //  * Chainable method to group result sets into arrays by a column after fetching.
+    //  * @param string $column
+    //  * @return QueryBuilder
+    //  */
+    // public static function groupResultsBy(string $column): QueryBuilder
+    // {
+    //     return static::newQuery()->groupResultsBy($column);
+    // }
+
     public static function having(string $column, string $operator, mixed $value): QueryBuilder
     {
         return static::newQuery()->having($column, $operator, $value);
