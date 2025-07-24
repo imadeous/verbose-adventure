@@ -87,7 +87,7 @@ class GalleryController extends AdminController
         $gallery->save();
         Notification::log('created', 'Gallery', $gallery->id, ['image' => $imagePath]);
         flash('success', 'Image uploaded and added to gallery.');
-        $this->redirect('/admin/gallery');
+        $this->redirect('/admin/gallery/index');
     }
 
     public function edit($id)
