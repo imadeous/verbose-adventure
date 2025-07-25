@@ -12,12 +12,21 @@
  */
 
 // Import necessary controller classes
-use App\Controllers\Admin\AdminController;
-use App\Controllers\App\HomeController;
 use App\Controllers\AuthController;
-use App\Controllers\Admin\UserController;
+
+use App\Controllers\App\HomeController;
 use App\Controllers\App\QuotesController;
 use App\Controllers\App\ContactController;
+
+use App\Controllers\Admin\AdminController;
+use App\Controllers\Admin\UserController as AdminUserController;
+use App\Controllers\Admin\ContactController as AdminContactController;
+use App\Controllers\Admin\ReviewsController as AdminReviewsController;
+use App\Controllers\Admin\ProductsController as AdminProductsController;
+use App\Controllers\Admin\QuotesController as AdminQuotesController;
+use App\Controllers\Admin\CategoriesController as AdminCategoriesController;
+use App\Controllers\Admin\TransactionController as AdminTransactionController;
+use App\Controllers\Admin\GalleryController as AdminGalleryController;
 
 // Middleware imports
 use App\Middleware\AuthMiddleware;
@@ -36,19 +45,20 @@ $router->post('/contact', [ContactController::class, 'store']);
 // Admin routes (protected by AuthMiddleware) => Login required
 $router->middleware([AuthMiddleware::class], function ($router) {
     $router->get('/admin', [AdminController::class, 'index']);
-    $router->resource('/admin/users', UserController::class)
+    $router->resource('/admin/users', AdminUserController::class)
         ->middleware(RoleMiddleware::class, ['create', 'store', 'destroy']);
-    $router->resource('/admin/contacts', \App\Controllers\Admin\ContactController::class);
-    $router->resource('/admin/quotes', \App\Controllers\Admin\QuotesController::class);
-    $router->resource('/admin/reviews', \App\Controllers\Admin\ReviewsController::class);
-    $router->resource('/admin/products', \App\Controllers\Admin\ProductsController::class);
+    $router->resource('/admin/contacts', AdminContactController::class);
+    $router->resource('/admin/quotes', AdminQuotesController::class);
+    $router->resource('/admin/reviews', AdminReviewsController::class);
+    $router->resource('/admin/products', AdminProductsController::class);
+    $router->resource('/admin/transactions', AdminTransactionController::class);
     // Product image upload routes
-    $router->get('/admin/products/{id}/addImage', [\App\Controllers\Admin\ProductsController::class, 'addImage']);
-    $router->post('/admin/products/{id}/addImage', [\App\Controllers\Admin\ProductsController::class, 'storeImage']);
-    $router->resource('/admin/categories', \App\Controllers\Admin\CategoriesController::class);
-    $router->resource('/admin/gallery', \App\Controllers\Admin\GalleryController::class);
+    $router->get('/admin/products/{id}/addImage', [AdminProductsController::class, 'addImage']);
+    $router->post('/admin/products/{id}/addImage', [AdminProductsController::class, 'storeImage']);
+    $router->resource('/admin/categories', AdminCategoriesController::class);
+    $router->resource('/admin/gallery', AdminGalleryController::class);
     // Admin user profile route
-    $router->get('/admin/profile', [UserController::class, 'profile']);
+    $router->get('/admin/profile', [AdminUserController::class, 'profile']);
     // $router->resource('/admin/events', EventController::class);
     $router->get('/logout', [AuthController::class, 'logout']);
     $router->post('/logout', [AuthController::class, 'logout']);
