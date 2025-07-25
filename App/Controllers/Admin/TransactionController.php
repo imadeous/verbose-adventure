@@ -13,6 +13,8 @@ class TransactionController extends AdminController
         $transactions = array_map(
             fn($row) => new Transaction($row),
             Transaction::query()
+                ->where('date', '>=', date('Y-m-01')) // Filter for current month
+                ->where('date', '<=', date('Y-m-t')) // Filter for current month
                 ->orderBy('created_at', 'desc')
                 ->get()
         );
