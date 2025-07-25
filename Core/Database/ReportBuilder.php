@@ -13,6 +13,7 @@ namespace Core\Database;
 //     ->generate();
 
 class ReportBuilder extends QueryBuilder
+
 {
     protected ?string $startDate = null;
     protected ?string $endDate = null;
@@ -145,6 +146,20 @@ class ReportBuilder extends QueryBuilder
     {
         $alias = $alias ?? "avg_{$column}";
         $this->aggregates[] = "AVG(`{$column}`) AS `{$alias}`";
+        $this->columnAliases[$alias] = ucwords(str_replace('_', ' ', $alias));
+        return $this;
+    }
+
+    /**
+     * Add a COUNT aggregate for a column.
+     *
+     * @param string $column
+     * @param string|null $alias
+     * @return static
+     */
+    public function withCount(string $column = '*', ?string $alias = 'count'): static
+    {
+        $this->aggregates[] = "COUNT({$column}) AS `{$alias}`";
         $this->columnAliases[$alias] = ucwords(str_replace('_', ' ', $alias));
         return $this;
     }

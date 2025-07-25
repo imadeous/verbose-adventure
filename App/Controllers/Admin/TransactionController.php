@@ -21,7 +21,8 @@ class TransactionController extends AdminController
         $report = ReportBuilder::build('transactions')
             ->forPeriod('2025-01-01', '2025-12-31')
             ->withSum('amount', 'Total')
-            ->withAverage('amount', 'Average Amount')
+            ->withAverage('amount', 'Average')
+            ->withCount('id', 'Total Transactions')
             ->generate('My Report Title');
 
         $this->view->layout('admin');
