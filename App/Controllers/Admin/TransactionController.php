@@ -50,8 +50,12 @@ class TransactionController extends AdminController
         // Create the transaction
         $transaction = new Transaction($data);
         $newId = $transaction->save();
-        // Manual debug output to .logs/error_log_craftophile_shop
-        $logFile = __DIR__ . '/../../../public/logs/error_log_craftophile_shop';
+        // Manual debug output to logs/error_log_craftophile_shop at project root
+        $logDir = __DIR__ . '/../../../logs';
+        if (!is_dir($logDir)) {
+            mkdir($logDir, 0777, true);
+        }
+        $logFile = $logDir . '/error_log_craftophile_shop';
         file_put_contents($logFile, date('Y-m-d H:i:s') . " Transaction save() returned ID: " . print_r($newId, true) . "\n", FILE_APPEND);
         file_put_contents($logFile, date('Y-m-d H:i:s') . " Transaction attributes after save: " . print_r($transaction->toArray(), true) . "\n", FILE_APPEND);
         if ($newId) {
