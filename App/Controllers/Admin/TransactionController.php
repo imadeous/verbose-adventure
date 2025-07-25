@@ -23,6 +23,7 @@ class TransactionController extends AdminController
             ->daily()
             ->withSum('amount', 'Total')
             ->withMax('amount', 'Max Amount')
+            ->withMin('amount', 'Min Amount')
             ->withAverage('amount', 'Average')
             ->withCount('*', 'Total Transactions')
             ->generate('My Report Title');
