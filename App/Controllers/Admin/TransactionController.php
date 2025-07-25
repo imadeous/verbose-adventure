@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\Admin\AdminController;
 use App\Models\Transaction;
+use Core\Database\ReportBuilder;
 
 class TransactionController extends AdminController
 {
@@ -15,9 +16,19 @@ class TransactionController extends AdminController
                 ->orderBy('created_at', 'desc')
                 ->get()
         );
+        $transactions_reported = ReportBuilder::build('transactions')
+            ->forPeriod('2024-01-01', '2024-12-31')
+            ->monthly()
+            ->groupByUser()
+            ->withSum('amount')
+            ->withAverage('amount')
+            ->withCount()
+            ->setTitle('Monthly Sales Report')
+            ->generate();
         $this->view->layout('admin');
         $this->view('admin/transactions/index', [
-            'transactions' => $transactions
+            'transactions' => $transactions,
+            'transactions_reported' => $transactions_reported
         ]);
     }
 
