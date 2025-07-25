@@ -13,9 +13,6 @@ namespace Core\Database;
 //     ->generate();
 
 class ReportBuilder extends QueryBuilder
-
-
-
 {
     protected ?string $startDate = null;
     protected ?string $endDate = null;
@@ -36,6 +33,28 @@ class ReportBuilder extends QueryBuilder
     {
         return new static($table, $dateColumn);
     }
+
+    public function generate(?string $title = null)
+    {
+        if ($title !== null) {
+            $this->reportTitle = $title;
+        }
+        // Use aggregates if set, otherwise select all
+        $selects = !empty($this->aggregates) ? $this->aggregates : ['*'];
+        $this->columns = [];
+        parent::select($selects);
+        $results = parent::get();
+        return [
+            'title' => $this->reportTitle,
+            'period' => [
+                'from' => $this->startDate,
+                'to' => $this->endDate,
+            ],
+            'columns' => $this->columnAliases,
+            'data' => $results,
+        ];
+    }
+
 
     public function forPeriod(string $start, string $end): static
     {
