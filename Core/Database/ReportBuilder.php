@@ -24,7 +24,6 @@ class ReportBuilder extends QueryBuilder
     protected string $dateColumn = 'date'; // Default date column
     protected array $periodSelects = [];
     protected array $selects = ['*']; // Default to select all columns
-    protected array $columns = [];
     protected array $groups = [];
     protected ?string $reportType = null; // e.g., 'summary', 'detailed'
     protected ?string $reportFormat = null; // e.g., 'json', 'csv', 'html'
