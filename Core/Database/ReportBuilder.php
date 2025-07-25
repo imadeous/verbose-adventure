@@ -23,6 +23,8 @@ class ReportBuilder extends QueryBuilder
     protected array $columnAliases = [];
     protected string $dateColumn = 'date'; // Default date column
     protected array $periodSelects = [];
+    protected array $selects = ['*']; // Default to select all columns
+    protected array $columns = [];
     protected array $groups = [];
     protected ?string $reportType = null; // e.g., 'summary', 'detailed'
     protected ?string $reportFormat = null; // e.g., 'json', 'csv', 'html'
@@ -50,10 +52,12 @@ class ReportBuilder extends QueryBuilder
         if (!empty($this->groups)) {
             // Grouped report: only period and aggregate columns
             $selects = array_merge($this->periodSelects, $this->aggregates);
+            $this->columns = [];
             parent::select($selects);
             parent::groupBy($this->groups);
         } else {
             // Non-grouped: select all columns (default QueryBuilder behavior)
+            $this->columns = [];
             parent::select(['*']);
         }
 
