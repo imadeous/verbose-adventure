@@ -223,6 +223,7 @@ class QueryBuilder
 
     public function get()
     {
+        $this->bindings = []; // Reset bindings before building SQL
         $sql = $this->buildSql();
         // Debug output
         var_dump('SQL:', $sql, 'Bindings:', $this->bindings);
