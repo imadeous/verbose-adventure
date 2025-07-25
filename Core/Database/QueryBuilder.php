@@ -19,6 +19,7 @@ class QueryBuilder
     protected $limit;
     protected $offset;
     protected $groupBy = [];
+    protected $groups = [];
     protected $having = [];
     protected $joins = [];
     protected $aliases = [];
@@ -316,9 +317,15 @@ class QueryBuilder
                 $sql .= implode(' AND ', $conditions);
             }
 
+            $groupCols = [];
             if (!empty($this->groupBy)) {
-                $groupByCols = is_array($this->groupBy) ? implode(', ', $this->groupBy) : $this->groupBy;
-                $sql .= ' GROUP BY ' . $groupByCols;
+                $groupCols = is_array($this->groupBy) ? $this->groupBy : [$this->groupBy];
+            }
+            if (property_exists($this, 'groups') && !empty($this->groups)) {
+                $groupCols = array_merge($groupCols, $this->groups);
+            }
+            if (!empty($groupCols)) {
+                $sql .= ' GROUP BY ' . implode(', ', $groupCols);
             }
 
             if (!empty($this->having)) {
