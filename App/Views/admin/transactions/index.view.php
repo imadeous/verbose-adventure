@@ -5,6 +5,20 @@
             <a href="<?= url('admin/transactions/create') ?>" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-blue-700 transition">Add Transaction</a>
         <?php endif; ?>
     </div>
+    <?php if (!empty($report['data'])): ?>
+        <div class="flex flex-wrap gap-4 my-8">
+            <?php foreach ($report['columns'] as $col => $label): ?>
+                <div class="bg-white rounded-lg border border-blue-200 px-4 py-3 flex flex-col items-center min-w-[120px]">
+                    <div class="text-xs text-blue-500 mb-1"><?= htmlspecialchars($label) ?></div>
+                    <div class="text-lg font-bold text-blue-900">
+                        <?= htmlspecialchars($report['data'][0][$col] ?? '-') ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php else: ?>
+        <div class="text-center text-blue-400 py-6">No report data available.</div>
+    <?php endif; ?>
     <table class="min-w-full bg-white rounded-xl text-sm">
         <thead>
             <tr>
@@ -43,20 +57,4 @@
             <?php endif; ?>
         </tbody>
     </table>
-    <?php if (!empty($report['data'])): ?>
-        <?php foreach ($report['data'] as $row): ?>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-8">
-                <?php foreach ($report['columns'] as $col => $label): ?>
-                    <div class="bg-white rounded-xl shadow border border-blue-200 p-6 flex flex-col items-center justify-center">
-                        <div class="text-xs font-semibold text-blue-500 uppercase tracking-wide mb-2"><?= htmlspecialchars($label) ?></div>
-                        <div class="text-2xl font-bold text-blue-900">
-                            <?= htmlspecialchars($row[$col] ?? '-') ?>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <div class="col-span-full text-center text-blue-400 py-8">No report data available.</div>
-    <?php endif; ?>
 </div>
