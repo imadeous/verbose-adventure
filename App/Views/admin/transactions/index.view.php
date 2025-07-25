@@ -46,9 +46,34 @@
     <div>
         <?php if (isset($report) && !empty($report)): ?>
             <h2 class="text-xl font-semibold text-blue-900 mt-8 mb-4">Reported Transactions</h2>
-            <pre>
-                <?php print_r($report); ?>
-            </pre>
+            <table class="min-w-full bg-white rounded-xl text-sm mb-8">
+                <thead>
+                    <tr>
+                        <?php foreach ($report['columns'] as $key => $label): ?>
+                            <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">
+                                <?= htmlspecialchars($label) ?>
+                            </th>
+                        <?php endforeach; ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (empty($report['data'])): ?>
+                        <tr>
+                            <td colspan="<?= count($report['columns']) ?>" class="px-4 py-4 text-center text-blue-400">No report data found.</td>
+                        </tr>
+                    <?php else: ?>
+                        <?php foreach ($report['data'] as $row): ?>
+                            <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
+                                <?php foreach (array_keys($report['columns']) as $col): ?>
+                                    <td class="px-4 py-2 whitespace-nowrap">
+                                        <?= isset($row[$col]) ? htmlspecialchars($row[$col]) : '-' ?>
+                                    </td>
+                                <?php endforeach; ?>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </tbody>
+            </table>
         <?php endif; ?>
     </div>
 </div>
