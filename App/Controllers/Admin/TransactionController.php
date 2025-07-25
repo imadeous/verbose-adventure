@@ -49,12 +49,11 @@ class TransactionController extends AdminController
 
         // Set defaults and sanitize
         $data['type'] = isset($data['type']) && $data['type'] ? $data['type'] : 'expense';
-        $data['category_id'] = isset($data['category_id']) && $data['category_id'] ? $data['category_id'] : 'general';
         $data['amount'] = isset($data['amount']) ? floatval($data['amount']) : 0.0;
         $data['created_at'] = date('Y-m-d H:i:s');
 
         // Remove empty optional fields
-        foreach (['quote_id', 'promo_code_id', 'date', 'description'] as $field) {
+        foreach (['quote_id', 'promo_code_id', 'date', 'description', 'category_id'] as $field) {
             if (isset($data[$field]) && $data[$field] === '') {
                 unset($data[$field]);
             }
