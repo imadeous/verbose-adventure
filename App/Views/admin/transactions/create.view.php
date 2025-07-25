@@ -28,8 +28,8 @@
                 <option value="">Select Category</option>
                 <?php if (!empty($categories)): ?>
                     <?php foreach ($categories as $category): ?>
-                        <option value="<?= htmlspecialchars($category['id']) ?>">
-                            <?= htmlspecialchars($category['name']) ?>
+                        <option value="<?= htmlspecialchars($category->id) ?>">
+                            <?= htmlspecialchars($category->name) ?>
                         </option>
                     <?php endforeach; ?>
                 <?php endif; ?>
@@ -49,8 +49,8 @@
                 <select name="quote_id" class="w-full border border-blue-300 rounded-lg px-3 py-2">
                     <option value="">Select Quote</option>
                     <?php foreach ($quotes as $quote): ?>
-                        <option value="<?= htmlspecialchars($quote['id']) ?>">
-                            <?= htmlspecialchars($quote['reference'] ?? $quote['id']) ?>
+                        <option value="<?= htmlspecialchars($quote->id) ?>">
+                            <?= htmlspecialchars($quote->reference ?? $quote->id) ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
