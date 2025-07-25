@@ -44,19 +44,20 @@
         </tbody>
     </table>
     <table>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-8">
-            <?php if (!empty($report['data'])): ?>
-                <?php $row = $report['data'][0] ?? []; ?>
-                <?php foreach ($report['columns'] as $col => $label): ?>
-                    <div class="bg-white rounded-xl shadow border border-blue-200 p-6 flex flex-col items-center justify-center">
-                        <div class="text-xs font-semibold text-blue-500 uppercase tracking-wide mb-2"><?= htmlspecialchars($label) ?></div>
-                        <div class="text-2xl font-bold text-blue-900">
-                            <?= htmlspecialchars($row[$col] ?? '-') ?>
+        <?php if (!empty($report['data'])): ?>
+            <?php foreach ($report['data'] as $row): ?>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-8">
+                    <?php foreach ($report['columns'] as $col => $label): ?>
+                        <div class="bg-white rounded-xl shadow border border-blue-200 p-6 flex flex-col items-center justify-center">
+                            <div class="text-xs font-semibold text-blue-500 uppercase tracking-wide mb-2"><?= htmlspecialchars($label) ?></div>
+                            <div class="text-2xl font-bold text-blue-900">
+                                <?= htmlspecialchars($row[$col] ?? '-') ?>
+                            </div>
                         </div>
-                    </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <div class="col-span-full text-center text-blue-400 py-8">No report data available.</div>
-            <?php endif; ?>
-        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <div class="col-span-full text-center text-blue-400 py-8">No report data available.</div>
+        <?php endif; ?>
 </div>
