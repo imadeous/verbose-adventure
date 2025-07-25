@@ -95,4 +95,9 @@
             </table>
         <?php endif; ?>
     </div>
+    <?php
+    if (!empty($report['debug'])) {
+        echo $report['debug'];
+    }
+    ?>
 </div>
