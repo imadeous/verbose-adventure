@@ -5,9 +5,23 @@
             <a href="<?= url('admin/transactions/create') ?>" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-blue-700 transition">Add Transaction</a>
             <?php // Debug output for report data to help diagnose grouping/aggregation issues 
             ?>
-            <pre class="bg-gray-100 p-4 text-xs text-blue-900 border border-blue-200 rounded mb-8">
-                <?php print_r($report); ?>
-            </pre>
+            <?php // Debug output for report data, SQL, and error 
+            ?>
+            <?php if (!empty($reportError)): ?>
+                <pre class="bg-red-100 p-4 text-xs text-red-900 border border-red-200 rounded mb-8">
+                    Error: <?= htmlspecialchars($reportError) ?>
+                </pre>
+            <?php endif; ?>
+            <?php if (!empty($reportSql)): ?>
+                <pre class="bg-gray-100 p-4 text-xs text-blue-900 border border-blue-200 rounded mb-8">
+                    SQL: <?= htmlspecialchars($reportSql) ?>
+                </pre>
+            <?php endif; ?>
+            <?php if (!empty($report)): ?>
+                <pre class="bg-gray-100 p-4 text-xs text-blue-900 border border-blue-200 rounded mb-8">
+                    <?php print_r($report); ?>
+                </pre>
+            <?php endif; ?>
         <?php endif; ?>
     </div>
     <table class="min-w-full bg-white rounded-xl text-sm">
