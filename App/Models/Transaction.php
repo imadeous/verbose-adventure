@@ -18,4 +18,14 @@ class Transaction extends Model
         'date',
         'created_at'
     ];
+
+    protected $appends = [
+        'category_name'
+    ];
+
+    public function getCategoryNameAttribute(): ?string
+    {
+        $category = \App\Models\Category::find($this->category_id);
+        return $category ? $category->name : null;
+    }
 }
