@@ -42,7 +42,7 @@ class TransactionController extends AdminController
 
         // Set defaults and sanitize
         $data['type'] = isset($data['type']) && $data['type'] ? $data['type'] : 'expense';
-        $data['category'] = isset($data['category']) && $data['category'] ? $data['category'] : 'general';
+        $data['category_id'] = isset($data['category_id']) && $data['category_id'] ? $data['category_id'] : 'general';
         $data['amount'] = isset($data['amount']) ? floatval($data['amount']) : 0.0;
         $data['created_at'] = date('Y-m-d H:i:s');
 
