@@ -23,7 +23,7 @@ class TransactionController extends AdminController
             ->monthly()
             ->withSum('amount', 'Total')
             ->withAverage('amount', 'Average')
-            ->withCount('id', 'Total Transactions')
+            ->withCount('*', 'Total Transactions')
             ->generate('My Report Title');
 
         $this->view->layout('admin');
