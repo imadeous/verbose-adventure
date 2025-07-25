@@ -23,7 +23,7 @@ class ReportBuilder extends QueryBuilder
     protected array $columnAliases = [];
     protected string $dateColumn = 'date'; // Default date column
     protected string $groupByColumn = 'order_id'; // Default group by column
-    protected array $selects = [];
+    protected array $selects = ['*'];
     protected array $groups = [];
     protected ?string $reportType = null; // e.g., 'summary', 'detailed'
     protected ?string $reportFormat = null; // e.g., 'json', 'csv', 'html'
