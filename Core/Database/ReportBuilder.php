@@ -47,19 +47,24 @@ class ReportBuilder extends QueryBuilder
      */
     public function generate(): array
     {
-        // Add period/group selects and aggregate columns to the select statement
+        // Only select period and aggregate columns if grouping is active
         $selects = [];
-        if (!empty($this->selects)) {
-            $selects = array_merge($selects, $this->selects);
-        }
-        if (!empty($this->aggregates)) {
-            $selects = array_merge($selects, $this->aggregates);
-        }
-        if (!empty($selects)) {
-            $this->select($selects);
-        }
         if (!empty($this->groups)) {
+            // Grouped report: only select period and aggregate columns
+            if (!empty($this->selects)) {
+                $selects = array_merge($selects, $this->selects);
+            }
+            if (!empty($this->aggregates)) {
+                $selects = array_merge($selects, $this->aggregates);
+            }
+            $this->select($selects);
             $this->groupBy($this->groups);
+        } else {
+            // Non-grouped: select all columns (default QueryBuilder behavior)
+            if (!empty($this->selects) || !empty($this->aggregates)) {
+                $selects = array_merge($selects, $this->selects, $this->aggregates);
+                $this->select($selects);
+            }
         }
 
         $results = $this->get();
