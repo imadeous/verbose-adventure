@@ -19,12 +19,9 @@ class TransactionController extends AdminController
 
         // Test ReportBuilder forPeriod method
         $reportBuilder = ReportBuilder::build('transactions');
-        $reportBuilder->forPeriod('2025-01-01', '2025-12-31');
-        $reportTest = [
-            'startDate' => $reportBuilder->startDate,
-            'endDate' => $reportBuilder->endDate,
-        ];
+        $reportBuilder = $reportBuilder->forPeriod('2025-01-01', '2025-12-31');
 
+        $reportTest = $reportBuilder->getStartDate() . ' to ' . $reportBuilder->getEndDate();
         $this->view->layout('admin');
         $this->view('admin/transactions/index', [
             'transactions' => $transactions,
