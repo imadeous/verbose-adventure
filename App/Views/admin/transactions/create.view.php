@@ -23,28 +23,28 @@
             </select>
         </div>
         <div>
-            <label class="block text-blue-700 font-semibold mb-1">Category</label>
-            <input type="text" name="category" class="w-full border border-blue-300 rounded-lg px-3 py-2" required>
+            <label class="block text-blue-700 font-semibold mb-1">Category (optional)</label>
+            <input type="text" name="category" class="w-full border border-blue-300 rounded-lg px-3 py-2">
         </div>
         <div>
             <label class="block text-blue-700 font-semibold mb-1">Amount</label>
             <input type="number" name="amount" step="0.01" class="w-full border border-blue-300 rounded-lg px-3 py-2" required>
         </div>
         <div>
-            <label class="block text-blue-700 font-semibold mb-1">Description</label>
+            <label class="block text-blue-700 font-semibold mb-1">Description (optional)</label>
             <input type="text" name="description" class="w-full border border-blue-300 rounded-lg px-3 py-2">
         </div>
         <div>
-            <label class="block text-blue-700 font-semibold mb-1">Quote ID</label>
+            <label class="block text-blue-700 font-semibold mb-1">Quote ID (optional)</label>
             <input type="number" name="quote_id" class="w-full border border-blue-300 rounded-lg px-3 py-2">
         </div>
         <div>
-            <label class="block text-blue-700 font-semibold mb-1">Promo Code ID</label>
+            <label class="block text-blue-700 font-semibold mb-1">Promo Code ID (optional)</label>
             <input type="number" name="promo_code_id" class="w-full border border-blue-300 rounded-lg px-3 py-2">
         </div>
         <div>
             <label class="block text-blue-700 font-semibold mb-1">Date</label>
-            <input type="date" name="date" class="w-full border border-blue-300 rounded-lg px-3 py-2">
+            <input type="date" name="date" class="w-full border border-blue-300 rounded-lg px-3 py-2" value="<?= date('Y-m-d') ?>" required>
         </div>
         <div class="flex justify-end">
             <button type="submit" class="bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold shadow border border-blue-700">Add Transaction</button>
