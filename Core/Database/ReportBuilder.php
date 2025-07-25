@@ -41,9 +41,9 @@ class ReportBuilder extends QueryBuilder
         }
         // Use aggregates if set, otherwise select all
         $selects = !empty($this->aggregates) ? $this->aggregates : ['*'];
-        $this->columns = [];
-        parent::select($selects);
-        $results = parent::get();
+        $this->columns = $selects;
+        $this->operation = 'select';
+        $results = $this->get();
         return [
             'title' => $this->reportTitle,
             'period' => [
