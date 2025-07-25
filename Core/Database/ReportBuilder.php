@@ -47,9 +47,19 @@ class ReportBuilder extends QueryBuilder
      */
     public function generate(): array
     {
-        // Add aggregate columns to the select statement
+        // Add period/group selects and aggregate columns to the select statement
+        $selects = [];
+        if (!empty($this->selects)) {
+            $selects = array_merge($selects, $this->selects);
+        }
         if (!empty($this->aggregates)) {
-            $this->select($this->aggregates);
+            $selects = array_merge($selects, $this->aggregates);
+        }
+        if (!empty($selects)) {
+            $this->select($selects);
+        }
+        if (!empty($this->groups)) {
+            $this->groupBy($this->groups);
         }
 
         $results = $this->get();
