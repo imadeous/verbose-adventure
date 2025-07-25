@@ -22,8 +22,7 @@ class ReportBuilder extends QueryBuilder
     protected array $labels = [];
     protected array $columnAliases = [];
     protected string $dateColumn = 'date'; // Default date column
-    protected string $groupByColumn = 'order_id'; // Default group by column
-    protected array $selects = [];
+    protected array $periodSelects = [];
     protected array $groups = [];
     protected ?string $reportType = null; // e.g., 'summary', 'detailed'
     protected ?string $reportFormat = null; // e.g., 'json', 'csv', 'html'
@@ -47,26 +46,18 @@ class ReportBuilder extends QueryBuilder
      */
     public function generate(): array
     {
-        // Completely rewritten: select only period and aggregate columns for grouped reports
+        // Build select list for QueryBuilder
         if (!empty($this->groups)) {
-            // Build select list: period columns (from selects, excluding '*') + aggregates
-            $periodSelects = array_filter($this->selects, function ($s) {
-                return $s !== '*';
-            });
-            $selects = array_merge($periodSelects, $this->aggregates);
-            $this->select($selects);
-            $this->groupBy($this->groups);
+            // Grouped report: only period and aggregate columns
+            $selects = array_merge($this->periodSelects, $this->aggregates);
+            parent::select($selects);
+            parent::groupBy($this->groups);
         } else {
             // Non-grouped: select all columns (default QueryBuilder behavior)
-            if (!empty($this->selects) && $this->selects !== ['*']) {
-                $selects = array_merge($this->selects, $this->aggregates);
-                $this->select($selects);
-            } else {
-                $this->select(['*']);
-            }
+            parent::select(['*']);
         }
 
-        $results = $this->get();
+        $results = parent::get();
 
         return [
             'title' => $this->reportTitle,
@@ -284,9 +275,7 @@ class ReportBuilder extends QueryBuilder
 
         $alias = "period_{$unit}";
         $expression = $periodExpressions[$unit];
-        // Remove '*' from selects if present
-        $this->selects = array_filter($this->selects, fn($s) => $s !== '*');
-        $this->selects[] = "{$expression} AS {$alias}";
+        $this->periodSelects[] = "{$expression} AS {$alias}";
         $this->groups[] = $expression; // <-- Use expression, not alias
         $this->columnAliases[$alias] = ucfirst($unit);
 
