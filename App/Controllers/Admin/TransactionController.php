@@ -49,8 +49,12 @@ class TransactionController extends AdminController
 
         // Create the transaction
         $transaction = new Transaction($data);
-        if ($transaction->save()) {
-            flash('success', 'Transaction created successfully.');
+        $newId = $transaction->save();
+        // Debug output
+        error_log('Transaction save() returned ID: ' . print_r($newId, true));
+        error_log('Transaction attributes after save: ' . print_r($transaction->toArray(), true));
+        if ($newId) {
+            flash('success', 'Transaction created successfully. ID: ' . $newId);
             $this->redirect('/admin/transactions');
         } else {
             flash('error', 'Failed to create transaction. Please try again.');
