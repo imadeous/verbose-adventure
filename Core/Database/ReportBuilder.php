@@ -22,7 +22,6 @@ class ReportBuilder extends QueryBuilder
     protected array $columnAliases = [];
     protected string $dateColumn = 'date';
     protected array $periodSelects = [];
-    protected array $groups = [];
     protected ?string $reportTitle = 'Report';
 
     /**
