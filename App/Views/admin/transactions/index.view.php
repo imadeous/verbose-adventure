@@ -46,24 +46,9 @@
     <div>
         <?php if (isset($transactions_reported) && !empty($transactions_reported)): ?>
             <h2 class="text-xl font-semibold text-blue-900 mt-8 mb-4">Reported Transactions</h2>
-            <table class="min-w-full bg-white rounded-xl text-sm">
-                <thead>
-                    <tr>
-                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Type</th>
-                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Category ID</th>
-                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Total Amount</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($transactions_reported as $report): ?>
-                        <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
-                            <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($report->type) ?></td>
-                            <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($report->category_id) ?></td>
-                            <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($report->total_amount) ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+            <pre>
+                <?php print_r($transactions_reported); ?>
+            </pre>
         <?php endif; ?>
     </div>
 </div>
