@@ -1,5 +1,10 @@
 <div class="max-w-5xl mx-auto">
     <div class="flex justify-between items-center mb-6">
+        <?php if ($report['debug'] ?? false): ?>
+            <div class="text-red-500 text-sm mb-4">
+                <?= htmlspecialchars($report['debug']) ?>
+            </div>
+        <?php endif; ?>
         <h1 class="text-2xl font-bold text-blue-900">Transactions</h1>
         <?php if (App\Helpers\Auth::isAdmin()): ?>
             <a href="<?= url('admin/transactions/create') ?>" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-blue-700 transition">Add Transaction</a>
@@ -96,6 +101,6 @@
         <?php endif; ?>
     </div>
     <?php
-    var_dump($report);
+
     ?>
 </div>
