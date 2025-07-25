@@ -115,7 +115,14 @@ class QueryBuilder
 
     public function groupBy(...$columns)
     {
-        $this->groupBy = array_merge($this->groupBy, $columns);
+        // Flatten any nested arrays and merge
+        foreach ($columns as $col) {
+            if (is_array($col)) {
+                $this->groupBy = array_merge($this->groupBy, $col);
+            } else {
+                $this->groupBy[] = $col;
+            }
+        }
         return $this;
     }
 
@@ -307,7 +314,8 @@ class QueryBuilder
             }
 
             if (!empty($this->groupBy)) {
-                $sql .= ' GROUP BY ' . implode(', ', $this->groupBy);
+                $groupByCols = is_array($this->groupBy) ? implode(', ', $this->groupBy) : $this->groupBy;
+                $sql .= ' GROUP BY ' . $groupByCols;
             }
 
             if (!empty($this->having)) {
