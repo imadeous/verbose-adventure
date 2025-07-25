@@ -1,9 +1,9 @@
 <div class="max-w-5xl mx-auto">
     <div class="flex justify-between items-center mb-6">
         <?php if ($report['debug'] ?? false): ?>
-            <div class="text-red-500 text-sm mb-4">
+            <pre>
                 <?= htmlspecialchars($report['debug']) ?>
-            </div>
+            </pre>
         <?php endif; ?>
         <h1 class="text-2xl font-bold text-blue-900">Transactions</h1>
         <?php if (App\Helpers\Auth::isAdmin()): ?>
