@@ -31,19 +31,10 @@ class TransactionController extends AdminController
     }
     public function store()
     {
-        var_dump($_POST); // Debugging line to check POST data
-        die('Store method called'); // Temporary line to check if this method is reached
-        // --- Transaction Creation ---
         $data = $_POST;
-        $logDir = __DIR__ . '/../../../logs';
-        if (!is_dir($logDir)) {
-            mkdir($logDir, 0777, true);
-        }
-        $logFile = $logDir . '/error_log_craftophile_shop';
 
         // CSRF check
         if (empty($data['_csrf']) || !\App\Helpers\Csrf::check($data['_csrf'])) {
-            file_put_contents($logFile, date('Y-m-d H:i:s') . " [ERROR] Invalid or missing CSRF token\n", FILE_APPEND);
             flash('error', 'Invalid or missing CSRF token. Please try again.');
             $this->redirect('/admin/transactions/create');
             return;
@@ -66,15 +57,10 @@ class TransactionController extends AdminController
         $transaction = new Transaction($data);
         $newId = $transaction->save();
 
-        // Log result
-        file_put_contents($logFile, date('Y-m-d H:i:s') . " [INFO] Transaction save() returned ID: " . print_r($newId, true) . "\n", FILE_APPEND);
-        file_put_contents($logFile, date('Y-m-d H:i:s') . " [INFO] Transaction attributes after save: " . print_r($transaction->toArray(), true) . "\n", FILE_APPEND);
-
         if ($newId) {
             flash('success', 'Transaction created successfully. ID: ' . $newId);
             $this->redirect('/admin/transactions');
         } else {
-            file_put_contents($logFile, date('Y-m-d H:i:s') . " [ERROR] Failed to create transaction\n", FILE_APPEND);
             flash('error', 'Failed to create transaction. Please try again.');
             $this->redirect('/admin/transactions/create');
         }
