@@ -20,6 +20,10 @@ class TransactionController extends AdminController
 
     public function create()
     {
+        $categories = \App\Models\Category::all();
+        $quotes = \App\Models\Quote::all();
+        $promo_codes = NULL;
+
         $this->view->layout('admin');
         $this->view('admin/transactions/create', [
             'breadcrumb' => [
@@ -27,6 +31,9 @@ class TransactionController extends AdminController
                 ['label' => 'Transactions', 'url' => url('/admin/transactions')],
                 ['label' => 'Create'],
             ],
+            'categories' => $categories,
+            'quotes' => $quotes,
+            'promo_codes' => $promo_codes,
         ]);
     }
     public function store()

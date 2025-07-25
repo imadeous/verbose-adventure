@@ -24,7 +24,16 @@
         </div>
         <div>
             <label class="block text-blue-700 font-semibold mb-1">Category (optional)</label>
-            <input type="text" name="category_id" class="w-full border border-blue-300 rounded-lg px-3 py-2">
+            <select name="category_id" class="w-full border border-blue-300 rounded-lg px-3 py-2">
+                <option value="">Select Category</option>
+                <?php if (!empty($categories)): ?>
+                    <?php foreach ($categories as $category): ?>
+                        <option value="<?= htmlspecialchars($category['id']) ?>">
+                            <?= htmlspecialchars($category['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
         </div>
         <div>
             <label class="block text-blue-700 font-semibold mb-1">Amount</label>
@@ -34,14 +43,32 @@
             <label class="block text-blue-700 font-semibold mb-1">Description (optional)</label>
             <input type="text" name="description" class="w-full border border-blue-300 rounded-lg px-3 py-2">
         </div>
-        <div>
-            <label class="block text-blue-700 font-semibold mb-1">Quote ID (optional)</label>
-            <input type="number" name="quote_id" class="w-full border border-blue-300 rounded-lg px-3 py-2">
-        </div>
-        <div>
-            <label class="block text-blue-700 font-semibold mb-1">Promo Code ID (optional)</label>
-            <input type="number" name="promo_code_id" class="w-full border border-blue-300 rounded-lg px-3 py-2">
-        </div>
+        <?php if (!empty($quotes)): ?>
+            <div>
+                <label class="block text-blue-700 font-semibold mb-1">Quote (optional)</label>
+                <select name="quote_id" class="w-full border border-blue-300 rounded-lg px-3 py-2">
+                    <option value="">Select Quote</option>
+                    <?php foreach ($quotes as $quote): ?>
+                        <option value="<?= htmlspecialchars($quote['id']) ?>">
+                            <?= htmlspecialchars($quote['reference'] ?? $quote['id']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        <?php endif; ?>
+        <?php if (!empty($promo_codes)): ?>
+            <div>
+                <label class="block text-blue-700 font-semibold mb-1">Promo Code (optional)</label>
+                <select name="promo_code_id" class="w-full border border-blue-300 rounded-lg px-3 py-2">
+                    <option value="">Select Promo Code</option>
+                    <?php foreach ($promo_codes as $promo): ?>
+                        <option value="<?= htmlspecialchars($promo['id']) ?>">
+                            <?= htmlspecialchars($promo['code'] ?? $promo['id']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        <?php endif; ?>
         <div>
             <label class="block text-blue-700 font-semibold mb-1">Date</label>
             <input type="date" name="date" class="w-full border border-blue-300 rounded-lg px-3 py-2" value="<?= date('Y-m-d') ?>" required>
