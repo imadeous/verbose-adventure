@@ -51,9 +51,8 @@ class ReportBuilder extends QueryBuilder
         if (!empty($this->groups)) {
             // Grouped report: only period and aggregate columns
             $selects = array_merge($this->periodSelects, $this->aggregates);
-            // If select list is empty, default to ['*'] to avoid SQL error
             if (empty($selects)) {
-                $selects = ['*'];
+                throw new \Exception("ReportBuilder: No period or aggregate columns specified for grouped report. Add at least one aggregate (e.g., withCount, withSum) or period column.");
             }
             $this->columns = [];
             parent::select($selects);
