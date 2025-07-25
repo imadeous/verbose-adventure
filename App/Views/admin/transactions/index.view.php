@@ -11,7 +11,7 @@
                 <div class="bg-white rounded-lg border border-blue-200 px-4 py-3 flex flex-col items-center min-w-[120px]">
                     <div class="text-xs text-blue-500 mb-1"><?= htmlspecialchars($label) ?></div>
                     <div class="text-lg font-bold text-blue-900">
-                        <?= htmlspecialchars($report['data'][0][$col] ?? '-') ?>
+                        <?= number_format(htmlspecialchars($report['data'][0][$col] ?? '-'), 2) ?>
                     </div>
                 </div>
             <?php endforeach; ?>
