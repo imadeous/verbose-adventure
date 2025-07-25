@@ -2,11 +2,11 @@
 
 namespace App\Controllers\Admin;
 
-use App\Controllers\Admin\AdminController;
 use App\Models\Transaction;
+use Core\AdminControllerBase;
 use Core\Database\ReportBuilder;
 
-class TransactionController extends AdminController
+class TransactionController extends AdminControllerBase
 {
     public function index()
     {
@@ -24,10 +24,10 @@ class TransactionController extends AdminController
             ->forPeriod(date('Y-m-01'), date('Y-m-t')) // Aggregate for the current month
             ->monthly()
             ->withSum('amount', 'Total')
-            // ->withMax('amount', 'Max')
-            // ->withMin('amount', 'Min')
-            // ->withAverage('amount', 'Average')
-            // ->withCount('*', 'Transactions')
+            ->withMax('amount', 'Max')
+            ->withMin('amount', 'Min')
+            ->withAverage('amount', 'Average')
+            ->withCount('*', 'Transactions')
             ->generate('My Report Title');
 
         $this->view->layout('admin');
