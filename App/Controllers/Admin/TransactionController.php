@@ -24,10 +24,10 @@ class TransactionController extends AdminController
             ->forPeriod(date('Y-m-01'), date('Y-m-t')) // Aggregate for the current month
             ->monthly()
             ->withSum('amount', 'Total')
-            ->withMax('amount', 'Max Amount')
-            ->withMin('amount', 'Min Amount')
+            ->withMax('amount', 'Max')
+            ->withMin('amount', 'Min')
             ->withAverage('amount', 'Average')
-            ->withCount('*', 'Total Transactions')
+            ->withCount('*', 'Transactions')
             ->generate('My Report Title');
 
         $this->view->layout('admin');
