@@ -47,4 +47,7 @@
 
         <?php var_dump($report['data']); ?>
     </pre>
+    <pre>
+        <?php var_dump($transactions); ?>
+    </pre>
 </div>
