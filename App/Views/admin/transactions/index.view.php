@@ -6,7 +6,7 @@
         <?php endif; ?>
     </div>
     <?php if (!empty($report['data'])): ?>
-        <div class="flex flex-wrap gap-4 my-8">
+        <div class="flex flex-wrap justify-between w-full gap-4 my-8">
             <?php foreach ($report['columns'] as $col => $label): ?>
                 <div class="bg-white rounded-lg border border-blue-200 px-4 py-3 flex flex-col items-center min-w-[120px]">
                     <div class="text-xs text-blue-500 mb-1"><?= htmlspecialchars($label) ?></div>
