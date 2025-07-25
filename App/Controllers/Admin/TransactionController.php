@@ -16,7 +16,7 @@ class TransactionController extends AdminController
                 ->orderBy('created_at', 'desc')
                 ->get()
         );
-        $transactions_reported = ReportBuilder::build('transactions')
+        $report = ReportBuilder::build('transactions')
             ->forPeriod('2025-01-01', '2025-12-31')
             ->monthly()
             ->withSum('amount')
@@ -27,7 +27,7 @@ class TransactionController extends AdminController
         $this->view->layout('admin');
         $this->view('admin/transactions/index', [
             'transactions' => $transactions,
-            'transactions_reported' => $transactions_reported
+            'report' => $report
         ]);
     }
 

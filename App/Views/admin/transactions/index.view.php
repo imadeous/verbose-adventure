@@ -44,10 +44,10 @@
         </tbody>
     </table>
     <div>
-        <?php if (isset($transactions_reported) && !empty($transactions_reported)): ?>
+        <?php if (isset($report) && !empty($report)): ?>
             <h2 class="text-xl font-semibold text-blue-900 mt-8 mb-4">Reported Transactions</h2>
             <pre>
-                <?php print_r($transactions_reported); ?>
+                <?php print_r($report); ?>
             </pre>
         <?php endif; ?>
     </div>
