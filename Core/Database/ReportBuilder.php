@@ -14,6 +14,7 @@ namespace Core\Database;
 
 class ReportBuilder extends QueryBuilder
 
+
 {
     protected ?string $startDate = null;
     protected ?string $endDate = null;
@@ -161,6 +162,27 @@ class ReportBuilder extends QueryBuilder
     {
         $this->aggregates[] = "COUNT({$column}) AS `{$alias}`";
         $this->columnAliases[$alias] = ucwords(str_replace('_', ' ', $alias));
+        return $this;
+    }
+
+    /**
+     * Add a GROUP BY clause.
+     *
+     * @param string $column
+     * @return static
+     */
+    /**
+     * Group results by month using the date column.
+     *
+     * @param string|null $alias
+     * @return static
+     */
+    public function monthly(?string $alias = 'period_month')
+    {
+        $expression = "DATE_FORMAT({$this->dateColumn}, '%Y-%m')";
+        $this->periodSelects[] = "$expression AS {$alias}";
+        $this->groups[] = $expression;
+        $this->columnAliases[$alias] = 'Month';
         return $this;
     }
 }

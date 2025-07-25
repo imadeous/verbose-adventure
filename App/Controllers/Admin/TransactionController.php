@@ -20,6 +20,7 @@ class TransactionController extends AdminController
         // Test ReportBuilder forPeriod method
         $report = ReportBuilder::build('transactions')
             ->forPeriod('2025-01-01', '2025-12-31')
+            ->monthly()
             ->withSum('amount', 'Total')
             ->withAverage('amount', 'Average')
             ->withCount('id', 'Total Transactions')
