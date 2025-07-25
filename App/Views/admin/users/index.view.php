@@ -28,6 +28,7 @@
                             <td class="px-4 py-2 whitespace-nowrap">
                                 <div class="font-semibold text-blue-900"><?= e($user->username) ?></div>
                                 <div class="text-blue-500 text-xs"><?= e($user->email) ?></div>
+                                <span class="text-blue-500 text-xs"><?= e($user->created_at) ?></span>
                             </td>
                             <td class="px-4 py-2 whitespace-nowrap text-blue-700"><?= e($user->role) ?></td>
                             <td class="px-4 py-2 whitespace-nowrap flex items-center space-x-2">
