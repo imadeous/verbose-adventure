@@ -51,6 +51,7 @@ class ReportBuilder extends QueryBuilder
         if (!empty($this->groups)) {
             // Grouped report: only period and aggregate columns
             $selects = array_merge($this->periodSelects, $this->aggregates);
+            var_dump(['generate', 'selects' => $selects, 'periodSelects' => $this->periodSelects, 'aggregates' => $this->aggregates]);
             if (empty($selects)) {
                 throw new \Exception("ReportBuilder: No period or aggregate columns specified for grouped report. Add at least one aggregate (e.g., withCount, withSum) or period column.");
             }
@@ -126,6 +127,7 @@ class ReportBuilder extends QueryBuilder
         $alias = $alias ?? "sum_{$column}";
         $this->aggregates[] = "SUM(`{$column}`) AS `{$alias}`";
         $this->columnAliases[$alias] = ucwords(str_replace('_', ' ', $alias));
+        var_dump(['withSum', 'periodSelects' => $this->periodSelects, 'aggregates' => $this->aggregates]);
         return $this;
     }
 
@@ -141,6 +143,7 @@ class ReportBuilder extends QueryBuilder
         $alias = $alias ?? "avg_{$column}";
         $this->aggregates[] = "AVG(`{$column}`) AS `{$alias}`";
         $this->columnAliases[$alias] = ucwords(str_replace('_', ' ', $alias));
+        var_dump(['withAverage', 'periodSelects' => $this->periodSelects, 'aggregates' => $this->aggregates]);
         return $this;
     }
 
@@ -185,6 +188,7 @@ class ReportBuilder extends QueryBuilder
     {
         $this->aggregates[] = "COUNT({$column}) AS `{$alias}`";
         $this->columnAliases[$alias] = ucwords(str_replace('_', ' ', $alias));
+        var_dump(['withCount', 'periodSelects' => $this->periodSelects, 'aggregates' => $this->aggregates]);
         return $this;
     }
 
@@ -286,7 +290,7 @@ class ReportBuilder extends QueryBuilder
         $this->periodSelects[] = "{$expression} AS {$alias}";
         $this->groups[] = $expression; // <-- Use expression, not alias
         $this->columnAliases[$alias] = ucfirst($unit);
-
+        var_dump(['groupByPeriod', 'periodSelects' => $this->periodSelects, 'aggregates' => $this->aggregates]);
         return $this;
     }
 
