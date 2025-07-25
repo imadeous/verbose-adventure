@@ -24,7 +24,7 @@
                         <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction['category'] ?? '-') ?></td>
                         <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction['amount'] ?? '-') ?></td>
                         <td class="px-4 py-2 whitespace-nowrap">
-                            <a href="<?= url('admin/quotes/show/' . $transaction['quote_id']) ?>"><?= htmlspecialchars($transaction['quote_id'] ?? '-') ?></a>
+                            <a href="<?= url('admin/quotes/' . $transaction['quote_id']) ?>"><?= htmlspecialchars($transaction['quote_id'] ?? '-') ?></a>
                         </td>
                         <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction['promo_code_id'] ?? '-') ?></td>
                         <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction['date'] ?? '-') ?></td>
