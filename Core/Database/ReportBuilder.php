@@ -15,6 +15,7 @@ namespace Core\Database;
 class ReportBuilder extends QueryBuilder
 
 
+
 {
     protected ?string $startDate = null;
     protected ?string $endDate = null;
@@ -52,5 +53,20 @@ class ReportBuilder extends QueryBuilder
     public function getEndDate(): ?string
     {
         return $this->endDate;
+    }
+
+    /**
+     * Add a SUM aggregate for a column.
+     *
+     * @param string $column
+     * @param string|null $alias
+     * @return static
+     */
+    public function withSum(string $column, ?string $alias = null): static
+    {
+        $alias = $alias ?? "sum_{$column}";
+        $this->aggregates[] = "SUM(`{$column}`) AS `{$alias}`";
+        $this->columnAliases[$alias] = ucwords(str_replace('_', ' ', $alias));
+        return $this;
     }
 }
