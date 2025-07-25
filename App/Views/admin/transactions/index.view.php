@@ -96,8 +96,6 @@
         <?php endif; ?>
     </div>
     <?php
-    if (!empty($report['debug'])) {
-        echo $report['debug'];
-    }
+    var_dump($report);
     ?>
 </div>
