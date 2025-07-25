@@ -22,7 +22,7 @@ class TransactionController extends AdminController
     {
         $categories = \App\Models\Category::all();
         $quotes = \App\Models\Quote::all();
-        $promo_codes = NULL;
+        $promo_codes = [];
 
         $this->view->layout('admin');
         $this->view('admin/transactions/create', [
