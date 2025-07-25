@@ -27,7 +27,7 @@
                         <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
                             <td class="px-4 py-2 whitespace-nowrap">
                                 <div class="flex flex-col">
-                                    <span class="font-semibold text-blue-900"><?= e($user->username) ?>
+                                    <h5 class="font-semibold text-blue-900"><?= e($user->username) ?>
                                         <?php if (!is_null($user->verified_at)): ?>
                                             <span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 text-green-500">
@@ -35,7 +35,7 @@
                                                 </svg>
                                             </span>
                                         <?php endif; ?>
-                                    </span>
+                                    </h5>
                                     <span class="text-blue-500 text-xs"><?= e($user->email) ?></span>
                                 </div>
                             </td>
