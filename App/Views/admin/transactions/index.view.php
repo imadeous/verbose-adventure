@@ -43,8 +43,23 @@
             <?php endif; ?>
         </tbody>
     </table>
-    <pre>
-
-        <?php var_dump($report); ?>
-    </pre>
+    <table>
+        <thead>
+            <tr>
+                <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Report</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (empty($report)): ?>
+                <tr>
+                    <td class="px-4 py-4 text-center text-blue-400">No report data available.</td>
+                </tr>
+            <?php else: ?>
+                <?php foreach ($report as $key => $value): ?>
+                    <tr>
+                        <td class="px-4 py-2"><?= htmlspecialchars($key . ': ' . $value) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+    </table>
 </div>
