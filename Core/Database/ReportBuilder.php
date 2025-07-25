@@ -168,6 +168,36 @@ class ReportBuilder extends QueryBuilder
     }
 
     /**
+     * Add a MIN aggregate for a column.
+     *
+     * @param string $column
+     * @param string|null $alias
+     * @return static
+     */
+    public function withMin(string $column, ?string $alias = null): static
+    {
+        $alias = $alias ?? "min_{$column}";
+        $this->aggregates[] = "MIN(`{$column}`) AS `{$alias}`";
+        $this->columnAliases[$alias] = ucwords(str_replace('_', ' ', $alias));
+        return $this;
+    }
+
+    /**
+     * Add a MAX aggregate for a column.
+     *
+     * @param string $column
+     * @param string|null $alias
+     * @return static
+     */
+    public function withMax(string $column, ?string $alias = null): static
+    {
+        $alias = $alias ?? "max_{$column}";
+        $this->aggregates[] = "MAX(`{$column}`) AS `{$alias}`";
+        $this->columnAliases[$alias] = ucwords(str_replace('_', ' ', $alias));
+        return $this;
+    }
+
+    /**
      * Group results by day using the date column.
      * @param string|null $alias
      * @return static

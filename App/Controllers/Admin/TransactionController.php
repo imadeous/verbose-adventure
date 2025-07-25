@@ -22,6 +22,7 @@ class TransactionController extends AdminController
             ->forPeriod('2015-01-01', '2025-12-31')
             ->daily()
             ->withSum('amount', 'Total')
+            ->withMax('amount', 'Max Amount')
             ->withAverage('amount', 'Average')
             ->withCount('*', 'Total Transactions')
             ->generate('My Report Title');
