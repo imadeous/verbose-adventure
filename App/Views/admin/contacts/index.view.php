@@ -34,6 +34,9 @@
                             <a href="<?= url('admin/contacts/' . $contact->id) ?>" class="block"><?= e(mb_strimwidth($contact->message, 0, 100, '...')) ?></a>
                         </td>
                         <td class="px-4 py-2 whitespace-nowrap flex items-center space-x-2">
+                            <?php if (!is_null($contact->opened_at)): ?>
+                                <span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-xs font-semibold">New</span>
+                            <?php endif; ?>
                             <a href="<?= url('admin/contacts/' . $contact->id) ?>" class="bg-blue-100 text-blue-700 hover:bg-blue-200 border border-blue-300 rounded px-2 py-1 flex items-center gap-1 transition shadow-sm" title="View">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12s3.75-7.5 9.75-7.5 9.75 7.5 9.75 7.5-3.75 7.5-9.75 7.5S2.25 12 2.25 12z" />
@@ -41,7 +44,6 @@
                                 </svg>
                             </a>
                             <?php if (!is_null($contact->opened_at)): ?>
-                                <span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-xs font-semibold">New</span>
                                 <form action="<?= url('admin/contacts/' . $contact->id . '/delete') ?>" method="POST" style="display:inline;">
                                     <?= csrf_field() ?>
                                     <button type="submit" class="bg-red-100 text-red-700 hover:bg-red-200 border border-red-200 rounded px-2 py-1 flex items-center gap-1 transition shadow-sm hover:cursor-pointer" title="Delete" onclick="return confirm('Delete this contact message?')">
