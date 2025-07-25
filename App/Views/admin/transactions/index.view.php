@@ -45,6 +45,6 @@
     </table>
     <pre>
 
-        <?php var_dump($report['data']); ?>
+        <?php var_dump($report); ?>
     </pre>
 </div>
