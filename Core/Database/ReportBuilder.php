@@ -284,6 +284,8 @@ class ReportBuilder extends QueryBuilder
 
         $alias = "period_{$unit}";
         $expression = $periodExpressions[$unit];
+        // Remove '*' from selects if present
+        $this->selects = array_filter($this->selects, fn($s) => $s !== '*');
         $this->selects[] = "{$expression} AS {$alias}";
         $this->groups[] = $expression; // <-- Use expression, not alias
         $this->columnAliases[$alias] = ucfirst($unit);
