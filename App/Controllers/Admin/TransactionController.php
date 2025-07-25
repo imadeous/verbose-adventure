@@ -17,7 +17,7 @@ class TransactionController extends AdminController
                 ->get()
         );
         $transactions_reported = ReportBuilder::build('transactions')
-            ->forPeriod('2024-01-01', '2024-12-31')
+            ->forPeriod('2025-01-01', '2025-12-31')
             ->monthly()
             ->withSum('amount')
             ->withAverage('amount')
