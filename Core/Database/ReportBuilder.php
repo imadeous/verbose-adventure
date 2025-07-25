@@ -51,12 +51,9 @@ class ReportBuilder extends QueryBuilder
         $selects = [];
         if (!empty($this->groups)) {
             // Grouped report: only select period and aggregate columns
-            if (!empty($this->selects)) {
-                $selects = array_merge($selects, $this->selects);
-            }
-            if (!empty($this->aggregates)) {
-                $selects = array_merge($selects, $this->aggregates);
-            }
+            $selects = array_merge($this->selects, $this->aggregates);
+            // Directly reset selects to avoid SELECT *
+            $this->selects = [];
             $this->select($selects);
             $this->groupBy($this->groups);
         } else {
