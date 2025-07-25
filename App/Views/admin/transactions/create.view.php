@@ -12,7 +12,7 @@
             <?php endforeach; ?>
         </nav>
     <?php endif; ?>
-    <form action="<?= url('admin/transactions/store') ?>" method="POST" class="space-y-5">
+    <form action="<?= url('admin/transactions') ?>" method="POST" class="space-y-5">
         <?= csrf_field() ?>
         <div>
             <label class="block text-blue-700 font-semibold mb-1">Type</label>
