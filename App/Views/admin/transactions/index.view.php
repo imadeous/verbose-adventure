@@ -8,12 +8,11 @@
     <table class="min-w-full bg-white rounded-xl text-sm">
         <thead>
             <tr>
-                <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">ID</th>
-                <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Category</th>
+                <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Date</th>
                 <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Amount</th>
+                <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Category</th>
                 <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Quote ID</th>
                 <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Promo Code ID</th>
-                <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Date</th>
                 <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Actions</th>
             </tr>
         </thead>
@@ -25,9 +24,9 @@
             <?php else: ?>
                 <?php foreach ($transactions as $transaction): ?>
                     <tr class="<?= ($transaction->type ?? '') === 'income' ? 'bg-green-100' : 'bg-red-100'; ?> border-t border-blue-100 hover:bg-blue-50 transition">
-                        <td class="px-4 py-2 whitespace-nowrap"><?= $transaction->id ?? '-' ?></td>
-                        <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction->category_name ?? '-') ?></td>
+                        <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction->date ?? '-') ?></td>
                         <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction->amount ?? '-') ?></td>
+                        <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction->category_name ?? '-') ?></td>
                         <td class="px-4 py-2 whitespace-nowrap">
                             <?php if (!empty($transaction->quote_id)): ?>
                                 <a href="<?= url('admin/quotes/' . $transaction->quote_id) ?>"><?= htmlspecialchars($transaction->quote_id) ?></a>
@@ -36,7 +35,6 @@
                             <?php endif; ?>
                         </td>
                         <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction->promo_code_id ?? '-') ?></td>
-                        <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction->date ?? '-') ?></td>
                         <td class="px-4 py-2 whitespace-nowrap">
                             <a href="<?= url('admin/transactions/show/' . $transaction->id) ?>" class="text-blue-600 hover:underline">View</a>
                         </td>
