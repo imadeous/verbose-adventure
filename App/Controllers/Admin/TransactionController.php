@@ -18,15 +18,13 @@ class TransactionController extends AdminController
         );
 
         // Test ReportBuilder forPeriod method
-        $reportBuilder = ReportBuilder::build('transactions', 'date')
+        $report = ReportBuilder::build('transactions', 'date')
             ->forPeriod('2025-01-01', '2025-12-31')
             ->monthly()
             ->withSum('amount', 'Total')
             ->withAverage('amount', 'Average')
-            ->withCount('*', 'Total Transactions');
-        $sql = $reportBuilder->toSql(); // If you have a toSql() method
-        $report = $reportBuilder->generate('My Report Title');
-        var_dump($sql);
+            ->withCount('*', 'Total Transactions')
+            ->generate('My Report Title');
 
         $this->view->layout('admin');
         $this->view('admin/transactions/index', [
