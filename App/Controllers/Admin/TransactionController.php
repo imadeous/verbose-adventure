@@ -16,7 +16,11 @@ class TransactionController extends AdminController
                 ->orderBy('created_at', 'desc')
                 ->get()
         );
-        $report = null;
+        $report = [
+            'debug' => '',
+            'data' => [],
+            'sql' => '',
+        ];
         $reportError = null;
         $reportSql = null;
         try {
@@ -28,7 +32,7 @@ class TransactionController extends AdminController
                 ->withCount()
                 ->setTitle('Monthly Sales Report')
                 ->generate();
-            $reportSql = $report['sql'] ?? null;
+            $reportSql = $report['sql'] ?? '';
         } catch (\Exception $e) {
             $reportError = $e->getMessage();
         }
@@ -38,6 +42,8 @@ class TransactionController extends AdminController
             'report' => $report,
             'reportError' => $reportError,
             'reportSql' => $reportSql,
+            'reportDebug' => $report['debug'] ?? '',
+            'reportResults' => $report['data'] ?? [],
         ]);
     }
 

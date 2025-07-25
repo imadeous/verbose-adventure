@@ -99,6 +99,9 @@
         <?php endif; ?>
     </div>
     <?php
-
+    echo $reportDebug;
     ?>
 </div>
+<?php
+print_r($reportResults);
+?>
