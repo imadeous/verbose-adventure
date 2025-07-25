@@ -13,8 +13,6 @@ namespace Core\Database;
 //     ->generate();
 
 class ReportBuilder extends QueryBuilder
-
-
 {
     protected ?string $startDate = null;
     protected ?string $endDate = null;
@@ -170,11 +168,34 @@ class ReportBuilder extends QueryBuilder
     }
 
     /**
-     * Add a GROUP BY clause.
-     *
-     * @param string $column
+     * Group results by day using the date column.
+     * @param string|null $alias
      * @return static
      */
+    public function daily(?string $alias = 'period_day')
+    {
+        $expression = "DATE_FORMAT({$this->dateColumn}, '%Y-%m-%d')";
+        $this->periodSelects[] = "$expression AS {$alias}";
+        $this->groups[] = $expression;
+        $this->columnAliases[$alias] = 'Day';
+        return $this;
+    }
+
+    /**
+     * Group results by week using the date column.
+     * @param string|null $alias
+     * @return static
+     */
+    public function weekly(?string $alias = 'period_week')
+    {
+        $expression = "YEAR({$this->dateColumn}), WEEK({$this->dateColumn}, 1)";
+        $this->periodSelects[] = "CONCAT(YEAR({$this->dateColumn}), '-', LPAD(WEEK({$this->dateColumn}, 1), 2, '0')) AS {$alias}";
+        $this->groups[] = "YEAR({$this->dateColumn})";
+        $this->groups[] = "WEEK({$this->dateColumn}, 1)";
+        $this->columnAliases[$alias] = 'Week';
+        return $this;
+    }
+
     /**
      * Group results by month using the date column.
      *
@@ -187,6 +208,35 @@ class ReportBuilder extends QueryBuilder
         $this->periodSelects[] = "$expression AS {$alias}";
         $this->groups[] = $expression;
         $this->columnAliases[$alias] = 'Month';
+        return $this;
+    }
+
+    /**
+     * Group results by quarter using the date column.
+     * @param string|null $alias
+     * @return static
+     */
+    public function quarterly(?string $alias = 'period_quarter')
+    {
+        $expression = "YEAR({$this->dateColumn}), QUARTER({$this->dateColumn})";
+        $this->periodSelects[] = "CONCAT(YEAR({$this->dateColumn}), '-Q', QUARTER({$this->dateColumn})) AS {$alias}";
+        $this->groups[] = "YEAR({$this->dateColumn})";
+        $this->groups[] = "QUARTER({$this->dateColumn})";
+        $this->columnAliases[$alias] = 'Quarter';
+        return $this;
+    }
+
+    /**
+     * Group results by year using the date column.
+     * @param string|null $alias
+     * @return static
+     */
+    public function yearly(?string $alias = 'period_year')
+    {
+        $expression = "YEAR({$this->dateColumn})";
+        $this->periodSelects[] = "$expression AS {$alias}";
+        $this->groups[] = $expression;
+        $this->columnAliases[$alias] = 'Year';
         return $this;
     }
 }
