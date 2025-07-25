@@ -48,13 +48,19 @@ class ReportBuilder extends QueryBuilder
     public function generate(): array
     {
         // Build select list for QueryBuilder
+        $debugHtml = '';
         if (!empty($this->groups)) {
             // Grouped report: only period and aggregate columns
             $selects = array_merge($this->periodSelects, $this->aggregates);
-            var_dump(['generate', 'selects' => $selects, 'periodSelects' => $this->periodSelects, 'aggregates' => $this->aggregates]);
+            $debugHtml .= '<div style="background:#222;color:#fff;padding:8px;margin:8px 0;font-size:13px;">';
+            $debugHtml .= '<strong>[ReportBuilder] generate() selects:</strong><pre>' . htmlspecialchars(print_r($selects, true)) . '</pre>';
+            $debugHtml .= '<strong>[ReportBuilder] generate() periodSelects:</strong><pre>' . htmlspecialchars(print_r($this->periodSelects, true)) . '</pre>';
+            $debugHtml .= '<strong>[ReportBuilder] generate() aggregates:</strong><pre>' . htmlspecialchars(print_r($this->aggregates, true)) . '</pre>';
             if (empty($selects)) {
-                throw new \Exception("ReportBuilder: No period or aggregate columns specified for grouped report. Add at least one aggregate (e.g., withCount, withSum) or period column.");
+                $debugHtml .= '<strong>[ReportBuilder] Fallback:</strong> select list empty, using SELECT *<br>';
+                $selects = ['*'];
             }
+            $debugHtml .= '</div>';
             $this->columns = [];
             parent::select($selects);
             parent::groupBy($this->groups);
@@ -64,8 +70,13 @@ class ReportBuilder extends QueryBuilder
             parent::select(['*']);
         }
 
-        $results = parent::get();
         $sql = $this->toSql();
+        $results = parent::get();
+
+        $debugHtml .= '<div style="background:#222;color:#fff;padding:8px;margin:8px 0;font-size:13px;">';
+        $debugHtml .= '<strong>[ReportBuilder] SQL:</strong><pre>' . htmlspecialchars($sql) . '</pre>';
+        $debugHtml .= '<strong>[ReportBuilder] Results:</strong><pre>' . htmlspecialchars(print_r($results, true)) . '</pre>';
+        $debugHtml .= '</div>';
 
         return [
             'title' => $this->reportTitle,
@@ -76,6 +87,7 @@ class ReportBuilder extends QueryBuilder
             'columns' => $this->columnAliases,
             'data' => $results,
             'sql' => $sql,
+            'debug' => $debugHtml,
         ];
     }
 
