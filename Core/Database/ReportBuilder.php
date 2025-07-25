@@ -63,7 +63,7 @@ class ReportBuilder extends QueryBuilder
             $this->reportTitle = $title;
         }
         // Use aggregates if set, otherwise select all
-        $selects = !empty($this->aggregates) ? $this->aggregates : ['*'];
+        $selects = array_merge($this->periodSelects, $this->aggregates);
         $this->columns = $selects;
         $this->operation = 'select';
         $results = $this->get();
