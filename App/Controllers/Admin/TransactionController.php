@@ -20,7 +20,7 @@ class TransactionController extends AdminController
         // Test ReportBuilder forPeriod method
         $report = ReportBuilder::build('transactions')
             ->forPeriod('2025-01-01', '2025-12-31')
-            ->withSum('amount')
+            ->withSum('amount', 'Total')
             ->generate('My Report Title');
 
         $this->view->layout('admin');
