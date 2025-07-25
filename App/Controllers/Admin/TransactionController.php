@@ -29,6 +29,34 @@ class TransactionController extends AdminController
             ],
         ]);
     }
+    public function store()
+    {
+        $data = $_POST;
+        $now = date('Y-m-d H:i:s');
+        $data['created_at'] = $now;
+
+        // CSRF validation
+        if (empty($data['_csrf']) || !\App\Helpers\Csrf::check($data['_csrf'])) {
+            flash('error', 'Invalid or missing CSRF token. Please try again.');
+            $this->redirect('/admin/transactions/create');
+            return;
+        }
+
+        // Validate and set default values
+        $data['type'] = $data['type'] ?? 'expense'; // Default to 'expense'
+        $data['category'] = $data['category'] ?? 'general'; // Default category
+        $data['amount'] = isset($data['amount']) ? floatval($data['amount']) : 0.0; // Ensure amount is a float
+
+        // Create the transaction
+        $transaction = new Transaction($data);
+        if ($transaction->save()) {
+            flash('success', 'Transaction created successfully.');
+            $this->redirect('/admin/transactions');
+        } else {
+            flash('error', 'Failed to create transaction. Please try again.');
+            $this->redirect('/admin/transactions/create');
+        }
+    }
 
     public function show($id)
     {
