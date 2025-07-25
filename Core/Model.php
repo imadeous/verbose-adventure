@@ -22,6 +22,11 @@ abstract class Model
 
     public function __get($key)
     {
+        // Support for getXAttribute() accessors
+        $method = 'get' . str_replace(' ', '', ucwords(str_replace(['_', '-'], ' ', $key))) . 'Attribute';
+        if (method_exists($this, $method)) {
+            return $this->$method();
+        }
         return $this->attributes[$key] ?? null;
     }
 
