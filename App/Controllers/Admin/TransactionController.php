@@ -9,9 +9,12 @@ class TransactionController extends AdminController
 {
     public function index()
     {
-        $transactions = Transaction::query()
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $transactions = array_map(
+            fn($row) => new Transaction($row),
+            Transaction::query()
+                ->orderBy('created_at', 'desc')
+                ->get()
+        );
         $this->view->layout('admin');
         $this->view('admin/transactions/index', [
             'transactions' => $transactions
