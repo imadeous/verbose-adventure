@@ -43,5 +43,8 @@
             <?php endif; ?>
         </tbody>
     </table>
-    <?php var_dump($reportTest); ?>
+    <pre>
+
+        <?php var_dump($reportTest); ?>
+    </pre>
 </div>
