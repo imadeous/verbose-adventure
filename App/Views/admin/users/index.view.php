@@ -26,9 +26,13 @@
                     <?php foreach ($users as $user): ?>
                         <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
                             <td class="px-4 py-2 whitespace-nowrap">
-                                <div class="font-semibold text-blue-900"><?= e($user->username) ?></div>
-                                <div class="text-blue-500 text-xs"><?= e($user->email) ?></div>
-                                <span class="text-blue-500 text-xs"><?= e($user->created_at) ?></span>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex flex-col">
+                                        <span class="font-semibold text-blue-900"><?= e($user->username) ?></span>
+                                        <span class="text-blue-500 text-xs"><?= e($user->email) ?></span>
+                                    </div>
+                                    <span class="text-blue-500 text-xs"><?= e(!is_null($user->verified_at) ? $user->verified_at : 'Unverified') ?></span>
+                                </div>
                             </td>
                             <td class="px-4 py-2 whitespace-nowrap text-blue-700"><?= e($user->role) ?></td>
                             <td class="px-4 py-2 whitespace-nowrap flex items-center space-x-2">
