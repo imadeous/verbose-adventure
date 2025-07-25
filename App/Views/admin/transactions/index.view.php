@@ -44,33 +44,19 @@
         </tbody>
     </table>
     <table>
-        <thead>
-            <tr>
-                <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Report</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if (empty($report['data'])): ?>
-                <tr>
-                    <td class="px-4 py-4 text-center text-blue-400">No report data available.</td>
-                </tr>
-            <?php else: ?>
-                <tr>
-                    <?php foreach ($report['columns'] as $col => $label): ?>
-                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">
-                            <?= htmlspecialchars($label) ?>
-                        </th>
-                    <?php endforeach; ?>
-                </tr>
-                <?php foreach ($report['data'] as $row): ?>
-                    <tr>
-                        <?php foreach ($report['columns'] as $col => $label): ?>
-                            <td class="px-4 py-2 whitespace-nowrap">
-                                <?= htmlspecialchars($row[$col] ?? '-') ?>
-                            </td>
-                        <?php endforeach; ?>
-                    </tr>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-8">
+            <?php if (!empty($report['data'])): ?>
+                <?php $row = $report['data'][0] ?? []; ?>
+                <?php foreach ($report['columns'] as $col => $label): ?>
+                    <div class="bg-white rounded-xl shadow border border-blue-200 p-6 flex flex-col items-center justify-center">
+                        <div class="text-xs font-semibold text-blue-500 uppercase tracking-wide mb-2"><?= htmlspecialchars($label) ?></div>
+                        <div class="text-2xl font-bold text-blue-900">
+                            <?= htmlspecialchars($row[$col] ?? '-') ?>
+                        </div>
+                    </div>
                 <?php endforeach; ?>
+            <?php else: ?>
+                <div class="col-span-full text-center text-blue-400 py-8">No report data available.</div>
             <?php endif; ?>
-    </table>
+        </div>
 </div>
