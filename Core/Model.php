@@ -177,7 +177,10 @@ abstract class Model
         $qb = new QueryBuilder($this->getTable());
         $data = $this->attributes;
         unset($data['_csrf']);
-
+        // Always unset id before insert
+        if (isset($data[$this->primaryKey])) {
+            unset($data[$this->primaryKey]);
+        }
         $id = $qb->insert($data);
         $this->attributes[$this->primaryKey] = $id;
         return $id;
