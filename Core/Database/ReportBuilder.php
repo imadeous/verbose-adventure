@@ -183,6 +183,7 @@ class ReportBuilder extends QueryBuilder
         $this->periodSelects[] = "$expression AS {$alias}";
         $this->groups[] = $expression;
         $this->columnAliases[$alias] = 'Month';
+        var_dump($this);
         return $this;
     }
 }
