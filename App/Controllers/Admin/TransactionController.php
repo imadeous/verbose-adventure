@@ -31,37 +31,48 @@ class TransactionController extends AdminController
     }
     public function store()
     {
+        // --- Transaction Creation ---
         $data = $_POST;
-        $now = date('Y-m-d H:i:s');
-        $data['created_at'] = $now;
-
-        // CSRF validation
-        if (empty($data['_csrf']) || !\App\Helpers\Csrf::check($data['_csrf'])) {
-            flash('error', 'Invalid or missing CSRF token. Please try again.');
-            $this->redirect('/admin/transactions/create');
-            return;
-        }
-
-        // Validate and set default values
-        $data['type'] = $data['type'] ?? 'expense'; // Default to 'expense'
-        $data['category'] = $data['category'] ?? 'general'; // Default category
-        $data['amount'] = isset($data['amount']) ? floatval($data['amount']) : 0.0; // Ensure amount is a float
-
-        // Create the transaction
-        $transaction = new Transaction($data);
-        $newId = $transaction->save();
-        // Manual debug output to logs/error_log_craftophile_shop at project root
         $logDir = __DIR__ . '/../../../logs';
         if (!is_dir($logDir)) {
             mkdir($logDir, 0777, true);
         }
         $logFile = $logDir . '/error_log_craftophile_shop';
-        file_put_contents($logFile, date('Y-m-d H:i:s') . " Transaction save() returned ID: " . print_r($newId, true) . "\n", FILE_APPEND);
-        file_put_contents($logFile, date('Y-m-d H:i:s') . " Transaction attributes after save: " . print_r($transaction->toArray(), true) . "\n", FILE_APPEND);
+
+        // CSRF check
+        if (empty($data['_csrf']) || !\App\Helpers\Csrf::check($data['_csrf'])) {
+            file_put_contents($logFile, date('Y-m-d H:i:s') . " [ERROR] Invalid or missing CSRF token\n", FILE_APPEND);
+            flash('error', 'Invalid or missing CSRF token. Please try again.');
+            $this->redirect('/admin/transactions/create');
+            return;
+        }
+
+        // Set defaults and sanitize
+        $data['type'] = isset($data['type']) && $data['type'] ? $data['type'] : 'expense';
+        $data['category'] = isset($data['category']) && $data['category'] ? $data['category'] : 'general';
+        $data['amount'] = isset($data['amount']) ? floatval($data['amount']) : 0.0;
+        $data['created_at'] = date('Y-m-d H:i:s');
+
+        // Remove empty optional fields
+        foreach (['quote_id', 'promo_code_id', 'date', 'description'] as $field) {
+            if (isset($data[$field]) && $data[$field] === '') {
+                unset($data[$field]);
+            }
+        }
+
+        // Create and save
+        $transaction = new Transaction($data);
+        $newId = $transaction->save();
+
+        // Log result
+        file_put_contents($logFile, date('Y-m-d H:i:s') . " [INFO] Transaction save() returned ID: " . print_r($newId, true) . "\n", FILE_APPEND);
+        file_put_contents($logFile, date('Y-m-d H:i:s') . " [INFO] Transaction attributes after save: " . print_r($transaction->toArray(), true) . "\n", FILE_APPEND);
+
         if ($newId) {
             flash('success', 'Transaction created successfully. ID: ' . $newId);
             $this->redirect('/admin/transactions');
         } else {
+            file_put_contents($logFile, date('Y-m-d H:i:s') . " [ERROR] Failed to create transaction\n", FILE_APPEND);
             flash('error', 'Failed to create transaction. Please try again.');
             $this->redirect('/admin/transactions/create');
         }
