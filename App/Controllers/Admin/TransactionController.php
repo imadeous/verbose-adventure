@@ -52,6 +52,9 @@ class TransactionController extends AdminController
                 unset($data[$field]);
             }
         }
+        if (empty($data['quote_id'])) {
+            $data['quote_id'] = null;
+        }
 
         // Create and save
         $transaction = new Transaction($data);
