@@ -18,7 +18,7 @@ class TransactionController extends AdminController
         );
 
         // Test ReportBuilder forPeriod method
-        $reportBuilder = ReportBuilder::build('transactions')
+        $reportBuilder = ReportBuilder::build('transactions', 'date')
             ->forPeriod('2025-01-01', '2025-12-31')
             ->monthly()
             ->withSum('amount', 'Total')
