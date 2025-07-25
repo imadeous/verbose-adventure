@@ -175,7 +175,7 @@ abstract class Model
         $data = $this->attributes;
         unset($data['_csrf']);
 
-        if (!empty($this->attributes[$this->primaryKey])) {
+        if (!empty($this->attributes[$this->primaryKey]) && $this->attributes[$this->primaryKey] !== null) {
             $id = $this->attributes[$this->primaryKey];
             unset($data[$this->primaryKey]);
             return $qb->update($data, $id, $this->primaryKey);
