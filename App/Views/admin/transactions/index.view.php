@@ -1,30 +1,8 @@
 <div class="max-w-5xl mx-auto">
     <div class="flex justify-between items-center mb-6">
-        <pre>
-                <?php print_r($report); ?>
-            </pre>
         <h1 class="text-2xl font-bold text-blue-900">Transactions</h1>
         <?php if (App\Helpers\Auth::isAdmin()): ?>
             <a href="<?= url('admin/transactions/create') ?>" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-blue-700 transition">Add Transaction</a>
-            <?php // Debug output for report data to help diagnose grouping/aggregation issues 
-            ?>
-            <?php // Debug output for report data, SQL, and error 
-            ?>
-            <?php if (!empty($reportError)): ?>
-                <pre class="bg-red-100 p-4 text-xs text-red-900 border border-red-200 rounded mb-8">
-                    Error: <?= htmlspecialchars($reportError) ?>
-                </pre>
-            <?php endif; ?>
-            <?php if (!empty($reportSql)): ?>
-                <pre class="bg-gray-100 p-4 text-xs text-blue-900 border border-blue-200 rounded mb-8">
-                    SQL: <?= htmlspecialchars($reportSql) ?>
-                </pre>
-            <?php endif; ?>
-            <?php if (!empty($report)): ?>
-                <pre class="bg-gray-100 p-4 text-xs text-blue-900 border border-blue-200 rounded mb-8">
-                    <?php print_r($report); ?>
-                </pre>
-            <?php endif; ?>
         <?php endif; ?>
     </div>
     <table class="min-w-full bg-white rounded-xl text-sm">
@@ -65,43 +43,4 @@
             <?php endif; ?>
         </tbody>
     </table>
-    <div>
-        <?php if (isset($report) && !empty($report)): ?>
-            <h2 class="text-xl font-semibold text-blue-900 mt-8 mb-4">Reported Transactions</h2>
-            <table class="min-w-full bg-white rounded-xl text-sm mb-8">
-                <thead>
-                    <tr>
-                        <?php foreach ($report['columns'] as $key => $label): ?>
-                            <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">
-                                <?= htmlspecialchars($label) ?>
-                            </th>
-                        <?php endforeach; ?>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (empty($report['data'])): ?>
-                        <tr>
-                            <td colspan="<?= count($report['columns']) ?>" class="px-4 py-4 text-center text-blue-400">No report data found.</td>
-                        </tr>
-                    <?php else: ?>
-                        <?php foreach ($report['data'] as $row): ?>
-                            <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
-                                <?php foreach (array_keys($report['columns']) as $col): ?>
-                                    <td class="px-4 py-2 whitespace-nowrap">
-                                        <?= isset($row[$col]) ? htmlspecialchars($row[$col]) : '-' ?>
-                                    </td>
-                                <?php endforeach; ?>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </tbody>
-            </table>
-        <?php endif; ?>
-    </div>
-    <?php
-    echo $reportDebug;
-    ?>
 </div>
-<?php
-print_r($reportResults);
-?>

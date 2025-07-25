@@ -16,34 +16,19 @@ class TransactionController extends AdminController
                 ->orderBy('created_at', 'desc')
                 ->get()
         );
-        $report = [
-            'debug' => '',
-            'data' => [],
-            'sql' => '',
+
+        // Test ReportBuilder forPeriod method
+        $reportBuilder = ReportBuilder::build('transactions');
+        $reportBuilder->forPeriod('2025-01-01', '2025-12-31');
+        $reportTest = [
+            'startDate' => $reportBuilder->startDate,
+            'endDate' => $reportBuilder->endDate,
         ];
-        $reportError = null;
-        $reportSql = null;
-        try {
-            $report = ReportBuilder::build('transactions')
-                ->forPeriod('2025-01-01', '2025-12-31')
-                ->monthly()
-                ->withSum('amount')
-                ->withAverage('amount')
-                ->withCount()
-                ->setTitle('Monthly Sales Report')
-                ->generate();
-            $reportSql = $report['sql'] ?? '';
-        } catch (\Exception $e) {
-            $reportError = $e->getMessage();
-        }
+
         $this->view->layout('admin');
         $this->view('admin/transactions/index', [
             'transactions' => $transactions,
-            'report' => $report,
-            'reportError' => $reportError,
-            'reportSql' => $reportSql,
-            'reportDebug' => $report['debug'] ?? '',
-            'reportResults' => $report['data'] ?? [],
+            'reportTest' => $reportTest,
         ]);
     }
 
