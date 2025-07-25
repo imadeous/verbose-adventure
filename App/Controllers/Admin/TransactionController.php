@@ -31,6 +31,8 @@ class TransactionController extends AdminController
     }
     public function store()
     {
+        var_dump($_POST); // Debugging line to check POST data
+        die('Store method called'); // Temporary line to check if this method is reached
         // --- Transaction Creation ---
         $data = $_POST;
         $logDir = __DIR__ . '/../../../logs';
