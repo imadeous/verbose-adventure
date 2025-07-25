@@ -40,7 +40,7 @@
                                     <circle cx="12" cy="12" r="3" />
                                 </svg>
                             </a>
-                            <?php if (is_null($contact->opened_at)): ?>
+                            <?php if (!is_null($contact->opened_at)): ?>
                                 <span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-xs font-semibold">New</span>
                                 <form action="<?= url('admin/contacts/' . $contact->id . '/delete') ?>" method="POST" style="display:inline;">
                                     <?= csrf_field() ?>
