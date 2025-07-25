@@ -23,6 +23,7 @@ class ReportBuilder extends QueryBuilder
     protected string $dateColumn = 'date';
     protected array $periodSelects = [];
     protected ?string $reportTitle = 'Report';
+    protected bool $aggregatePeriod = false;
 
     /**
      * ReportBuilder constructor.
@@ -61,10 +62,13 @@ class ReportBuilder extends QueryBuilder
         if ($title !== null) {
             $this->reportTitle = $title;
         }
-        // Use aggregates if set, otherwise select all
         $selects = array_merge($this->periodSelects, $this->aggregates);
         $this->columns = $selects;
         $this->operation = 'select';
+        if ($this->aggregatePeriod) {
+            $this->groups = []; // Remove grouping for overall aggregation
+            $this->periodSelects = []; // Remove period select
+        }
         $results = $this->get();
         return [
             'title' => $this->reportTitle,
@@ -88,10 +92,11 @@ class ReportBuilder extends QueryBuilder
      * @param string $end End date in 'Y-m-d' format.
      * @return static
      */
-    public function forPeriod(string $start, string $end): static
+    public function forPeriod(string $start, string $end, bool $aggregatePeriod = false): static
     {
         $this->startDate = $start;
         $this->endDate = $end;
+        $this->aggregatePeriod = $aggregatePeriod;
         return $this->where($this->dateColumn, '>=', $start)
             ->where($this->dateColumn, '<=', $end);
     }
