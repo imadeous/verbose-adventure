@@ -62,13 +62,13 @@ class ReportBuilder extends QueryBuilder
         if ($title !== null) {
             $this->reportTitle = $title;
         }
+        if ($this->aggregatePeriod) {
+            $this->groups = [];
+            $this->periodSelects = [];
+        }
         $selects = array_merge($this->periodSelects, $this->aggregates);
         $this->columns = $selects;
         $this->operation = 'select';
-        if ($this->aggregatePeriod) {
-            $this->groups = []; // Remove grouping for overall aggregation
-            $this->periodSelects = []; // Remove period select
-        }
         $results = $this->get();
         return [
             'title' => $this->reportTitle,
