@@ -7,11 +7,9 @@
                 <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Type</th>
                 <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Category</th>
                 <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Amount</th>
-                <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Description</th>
                 <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Quote ID</th>
                 <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Promo Code ID</th>
                 <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Date</th>
-                <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Created At</th>
                 <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Actions</th>
             </tr>
         </thead>
@@ -27,11 +25,9 @@
                         <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction['type'] ?? '-') ?></td>
                         <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction['category'] ?? '-') ?></td>
                         <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction['amount'] ?? '-') ?></td>
-                        <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction['description'] ?? '-') ?></td>
                         <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction['quote_id'] ?? '-') ?></td>
                         <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction['promo_code_id'] ?? '-') ?></td>
                         <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction['date'] ?? '-') ?></td>
-                        <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction['created_at'] ?? '-') ?></td>
                         <td class="px-4 py-2 whitespace-nowrap">
                             <a href="<?= url('admin/transactions/show/' . $transaction['id']) ?>" class="text-blue-600 hover:underline">View</a>
                         </td>
