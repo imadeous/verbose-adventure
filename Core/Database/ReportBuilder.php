@@ -61,6 +61,7 @@ class ReportBuilder extends QueryBuilder
         }
 
         $results = parent::get();
+        $sql = $this->toSql();
 
         return [
             'title' => $this->reportTitle,
@@ -70,6 +71,7 @@ class ReportBuilder extends QueryBuilder
             ],
             'columns' => $this->columnAliases,
             'data' => $results,
+            'sql' => $sql,
         ];
     }
 
