@@ -6,7 +6,7 @@
             <?php // Debug output for report data to help diagnose grouping/aggregation issues 
             ?>
             <pre class="bg-gray-100 p-4 text-xs text-blue-900 border border-blue-200 rounded mb-8">
-                <?php print_r($report['data']); ?>
+                <?php print_r($report); ?>
             </pre>
         <?php endif; ?>
     </div>
