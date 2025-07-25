@@ -39,9 +39,7 @@ class ContactController extends Controller
             'email' => $_POST['email'],
             'message' => $_POST['message'],
         ]);
-        echo 'DEBUG: Before contact save<br>';
         $contact->save();
-        echo 'DEBUG: After contact save<br>';
 
         flash('success', 'Your message has been sent!');
         $this->redirect('/contact');
