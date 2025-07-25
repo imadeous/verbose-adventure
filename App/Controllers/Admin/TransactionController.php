@@ -109,7 +109,7 @@ class TransactionController extends AdminController
 
         // Update transaction data
         $transaction->fill($data);
-        if ($transaction->save()) {
+        if ($transaction->update()) {
             flash('success', 'Transaction updated successfully.');
             $this->redirect('/admin/transactions');
         } else {

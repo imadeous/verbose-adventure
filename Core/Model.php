@@ -169,25 +169,37 @@ abstract class Model
     //  ACTIVE RECORD STYLE
     // ------------------------------
 
+    /**
+     * Save a new record to the database (insert only).
+     */
     public function save(): int|bool
     {
         $qb = new QueryBuilder($this->getTable());
         $data = $this->attributes;
         unset($data['_csrf']);
-        // Always unset id before insert to avoid update on new records
-        if (isset($data[$this->primaryKey]) && (empty($data[$this->primaryKey]) || $data[$this->primaryKey] === null)) {
+        // Always unset id before insert
+        if (isset($data[$this->primaryKey])) {
             unset($data[$this->primaryKey]);
         }
+        $id = $qb->insert($data);
+        $this->attributes[$this->primaryKey] = $id;
+        return $id;
+    }
 
-        if (!empty($this->attributes[$this->primaryKey]) && $this->attributes[$this->primaryKey] !== null) {
-            $id = $this->attributes[$this->primaryKey];
-            unset($data[$this->primaryKey]);
-            return $qb->update($data, $id, $this->primaryKey);
-        } else {
-            $id = $qb->insert($data);
-            $this->attributes[$this->primaryKey] = $id;
-            return $id;
+    /**
+     * Update an existing record in the database.
+     */
+    public function update(): bool
+    {
+        if (empty($this->attributes[$this->primaryKey]) || $this->attributes[$this->primaryKey] === null) {
+            return false;
         }
+        $qb = new QueryBuilder($this->getTable());
+        $data = $this->attributes;
+        unset($data['_csrf']);
+        $id = $this->attributes[$this->primaryKey];
+        unset($data[$this->primaryKey]);
+        return $qb->update($data, $id, $this->primaryKey);
     }
 
     public function delete(): bool

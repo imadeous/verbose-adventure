@@ -123,7 +123,7 @@ class GalleryController extends AdminController
             }
         }
         $item->fill($data);
-        $item->save();
+        $item->update();
         Notification::log('updated', 'Gallery', $item->id, $data);
         flash('success', 'Gallery updated.');
         $this->redirect('/admin/gallery');
