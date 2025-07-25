@@ -272,15 +272,16 @@ class ReportBuilder extends QueryBuilder
         $periodExpressions = [
             'hourly' => "DATE_FORMAT({$this->dateColumn}, '%Y-%m-%d %H:00:00')",
             'daily' => "DATE({$this->dateColumn})",
-            'weekly' => "YEARWEEK({$this->dateColumn}, 1)", // ISO week
+            'weekly' => "YEARWEEK({$this->dateColumn}, 1)",
             'monthly' => "DATE_FORMAT({$this->dateColumn}, '%Y-%m')",
             'quarterly' => "CONCAT(YEAR({$this->dateColumn}), '-Q', QUARTER({$this->dateColumn}))",
             'annual' => "YEAR({$this->dateColumn})"
         ];
 
         $alias = "period_{$unit}";
-        $this->selects[] = "{$periodExpressions[$unit]} AS {$alias}";
-        $this->groups[] = $alias;
+        $expression = $periodExpressions[$unit];
+        $this->selects[] = "{$expression} AS {$alias}";
+        $this->groups[] = $expression; // <-- Use expression, not alias
         $this->columnAliases[$alias] = ucfirst($unit);
 
         return $this;
