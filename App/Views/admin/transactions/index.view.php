@@ -4,7 +4,6 @@
         <thead>
             <tr>
                 <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">ID</th>
-                <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Type</th>
                 <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Category</th>
                 <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Amount</th>
                 <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Quote ID</th>
@@ -20,9 +19,8 @@
                 </tr>
             <?php else: ?>
                 <?php foreach ($transactions as $transaction): ?>
-                    <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
+                    <tr class="<?php echo $transaction['type'] === 'income' ? 'bg-green-100' : 'bg-red-100'; ?> border-t border-blue-100 hover:bg-blue-50 transition">
                         <td class="px-4 py-2 whitespace-nowrap"><?= $transaction['id'] ?? '-' ?></td>
-                        <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction['type'] ?? '-') ?></td>
                         <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction['category'] ?? '-') ?></td>
                         <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction['amount'] ?? '-') ?></td>
                         <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction['quote_id'] ?? '-') ?></td>
