@@ -50,9 +50,10 @@ class TransactionController extends AdminController
         // Create the transaction
         $transaction = new Transaction($data);
         $newId = $transaction->save();
-        // Debug output
-        error_log('Transaction save() returned ID: ' . print_r($newId, true));
-        error_log('Transaction attributes after save: ' . print_r($transaction->toArray(), true));
+        // Manual debug output to .logs/error_log_craftophile_shop
+        $logFile = __DIR__ . '/../../../public/logs/error_log_craftophile_shop';
+        file_put_contents($logFile, date('Y-m-d H:i:s') . " Transaction save() returned ID: " . print_r($newId, true) . "\n", FILE_APPEND);
+        file_put_contents($logFile, date('Y-m-d H:i:s') . " Transaction attributes after save: " . print_r($transaction->toArray(), true) . "\n", FILE_APPEND);
         if ($newId) {
             flash('success', 'Transaction created successfully. ID: ' . $newId);
             $this->redirect('/admin/transactions');
