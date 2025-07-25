@@ -41,16 +41,6 @@ class ContactController extends Controller
         ]);
         echo 'DEBUG: Before contact save<br>';
         $contact->save();
-        echo 'DEBUG: All required fields present<br>';
-
-        $contact = new Contact();
-        $contact->fill([
-            'name' => $_POST['name'],
-            'email' => $_POST['email'],
-            'message' => $_POST['message'],
-        ]);
-        echo 'DEBUG: Before contact save<br>';
-        $contact->save();
         echo 'DEBUG: After contact save<br>';
 
         flash('success', 'Your message has been sent!');
