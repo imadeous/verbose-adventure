@@ -50,10 +50,10 @@ class ReportBuilder extends QueryBuilder
         // Only select period and aggregate columns if grouping is active
         $selects = [];
         if (!empty($this->groups)) {
-            // Grouped report: only select period and aggregate columns
-            $selects = array_merge($this->selects, $this->aggregates);
-            // Directly reset selects to avoid SELECT *
-            $this->selects = [];
+            // Remove '*' from selects for grouped report
+            $periodSelects = array_filter($this->selects, fn($s) => $s !== '*');
+            $selects = array_merge($periodSelects, $this->aggregates);
+            $this->selects = $periodSelects;
             $this->select($selects);
             $this->groupBy($this->groups);
         } else {
