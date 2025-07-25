@@ -18,6 +18,18 @@ class TransactionController extends AdminController
         ]);
     }
 
+    public function create()
+    {
+        $this->view->layout('admin');
+        $this->view('admin/transactions/create', [
+            'breadcrumb' => [
+                ['label' => 'Dashboard', 'url' => url('/admin')],
+                ['label' => 'Transactions', 'url' => url('/admin/transactions')],
+                ['label' => 'Create'],
+            ],
+        ]);
+    }
+
     public function show($id)
     {
         $this->view->layout('admin');
