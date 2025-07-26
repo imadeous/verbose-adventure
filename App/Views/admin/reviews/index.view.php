@@ -52,4 +52,7 @@
             </ul>
         </div>
     <?php endif; ?>
+    <pre>
+        <?php print_r($report ?? []); ?>
+    </pre>
 </div>
