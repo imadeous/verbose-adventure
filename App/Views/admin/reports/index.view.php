@@ -49,10 +49,6 @@
                     <label><input type="checkbox" x-model="aggregate_max"> Max</label>
                 </div>
             </div>
-            <div>
-                <label for="title" class="block text-sm font-medium text-blue-900">Report Title</label>
-                <input type="text" x-model="title" class="border rounded-lg px-2 py-1 text-sm w-56">
-            </div>
         </form>
         <template x-if="loading">
             <div class="text-blue-400">Loading report...</div>
@@ -104,8 +100,6 @@
                 aggregate_avg: <?= !empty($_GET['aggregate_avg']) ? 'true' : 'false' ?>,
                 aggregate_min: <?= !empty($_GET['aggregate_min']) ? 'true' : 'false' ?>,
                 aggregate_max: <?= !empty($_GET['aggregate_max']) ? 'true' : 'false' ?>,
-                title: '<?= htmlspecialchars($_GET['title'] ?? 'Transactions Report') ?>',
-                caption: '<?= htmlspecialchars($_GET['caption'] ?? 'No description provided.') ?>',
                 groupings: {
                     daily: 'Daily',
                     weekly: 'Weekly',
@@ -130,8 +124,6 @@
                         aggregate_avg: this.aggregate_avg ? '1' : '',
                         aggregate_min: this.aggregate_min ? '1' : '',
                         aggregate_max: this.aggregate_max ? '1' : '',
-                        title: this.title,
-                        caption: this.caption
                     });
                     fetch(window.location.pathname + '?' + params.toString())
                         .then(r => r.text())
