@@ -49,4 +49,34 @@
             <?php endif; ?>
         </tbody>
     </table>
+    make a report card for $dailyReport looping through $dailyReport['data'] if it exists
+    <?php if (!empty($dailyReport['data'])): ?>
+        <div class="mt-8 bg-white rounded-xl shadow-md p-6">
+            <h2 class="text-xl font-semibold text-blue-900 mb-4">Daily Report</h2>
+            <table class="min-w-full bg-white rounded-xl text-sm">
+                <thead>
+                    <tr>
+                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Date</th>
+                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Total Amount</th>
+                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Max Amount</th>
+                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Min Amount</th>
+                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Average Amount</th>
+                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($dailyReport['data'] as $day): ?>
+                        <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
+                            <td class="px-4 py-2"><?= htmlspecialchars($day['date']) ?></td>
+                            <td class="px-4 py-2"><?= htmlspecialchars($day['total']) ?></td>
+                            <td class="px-4 py-2"><?= htmlspecialchars($day['max']) ?></td>
+                            <td class="px-4 py-2"><?= htmlspecialchars($day['min']) ?></td>
+                            <td class="px-4 py-2"><?= htmlspecialchars($day['average']) ?></td>
+                            <td class="px-4 py-2"><?= htmlspecialchars($day['count']) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php endif; ?>
 </div>
