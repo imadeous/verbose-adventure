@@ -47,6 +47,13 @@ class ReportBuilder extends QueryBuilder
         return new static($table, $dateColumn);
     }
 
+    /**
+     * Generate the report with the specified title and caption.
+     *
+     * @param string|null $title The title of the report.
+     * @param bool $caption Whether to include a caption.
+     * @return array The generated report data.
+     */
     public function generate(?string $title = null, bool $caption = false)
     {
         if ($title !== null) {
