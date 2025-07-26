@@ -23,7 +23,7 @@
                 </tr>
             <?php else: ?>
                 <?php foreach ($transactions as $transaction): ?>
-                    <tr class="<?= ($transaction->type ?? '') === 'income' ? 'bg-green-100' : 'bg-red-100'; ?> border-t border-blue-100 hover:bg-blue-50 transition">
+                    <tr class="<?= ($transaction->type ?? '') === 'income' ? 'text-green-600' : 'text-red-600'; ?> border-t border-blue-100 hover:bg-blue-50 transition">
                         <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction->date ?? '-') ?></td>
                         <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction->amount ?? '-') ?></td>
                         <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction->category_name ?? '-') ?></td>
