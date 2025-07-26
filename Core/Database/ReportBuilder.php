@@ -97,6 +97,61 @@ class ReportBuilder extends QueryBuilder
             );
         }
 
+        if ($this->withEmptyNodes && !empty($this->periodSelects) && $this->startDate && $this->endDate) {
+            // Only works for daily, weekly, monthly, quarterly, yearly
+            $periodKey = array_keys($this->columnAliases, 'Day')[0] ??
+                array_keys($this->columnAliases, 'Week')[0] ??
+                array_keys($this->columnAliases, 'Month')[0] ??
+                array_keys($this->columnAliases, 'Quarter')[0] ??
+                array_keys($this->columnAliases, 'Year')[0] ?? null;
+
+            if ($periodKey) {
+                $filled = [];
+                // Build all periods in range
+                $periods = [];
+                if ($periodKey === 'period_day') {
+                    $start = new \DateTime($this->startDate);
+                    $end = new \DateTime($this->endDate);
+                    while ($start <= $end) {
+                        $periods[] = $start->format('Y-m-d');
+                        $start->modify('+1 day');
+                    }
+                } elseif ($periodKey === 'period_month') {
+                    $start = new \DateTime($this->startDate);
+                    $end = new \DateTime($this->endDate);
+                    $start->modify('first day of this month');
+                    $end->modify('first day of next month');
+                    while ($start < $end) {
+                        $periods[] = $start->format('Y-m');
+                        $start->modify('+1 month');
+                    }
+                } elseif ($periodKey === 'period_year') {
+                    $start = (int)date('Y', strtotime($this->startDate));
+                    $end = (int)date('Y', strtotime($this->endDate));
+                    for ($y = $start; $y <= $end; $y++) {
+                        $periods[] = (string)$y;
+                    }
+                }
+                // Fill missing nodes
+                $existing = [];
+                foreach ($results as $row) {
+                    $existing[$row[$periodKey]] = $row;
+                }
+                foreach ($periods as $p) {
+                    if (isset($existing[$p])) {
+                        $filled[] = $existing[$p];
+                    } else {
+                        $empty = [$periodKey => $p];
+                        foreach ($this->columnAliases as $k => $v) {
+                            if ($k !== $periodKey) $empty[$k] = null;
+                        }
+                        $filled[] = $empty;
+                    }
+                }
+                $results = $filled;
+            }
+        }
+
         return [
             'title' => $this->reportTitle,
             'caption' => $autoCaption,
@@ -296,6 +351,24 @@ class ReportBuilder extends QueryBuilder
         $this->periodSelects[] = "$expression AS {$alias}";
         $this->groups[] = $expression;
         $this->columnAliases[$alias] = 'Year';
+        return $this;
+    }
+
+    /**********************************************
+     * Add support for empty nodes in period range *
+     **********************************************/
+    protected bool $withEmptyNodes = false;
+
+    /**
+     * Toggle inclusion of empty nodes (periods with no data).
+     * Useful for charting to keep the x-axis continuous.
+     *
+     * @param bool $enable
+     * @return static
+     */
+    public function withEmptyNodes(bool $enable = true): static
+    {
+        $this->withEmptyNodes = $enable;
         return $this;
     }
 }
