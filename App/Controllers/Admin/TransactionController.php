@@ -91,8 +91,12 @@ class TransactionController extends AdminControllerBase
         }
     }
 
-    public function bulkStore($n)
+    public function bulkStore($n = null)
     {
+        // Accept n from POST if not provided
+        if ($n === null) {
+            $n = isset($_POST['n']) ? (int)$_POST['n'] : 10;
+        }
         $categories = [1, 2, 3, 4, 5]; // Example category IDs
         $types = ['income', 'expense'];
         $descriptions = ['Salary', 'Rent', 'Sale', 'Purchase', 'Refund', 'Bonus', 'Commission', 'Fee', 'Gift', 'Other'];
