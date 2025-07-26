@@ -31,7 +31,7 @@ class TransactionController extends AdminControllerBase
             ->generate('My Report Title', true);
 
         $dailyReport = ReportBuilder::build('transactions', 'date')
-            ->forPeriod(date('Y-m-d'), date('Y-m-d')) // Aggregate for today
+            ->forPeriod(date('Y-m-01'), date('Y-m-t')) // Aggregate for today
             ->daily()
             ->withSum('amount', 'Total')
             ->withMax('amount', 'Max')
