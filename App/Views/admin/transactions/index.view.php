@@ -49,10 +49,9 @@
             <?php endif; ?>
         </tbody>
     </table>
-    make a report card for $dailyReport looping through $dailyReport['data'] if it exists
-    <?php if (!empty($dailyReport['data'])): ?>
+    <?php if (!empty($dailyReport)): ?>
         <div class="mt-8 bg-white rounded-xl shadow-md p-6">
-            <h2 class="text-xl font-semibold text-blue-900 mb-4">Daily Report</h2>
+            <h2 class="text-xl font-semibold text-blue-900 mb-4"><?= htmlspecialchars($dailyReport['title']) ?></h2>
             <table class="min-w-full bg-white rounded-xl text-sm">
                 <thead>
                     <tr>
