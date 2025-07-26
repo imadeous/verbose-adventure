@@ -69,8 +69,8 @@ class AdminController extends AdminControllerBase
     public function reports()
     {
         // Get modifiers from GET
-        $periodStart = $_GET['period_start'] ?? date('Y-m-01');
-        $periodEnd = $_GET['period_end'] ?? date('Y-m-t');
+        $periodStart = $_GET['period_start'] ?? date('Y-m-d');
+        $periodEnd = $_GET['period_end'] ?? date('Y-m-d');
         $grouping = $_GET['grouping'] ?? 'daily';
         $type = $_GET['type'] ?? 'all';
         $aggSum = !empty($_GET['aggregate_sum']);
