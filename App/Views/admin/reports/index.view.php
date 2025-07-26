@@ -87,6 +87,11 @@
         <template x-if="!loading && report">
             <pre x-text="JSON.stringify(report, null, 2)"></pre>
         </template>
+        <?php if (isset($report)): ?>
+            <pre style="display:none;">
+                <?= htmlspecialchars(json_encode($report, JSON_PRETTY_PRINT)) ?>
+            </pre>
+        <?php endif; ?>
     </div>
     <script>
         function reportApp() {
