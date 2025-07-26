@@ -8,7 +8,7 @@
     <?php if (!empty($report['data'])): ?>
         <pre>
             <strong>Report Data:</strong>
-            <?= htmlspecialchars(json_encode($report['data'], JSON_PRETTY_PRINT)) ?>
+            <?= htmlspecialchars(json_encode($report, JSON_PRETTY_PRINT)) ?>
         </pre>
     <?php endif; ?>
     <table class="min-w-full bg-white rounded-xl text-sm">
