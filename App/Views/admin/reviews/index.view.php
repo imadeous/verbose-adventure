@@ -52,7 +52,7 @@
             </ul>
         </div>
     <?php endif; ?>
-    <pre><?php print_r($report ?? []); ?></pre>
+    <pre><?php print_r($report['data'] ?? []); ?></pre>
     <h2 class="text-xl font-semibold text-blue-900 mb-4">Overall Review Statistics</h2>
     <?php if (!empty($report)): ?>
         <div class="bg-white rounded-xl shadow-md p-6 mb-8 flex flex-wrap gap-6 justify-between">
