@@ -52,7 +52,19 @@
             </ul>
         </div>
     <?php endif; ?>
-    <pre>
-        <?php print_r($report ?? []); ?>
-    </pre>
+    <h2 class="text-xl font-semibold text-blue-900 mb-4">Overall Review Statistics</h2>
+    <?php if (!empty($report)): ?>
+        <div class="bg-white rounded-xl shadow-md p-6 mb-8 flex flex-wrap gap-6 justify-between">
+            <?php foreach ($report as $key => $value): ?>
+                <div class="flex flex-col items-center justify-center w-40 h-32 bg-blue-50 rounded-lg shadow border border-blue-100">
+                    <span class="text-lg font-bold text-blue-900 mb-2">
+                        <?= htmlspecialchars(ucwords(str_replace('_', ' ', $key))) ?>
+                    </span>
+                    <span class="text-3xl font-extrabold text-blue-700">
+                        <?= is_numeric($value) ? number_format($value, 2) : htmlspecialchars($value) ?>
+                    </span>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
 </div>
