@@ -57,10 +57,6 @@
                     <label><input type="checkbox" name="aggregate_max" value="1" <?= !empty($_GET['aggregate_max']) ? 'checked' : '' ?>> Max</label>
                 </div>
             </div>
-            <div>
-                <label for="title" class="block text-sm font-medium text-blue-900">Report Title</label>
-                <input type="text" name="title" id="title" value="<?= htmlspecialchars($_GET['title'] ?? 'Transactions Report') ?>" class="border rounded-lg px-2 py-1 text-sm w-56">
-            </div>
             <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-blue-700 transition">Update Report</button>
         </form>
         <h2 class="text-xl font-semibold text-blue-900 mb-4"><?= htmlspecialchars($_GET['title'] ?? 'Transactions Report') ?></h2>

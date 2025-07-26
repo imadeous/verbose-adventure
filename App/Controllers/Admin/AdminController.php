@@ -73,13 +73,12 @@ class AdminController extends AdminControllerBase
         $periodEnd = $_GET['period_end'] ?? date('Y-m-t');
         $grouping = $_GET['grouping'] ?? 'daily';
         $type = $_GET['type'] ?? 'all';
-        $title = $_GET['title'] ?? 'Transactions Report';
-        $caption = $_GET['caption'] ?? '';
         $aggSum = !empty($_GET['aggregate_sum']);
         $aggAvg = !empty($_GET['aggregate_avg']);
         $aggMin = !empty($_GET['aggregate_min']);
         $aggMax = !empty($_GET['aggregate_max']);
 
+        $autoTitle = 'Transactions Report';
         $builder = ReportBuilder::build('transactions', 'date')
             ->forPeriod($periodStart, $periodEnd);
 
@@ -113,7 +112,7 @@ class AdminController extends AdminControllerBase
         if ($aggMin) $builder->withMin('amount', 'Min');
         if ($aggMax) $builder->withMax('amount', 'Max');
 
-        $report = $builder->generate($title, true);
+        $report = $builder->generate($autoTitle, true);
 
         $this->view->layout('admin');
         $this->view('admin/reports/index', [
@@ -122,8 +121,6 @@ class AdminController extends AdminControllerBase
                 ['label' => 'Reports']
             ],
             'report' => $report,
-            'title' => $title,
-            'caption' => $caption
         ]);
     }
 }
