@@ -72,7 +72,7 @@
                             <td class="px-4 py-2"><?= htmlspecialchars(number_format($day['Max'], 2)) ?></td>
                             <td class="px-4 py-2"><?= htmlspecialchars(number_format($day['Min'], 2)) ?></td>
                             <td class="px-4 py-2"><?= htmlspecialchars(number_format($day['Average'], 2)) ?></td>
-                            <td class="px-4 py-2"><?= htmlspecialchars(number_format($day['Count'], 2)) ?></td>
+                            <td class="px-4 py-2"><?= htmlspecialchars($day['Count']) ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
