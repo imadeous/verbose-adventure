@@ -73,6 +73,7 @@ class AdminController extends AdminControllerBase
         $report = ReportBuilder::build('transactions', 'date')
             ->forPeriod(date('Y-m-01'), date('Y-m-t')) // Aggregate for current month
             ->daily()
+            ->where('type', '=', 'expense') // Only include expenses
             ->withSum('amount', 'Total')
             ->withMax('amount', 'Max')
             ->generate('Transactions Report', true);
