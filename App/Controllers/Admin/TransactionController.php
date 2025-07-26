@@ -30,10 +30,21 @@ class TransactionController extends AdminControllerBase
             ->withCount('*', 'Count')
             ->generate('My Report Title', true);
 
+        $monthlyReport = ReportBuilder::build('transactions', 'date')
+            ->forPeriod(date('Y-m-01'), date('Y-m-t')) // Aggregate for the current month
+            ->monthly()
+            ->withSum('amount', 'Total')
+            ->withMax('amount', 'Max')
+            ->withMin('amount', 'Min')
+            ->withAverage('amount', 'Average')
+            ->withCount('*', 'Count')
+            ->generate('Monthly Transactions Report', true);
+
         $this->view->layout('admin');
         $this->view('admin/transactions/index', [
             'transactions' => $transactions,
             'report' => $report,
+            'monthlyReport' => $monthlyReport,
         ]);
     }
 
