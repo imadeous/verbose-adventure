@@ -67,7 +67,7 @@
                         <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
                             <td class="px-4 py-2"><?= htmlspecialchars(date('d M', strtotime($day['period_day']))) ?></td>
                             <td class="px-4 py-2"><?= number_format($day['Total'] ?? 0, 2) ?></td>
-                            <td class="px-4 py-2"><?= number_format($day['Max'] ?? 0, 2) ?> - <?= number_format($day['Min'] ?? 0, 2) ?></td>
+                            <td class="px-4 py-2"><?= number_format($day['Min'] ?? 0, 2) ?> - <?= number_format($day['Max'] ?? 0, 2) ?></td>
                             <td class="px-4 py-2"><?= number_format($day['Average'] ?? 0, 2) ?></td>
                             <td class="px-4 py-2"><?= htmlspecialchars($day['Count'] ?? '0') ?></td>
                         </tr>
