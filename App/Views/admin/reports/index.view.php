@@ -39,4 +39,7 @@
             <p class="text-blue-400">No report data available for this period.</p>
         <?php endif; ?>
     </div>
+    <pre>
+        <?= htmlspecialchars(json_encode($report, JSON_PRETTY_PRINT)) ?>
+    </pre>
 </div>
