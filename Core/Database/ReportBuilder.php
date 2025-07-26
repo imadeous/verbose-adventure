@@ -47,15 +47,7 @@ class ReportBuilder extends QueryBuilder
         return new static($table, $dateColumn);
     }
 
-    // -------
-    // GENERATE REPORT 
-    /**
-     * Generate the report with the specified title.
-     *
-     * @param string|null $title
-     * @return array
-     */
-    public function generate(?string $title = null)
+    public function generate(?string $title = null, bool $caption = false)
     {
         if ($title !== null) {
             $this->reportTitle = $title;
@@ -68,6 +60,27 @@ class ReportBuilder extends QueryBuilder
         $this->columns = $selects;
         $this->operation = 'select';
         $results = $this->get();
+
+        $autoCaption = null;
+        if ($caption) {
+            // Detect period alias (first in columnAliases that starts with 'period_')
+            $periodAlias = null;
+            foreach ($this->columnAliases as $key => $label) {
+                if (strpos($key, 'period_') === 0) {
+                    $periodAlias = $label;
+                    break;
+                }
+            }
+            $columns = array_filter($this->columnAliases, fn($k) => strpos($k, 'period_') !== 0, ARRAY_FILTER_USE_KEY);
+            $columnList = implode(', ', $columns);
+            $autoCaption = trim(
+                ($periodAlias ? $periodAlias . ' ' : '') .
+                    ucfirst($this->table) . ' report from ' .
+                    $this->startDate . ' to ' . $this->endDate .
+                    ($columnList ? ' with ' . $columnList : '')
+            );
+        }
+
         return [
             'title' => $this->reportTitle,
             'period' => [
@@ -76,9 +89,9 @@ class ReportBuilder extends QueryBuilder
             ],
             'columns' => $this->columnAliases,
             'data' => $results,
+            'caption' => $autoCaption,
         ];
     }
-
     // -------
     // PERIOD HANDLING
     // -------  
