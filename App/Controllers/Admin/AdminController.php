@@ -112,7 +112,7 @@ class AdminController extends AdminControllerBase
         if ($aggMin) $builder->withMin('amount', 'Min');
         if ($aggMax) $builder->withMax('amount', 'Max');
 
-        $report = $builder->generate($autoTitle, true);
+        $report = $builder->withCount()->generate($autoTitle, true);
 
         $this->view->layout('admin');
         $this->view('admin/reports/index', [
