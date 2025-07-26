@@ -19,17 +19,6 @@ class TransactionController extends AdminControllerBase
                 ->get()
         );
 
-        // Test ReportBuilder forPeriod method
-        $report = ReportBuilder::build('transactions', 'date')
-            ->forPeriod(date('Y-m-01'), date('Y-m-t')) // Aggregate for the current month
-            ->daily()
-            ->withSum('amount', 'Total')
-            ->withMax('amount', 'Max')
-            ->withMin('amount', 'Min')
-            ->withAverage('amount', 'Average')
-            ->withCount('*', 'Count')
-            ->generate('My Report Title', true);
-
         $dailyReport = ReportBuilder::build('transactions', 'date')
             ->forPeriod(date('Y-m-01'), date('Y-m-t')) // Aggregate for current month
             ->daily()
@@ -43,7 +32,6 @@ class TransactionController extends AdminControllerBase
         $this->view->layout('admin');
         $this->view('admin/transactions/index', [
             'transactions' => $transactions,
-            'report' => $report,
             'dailyReport' => $dailyReport,
         ]);
     }

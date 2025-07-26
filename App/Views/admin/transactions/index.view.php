@@ -5,12 +5,6 @@
             <a href="<?= url('admin/transactions/create') ?>" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-blue-700 transition">Add Transaction</a>
         <?php endif; ?>
     </div>
-    <?php if (!empty($report['data'])): ?>
-        <pre>
-            <strong>Report Data:</strong>
-            <?= htmlspecialchars(json_encode($report, JSON_PRETTY_PRINT)) ?>
-        </pre>
-    <?php endif; ?>
     <table class="min-w-full bg-white rounded-xl text-sm">
         <thead>
             <tr>
