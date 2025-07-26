@@ -43,7 +43,7 @@
             <div>
                 <label class="block text-sm font-medium text-blue-900">Aggregates</label>
                 <div class="flex gap-2">
-                    <label><input type="checkbox" x-model="aggregate_sum"> Sum</label>
+                    <label><input type="checkbox" checked x-model="aggregate_sum"> Sum</label>
                     <label><input type="checkbox" x-model="aggregate_avg"> Average</label>
                     <label><input type="checkbox" x-model="aggregate_min"> Min</label>
                     <label><input type="checkbox" x-model="aggregate_max"> Max</label>
