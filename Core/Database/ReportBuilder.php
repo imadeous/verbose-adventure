@@ -63,18 +63,27 @@ class ReportBuilder extends QueryBuilder
 
         $autoCaption = null;
         if ($caption) {
-            // Detect period alias (first in columnAliases that starts with 'period_')
-            $periodAlias = null;
-            foreach ($this->columnAliases as $key => $label) {
-                if (strpos($key, 'period_') === 0) {
-                    $periodAlias = $label;
+            // Map period aliases to grouping type
+            $periodTypes = [
+                'period_day' => 'Daily ',
+                'period_week' => 'Weekly ',
+                'period_month' => 'Monthly ',
+                'period_quarter' => 'Quarterly ',
+                'period_year' => 'Annual ',
+            ];
+            $groupType = '';
+            foreach ($periodTypes as $key => $label) {
+                if (isset($this->columnAliases[$key])) {
+                    $groupType = $label;
                     break;
                 }
             }
+
             $columns = array_filter($this->columnAliases, fn($k) => strpos($k, 'period_') !== 0, ARRAY_FILTER_USE_KEY);
             $columnList = implode(', ', $columns);
+
             $autoCaption = trim(
-                ($periodAlias ? $periodAlias . ' ' : '') .
+                $groupType .
                     ucfirst($this->table) . ' report from ' .
                     $this->startDate . ' to ' . $this->endDate .
                     ($columnList ? ' with ' . $columnList : '')
@@ -83,13 +92,13 @@ class ReportBuilder extends QueryBuilder
 
         return [
             'title' => $this->reportTitle,
+            'caption' => $autoCaption,
             'period' => [
                 'from' => $this->startDate,
                 'to' => $this->endDate,
             ],
             'columns' => $this->columnAliases,
             'data' => $results,
-            'caption' => $autoCaption,
         ];
     }
     // -------
