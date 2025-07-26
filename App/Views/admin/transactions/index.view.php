@@ -52,6 +52,7 @@
     <?php if (!empty($dailyReport)): ?>
         <div class="mt-8 bg-white rounded-xl shadow-md p-6">
             <h2 class="text-xl font-semibold text-blue-900 mb-4"><?= htmlspecialchars($dailyReport['title']) ?></h2>
+            <p class="text-sm text-gray-600 mb-4"><?= htmlspecialchars($dailyReport['caption']) ?></p>
             <table class="min-w-full bg-white rounded-xl text-sm">
                 <thead>
                     <tr>
