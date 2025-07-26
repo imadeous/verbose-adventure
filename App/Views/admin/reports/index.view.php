@@ -53,8 +53,7 @@
         <template x-if="loading">
             <div class="text-blue-400">Loading report...</div>
         </template>
-        <h2 class="text-xl font-semibold text-blue-900 mb-4" x-text="title"></h2>
-        <p class="text-sm text-gray-600 mb-4" x-text="caption"></p>
+        <h2 class="text-xl font-semibold text-blue-900 mb-4">Transactions Report</h2>
         <template x-if="!loading && report && report.data && report.data.length">
             <table class="min-w-full bg-white rounded-xl text-sm">
                 <thead>
