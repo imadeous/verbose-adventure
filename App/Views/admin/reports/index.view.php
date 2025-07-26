@@ -106,7 +106,7 @@
                     quarterly: 'Quarterly',
                     yearly: 'Yearly'
                 },
-                report: <?= json_encode($report, JSON_PRETTY_PRINT) ?>,
+                report: <?= json_encode($report) ?>,
                 columns: {},
                 loading: false,
                 init() {
