@@ -13,7 +13,7 @@ class ReviewsController extends AdminControllerBase
         $reviewReport = ReportBuilder::build('reviews', 'created_at')
             // ->forPeriod(date('Y-m-01'), date('Y-m-t'))
             // ->monthly() // Aggregate for current month
-            ->withSum('recommendation_score', 'Total Recommendations')
+            ->withAverage('recommendation_score', 'Average Recommendations')
             ->withAverage('quality_rating', 'Average Quality')
             ->withAverage('pricing_rating', 'Average Pricing')
             ->withAverage('communication_rating', 'Average Communication')
