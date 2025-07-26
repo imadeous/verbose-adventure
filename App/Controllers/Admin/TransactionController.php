@@ -19,9 +19,9 @@ class TransactionController extends AdminControllerBase
                 ->get()
         );
 
-        $dailyReport = ReportBuilder::build('transactions', 'date')
-            ->forPeriod(date('Y-m-01'), date('Y-m-t')) // Aggregate for current month
-            ->weekly()
+        $yearlyReport = ReportBuilder::build('transactions', 'date')
+            ->forPeriod(date('Y-01-01'), date('Y-12-31')) // Aggregate for current year
+            ->yearly()
             ->withEmptyNodes(true)
             ->withSum('amount', 'Total')
             ->withMax('amount', 'Max')
