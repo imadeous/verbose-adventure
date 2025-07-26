@@ -1,4 +1,4 @@
-<div class="max-full mx-auto">
+<div class="max-full mx-auto" x-data="reportApp()" x-init="init()">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-blue-900">Reports</h1>
         <nav class="text-sm text-blue-700">
@@ -15,104 +15,165 @@
         </nav>
     </div>
     <div class="bg-white rounded-xl shadow-md p-6">
-        <form action="" method="get" class="mb-6 flex flex-wrap gap-4 items-end">
+        <form @change="fetchReport" class="mb-6 flex flex-wrap gap-4 items-end">
             <div>
                 <label for="period_start" class="block text-sm font-medium text-blue-900">Period Start</label>
-                <input type="date" name="period_start" id="period_start" value="<?= htmlspecialchars($_GET['period_start'] ?? date('Y-m-01')) ?>" class="border rounded-lg px-2 py-1 text-sm w-40">
+                <input type="date" x-model="period_start" class="border rounded-lg px-2 py-1 text-sm w-40">
             </div>
             <div>
                 <label for="period_end" class="block text-sm font-medium text-blue-900">Period End</label>
-                <input type="date" name="period_end" id="period_end" value="<?= htmlspecialchars($_GET['period_end'] ?? date('Y-m-t')) ?>" class="border rounded-lg px-2 py-1 text-sm w-40">
+                <input type="date" x-model="period_end" class="border rounded-lg px-2 py-1 text-sm w-40">
             </div>
             <div>
                 <label for="grouping" class="block text-sm font-medium text-blue-900">Grouping Period</label>
-                <select name="grouping" id="grouping" class="border rounded-lg px-2 py-1 text-sm">
-                    <?php foreach (
-                        [
-                            'daily' => 'Daily',
-                            'weekly' => 'Weekly',
-                            'monthly' => 'Monthly',
-                            'quarterly' => 'Quarterly',
-                            'yearly' => 'Yearly'
-                        ] as $key => $label
-                    ): ?>
-                        <option value="<?= $key ?>" <?= (($_GET['grouping'] ?? 'daily') === $key) ? 'selected' : '' ?>><?= $label ?></option>
-                    <?php endforeach; ?>
+                <select x-model="grouping" class="border rounded-lg px-2 py-1 text-sm">
+                    <template x-for="(label, key) in groupings" :key="key">
+                        <option :value="key" x-text="label"></option>
+                    </template>
                 </select>
             </div>
             <div>
                 <label for="type" class="block text-sm font-medium text-blue-900">Type</label>
-                <select name="type" id="type" class="border rounded-lg px-2 py-1 text-sm">
-                    <option value="all" <?= (($_GET['type'] ?? 'all') === 'all') ? 'selected' : '' ?>>All</option>
-                    <option value="income" <?= (($_GET['type'] ?? '') === 'income') ? 'selected' : '' ?>>Income</option>
-                    <option value="expense" <?= (($_GET['type'] ?? '') === 'expense') ? 'selected' : '' ?>>Expense</option>
+                <select x-model="type" class="border rounded-lg px-2 py-1 text-sm">
+                    <option value="all">All</option>
+                    <option value="income">Income</option>
+                    <option value="expense">Expense</option>
                 </select>
             </div>
             <div>
                 <label class="block text-sm font-medium text-blue-900">Aggregates</label>
                 <div class="flex gap-2">
-                    <label><input type="checkbox" name="aggregate_sum" value="1" <?= !empty($_GET['aggregate_sum']) ? 'checked' : '' ?>> Sum</label>
-                    <label><input type="checkbox" name="aggregate_avg" value="1" <?= !empty($_GET['aggregate_avg']) ? 'checked' : '' ?>> Average</label>
-                    <label><input type="checkbox" name="aggregate_min" value="1" <?= !empty($_GET['aggregate_min']) ? 'checked' : '' ?>> Min</label>
-                    <label><input type="checkbox" name="aggregate_max" value="1" <?= !empty($_GET['aggregate_max']) ? 'checked' : '' ?>> Max</label>
+                    <label><input type="checkbox" x-model="aggregate_sum"> Sum</label>
+                    <label><input type="checkbox" x-model="aggregate_avg"> Average</label>
+                    <label><input type="checkbox" x-model="aggregate_min"> Min</label>
+                    <label><input type="checkbox" x-model="aggregate_max"> Max</label>
                 </div>
             </div>
-            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-blue-700 transition">Update Report</button>
+            <div>
+                <label for="title" class="block text-sm font-medium text-blue-900">Report Title</label>
+                <input type="text" x-model="title" class="border rounded-lg px-2 py-1 text-sm w-56">
+            </div>
         </form>
-        <h2 class="text-xl font-semibold text-blue-900 mb-4"><?= htmlspecialchars($_GET['title'] ?? 'Transactions Report') ?></h2>
-        <p class="text-sm text-gray-600 mb-4"><?= htmlspecialchars($_GET['caption'] ?? 'No description provided.') ?></p>
-        <?php if (!empty($report) && !empty($report['data'])): ?>
-            <?php
-            // Determine columns from first row
-            $columns = [];
-            if (!empty($report['data'][0])) {
-                foreach ($report['data'][0] as $key => $val) {
-                    if ($key === 'period_day' || $key === 'period_week' || $key === 'period_month' || $key === 'period_quarter' || $key === 'period_year') {
-                        $columns[$key] = ucfirst(str_replace('_', ' ', $key));
-                    } elseif ($key === 'Total') {
-                        $columns[$key] = 'Total Amount';
-                    } elseif ($key === 'Average') {
-                        $columns[$key] = 'Average Amount';
-                    } elseif ($key === 'Min') {
-                        $columns[$key] = 'Min Amount';
-                    } elseif ($key === 'Max') {
-                        $columns[$key] = 'Max Amount';
-                    } else {
-                        $columns[$key] = ucfirst($key);
-                    }
-                }
-            }
-            ?>
+        <template x-if="loading">
+            <div class="text-blue-400">Loading report...</div>
+        </template>
+        <h2 class="text-xl font-semibold text-blue-900 mb-4" x-text="title"></h2>
+        <p class="text-sm text-gray-600 mb-4" x-text="caption"></p>
+        <template x-if="!loading && report && report.data && report.data.length">
             <table class="min-w-full bg-white rounded-xl text-sm">
                 <thead>
                     <tr>
-                        <?php foreach ($columns as $key => $label): ?>
-                            <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">
-                                <?= htmlspecialchars($label) ?>
-                            </th>
-                        <?php endforeach; ?>
+                        <template x-for="(label, key) in columns" :key="key">
+                            <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200" x-text="label"></th>
+                        </template>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($report['data'] as $row): ?>
+                    <template x-for="row in report.data" :key="row">
                         <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
-                            <?php foreach ($columns as $key => $label): ?>
+                            <template x-for="(label, key) in columns" :key="key">
                                 <td class="px-4 py-2 whitespace-nowrap">
-                                    <?php
-                                    if (in_array($key, ['Total', 'Average', 'Min', 'Max'])) {
-                                        echo number_format($row[$key] ?? 0, 2);
-                                    } else {
-                                        echo htmlspecialchars($row[$key] ?? '-');
-                                    }
-                                    ?>
+                                    <template x-if="['Total','Average','Min','Max'].includes(key)">
+                                        <span x-text="Number(row[key] ?? 0).toFixed(2)"></span>
+                                    </template>
+                                    <template x-if="!['Total','Average','Min','Max'].includes(key)">
+                                        <span x-text="row[key] ?? '-'"></span>
+                                    </template>
                                 </td>
-                            <?php endforeach; ?>
+                            </template>
                         </tr>
-                    <?php endforeach; ?>
+                    </template>
                 </tbody>
             </table>
-        <?php else: ?>
+        </template>
+        <template x-if="!loading && (!report || !report.data || !report.data.length)">
             <p class="text-blue-400">No report data available for this period.</p>
-        <?php endif; ?>
+        </template>
+        <template x-if="!loading && report">
+            <pre x-text="JSON.stringify(report, null, 2)"></pre>
+        </template>
     </div>
+    <script>
+        function reportApp() {
+            return {
+                period_start: '<?= htmlspecialchars($_GET['period_start'] ?? date('Y-m-01')) ?>',
+                period_end: '<?= htmlspecialchars($_GET['period_end'] ?? date('Y-m-t')) ?>',
+                grouping: '<?= htmlspecialchars($_GET['grouping'] ?? 'daily') ?>',
+                type: '<?= htmlspecialchars($_GET['type'] ?? 'all') ?>',
+                aggregate_sum: <?= !empty($_GET['aggregate_sum']) ? 'true' : 'false' ?>,
+                aggregate_avg: <?= !empty($_GET['aggregate_avg']) ? 'true' : 'false' ?>,
+                aggregate_min: <?= !empty($_GET['aggregate_min']) ? 'true' : 'false' ?>,
+                aggregate_max: <?= !empty($_GET['aggregate_max']) ? 'true' : 'false' ?>,
+                title: '<?= htmlspecialchars($_GET['title'] ?? 'Transactions Report') ?>',
+                caption: '<?= htmlspecialchars($_GET['caption'] ?? 'No description provided.') ?>',
+                groupings: {
+                    daily: 'Daily',
+                    weekly: 'Weekly',
+                    monthly: 'Monthly',
+                    quarterly: 'Quarterly',
+                    yearly: 'Yearly'
+                },
+                report: null,
+                columns: {},
+                loading: false,
+                init() {
+                    this.fetchReport();
+                },
+                fetchReport() {
+                    this.loading = true;
+                    const params = new URLSearchParams({
+                        period_start: this.period_start,
+                        period_end: this.period_end,
+                        grouping: this.grouping,
+                        type: this.type,
+                        aggregate_sum: this.aggregate_sum ? '1' : '',
+                        aggregate_avg: this.aggregate_avg ? '1' : '',
+                        aggregate_min: this.aggregate_min ? '1' : '',
+                        aggregate_max: this.aggregate_max ? '1' : '',
+                        title: this.title,
+                        caption: this.caption
+                    });
+                    fetch(window.location.pathname + '?' + params.toString())
+                        .then(r => r.text())
+                        .then(html => {
+                            // Parse the HTML and extract the report JSON from the <pre> block
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(html, 'text/html');
+                            const pre = doc.querySelector('pre');
+                            if (pre) {
+                                try {
+                                    this.report = JSON.parse(pre.textContent);
+                                    // Determine columns
+                                    this.columns = {};
+                                    if (this.report && this.report.data && this.report.data.length && typeof this.report.data[0] === 'object') {
+                                        for (const key in this.report.data[0]) {
+                                            if ([
+                                                    'period_day', 'period_week', 'period_month', 'period_quarter', 'period_year'
+                                                ].includes(key)) {
+                                                this.columns[key] = key.replace('period_', '').replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
+                                            } else if (key === 'Total') {
+                                                this.columns[key] = 'Total Amount';
+                                            } else if (key === 'Average') {
+                                                this.columns[key] = 'Average Amount';
+                                            } else if (key === 'Min') {
+                                                this.columns[key] = 'Min Amount';
+                                            } else if (key === 'Max') {
+                                                this.columns[key] = 'Max Amount';
+                                            } else {
+                                                this.columns[key] = key.charAt(0).toUpperCase() + key.slice(1);
+                                            }
+                                        }
+                                    }
+                                } catch (e) {
+                                    this.report = null;
+                                }
+                            } else {
+                                this.report = null;
+                            }
+                            this.loading = false;
+                        });
+                }
+            }
+        }
+    </script>
 </div>
