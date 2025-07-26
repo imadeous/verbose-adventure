@@ -56,31 +56,33 @@
         </template>
         <h2 class="text-xl font-semibold text-blue-900 mb-4">Transactions Report</h2>
         <template x-if="!loading && report && report.data && report.data.length">
-            <table class="min-w-full bg-white rounded-xl text-sm">
-                <thead>
-                    <tr>
-                        <template x-for="(label, key) in columns" :key="key">
-                            <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200" x-text="label"></th>
-                        </template>
-                    </tr>
-                </thead>
-                <tbody>
-                    <template x-for="(row, rowIndex) in report.data" :key="rowIndex">
-                        <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
+            <div class="overflow-x-auto w-full">
+                <table class="min-w-full bg-white rounded-xl text-sm">
+                    <thead>
+                        <tr>
                             <template x-for="(label, key) in columns" :key="key">
-                                <td class="px-4 py-2 whitespace-nowrap">
-                                    <template x-if="['Total','Average','Min','Max','Count'].includes(key)">
-                                        <span x-text="Number(row[key] ?? 0).toFixed(2)"></span>
-                                    </template>
-                                    <template x-if="!['Total','Average','Min','Max','Count'].includes(key)">
-                                        <span x-text="row[key] ?? '-'"></span>
-                                    </template>
-                                </td>
+                                <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200" x-text="label"></th>
                             </template>
                         </tr>
-                    </template>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <template x-for="(row, rowIndex) in report.data" :key="rowIndex">
+                            <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
+                                <template x-for="(label, key) in columns" :key="key">
+                                    <td class="px-4 py-2 whitespace-nowrap">
+                                        <template x-if="['Total','Average','Min','Max','Count'].includes(key)">
+                                            <span x-text="Number(row[key] ?? 0).toFixed(2)"></span>
+                                        </template>
+                                        <template x-if="!['Total','Average','Min','Max','Count'].includes(key)">
+                                            <span x-text="row[key] ?? '-'"></span>
+                                        </template>
+                                    </td>
+                                </template>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
         </template>
         <template x-if="!loading && (!report || !report.data || !report.data.length)">
             <p class="text-blue-400">No report data available for this period.</p>
