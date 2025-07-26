@@ -1,4 +1,3 @@
-
 <?php
 // This file is part of the YesFunadhoo project
 // It contains helper functions for the application 
@@ -50,7 +49,6 @@ if (!function_exists('url')) {
     }
 }
 
-// ...existing code...
 if (!function_exists('flash')) {
     /**
      * Set or get a flash message in the session.
@@ -105,5 +103,17 @@ if (!function_exists('asset')) {
         }
         $url .= '/' . ltrim($path, '/');
         return $url;
+    }
+}
+
+if (!function_exists('is_null')) {
+    /**
+     * Check if a variable is null
+     * @param mixed $var
+     * @return bool
+     */
+    function is_null($var): bool
+    {
+        return $var === null;
     }
 }
