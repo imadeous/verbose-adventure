@@ -64,7 +64,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <template x-for="row in report.data" :key="row">
+                    <template x-for="(row, rowIndex) in report.data" :key="rowIndex">
                         <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
                             <template x-for="(label, key) in columns" :key="key">
                                 <td class="px-4 py-2 whitespace-nowrap">
