@@ -30,7 +30,7 @@ class ContactController extends AdminControllerBase
         // Mark as read if not already
         if (is_null($contact->opened_at)) {
             $contact->opened_at = date('Y-m-d H:i:s');
-            $contact->save();
+            $contact->update();
         }
         $this->view('admin/contacts/show', ['contact' => $contact]);
     }
