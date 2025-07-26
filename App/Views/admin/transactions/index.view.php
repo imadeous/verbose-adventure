@@ -68,11 +68,11 @@
                     <?php foreach ($dailyReport['data'] as $day): ?>
                         <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
                             <td class="px-4 py-2"><?= htmlspecialchars($day['period_day']) ?></td>
-                            <td class="px-4 py-2"><?= htmlspecialchars($day['total']) ?></td>
-                            <td class="px-4 py-2"><?= htmlspecialchars($day['max']) ?></td>
-                            <td class="px-4 py-2"><?= htmlspecialchars($day['min']) ?></td>
-                            <td class="px-4 py-2"><?= htmlspecialchars($day['average']) ?></td>
-                            <td class="px-4 py-2"><?= htmlspecialchars($day['count']) ?></td>
+                            <td class="px-4 py-2"><?= htmlspecialchars($day['Total']) ?></td>
+                            <td class="px-4 py-2"><?= htmlspecialchars($day['Max']) ?></td>
+                            <td class="px-4 py-2"><?= htmlspecialchars($day['Min']) ?></td>
+                            <td class="px-4 py-2"><?= htmlspecialchars($day['Average']) ?></td>
+                            <td class="px-4 py-2"><?= htmlspecialchars($day['Count']) ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
