@@ -75,7 +75,7 @@ class AdminController extends AdminControllerBase
             ->daily()
             ->withSum('amount', 'Total')
             ->withMax('amount', 'Max')
-            ->get();
+            ->generate('Transactions Report', true);
         $this->view->layout('admin');
         $this->view('admin/reports/index', [
             'breadcrumb' => [
