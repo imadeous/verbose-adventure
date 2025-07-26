@@ -27,7 +27,7 @@ class TransactionController extends AdminControllerBase
             ->withMax('amount', 'Max')
             ->withMin('amount', 'Min')
             ->withAverage('amount', 'Average')
-            ->withCount('*', 'Transactions')
+            ->withCount('*', 'Count')
             ->generate('My Report Title', true);
 
         $this->view->layout('admin');
