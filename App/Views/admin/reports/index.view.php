@@ -47,6 +47,7 @@
                     <label><input type="checkbox" x-model="aggregate_avg"> Average</label>
                     <label><input type="checkbox" x-model="aggregate_min"> Min</label>
                     <label><input type="checkbox" x-model="aggregate_max"> Max</label>
+                    <label><input type="checkbox" x-model="aggregate_count"> Count</label>
                 </div>
             </div>
         </form>
@@ -68,10 +69,10 @@
                         <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
                             <template x-for="(label, key) in columns" :key="key">
                                 <td class="px-4 py-2 whitespace-nowrap">
-                                    <template x-if="['Total','Average','Min','Max'].includes(key)">
+                                    <template x-if="['Total','Average','Min','Max','Count'].includes(key)">
                                         <span x-text="Number(row[key] ?? 0).toFixed(2)"></span>
                                     </template>
-                                    <template x-if="!['Total','Average','Min','Max'].includes(key)">
+                                    <template x-if="!['Total','Average','Min','Max','Count'].includes(key)">
                                         <span x-text="row[key] ?? '-'"></span>
                                     </template>
                                 </td>
@@ -96,6 +97,7 @@
                 aggregate_avg: <?= !empty($_GET['aggregate_avg']) ? 'true' : 'false' ?>,
                 aggregate_min: <?= !empty($_GET['aggregate_min']) ? 'true' : 'false' ?>,
                 aggregate_max: <?= !empty($_GET['aggregate_max']) ? 'true' : 'false' ?>,
+                aggregate_count: <?= !empty($_GET['aggregate_count']) ? 'true' : 'false' ?>,
                 groupings: {
                     daily: 'Daily',
                     weekly: 'Weekly',
@@ -120,6 +122,7 @@
                         aggregate_avg: this.aggregate_avg ? '1' : '',
                         aggregate_min: this.aggregate_min ? '1' : '',
                         aggregate_max: this.aggregate_max ? '1' : '',
+                        aggregate_count: this.aggregate_count ? '1' : '',
                         ajax: '1' // Add a flag to request JSON only
                     });
                     fetch(window.location.pathname + '?' + params.toString())
@@ -142,6 +145,8 @@
                                         this.columns[key] = 'Min Amount';
                                     } else if (key === 'Max') {
                                         this.columns[key] = 'Max Amount';
+                                    } else if (key === 'Count') {
+                                        this.columns[key] = 'Transaction Count';
                                     } else {
                                         this.columns[key] = key.charAt(0).toUpperCase() + key.slice(1);
                                     }

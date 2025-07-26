@@ -77,6 +77,7 @@ class AdminController extends AdminControllerBase
         $aggAvg = !empty($_GET['aggregate_avg']);
         $aggMin = !empty($_GET['aggregate_min']);
         $aggMax = !empty($_GET['aggregate_max']);
+        $aggCount = !empty($_GET['aggregate_count']);
 
         $autoTitle = 'Transactions Report';
         $builder = ReportBuilder::build('transactions', 'date')
@@ -111,8 +112,9 @@ class AdminController extends AdminControllerBase
         if ($aggAvg) $builder->withAverage('amount', 'Average');
         if ($aggMin) $builder->withMin('amount', 'Min');
         if ($aggMax) $builder->withMax('amount', 'Max');
+        if ($aggCount) $builder->withCount('*', 'Count');
 
-        $report = $builder->withCount('*', 'Count')->generate($autoTitle, true);
+        $report = $builder->generate($autoTitle, true);
 
         if (!empty($_GET['ajax'])) {
             header('Content-Type: application/json');
