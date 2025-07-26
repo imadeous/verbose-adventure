@@ -6,6 +6,7 @@
         <?php endif; ?>
     </div>
     <table class="min-w-full bg-white rounded-xl text-sm">
+        <h2 class="text-xl font-semibold text-blue-900 mb-4">Transactions this Month</h2>
         <thead>
             <tr>
                 <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Date</th>
