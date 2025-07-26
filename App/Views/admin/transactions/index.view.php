@@ -67,7 +67,7 @@
                 <tbody>
                     <?php foreach ($dailyReport['data'] as $day): ?>
                         <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
-                            <td class="px-4 py-2"><?= htmlspecialchars($day['date']) ?></td>
+                            <td class="px-4 py-2"><?= htmlspecialchars($day['period_day']) ?></td>
                             <td class="px-4 py-2"><?= htmlspecialchars($day['total']) ?></td>
                             <td class="px-4 py-2"><?= htmlspecialchars($day['max']) ?></td>
                             <td class="px-4 py-2"><?= htmlspecialchars($day['min']) ?></td>
