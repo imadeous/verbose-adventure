@@ -54,17 +54,19 @@
     <?php endif; ?>
     <pre><?php print_r($report['data'] ?? []); ?></pre>
     <h2 class="text-xl font-semibold text-blue-900 mb-4">Overall Review Statistics</h2>
-    <?php if (!empty($report)): ?>
+    <?php if (!empty($report['data'])): ?>
         <div class="bg-white rounded-xl shadow-md p-6 mb-8 flex flex-wrap gap-6 justify-between">
-            <?php foreach ($report['data'] as $key => $value): ?>
-                <div class="flex flex-col items-center justify-center w-40 h-32 bg-blue-50 rounded-lg shadow border border-blue-100">
-                    <span class="text-lg font-bold text-blue-900 mb-2">
-                        <?= htmlspecialchars(ucwords(str_replace('_', ' ', $key))) ?>
-                    </span>
-                    <span class="text-3xl font-extrabold text-blue-700">
-                        <?= is_numeric($value) ? number_format($value, 2) : ($value) ?>
-                    </span>
-                </div>
+            <?php foreach ($report['data'] as $stats): ?>
+                <?php foreach ($stats as $key => $value): ?>
+                    <div class="flex flex-col items-center justify-center w-40 h-32 bg-blue-50 rounded-lg shadow border border-blue-100">
+                        <span class="text-lg font-bold text-blue-900 mb-2">
+                            <?= htmlspecialchars(ucwords(str_replace('_', ' ', $key))) ?>
+                        </span>
+                        <span class="text-3xl font-extrabold text-blue-700">
+                            <?= is_numeric($value) ? number_format($value, 2) : htmlspecialchars($value) ?>
+                        </span>
+                    </div>
+                <?php endforeach; ?>
             <?php endforeach; ?>
         </div>
     <?php endif; ?>
