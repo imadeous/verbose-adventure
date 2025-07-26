@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use Core\AdminControllerBase;
+use Core\Database\ReportBuilder;
 
 class AdminController extends AdminControllerBase
 {
@@ -62,6 +63,19 @@ class AdminController extends AdminControllerBase
             'overallAvg' => $overallAvg,
             'matrices' => $matrices,
             'totalReviews' => $totalReviews
+        ]);
+    }
+
+    public function reports()
+    {
+        // Placeholder for reports functionality
+        // This can be expanded to include various reports as needed
+        $this->view->layout('admin');
+        $this->view('admin/reports/index', [
+            'breadcrumb' => [
+                ['label' => 'Dashboard', 'url' => url('admin')],
+                ['label' => 'Reports']
+            ]
         ]);
     }
 }

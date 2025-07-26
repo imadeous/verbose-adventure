@@ -91,6 +91,14 @@ class TransactionController extends AdminControllerBase
         }
     }
 
+    public function bulkStore($n)
+    {
+        // This method is a placeholder for bulk store functionality
+        // Implement bulk transaction creation logic here if needed
+        flash('info', 'Bulk store functionality is not yet implemented.');
+        $this->redirect('/admin/transactions');
+    }
+
     public function show($id)
     {
         $this->view->layout('admin');
