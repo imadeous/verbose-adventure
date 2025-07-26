@@ -97,6 +97,7 @@ class ReportBuilder extends QueryBuilder
             );
         }
 
+        // If empty nodes are requested, fill in missing periods
         if ($this->withEmptyNodes && !empty($this->periodSelects) && $this->startDate && $this->endDate) {
             // Only works for daily, weekly, monthly, quarterly, yearly
             $periodKey = array_keys($this->columnAliases, 'Day')[0] ??
