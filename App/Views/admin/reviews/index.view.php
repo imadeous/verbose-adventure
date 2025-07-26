@@ -1,5 +1,21 @@
 <div class="max-w-full">
     <h1 class="text-3xl font-extrabold text-blue-900 mb-8">Reviews</h1>
+    <?php if (!empty($report['data'])): ?>
+        <div class="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-8">
+            <?php foreach ($report['data'] as $stats): ?>
+                <?php foreach ($stats as $key => $value): ?>
+                    <div class="flex flex-col items-center justify-center h-24 bg-blue-50 rounded-lg shadow border border-blue-100 p-2">
+                        <span class="text-xs font-semibold text-blue-900 mb-1 text-center">
+                            <?= htmlspecialchars(ucwords(str_replace('_', ' ', $key))) ?>
+                        </span>
+                        <span class="text-xl font-extrabold text-blue-700 text-center">
+                            <?= is_numeric($value) ? number_format($value, 2) : htmlspecialchars($value) ?>
+                        </span>
+                    </div>
+                <?php endforeach; ?>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
     <?php if (empty($reviews)): ?>
         <div class="bg-yellow-50 text-yellow-700 border border-yellow-200 px-4 py-3 rounded-lg mb-6">No reviews found.</div>
     <?php else: ?>
@@ -52,22 +68,5 @@
             </ul>
         </div>
     <?php endif; ?>
-    <pre><?php print_r($report['data'] ?? []); ?></pre>
-    <h2 class="text-xl font-semibold text-blue-900 mb-4">Overall Review Statistics</h2>
-    <?php if (!empty($report['data'])): ?>
-        <div class="bg-white rounded-xl shadow-md p-6 mb-8 flex flex-wrap gap-6 justify-between">
-            <?php foreach ($report['data'] as $stats): ?>
-                <?php foreach ($stats as $key => $value): ?>
-                    <div class="flex flex-col items-center justify-center w-40 h-32 bg-blue-50 rounded-lg shadow border border-blue-100">
-                        <span class="text-lg font-bold text-blue-900 mb-2">
-                            <?= htmlspecialchars(ucwords(str_replace('_', ' ', $key))) ?>
-                        </span>
-                        <span class="text-3xl font-extrabold text-blue-700">
-                            <?= is_numeric($value) ? number_format($value, 2) : htmlspecialchars($value) ?>
-                        </span>
-                    </div>
-                <?php endforeach; ?>
-            <?php endforeach; ?>
-        </div>
-    <?php endif; ?>
+
 </div>
