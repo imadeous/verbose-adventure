@@ -114,6 +114,12 @@ class AdminController extends AdminControllerBase
 
         $report = $builder->withCount('*', 'Count')->generate($autoTitle, true);
 
+        if (!empty($_GET['ajax'])) {
+            header('Content-Type: application/json');
+            echo json_encode($report, JSON_PRETTY_PRINT);
+            exit;
+        }
+
         $this->view->layout('admin');
         $this->view('admin/reports/index', [
             'breadcrumb' => [
