@@ -62,20 +62,51 @@
         <h2 class="text-xl font-semibold text-blue-900 mb-4"><?= htmlspecialchars($_GET['title'] ?? 'Transactions Report') ?></h2>
         <p class="text-sm text-gray-600 mb-4"><?= htmlspecialchars($_GET['caption'] ?? 'No description provided.') ?></p>
         <?php if (!empty($report) && !empty($report['data'])): ?>
+            <?php
+            // Determine columns from first row
+            $columns = [];
+            if (!empty($report['data'][0])) {
+                foreach ($report['data'][0] as $key => $val) {
+                    if ($key === 'period_day' || $key === 'period_week' || $key === 'period_month' || $key === 'period_quarter' || $key === 'period_year') {
+                        $columns[$key] = ucfirst(str_replace('_', ' ', $key));
+                    } elseif ($key === 'Total') {
+                        $columns[$key] = 'Total Amount';
+                    } elseif ($key === 'Average') {
+                        $columns[$key] = 'Average Amount';
+                    } elseif ($key === 'Min') {
+                        $columns[$key] = 'Min Amount';
+                    } elseif ($key === 'Max') {
+                        $columns[$key] = 'Max Amount';
+                    } else {
+                        $columns[$key] = ucfirst($key);
+                    }
+                }
+            }
+            ?>
             <table class="min-w-full bg-white rounded-xl text-sm">
                 <thead>
                     <tr>
-                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Date</th>
-                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Total Amount</th>
-                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Max Amount</th>
+                        <?php foreach ($columns as $key => $label): ?>
+                            <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">
+                                <?= htmlspecialchars($label) ?>
+                            </th>
+                        <?php endforeach; ?>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($report['data'] as $row): ?>
                         <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
-                            <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($row['period_day'] ?? '-') ?></td>
-                            <td class="px-4 py-2 whitespace-nowrap"><?= number_format($row['Total'] ?? 0, 2) ?></td>
-                            <td class="px-4 py-2 whitespace-nowrap"><?= number_format($row['Max'] ?? 0, 2) ?></td>
+                            <?php foreach ($columns as $key => $label): ?>
+                                <td class="px-4 py-2 whitespace-nowrap">
+                                    <?php
+                                    if (in_array($key, ['Total', 'Average', 'Min', 'Max'])) {
+                                        echo number_format($row[$key] ?? 0, 2);
+                                    } else {
+                                        echo htmlspecialchars($row[$key] ?? '-');
+                                    }
+                                    ?>
+                                </td>
+                            <?php endforeach; ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
