@@ -57,8 +57,7 @@
                     <tr>
                         <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Date</th>
                         <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Total Amount</th>
-                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Max Amount</th>
-                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Min Amount</th>
+                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Range</th>
                         <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Average Amount</th>
                         <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Count</th>
                     </tr>
@@ -68,8 +67,7 @@
                         <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
                             <td class="px-4 py-2"><?= htmlspecialchars(date('d M', strtotime($day['period_day']))) ?></td>
                             <td class="px-4 py-2"><?= number_format($day['Total'] ?? 0, 2) ?></td>
-                            <td class="px-4 py-2"><?= number_format($day['Max'] ?? 0, 2) ?></td>
-                            <td class="px-4 py-2"><?= number_format($day['Min'] ?? 0, 2) ?></td>
+                            <td class="px-4 py-2"><?= number_format($day['Max'] ?? 0, 2) ?> - <?= number_format($day['Min'] ?? 0, 2) ?></td>
                             <td class="px-4 py-2"><?= number_format($day['Average'] ?? 0, 2) ?></td>
                             <td class="px-4 py-2"><?= htmlspecialchars($day['Count'] ?? '0') ?></td>
                         </tr>
