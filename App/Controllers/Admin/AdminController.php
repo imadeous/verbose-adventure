@@ -70,12 +70,19 @@ class AdminController extends AdminControllerBase
     {
         // Placeholder for reports functionality
         // This can be expanded to include various reports as needed
+        $report = ReportBuilder::build('transactions', 'date')
+            ->forPeriod(date('Y-m-01'), date('Y-m-t')) // Aggregate for current month
+            ->daily()
+            ->withSum('amount', 'Total')
+            ->withMax('amount', 'Max')
+            ->get();
         $this->view->layout('admin');
         $this->view('admin/reports/index', [
             'breadcrumb' => [
                 ['label' => 'Dashboard', 'url' => url('admin')],
                 ['label' => 'Reports']
-            ]
+            ],
+            'report' => $report
         ]);
     }
 }
