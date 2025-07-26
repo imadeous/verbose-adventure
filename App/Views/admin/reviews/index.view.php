@@ -61,7 +61,7 @@
                         <?= htmlspecialchars(ucwords(str_replace('_', ' ', $key))) ?>
                     </span>
                     <span class="text-3xl font-extrabold text-blue-700">
-                        <?= is_numeric($value) ? number_format($value, 2) : htmlspecialchars($value) ?>
+                        <?= is_numeric($value) ? number_format($value, 2) : ($value) ?>
                     </span>
                 </div>
             <?php endforeach; ?>
