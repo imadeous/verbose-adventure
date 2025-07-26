@@ -68,22 +68,62 @@ class AdminController extends AdminControllerBase
 
     public function reports()
     {
-        // Placeholder for reports functionality
-        // This can be expanded to include various reports as needed
-        $report = ReportBuilder::build('transactions', 'date')
-            ->forPeriod(date('Y-m-01'), date('Y-m-t')) // Aggregate for current month
-            ->daily()
-            ->where('type', '=', 'expense') // Only include expenses
-            ->withSum('amount', 'Total')
-            ->withMax('amount', 'Max')
-            ->generate('Transactions Report', true);
+        // Get modifiers from GET
+        $periodStart = $_GET['period_start'] ?? date('Y-m-01');
+        $periodEnd = $_GET['period_end'] ?? date('Y-m-t');
+        $grouping = $_GET['grouping'] ?? 'daily';
+        $type = $_GET['type'] ?? 'all';
+        $title = $_GET['title'] ?? 'Transactions Report';
+        $caption = $_GET['caption'] ?? '';
+        $aggSum = !empty($_GET['aggregate_sum']);
+        $aggAvg = !empty($_GET['aggregate_avg']);
+        $aggMin = !empty($_GET['aggregate_min']);
+        $aggMax = !empty($_GET['aggregate_max']);
+
+        $builder = ReportBuilder::build('transactions', 'date')
+            ->forPeriod($periodStart, $periodEnd);
+
+        // Grouping
+        switch ($grouping) {
+            case 'weekly':
+                $builder->weekly();
+                break;
+            case 'monthly':
+                $builder->monthly();
+                break;
+            case 'quarterly':
+                $builder->quarterly();
+                break;
+            case 'yearly':
+                $builder->yearly();
+                break;
+            default:
+                $builder->daily();
+                break;
+        }
+
+        // Type filter
+        if ($type === 'income' || $type === 'expense') {
+            $builder->where('type', '=', $type);
+        }
+
+        // Aggregates
+        if ($aggSum) $builder->withSum('amount', 'Total');
+        if ($aggAvg) $builder->withAverage('amount', 'Average');
+        if ($aggMin) $builder->withMin('amount', 'Min');
+        if ($aggMax) $builder->withMax('amount', 'Max');
+
+        $report = $builder->generate($title, true);
+
         $this->view->layout('admin');
         $this->view('admin/reports/index', [
             'breadcrumb' => [
                 ['label' => 'Dashboard', 'url' => url('admin')],
                 ['label' => 'Reports']
             ],
-            'report' => $report
+            'report' => $report,
+            'title' => $title,
+            'caption' => $caption
         ]);
     }
 }
