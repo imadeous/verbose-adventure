@@ -87,11 +87,6 @@
         <template x-if="!loading && report">
             <pre x-text="JSON.stringify(report, null, 2)"></pre>
         </template>
-        <?php if (isset($report)): ?>
-            <pre style="display:none;">
-                <?= htmlspecialchars(json_encode($report, JSON_PRETTY_PRINT)) ?>
-            </pre>
-        <?php endif; ?>
     </div>
     <script>
         function reportApp() {
@@ -111,7 +106,7 @@
                     quarterly: 'Quarterly',
                     yearly: 'Yearly'
                 },
-                report: null,
+                report: <?= json_encode($report, JSON_PRETTY_PRINT) ?>,
                 columns: {},
                 loading: false,
                 init() {
@@ -128,43 +123,32 @@
                         aggregate_avg: this.aggregate_avg ? '1' : '',
                         aggregate_min: this.aggregate_min ? '1' : '',
                         aggregate_max: this.aggregate_max ? '1' : '',
+                        ajax: '1' // Add a flag to request JSON only
                     });
                     fetch(window.location.pathname + '?' + params.toString())
-                        .then(r => r.text())
-                        .then(html => {
-                            // Parse the HTML and extract the report JSON from the <pre> block
-                            const parser = new DOMParser();
-                            const doc = parser.parseFromString(html, 'text/html');
-                            const pre = doc.querySelector('pre');
-                            if (pre) {
-                                try {
-                                    this.report = JSON.parse(pre.textContent);
-                                    // Determine columns
-                                    this.columns = {};
-                                    if (this.report && this.report.data && this.report.data.length && typeof this.report.data[0] === 'object') {
-                                        for (const key in this.report.data[0]) {
-                                            if ([
-                                                    'period_day', 'period_week', 'period_month', 'period_quarter', 'period_year'
-                                                ].includes(key)) {
-                                                this.columns[key] = key.replace('period_', '').replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
-                                            } else if (key === 'Total') {
-                                                this.columns[key] = 'Total Amount';
-                                            } else if (key === 'Average') {
-                                                this.columns[key] = 'Average Amount';
-                                            } else if (key === 'Min') {
-                                                this.columns[key] = 'Min Amount';
-                                            } else if (key === 'Max') {
-                                                this.columns[key] = 'Max Amount';
-                                            } else {
-                                                this.columns[key] = key.charAt(0).toUpperCase() + key.slice(1);
-                                            }
-                                        }
+                        .then(r => r.json())
+                        .then(data => {
+                            this.report = data;
+                            // Determine columns
+                            this.columns = {};
+                            if (this.report && this.report.data && this.report.data.length && typeof this.report.data[0] === 'object') {
+                                for (const key in this.report.data[0]) {
+                                    if ([
+                                            'period_day', 'period_week', 'period_month', 'period_quarter', 'period_year'
+                                        ].includes(key)) {
+                                        this.columns[key] = key.replace('period_', '').replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
+                                    } else if (key === 'Total') {
+                                        this.columns[key] = 'Total Amount';
+                                    } else if (key === 'Average') {
+                                        this.columns[key] = 'Average Amount';
+                                    } else if (key === 'Min') {
+                                        this.columns[key] = 'Min Amount';
+                                    } else if (key === 'Max') {
+                                        this.columns[key] = 'Max Amount';
+                                    } else {
+                                        this.columns[key] = key.charAt(0).toUpperCase() + key.slice(1);
                                     }
-                                } catch (e) {
-                                    this.report = null;
                                 }
-                            } else {
-                                this.report = null;
                             }
                             this.loading = false;
                         });
