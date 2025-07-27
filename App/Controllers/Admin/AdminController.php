@@ -140,11 +140,11 @@ class AdminController extends AdminControllerBase
             ->generate('Reviews Report', true);
 
         $overallAvg = (
-            $reviewsReport['data']['Quality'] +
-            $reviewsReport['data']['Pricing'] +
-            $reviewsReport['data']['Communication'] +
-            $reviewsReport['data']['Packaging'] +
-            $reviewsReport['data']['Delivery']
+            $reviewsReport['data'][0]['Quality'] +
+            $reviewsReport['data'][0]['Pricing'] +
+            $reviewsReport['data'][0]['Communication'] +
+            $reviewsReport['data'][0]['Packaging'] +
+            $reviewsReport['data'][0]['Delivery']
         ) / 5;
 
         $vars['reviewsReport'] = $reviewsReport;
