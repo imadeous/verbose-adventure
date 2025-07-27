@@ -304,13 +304,7 @@ use App\Models\Product;
                     Top Rated Products
                 </h4>
                 <div class="flex flex-col gap-3">
-                    <?php
-                    $topRated = [
-                        ['color' => 'bg-blue-700', 'name' => 'Architectural Models', 'rating' => 4.8],
-                        ['color' => 'bg-blue-500', 'name' => 'Custom Keychains', 'rating' => 4.7],
-                        ['color' => 'bg-blue-300', 'name' => 'Miniature Figures', 'rating' => 4.6],
-                    ];
-                    foreach ($topRatedProducts as $product): ?>
+                    <?php foreach ($topRatedProducts as $product): ?>
                         <div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-blue-100 transition border border-transparent hover:border-blue-300 shadow-sm">
                             <span class="inline-block w-3 h-3 rounded-full text-blue-700"></span>
                             <span class="font-medium text-blue-900 flex-1"><?php echo Product::find($product['product_id'])->name ?? 'Unknown Product'; ?></span>
