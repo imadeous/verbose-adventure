@@ -331,6 +331,6 @@ use App\Models\Product;
 
     // Quarterly Report Bar Chart
     const ctx2 = document.getElementById('quarterlyReportChart').getContext('2d');
-    const quarterlyReportChartConfig = <?php echo $quarterlyChart; ?>;
+    const quarterlyReportChartConfig = JSON.parse(`<?php echo addslashes($quarterlyChart); ?>`);
     new Chart(ctx2, quarterlyReportChartConfig);
 </script>
