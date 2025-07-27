@@ -144,6 +144,7 @@ class AdminController extends AdminControllerBase
             ],
             'transactionsChart' => $transactionsChart->toJson(),
             'quarterlyChart' => $quarterlyChart,
+            'ratingsChart' => $ratingsChart,
             'thisMonth' => $thisMonth,
             'lastMonth' => $lastMonth,
             'hottestCategories' => $hottestCategories,
