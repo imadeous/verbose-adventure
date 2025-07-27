@@ -165,7 +165,7 @@ class AdminController extends AdminControllerBase
     {
 
         //get the hottest categories
-        $query  = ReportBuilder::build('reviews', 'product_id')
+        $query  = ReportBuilder::build('reviews', 'created_at')
             ->forPeriod(date('2020-01-01'), date('Y-m-t'))
             ->whereNotNull('product_id')
             ->where('product_id', '!=', '')
