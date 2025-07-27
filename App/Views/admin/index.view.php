@@ -331,33 +331,6 @@ use App\Models\Product;
 
     // Quarterly Report Bar Chart
     const ctx2 = document.getElementById('quarterlyReportChart').getContext('2d');
-    const quarterlyReportChartConfig = {
-        type: 'bar',
-        data: {
-            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-            datasets: [{
-                label: 'Revenue',
-                data: [5200, 6800, 4500, 2000],
-                backgroundColor: [
-                    '#2563eb',
-                    '#3b82f6',
-                    '#60a5fa',
-                    '#93c5fd'
-                ],
-                borderWidth: 1,
-                borderRadius: 4 // <-- Add border radius to bar corners
-            }]
-        },
-        options: {
-            plugins: {
-                legend: {
-                    display: false,
-                    position: 'bottom'
-                }
-            },
-            responsive: true,
-            maintainAspectRatio: false
-        }
-    };
+    const quarterlyReportChartConfig = <?= e($quarterlyChart) ?>;
     new Chart(ctx2, quarterlyReportChartConfig);
 </script>
