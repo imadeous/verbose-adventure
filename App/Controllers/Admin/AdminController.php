@@ -134,7 +134,7 @@ class AdminController extends AdminControllerBase
             ->whereNotNull('category_id')
             ->groupBy('category_id')
             ->withCount('*', 'Count')
-            ->orderBy('SUM(amount)', 'desc') // Use column name instead of alias
+            ->orderBy('SUM(Count)', 'desc') // Use column name instead of alias
             ->limit(5);
 
         $vars = [
