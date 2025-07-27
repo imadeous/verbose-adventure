@@ -121,6 +121,7 @@ class AdminController extends AdminControllerBase
             ->withAverage('packaging_rating', 'Packaging')
             ->withAverage('delivery_rating', 'Delivery')
             ->radar()
+            ->legend(['display' => false])
             ->colors(['#2563eb', '#3b82f6', '#60a5fa', '#93c5fd', '#bfdbfe']);
 
         $recommendPercent = $reviewsReport['data'][0]['Recommendation'] ?? 0;
