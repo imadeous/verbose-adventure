@@ -11,12 +11,11 @@ class AdminController extends AdminControllerBase
     public function index()
     {
 
-        $ordersLast30Days = ReportBuilder::build('transactions', 'date')
-            ->forPeriod(date('Y-m-d', strtotime('-30 days')), date('Y-m-d'))
-            ->monthly()
+        $thisMonth = ReportBuilder::build('transactions', 'date')
+            ->forPeriod(date('Y-m-01'), date('Y-m-d'))
             ->where('type', '=', 'income')
-            ->withCount('*', 'Total Orders')
-            ->generate()['data'];
+            ->withSum('amount', 'Total Amount')
+            ->withCount('*', 'Total Orders');
 
         // Fetch categories and generate report
         $hottestCategories  = ReportBuilder::build('transactions', 'date')
@@ -97,7 +96,7 @@ class AdminController extends AdminControllerBase
                 ['label' => 'Dashboard', 'url' => url('admin')],
                 ['label' => 'Home']
             ],
-            'ordersLast30Days' => $ordersLast30Days,
+            'ordersLast30Days' => $thisMonth['data'],
             'hottestCategories' => $hottestCategories,
             'heaviestExpenses' => $heaviestExpenses,
             'ratingStats' => $ratingStats,
