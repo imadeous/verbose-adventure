@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use Core\AdminControllerBase;
+use App\Models\Review;
 use Core\Database\ReportBuilder;
 
 class AdminController extends AdminControllerBase
@@ -21,10 +22,10 @@ class AdminController extends AdminControllerBase
             ->withAverage('communication_rating', 'Average Communication')
             ->withAverage('packaging_rating', 'Average Packaging')
             ->withAverage('delivery_rating', 'Average Delivery')
-            ->get();
+            ->generate('Review Statistics', true);
 
-        // Get recent reviews (latest 3)
-        $recentReviews = ReportBuilder::build('reviews', 'created_at')
+        // Get recent reviews (latest 3) using Review model
+        $recentReviews = Review::query()
             ->orderBy('created_at', 'desc')
             ->limit(3)
             ->get();
