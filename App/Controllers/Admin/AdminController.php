@@ -10,6 +10,12 @@ class AdminController extends AdminControllerBase
 {
     public function index()
     {
+
+        $recentREviews = Review::query()
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
+
         $reviewsReport = ReportBuilder::build('reviews', 'created_at')
             ->forPeriod(date('2020-01-01'), date('Y-m-t'))
             ->withPercentage('recommendation_score', 'Recommendation')
