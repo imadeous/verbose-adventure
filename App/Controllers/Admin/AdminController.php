@@ -165,19 +165,16 @@ class AdminController extends AdminControllerBase
     {
 
         //get the hottest categories
-        $query  = ReportBuilder::build('transactions', 'date')
-            ->forPeriod(date('Y-m-01'), date('Y-m-t'))
-            ->where('type', '=', 'income')
-            ->with('category_id')
-            ->whereNotNull('category_id')
-            ->groupBy('category_id')
-            ->withSum('amount', 'Total')
-            ->withCount('*', 'Count')
-            ->orderBy('COUNT(category_id)', 'desc') // Use column name instead of alias
+        $query  = ReportBuilder::build('reviews', 'product_id')
+            ->forPeriod(date('2020-01-01'), date('Y-m-t'))
+            ->withAverage('pricing_rating', 'Overall Rating')
+            ->withCount('*', 'Total Reviews')
+            ->groupBy('product_id')
+            ->orderBy('SUM(pricing_rating)', 'desc')
             ->limit(5);
 
         $vars = [
-            'hottestCategories' => $query->generate('Hottest Categories', true),
+            'products' => $query->generate('Top Rated Products', true),
         ];
         // Debugging method to inspect variables
         $this->view->layout('admin');
