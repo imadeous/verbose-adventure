@@ -4,7 +4,7 @@
         <div class="mt-8">
             <h2 class="text-xl font-semibold mb-4 text-yellow-400">SQL Query</h2>
             <pre class="bg-zinc-900 text-yellow-300 p-4 rounded-md whitespace-pre-wrap break-words text-base">
-<?php if (isset($query)) var_dump($query);
+<?php if (isset($query)) echo $query;
 else echo 'No SQL query set.'; ?>
             </pre>
         </div>
