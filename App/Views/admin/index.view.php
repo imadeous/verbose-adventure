@@ -228,7 +228,7 @@
                         <div
                             class="flex items-center gap-2 w-full justify-between">
                             <div class="flex flex-col flex-1 items-start w-full">
-                                <div class="text-3xl font-bold text-blue-900 mb-2"><?= number_format($ratingStats['recommendPercent'], 2) ?? 0 ?>%</div>
+                                <div class="text-3xl font-bold text-blue-900 mb-2"><?= number_format($ratingStats['recommendPercent'], 0) ?? 0 ?>%</div>
                                 <div class="text-sm text-blue-400">Based on <?= $ratingStats['count'] ?? 0 ?> reviews</div>
                             </div>
                             <div class="flex-shrink-0 flex items-center justify-end">
