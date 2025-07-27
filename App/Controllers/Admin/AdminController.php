@@ -138,6 +138,9 @@ class AdminController extends AdminControllerBase
             ->withAverage('packaging_rating', 'Packaging')
             ->withAverage('delivery_rating', 'Delivery')
             ->generate('Reviews Report', true);
+
+
+        $vars['reviewsReport'] = $reviewsReport;
         // Debugging method to inspect variables
         $this->view->layout('admin');
         $this->view('admin/debug', [
@@ -146,7 +149,7 @@ class AdminController extends AdminControllerBase
                 ['label' => 'Dashboard', 'url' => url('admin')],
                 ['label' => 'Debug']
             ],
-            'reviewsReport' => $reviewsReport,
+            'vars' => $vars,
         ]);
     }
 }
