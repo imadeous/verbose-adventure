@@ -12,7 +12,11 @@ class CategoriesController extends AdminControllerBase
         $categories = Category::query()->orderBy('name', 'asc')->get();
         $this->view->layout('admin');
         $this->view('admin/categories/index', [
-            'categories' => $categories
+            'categories' => $categories,
+            'breadcrumb' => [
+                ['label' => 'Dashboard', 'url' => url('admin')],
+                ['label' => 'Categories']
+            ]
         ]);
     }
 
@@ -29,14 +33,25 @@ class CategoriesController extends AdminControllerBase
         $products = $category->getProductsWithCategory($id);
         $this->view('admin/categories/show', [
             'category' => $category,
-            'products' => $products
+            'products' => $products,
+            'breadcrumb' => [
+                ['label' => 'Dashboard', 'url' => url('admin')],
+                ['label' => 'Categories', 'url' => url('admin/categories')],
+                ['label' => $category->name]
+            ]
         ]);
     }
 
     public function create()
     {
         $this->view->layout('admin');
-        $this->view('admin/categories/create');
+        $this->view('admin/categories/create', [
+            'breadcrumb' => [
+                ['label' => 'Dashboard', 'url' => url('admin')],
+                ['label' => 'Categories', 'url' => url('admin/categories')],
+                ['label' => 'Create']
+            ]
+        ]);
     }
 
     public function store()
@@ -58,6 +73,11 @@ class CategoriesController extends AdminControllerBase
         }
         $this->view('admin/categories/edit', [
             'category' => $category,
+            'breadcrumb' => [
+                ['label' => 'Dashboard', 'url' => url('admin')],
+                ['label' => 'Categories', 'url' => url('admin/categories')],
+                ['label' => 'Edit']
+            ]
         ]);
     }
 

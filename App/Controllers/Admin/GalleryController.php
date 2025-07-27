@@ -18,7 +18,11 @@ class GalleryController extends AdminController
 
         $this->view->layout('admin');
         $this->view('admin/gallery/index', [
-            'gallery' => $gallery
+            'gallery' => $gallery,
+            'breadcrumb' => [
+                ['label' => 'Dashboard', 'url' => url('admin')],
+                ['label' => 'Gallery']
+            ]
         ]);
     }
 
@@ -32,7 +36,12 @@ class GalleryController extends AdminController
             return;
         }
         $this->view('admin/gallery/show', [
-            'item' => $item
+            'item' => $item,
+            'breadcrumb' => [
+                ['label' => 'Dashboard', 'url' => url('admin')],
+                ['label' => 'Gallery', 'url' => url('admin/gallery')],
+                ['label' => $item->title ?? 'Item']
+            ]
         ]);
     }
 
@@ -43,7 +52,12 @@ class GalleryController extends AdminController
         $products = \App\Models\Product::all();
         $this->view('admin/gallery/create', [
             'categories' => $categories,
-            'products' => $products
+            'products' => $products,
+            'breadcrumb' => [
+                ['label' => 'Dashboard', 'url' => url('admin')],
+                ['label' => 'Gallery', 'url' => url('admin/gallery')],
+                ['label' => 'Create']
+            ]
         ]);
     }
 
@@ -100,7 +114,12 @@ class GalleryController extends AdminController
             return;
         }
         $this->view('admin/gallery/edit', [
-            'item' => $item
+            'item' => $item,
+            'breadcrumb' => [
+                ['label' => 'Dashboard', 'url' => url('admin')],
+                ['label' => 'Gallery', 'url' => url('admin/gallery')],
+                ['label' => 'Edit']
+            ]
         ]);
     }
 

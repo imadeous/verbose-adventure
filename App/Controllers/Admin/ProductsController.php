@@ -16,8 +16,13 @@ class ProductsController extends AdminControllerBase
     {
         $products = Product::all();
         $this->view->layout('admin');
+        $breadcrumbs = [
+            ['label' => 'Dashboard', 'url' => '/admin'],
+            ['label' => 'Products', 'url' => '/admin/products']
+        ];
         $this->view('admin/products/index', [
-            'products' => $products
+            'products' => $products,
+            'breadcrumbs' => $breadcrumbs
         ]);
     }
 
@@ -31,13 +36,17 @@ class ProductsController extends AdminControllerBase
             return;
         }
         $reviews = $product ? $product->getReviews($id) : [];
-        // Manually load gallery images using QueryBuilder for compatibility
-        $gallery = Product::getImages($id); // Debugging line to check gallery data
-
+        $gallery = Product::getImages($id);
+        $breadcrumbs = [
+            ['label' => 'Dashboard', 'url' => '/admin'],
+            ['label' => 'Products', 'url' => '/admin/products'],
+            ['label' => $product->name, 'url' => '/admin/products/' . $id]
+        ];
         $this->view('admin/products/show', [
             'product' => $product,
             'reviews' => $reviews,
-            'gallery' => $gallery
+            'gallery' => $gallery,
+            'breadcrumbs' => $breadcrumbs
         ]);
     }
 
@@ -45,8 +54,14 @@ class ProductsController extends AdminControllerBase
     {
         $this->view->layout('admin');
         $categories = Category::all();
+        $breadcrumbs = [
+            ['label' => 'Dashboard', 'url' => '/admin'],
+            ['label' => 'Products', 'url' => '/admin/products'],
+            ['label' => 'Add Product', 'url' => '/admin/products/create']
+        ];
         $this->view('admin/products/create', [
-            'categories' => $categories
+            'categories' => $categories,
+            'breadcrumbs' => $breadcrumbs
         ]);
     }
 
@@ -75,9 +90,15 @@ class ProductsController extends AdminControllerBase
             return;
         }
         $categories = Category::query()->orderBy('name', 'asc')->get();
+        $breadcrumbs = [
+            ['label' => 'Dashboard', 'url' => '/admin'],
+            ['label' => 'Products', 'url' => '/admin/products'],
+            ['label' => 'Edit: ' . $product->name, 'url' => '/admin/products/' . $id . '/edit']
+        ];
         $this->view('admin/products/edit', [
             'product' => $product,
-            'categories' => $categories
+            'categories' => $categories,
+            'breadcrumbs' => $breadcrumbs
         ]);
     }
 
@@ -113,8 +134,15 @@ class ProductsController extends AdminControllerBase
             $this->redirect('/admin/products');
             return;
         }
+        $breadcrumbs = [
+            ['label' => 'Dashboard', 'url' => '/admin'],
+            ['label' => 'Products', 'url' => '/admin/products'],
+            ['label' => $product->name, 'url' => '/admin/products/' . $id],
+            ['label' => 'Add Image', 'url' => '/admin/products/' . $id . '/addImage']
+        ];
         $this->view('admin/products/addImage', [
-            'product' => $product
+            'product' => $product,
+            'breadcrumbs' => $breadcrumbs
         ]);
     }
 

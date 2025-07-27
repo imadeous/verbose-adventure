@@ -14,7 +14,13 @@ class ContactController extends AdminControllerBase
     {
         $this->view->layout('admin');
         $contacts = Contact::all();
-        $this->view('admin/contacts/index', ['contacts' => $contacts]);
+        $this->view('admin/contacts/index', [
+            'contacts' => $contacts,
+            'breadcrumb' => [
+                ['label' => 'Dashboard', 'url' => url('admin')],
+                ['label' => 'Contacts']
+            ]
+        ]);
     }
 
     // Show a single contact
@@ -32,7 +38,14 @@ class ContactController extends AdminControllerBase
             $contact->opened_at = date('Y-m-d H:i:s');
             $contact->update();
         }
-        $this->view('admin/contacts/show', ['contact' => $contact]);
+        $this->view('admin/contacts/show', [
+            'contact' => $contact,
+            'breadcrumb' => [
+                ['label' => 'Dashboard', 'url' => url('admin')],
+                ['label' => 'Contacts', 'url' => url('admin/contacts')],
+                ['label' => $contact->customer_name]
+            ]
+        ]);
     }
 
     public function destroy($id)
