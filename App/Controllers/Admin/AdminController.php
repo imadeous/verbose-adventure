@@ -121,8 +121,7 @@ class AdminController extends AdminControllerBase
             ->withAverage('packaging_rating', 'Packaging')
             ->withAverage('delivery_rating', 'Delivery')
             ->radar()
-            ->colors(['#2563eb', '#3b82f6', '#60a5fa', '#93c5fd', '#bfdbfe'])
-            ->toJson();
+            ->colors(['#2563eb', '#3b82f6', '#60a5fa', '#93c5fd', '#bfdbfe']);
 
         $recommendPercent = $reviewsReport['data'][0]['Recommendation'] ?? 0;
 
@@ -144,7 +143,7 @@ class AdminController extends AdminControllerBase
             ],
             'transactionsChart' => $transactionsChart->toJson(),
             'quarterlyChart' => $quarterlyChart,
-            'ratingsChart' => $ratingsChart,
+            'ratingsChart' => $ratingsChart->toJson(),
             'thisMonth' => $thisMonth,
             'lastMonth' => $lastMonth,
             'hottestCategories' => $hottestCategories,
