@@ -5,6 +5,7 @@ namespace App\Controllers\Admin;
 use Core\AdminControllerBase;
 use App\Models\Review;
 use Core\Database\ReportBuilder;
+use Core\Database\ChartBuilder;
 
 class AdminController extends AdminControllerBase
 {
@@ -183,8 +184,8 @@ class AdminController extends AdminControllerBase
     public function debug()
     {
 
-        //get the hottest categories
-        $query  = ReportBuilder::build('transactions', 'date')
+        //this month transactions chart
+        $query = ChartBuilder::build('transactions', 'date')
             ->forPeriod(date('Y-m-01'), date('Y-m-d'))
             ->where('type', '=', 'income')
             ->withSum('amount', 'Total Amount')
