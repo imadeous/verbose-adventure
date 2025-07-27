@@ -170,7 +170,6 @@ class AdminController extends AdminControllerBase
             ->withAverage('pricing_rating', 'Overall Rating')
             ->withCount('*', 'Total Reviews')
             ->groupBy('product_id')
-            ->orderBy('SUM(pricing_rating)', 'desc')
             ->limit(5);
 
         $vars = [
