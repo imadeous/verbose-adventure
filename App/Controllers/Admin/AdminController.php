@@ -30,7 +30,6 @@ class AdminController extends AdminControllerBase
             ->whereNotNull('category_id')
             ->groupBy('category_id')
             ->withSum('amount', 'Total')
-            ->withPercentage('amount', 'Percentage')
             ->orderBy('COUNT(category_id)', 'desc') // Use column name instead of alias
             ->limit(5)->generate()['data'];
 
