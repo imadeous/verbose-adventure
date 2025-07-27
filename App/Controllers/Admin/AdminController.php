@@ -147,7 +147,7 @@ class AdminController extends AdminControllerBase
             $reviewsReport['data'][0]['Delivery']
         ) / 5;
 
-        $vars['reviewsReport'] = $reviewsReport;
+        $vars['reviewsReport']['data'] = $reviewsReport;
         $vars['overallAvg'] = $overallAvg;
         // Debugging method to inspect variables
         $this->view->layout('admin');
