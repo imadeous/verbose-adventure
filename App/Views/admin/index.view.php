@@ -154,7 +154,7 @@
                 <?php foreach (($heaviestExpenses ?? []) as $category): ?>
                     <div class="flex items-center gap-2">
                         <span class="inline-block w-3 h-3 rounded-full bg-blue-700"></span>
-                        <span class="font-medium"><?= e($category['name']) ?></span>
+                        <span class="font-medium"><?= e(Category::find($category['category_id'])->name) ?></span>
                         <div class="w-24 bg-blue-200 rounded-full h-2 mx-2">
                             <div class="bg-blue-700 h-2 rounded-full" style="width: <?= e($category['percentage']) ?>%"></div>
                         </div>
