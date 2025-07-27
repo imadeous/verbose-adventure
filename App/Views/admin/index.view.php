@@ -276,7 +276,7 @@ use App\Models\Product;
                         </div>
                         <div class="text-xs text-blue-400 mb-4">Based on <?= $ratingStats['count'] ?? 0 ?> reviews</div>
                         <div class="w-full">
-                            <canvas id="ratingsChart"></canvas>
+                            <canvas id="ratingsChart" class="w-full max-w-xs" style="height:140px!important;max-height:140px;min-height:140px;" height="140"></canvas>
                         </div>
                     </div>
                 </div>
