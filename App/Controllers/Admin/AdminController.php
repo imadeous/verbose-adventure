@@ -178,7 +178,7 @@ class AdminController extends AdminControllerBase
         //get the hottest categories
         $query  = ReportBuilder::build('transactions', 'date')
             ->forPeriod(date('Y-m-d', strtotime('-30 days')), date('Y-m-d'))
-            ->monthly()
+
             ->where('type', '=', 'income')
             ->withCount('*', 'Total Orders');
 
