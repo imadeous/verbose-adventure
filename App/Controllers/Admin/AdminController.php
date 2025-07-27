@@ -220,7 +220,7 @@ class AdminController extends AdminControllerBase
                 '#60a5fa',
                 '#93c5fd'
             ])
-            ->legend('top')
+            ->legend(['display' => false])
             ->pie();
 
 
