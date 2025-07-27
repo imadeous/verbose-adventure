@@ -207,13 +207,14 @@ class AdminController extends AdminControllerBase
 
     public function debug()
     {
-
-        //this month transactions chart
-        $query = ChartBuilder::build('transactions')
+        // Mixed bar-line chart with dynamic data
+        $query = ChartBuilder::build('transactions', 'date')
             ->forPeriod('2025-01-01', '2025-07-31')
             ->monthly()
-            ->addDataset('Revenue', [1200, 1800, 1500], ['type' => 'line', 'borderColor' => '#2563eb', 'fill' => false])
-            ->addDataset('Orders', [5, 8, 7], ['type' => 'bar', 'backgroundColor' => '#60a5fa']);
+            ->withSum('amount', 'Revenue')
+            ->withCount('*', 'Orders')
+            ->bar();
+
         $vars = [
             'products' => $query->toJson()
         ];
