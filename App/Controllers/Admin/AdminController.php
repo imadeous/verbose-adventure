@@ -187,6 +187,7 @@ class AdminController extends AdminControllerBase
         //this month transactions chart
         $query = ChartBuilder::build('transactions', 'date')
             ->forPeriod(date('Y-m-01'), date('Y-m-d'))
+            ->daily()
             ->where('type', '=', 'income')
             ->withSum('amount', 'Total Amount')
             ->withCount('*', 'Total Orders');
