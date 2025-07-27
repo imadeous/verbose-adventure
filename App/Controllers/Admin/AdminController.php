@@ -40,7 +40,7 @@ class AdminController extends AdminControllerBase
         $overallAvg = array_sum(array_values($ratings)) / count($ratings);
 
         $ratingStats = [
-            'ratings' => $ratings,
+            'matrices' => $ratings,
             'recommendPercent' => $recommendPercent,
             'overallAvg' => $overallAvg,
             'count' => $reviewsReport['data'][0]['Total Reviews'] ?? 0,
