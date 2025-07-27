@@ -190,7 +190,8 @@ class AdminController extends AdminControllerBase
             ->daily()
             ->where('type', '=', 'income')
             ->withSum('amount', 'Total Amount')
-            ->withCount('*', 'Total Orders');
+            ->withCount('*', 'Total Orders')
+            ->line();
 
 
         $vars = [
