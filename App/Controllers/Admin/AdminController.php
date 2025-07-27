@@ -25,7 +25,6 @@ class AdminController extends AdminControllerBase
             ->quarterly()
             ->where('type', '=', 'income')
             ->withSum('amount', 'Total Amount')
-            ->withCount('*', 'Total Orders')
             ->colors([
                 '#2563eb',
                 '#3b82f6',
