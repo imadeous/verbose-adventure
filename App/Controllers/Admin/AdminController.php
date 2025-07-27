@@ -13,12 +13,16 @@ class AdminController extends AdminControllerBase
     {
 
         $transactionsChart = ChartBuilder::build('transactions', 'date')
-            ->forPeriod(date('Y-m-01'), date('Y-m-d'))
-            ->daily()
-            ->where('type', '=', 'income')
-            ->withSum('amount', 'Total Amount')
-            ->withCount('*', 'Total Orders')
-            ->line();
+            ->forPeriod('2025-01-01', '2025-07-31')
+            ->monthly()
+            ->withSum('amount', 'Revenue')
+            ->withCount('*', 'Orders')
+            ->withAverage('amount', 'Average Amount')
+            ->mixedChart([
+                'Revenue' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#2563eb', 'fill' => false],
+                'Orders' => ['type' => 'bar', 'yAxisID' => 'y', 'backgroundColor' => '#60a5fa'],
+                'Average Amount' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#05011bff', 'fill' => false]
+            ]);
 
         $quarterlyChart = ChartBuilder::build('transactions', 'date')
             ->forPeriod(date('Y-01-01'), date('Y-m-d'))
@@ -217,7 +221,7 @@ class AdminController extends AdminControllerBase
             ->mixedChart([
                 'Revenue' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#2563eb', 'fill' => false],
                 'Orders' => ['type' => 'bar', 'yAxisID' => 'y', 'backgroundColor' => '#60a5fa'],
-                'Average Amount' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#10b981', 'fill' => false]
+                'Average Amount' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#05011bff', 'fill' => false]
             ]);
 
         $vars = [
