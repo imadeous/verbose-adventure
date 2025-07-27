@@ -26,7 +26,6 @@ class AdminController extends AdminControllerBase
             ->where('type', '=', 'income')
             ->withSum('amount', 'Total Amount')
             ->withCount('*', 'Total Orders')
-            ->title('Quarterly Income Report')
             ->colors([
                 '#2563eb',
                 '#3b82f6',
