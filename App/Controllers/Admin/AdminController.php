@@ -15,7 +15,8 @@ class AdminController extends AdminControllerBase
             ->forPeriod(date('Y-m-01'), date('Y-m-d'))
             ->where('type', '=', 'income')
             ->withSum('amount', 'Total Amount')
-            ->withCount('*', 'Total Orders');
+            ->withCount('*', 'Total Orders')
+            ->generate()['data'];
 
         // Fetch categories and generate report
         $hottestCategories  = ReportBuilder::build('transactions', 'date')
@@ -96,7 +97,7 @@ class AdminController extends AdminControllerBase
                 ['label' => 'Dashboard', 'url' => url('admin')],
                 ['label' => 'Home']
             ],
-            'thisMonth' => $thisMonth['data'],
+            'thisMonth' => $thisMonth,
             'hottestCategories' => $hottestCategories,
             'heaviestExpenses' => $heaviestExpenses,
             'ratingStats' => $ratingStats,
