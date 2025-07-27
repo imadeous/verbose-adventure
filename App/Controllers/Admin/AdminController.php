@@ -147,9 +147,9 @@ class AdminController extends AdminControllerBase
             'ratingsChart' => $ratingsChart->toJson(),
             'thisMonth' => $thisMonth,
             'lastMonth' => $lastMonth,
+            'ratingStats' => $ratingStats,
             'hottestCategories' => $hottestCategories,
             'heaviestExpenses' => $heaviestExpenses,
-            'ratingStats' => $ratingStats,
             'recentReviews' => array_map(fn($row) => new Review($row), $recentReviews),
             'topRatedProducts' => $topRatedProducts,
         ]);
