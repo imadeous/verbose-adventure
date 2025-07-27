@@ -52,14 +52,16 @@ class AdminController extends AdminControllerBase
             ->withCount('*', 'Total Reviews')
             ->generate('Reviews Report', true);
 
-        $topRatedProducts = ReportBuilder::build('reviews', 'product_id')
+        $topRatedProducts = ReportBuilder::build('reviews', 'created_at')
             ->forPeriod(date('2020-01-01'), date('Y-m-t'))
+            ->whereNotNull('product_id')
+            ->where('product_id', '!=', '')
+            ->with('product_id')
             ->withAverage('pricing_rating', 'Overall Rating')
             ->withCount('*', 'Total Reviews')
-            ->groupBy('product_id')
             ->orderBy('SUM(pricing_rating)', 'desc')
-            ->limit(5)
-            ->generate()['data'];
+            ->groupBy('product_id')
+            ->limit(5)->generate()['data'];
 
         $ratings = [
             'Quality' => $reviewsReport['data'][0]['Quality'] ?? 0,
@@ -176,10 +178,8 @@ class AdminController extends AdminControllerBase
             ->groupBy('product_id')
             ->limit(5);
 
-        $all = Review::all();
 
         $vars = [
-            'all' => $all,
             'products' => $query->generate('Top Rated Products', true),
         ];
         // Debugging method to inspect variables
