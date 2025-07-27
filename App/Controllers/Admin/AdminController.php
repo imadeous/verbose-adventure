@@ -209,14 +209,13 @@ class AdminController extends AdminControllerBase
     {
 
         //this month transactions chart
-        $query = ChartBuilder::build('transactions', 'date')
-            ->forPeriod(date('Y-01-01'), date('Y-m-d'))
-            ->quarterly()
-            ->where('type', '=', 'income')
-            ->withSum('amount', 'Total Amount');
-
+        $query = ChartBuilder::build('transactions')
+            ->forPeriod('2025-01-01', '2025-07-31')
+            ->monthly()
+            ->addDataset('Revenue', [1200, 1800, 1500], ['type' => 'line', 'borderColor' => '#2563eb', 'fill' => false])
+            ->addDataset('Orders', [5, 8, 7], ['type' => 'bar', 'backgroundColor' => '#60a5fa']);
         $vars = [
-            'products' => $query->generate()
+            'products' => $query->toJson()
         ];
         // Debugging method to inspect variables
         $this->view->layout('admin');
