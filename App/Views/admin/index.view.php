@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../../helpers/Functions.php';
 
 use App\Models\Category;
 use App\Models\Product;
