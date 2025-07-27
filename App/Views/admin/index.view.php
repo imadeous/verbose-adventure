@@ -94,6 +94,12 @@ use App\Models\Product;
             </div>
             <div class="flex-1 flex flex-col items-center justify-center mt-2" style="height:180px;min-height:140px;max-height:180px;">
                 <canvas id="quarterlyReportChart" class="w-full max-w-xs" style="height:140px!important;max-height:140px;min-height:140px;" height="140"></canvas>
+                <ul class="text-blue-700 text-xs mt-4 w-full flex justify-between px-2">
+                    <?php
+                    foreach ($quarterlyChart->generate()['data'] as $quarter): ?>
+                        <li><?php echo $quarter['period_quarter']; ?>: <span class="font-semibold"><?php echo number_shorten($quarter['Total Amount']); ?></span></li>
+                    <?php endforeach; ?>
+                </ul>
             </div>
         </div>
     </div>
@@ -325,6 +331,6 @@ use App\Models\Product;
 
     // Quarterly Report Bar Chart
     const ctx2 = document.getElementById('quarterlyReportChart').getContext('2d');
-    const quarterlyReportChartConfig = JSON.parse(`<?php echo addslashes($quarterlyChart); ?>`);
+    const quarterlyReportChartConfig = JSON.parse(`<?php echo addslashes($quarterlyChart->toJson()); ?>`);
     new Chart(ctx2, quarterlyReportChartConfig);
 </script>
