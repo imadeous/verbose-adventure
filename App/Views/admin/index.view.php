@@ -1,3 +1,8 @@
+<?php
+
+use App\Models\Category;
+use App\Models\Product;
+?>
 <div class="mb-8">
     <h3 class="text-base font-semibold leading-6 text-blue-900">Key Metrics (Last 30 Days)</h3>
     <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -11,7 +16,7 @@
             </div>
             <div>
                 <div class="text-xs text-blue-500 font-medium uppercase tracking-wide">Orders</div>
-                <div class="text-2xl font-bold text-blue-900">42</div>
+                <div class="text-2xl font-bold text-blue-900"><?= e($thisMonth['Total Orders'] ?? 0) ?></div>
             </div>
         </div>
         <!-- Revenue -->
@@ -23,7 +28,7 @@
             </div>
             <div>
                 <div class="text-xs text-blue-600 font-medium uppercase tracking-wide">Revenue</div>
-                <div class="text-2xl font-bold text-blue-900">MVR 18,500</div>
+                <div class="text-2xl font-bold text-blue-900"><?= e("MVR " . number_format($thisMonth['Total Amount'], 2)) ?></div>
             </div>
         </div>
         <!-- Trend -->
@@ -47,12 +52,7 @@
             </div>
             <div>
                 <div class="text-xs text-blue-500 font-medium uppercase tracking-wide">CSAT</div>
-                <div class="text-2xl font-bold text-blue-900"><?php
-
-                                                                use App\Models\Category;
-                                                                use App\Models\Product;
-
-                                                                echo number_format($ratingStats['overallAvg'] ?? 0, 1); ?>/5</div>
+                <div class="text-2xl font-bold text-blue-900"><?php echo number_format($ratingStats['overallAvg'] ?? 0, 1); ?>/5</div>
             </div>
         </div>
     </div>

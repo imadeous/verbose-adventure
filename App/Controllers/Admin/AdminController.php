@@ -96,7 +96,7 @@ class AdminController extends AdminControllerBase
                 ['label' => 'Dashboard', 'url' => url('admin')],
                 ['label' => 'Home']
             ],
-            'ordersLast30Days' => $thisMonth['data'],
+            'thisMonth' => $thisMonth['data'],
             'hottestCategories' => $hottestCategories,
             'heaviestExpenses' => $heaviestExpenses,
             'ratingStats' => $ratingStats,
