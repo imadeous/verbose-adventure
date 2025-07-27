@@ -228,11 +228,11 @@
                         <div
                             class="flex items-center gap-2 w-full justify-between">
                             <div class="flex flex-col flex-1 items-start w-full">
-                                <div class="text-3xl font-bold text-blue-900 mb-2"><?= $recommendPercent ?? 0 ?>%</div>
+                                <div class="text-3xl font-bold text-blue-900 mb-2"><?= $ratingStats['recommendPercent'] ?? 0 ?>%</div>
                                 <div class="text-sm text-blue-400">Based on <?= $totalReviews ?? 0 ?> reviews</div>
                             </div>
                             <div class="flex-shrink-0 flex items-center justify-end">
-                                <?php if ($recommendPercent > 50): ?>
+                                <?php if ($ratingStats['recommendPercent'] > 50): ?>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
