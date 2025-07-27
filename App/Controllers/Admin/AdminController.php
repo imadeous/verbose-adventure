@@ -95,9 +95,9 @@ class AdminController extends AdminControllerBase
             ->whereNotNull('product_id')
             ->where('product_id', '!=', '')
             ->with('product_id')
-            ->withAverage('pricing_rating', 'Overall Rating')
+            ->withAverage('quality_rating', 'Overall Rating')
             ->withCount('*', 'Total Reviews')
-            ->orderBy('SUM(pricing_rating)', 'desc')
+            ->orderBy('SUM(quality_rating)', 'desc')
             ->groupBy('product_id')
             ->limit(5)->generate()['data'] ?? [];
 
