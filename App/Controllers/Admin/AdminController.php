@@ -134,7 +134,8 @@ class AdminController extends AdminControllerBase
             ->whereNotNull('category_id')
             ->groupBy('category_id')
             ->withSum('amount', 'Total')
-            ->limit(5);
+            ->limit(5)
+            ->get();
 
         $vars = [
             'hottestCategories' => $hottestCategories->get(),
