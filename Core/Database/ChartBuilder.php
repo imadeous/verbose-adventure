@@ -249,8 +249,32 @@ class ChartBuilder extends ReportBuilder
         $labels = [];
         $datasets = [];
 
-        // If custom datasets are set, use them directly
-        if (!empty($this->customDatasets)) {
+        // Radar chart: combine metrics into one dataset, labels are metric names
+        if ($this->chartType === 'radar') {
+            $columns = $report['columns'];
+            $data = $report['data'];
+            // Only use the first row for radar chart (aggregate)
+            $firstRow = $data[0] ?? [];
+            foreach ($columns as $key => $name) {
+                // Skip period/group columns
+                if (stripos($key, 'period_') === 0 || stripos($name, 'Day') !== false || stripos($name, 'Month') !== false || stripos($name, 'Year') !== false || stripos($name, 'Week') !== false || stripos($name, 'Quarter') !== false) {
+                    continue;
+                }
+                $labels[] = $name;
+            }
+            $values = [];
+            foreach ($columns as $key => $name) {
+                if (in_array($name, $labels)) {
+                    $val = $firstRow[$key] ?? 0;
+                    $values[] = is_numeric($val) ? floatval($val) : 0;
+                }
+            }
+            $datasets[] = [
+                'label' => 'Ratings',
+                'data' => $values,
+            ];
+        } else if (!empty($this->customDatasets)) {
+            // If custom datasets are set, use them directly
             $datasets = $this->customDatasets;
             // Try to extract labels from first dataset if possible
             if (isset($datasets[0]['data']) && is_array($datasets[0]['data'])) {
@@ -276,11 +300,10 @@ class ChartBuilder extends ReportBuilder
                 if ($key === $labelKey) continue;
                 $datasets[] = [
                     'label' => $name,
-                    'data' => array_map(fn($row) => $row[$key], $data),
+                    'data' => array_map(fn($row) => is_numeric($row[$key]) ? floatval($row[$key]) : 0, $data),
                 ];
             }
         }
-
 
         // Mixed chart: assign type/yAxisID per dataset if requested
         if (!empty($this->chartOptions['isMixedChart']) && !empty($this->chartOptions['mixedDatasetTypes'])) {
