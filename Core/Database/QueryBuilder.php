@@ -298,10 +298,29 @@ class QueryBuilder
                 $sql .= ' WHERE ';
                 $conditions = [];
 
-                foreach ($this->wheres as [$col, $op, $val, $neg]) {
-                    $param = ':' . str_replace('.', '_', $col) . count($this->bindings);
-                    $conditions[] = ($neg ? "NOT " : "") . "$col $op $param";
-                    $this->bindings[$param] = $val;
+                foreach ($this->wheres as $where) {
+                    // Support both array and associative array formats
+                    if (is_array($where) && count($where) === 4) {
+                        [$col, $op, $val, $neg] = $where;
+                        if ($op === 'IS NOT NULL' || $op === 'IS NULL') {
+                            $conditions[] = "$col $op";
+                        } else {
+                            $param = ':' . str_replace('.', '_', $col) . count($this->bindings);
+                            $conditions[] = ($neg ? "NOT " : "") . "$col $op $param";
+                            $this->bindings[$param] = $val;
+                        }
+                    } elseif (is_array($where) && isset($where['operator'])) {
+                        $col = $where['column'];
+                        $op = $where['operator'];
+                        $val = $where['value'];
+                        if ($op === 'IS NOT NULL' || $op === 'IS NULL') {
+                            $conditions[] = "$col $op";
+                        } else {
+                            $param = ':' . str_replace('.', '_', $col) . count($this->bindings);
+                            $conditions[] = "$col $op $param";
+                            $this->bindings[$param] = $val;
+                        }
+                    }
                 }
 
                 foreach ($this->whereNulls as [$col, $neg]) {
