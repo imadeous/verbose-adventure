@@ -54,7 +54,6 @@ $router->middleware([AuthMiddleware::class], function ($router) {
     $router->resource('/admin/products', AdminProductsController::class);
     $router->resource('/admin/transactions', AdminTransactionController::class);
     $router->get('/admin/reports', [AdminController::class, 'reports']);
-    $router->post('/admin/transactions/bulkStore', [AdminTransactionController::class, 'bulkStore']);
     // Product image upload routes
     $router->get('/admin/products/{id}/addImage', [AdminProductsController::class, 'addImage']);
     $router->post('/admin/products/{id}/addImage', [AdminProductsController::class, 'storeImage']);

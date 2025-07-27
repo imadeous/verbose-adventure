@@ -3,16 +3,6 @@
         <h1 class="text-2xl font-bold text-blue-900">Transactions</h1>
         <?php if (App\Helpers\Auth::isAdmin()): ?>
             <a href="<?= url('admin/transactions/create') ?>" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-blue-700 transition">Add Transaction</a>
-            <!-- Simulate Data Form -->
-            <form action="<?= url('admin/transactions/bulkStore') ?>" method="post" class="ml-4 flex items-center gap-2">
-                <label for="n" class="text-sm font-medium text-blue-900">Simulate:</label>
-                <select name="n" id="n" class="border rounded-lg px-2 py-1 text-sm">
-                    <?php foreach ([10, 25, 50, 100, 250, 500] as $num): ?>
-                        <option value="<?= $num ?>"><?= $num ?></option>
-                    <?php endforeach; ?>
-                </select>
-                <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-lg font-semibold shadow border border-green-700 transition">Simulate Data</button>
-            </form>
         <?php endif; ?>
     </div>
     <div class="mt-8 bg-white rounded-xl shadow-md p-6">

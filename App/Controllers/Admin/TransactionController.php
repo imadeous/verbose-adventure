@@ -98,42 +98,6 @@ class TransactionController extends AdminControllerBase
         }
     }
 
-    public function bulkStore($n = null)
-    {
-        // Accept n from POST if not provided
-        if ($n === null) {
-            $n = isset($_POST['n']) ? (int)$_POST['n'] : 10;
-        }
-        $categories = [1, 2, 3, 4, 5]; // Example category IDs
-        $types = ['income', 'expense'];
-        $descriptions = ['Salary', 'Rent', 'Sale', 'Purchase', 'Refund', 'Bonus', 'Commission', 'Fee', 'Gift', 'Other'];
-        $count = 0;
-        for ($i = 0; $i < $n; $i++) {
-            $type = $types[array_rand($types)];
-            $amount = $type === 'income'
-                ? rand(1000, 20000) + rand(0, 99) / 100
-                : -1 * (rand(100, 18000) + rand(0, 99) / 100);
-            $category_id = $categories[array_rand($categories)];
-            $description = $descriptions[array_rand($descriptions)];
-            $date = date('Y-m-d', rand(strtotime('2020-01-01'), strtotime('2025-07-31')));
-            $created_at = date('Y-m-d H:i:s', strtotime($date) + rand(0, 86400));
-            $data = [
-                'type' => $type,
-                'amount' => $amount,
-                'category_id' => $category_id,
-                'description' => $description,
-                'date' => $date,
-                'created_at' => $created_at,
-            ];
-            $transaction = new \App\Models\Transaction($data);
-            if ($transaction->save()) {
-                $count++;
-            }
-        }
-        flash('success', "Bulk created $count random transactions.");
-        $this->redirect('/admin/transactions');
-    }
-
     public function show($id)
     {
         $this->view->layout('admin');
