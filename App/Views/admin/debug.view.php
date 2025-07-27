@@ -4,52 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Debug Panel</title>
-    <style>
-        body {
-            background: #18181b;
-            color: #e5e7eb;
-            font-family: 'Fira Mono', 'Consolas', monospace;
-            margin: 0;
-            padding: 0;
-        }
-
-        .debug-container {
-            max-width: 900px;
-            margin: 40px auto;
-            background: #232336;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px #0002;
-            padding: 32px;
-        }
-
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: #38bdf8;
-        }
-
-        pre {
-            background: #18181b;
-            color: #facc15;
-            padding: 16px;
-            border-radius: 6px;
-            overflow-x: auto;
-            font-size: 1rem;
-        }
-
-        .debug-vars {
-            margin-top: 2rem;
-        }
-    </style>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.0/dist/tailwind.min.css" rel="stylesheet"> -->
 </head>
 
-<body>
-    <div class="debug-container">
-        <h1>Debug Panel</h1>
-        <div class="debug-vars">
-            <h2>Variables Dump</h2>
-            <pre><?php if (isset($vars)) var_dump($vars);
-                    else echo 'No debug variables set.'; ?></pre>
+<body class="bg-zinc-900 text-zinc-100 font-mono">
+    <div class="max-w-3xl mx-auto mt-12 bg-zinc-800 rounded-lg shadow-lg p-8">
+        <h1 class="text-3xl font-bold mb-6 text-sky-400">Debug Panel</h1>
+        <div class="mt-8">
+            <h2 class="text-xl font-semibold mb-4 text-yellow-400">Variables Dump</h2>
+            <pre class="bg-zinc-900 text-yellow-300 p-4 rounded-md overflow-x-auto text-base">
+<?php if (isset($vars)) var_dump($vars);
+else echo 'No debug variables set.'; ?>
+            </pre>
         </div>
     </div>
 </body>
