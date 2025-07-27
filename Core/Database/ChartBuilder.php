@@ -251,6 +251,14 @@ class ChartBuilder extends ReportBuilder
             }
         }
 
+        // Apply colors to dataset for pie/doughnut charts
+        if (in_array($this->chartType, ['pie', 'doughnut']) && !empty($this->chartOptions['colors'])) {
+            foreach ($datasets as &$dataset) {
+                $dataset['backgroundColor'] = $this->chartOptions['colors'];
+            }
+            unset($dataset);
+        }
+
         return [
             'type' => $this->chartType,
             'data' => [
