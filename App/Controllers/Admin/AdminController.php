@@ -18,11 +18,11 @@ class AdminController extends AdminControllerBase
             ->where('type', '=', 'income')
             ->withSum('amount', 'Revenue')
             ->withCount('*', 'Orders')
-            // ->withAverage('amount', 'Average Amount')
+            // ->withAverage('amount', 'Average')
             ->mixedChart([
                 'Revenue' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#2563eb', 'fill' => false],
                 'Orders' => ['type' => 'bar', 'yAxisID' => 'y', 'backgroundColor' => '#60a5fa'],
-                // 'Average Amount' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#05011bff', 'fill' => false]
+                // 'Average' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#05011bff', 'fill' => false]
             ]);
 
         $quarterlyChart = ChartBuilder::build('transactions', 'date')
