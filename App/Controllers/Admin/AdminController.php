@@ -53,6 +53,7 @@ class AdminController extends AdminControllerBase
                 ['label' => 'Home']
             ],
             'ratingStats' => $ratingStats,
+            'recentReviews' => array_map(fn($row) => new Review($row), $recentREviews),
         ]);
     }
 
