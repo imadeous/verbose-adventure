@@ -22,7 +22,17 @@ class ReviewsController extends AdminControllerBase
             ->generate('Reviews Report', true);
         $reviews = Review::all();
         $this->view->layout('admin');
-        $this->view('admin/reviews/index', ['reviews' => $reviews, 'report' => $reviewReport]);
+        $this->view(
+            'admin/reviews/index',
+            [
+                'breadcrumb' => [
+                    ['label' => 'Admin', 'url' => '/admin'],
+                    ['label' => 'Reviews', 'url' => '/admin/reviews']
+                ],
+                'reviews' => $reviews,
+                'report' => $reviewReport
+            ]
+        );
     }
 
     public function show($id)
