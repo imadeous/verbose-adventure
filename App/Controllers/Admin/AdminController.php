@@ -17,7 +17,7 @@ class AdminController extends AdminControllerBase
             ->monthly()
             ->withSum('amount', 'Revenue')
             ->withCount('*', 'Orders')
-            ->withAverage('amount', 'Average Amount')
+            // ->withAverage('amount', 'Average Amount')
             ->mixedChart([
                 'Revenue' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#2563eb', 'fill' => false],
                 'Orders' => ['type' => 'bar', 'yAxisID' => 'y', 'backgroundColor' => '#60a5fa'],
