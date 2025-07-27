@@ -220,9 +220,7 @@ class AdminController extends AdminControllerBase
                 '#60a5fa',
                 '#93c5fd'
             ])
-            ->legend(['display' => false])
-            ->pie();
-
+            ->legend(['display' => false]);
 
         $vars = [
             'products' => $query->generate()
