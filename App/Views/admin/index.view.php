@@ -326,108 +326,99 @@
                     <?php endforeach; ?>
                 </div>
             </div>
-
-            <div>
-                <pre>
-        <?php print_r($recentReviews); ?>
-        <?php print_r($matrices); ?>
-        <?php print_r($recommendPercent); ?>
-        <?php print_r($overallAvg); ?>
-        <?php print_r($totalReviews); ?>
-    </pre>
-            </div>
         </div>
-
-        <!-- Chart.js CDN -->
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script>
-            // Revenue & Orders Trend Chart (Bar for Orders, Line for Revenue, Dual Y-Axis)
-            const ctx1 = document.getElementById('revenueOrdersChart').getContext('2d');
-            new Chart(ctx1, {
-                type: 'bar',
-                data: {
-                    labels: ['Day 1', 'Day 5', 'Day 10', 'Day 15', 'Day 20', 'Day 25', 'Day 30'],
-                    datasets: [{
-                            type: 'line',
-                            label: 'Revenue',
-                            data: [1200, 1800, 1500, 2200, 2000, 2500, 2300],
-                            borderColor: '#2563eb',
-                            backgroundColor: 'rgba(37, 99, 235, 0.1)',
-                            tension: 0.4,
-                            fill: true,
-                            pointRadius: 3,
-                            yAxisID: 'y1',
-                        },
-                        {
-                            type: 'bar',
-                            label: 'Orders',
-                            data: [5, 8, 7, 10, 9, 12, 11],
-                            backgroundColor: '#60a5fa',
-                            borderRadius: 6,
-                            yAxisID: 'y',
-                        }
-                    ]
+    </div>
+</div>
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Revenue & Orders Trend Chart (Bar for Orders, Line for Revenue, Dual Y-Axis)
+    const ctx1 = document.getElementById('revenueOrdersChart').getContext('2d');
+    new Chart(ctx1, {
+        type: 'bar',
+        data: {
+            labels: ['Day 1', 'Day 5', 'Day 10', 'Day 15', 'Day 20', 'Day 25', 'Day 30'],
+            datasets: [{
+                    type: 'line',
+                    label: 'Revenue',
+                    data: [1200, 1800, 1500, 2200, 2000, 2500, 2300],
+                    borderColor: '#2563eb',
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 3,
+                    yAxisID: 'y1',
                 },
-                options: {
-                    plugins: {
-                        legend: {
-                            display: true
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            position: 'left',
-                            title: {
-                                display: true,
-                                text: 'Orders'
-                            }
-                        },
-                        y1: {
-                            beginAtZero: true,
-                            position: 'right',
-                            grid: {
-                                drawOnChartArea: false
-                            },
-                            title: {
-                                display: true,
-                                text: 'Revenue'
-                            }
-                        }
-                    },
-                    responsive: true,
-                    maintainAspectRatio: false
+                {
+                    type: 'bar',
+                    label: 'Orders',
+                    data: [5, 8, 7, 10, 9, 12, 11],
+                    backgroundColor: '#60a5fa',
+                    borderRadius: 6,
+                    yAxisID: 'y',
                 }
-            });
-
-            // Quarterly Report Bar Chart
-            const ctx2 = document.getElementById('quarterlyReportChart').getContext('2d');
-            new Chart(ctx2, {
-                type: 'pie',
-                data: {
-                    labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-                    datasets: [{
-                        label: 'Revenue',
-                        data: [5200, 6800, 4500, 2000],
-                        backgroundColor: [
-                            '#2563eb',
-                            '#3b82f6',
-                            '#60a5fa',
-                            '#93c5fd'
-                        ],
-                        borderWidth: 1,
-                        borderRadius: 4 // <-- Add border radius to pie sectors
-                    }]
+            ]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: true
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    position: 'left',
+                    title: {
+                        display: true,
+                        text: 'Orders'
+                    }
                 },
-                options: {
-                    plugins: {
-                        legend: {
-                            display: false,
-                            position: 'bottom'
-                        }
+                y1: {
+                    beginAtZero: true,
+                    position: 'right',
+                    grid: {
+                        drawOnChartArea: false
                     },
-                    responsive: true,
-                    maintainAspectRatio: false
+                    title: {
+                        display: true,
+                        text: 'Revenue'
+                    }
                 }
-            });
-        </script>
+            },
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+
+    // Quarterly Report Bar Chart
+    const ctx2 = document.getElementById('quarterlyReportChart').getContext('2d');
+    new Chart(ctx2, {
+        type: 'pie',
+        data: {
+            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+            datasets: [{
+                label: 'Revenue',
+                data: [5200, 6800, 4500, 2000],
+                backgroundColor: [
+                    '#2563eb',
+                    '#3b82f6',
+                    '#60a5fa',
+                    '#93c5fd'
+                ],
+                borderWidth: 1,
+                borderRadius: 4 // <-- Add border radius to pie sectors
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false,
+                    position: 'bottom'
+                }
+            },
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+</script>
