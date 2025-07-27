@@ -12,7 +12,7 @@ else echo 'No SQL query set.'; ?>
         <div class="mt-8">
             <h2 class="text-xl font-semibold mb-4 text-yellow-400">Variables Dump</h2>
             <pre class="bg-zinc-900 text-yellow-300 p-4 rounded-md whitespace-pre-wrap break-words text-base">
-<?php if (isset($vars)) print_r($vars);
+<?php if (isset($vars)) print_r($vars['hottestCategories']['data'] ?? $vars);
 else echo 'No variables set.'; ?>
             </pre>
         </div>
