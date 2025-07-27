@@ -158,7 +158,7 @@
                         <div class="w-24 bg-blue-200 rounded-full h-2 mx-2">
                             <div class="bg-blue-700 h-2 rounded-full" style="width: <?= e($category['Total']) ?>%"></div>
                         </div>
-                        <span class="ml-auto font-semibold text-blue-900">MVR <?= e($category['COount']) ?></span>
+                        <span class="ml-auto font-semibold text-blue-900">MVR <?= e($category['Count']) ?></span>
                     </div>
                 <?php endforeach; ?>
             </div>
