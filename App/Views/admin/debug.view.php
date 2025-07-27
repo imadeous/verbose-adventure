@@ -17,9 +17,8 @@ else echo 'No debug variables set.'; ?>
             </pre>
         </div>
         <div>
-            make a table to display the hottest categories
             <h2 class="text-xl font-semibold mb-4 text-yellow-400">Hottest Categories</h2>
-            <?php if (isset($hottestCategories) && !empty($hottestCategories)): ?>
+            <?php if (isset($vars['hottestCategories']) && !empty($vars['hottestCategories'])): ?>
                 <table class="min-w-full bg-zinc-800 text-sm">
                     <thead>
                         <tr class="border-b border-zinc-700">
@@ -28,7 +27,7 @@ else echo 'No debug variables set.'; ?>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($hottestCategories as $category): ?>
+                        <?php foreach ($vars['hottestCategories'] as $category): ?>
                             <tr class="border-b border-zinc-700">
                                 <td class="px-4 py-2"><?= htmlspecialchars($category['description']) ?></td>
                                 <td class="px-4 py-2"><?= number_format($category['Total'], 2) ?></td>
