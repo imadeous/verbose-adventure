@@ -10,6 +10,14 @@ class AdminController extends AdminControllerBase
 {
     public function index()
     {
+
+        $ordersLast30Days = ReportBuilder::build('transactions', 'date')
+            ->forPeriod(date('Y-m-d', strtotime('-30 days')), date('Y-m-d'))
+            ->monthly()
+            ->where('type', '=', 'income')
+            ->withCount('*', 'Total Orders')
+            ->generate()['data'];
+
         // Fetch categories and generate report
         $hottestCategories  = ReportBuilder::build('transactions', 'date')
             ->forPeriod(date('Y-m-01'), date('Y-m-t'))
@@ -89,6 +97,7 @@ class AdminController extends AdminControllerBase
                 ['label' => 'Dashboard', 'url' => url('admin')],
                 ['label' => 'Home']
             ],
+            'ordersLast30Days' => $ordersLast30Days,
             'hottestCategories' => $hottestCategories,
             'heaviestExpenses' => $heaviestExpenses,
             'ratingStats' => $ratingStats,
@@ -167,16 +176,11 @@ class AdminController extends AdminControllerBase
     {
 
         //get the hottest categories
-        $query  = ReportBuilder::build('reviews', 'created_at')
-            ->forPeriod(date('2020-01-01'), date('Y-m-t'))
-            ->whereNotNull('product_id')
-            ->where('product_id', '!=', '')
-            ->with('product_id')
-            ->withAverage('pricing_rating', 'Overall Rating')
-            ->withCount('*', 'Total Reviews')
-            ->orderBy('SUM(pricing_rating)', 'desc')
-            ->groupBy('product_id')
-            ->limit(5);
+        $query  = ReportBuilder::build('transactions', 'date')
+            ->forPeriod(date('Y-m-d', strtotime('-30 days')), date('Y-m-d'))
+            ->monthly()
+            ->where('type', '=', 'income')
+            ->withCount('*', 'Total Orders');
 
 
         $vars = [
