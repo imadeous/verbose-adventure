@@ -21,9 +21,11 @@
         <main class="flex-1 flex flex-col h-screen bg-gray-100 overflow-y-scroll scrollbar">
             <?php echo $this->partial('admin/header'); ?>
             <!-- add breadcrumbs support here   -->
+            <?php if (isset($breadcrumb)): ?>
+                <?php echo $this->partial('breadcrumb.view', ['breadcrumb' => $breadcrumb]); ?>
+            <?php endif; ?>
             <div class="flex flex-col flex-1 overflow-y-auto">
                 <?php echo $this->partial('_flash.view'); ?>
-                <?php echo $this->partial('breadcrumb.view'); ?>
                 <div class="p-4 sm:p-6 lg:p-12 space-y-8 mx-2 sm:mx-6 flex-1">
                     <?php echo $this->yield('content'); ?>
                 </div>

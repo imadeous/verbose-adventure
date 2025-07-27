@@ -1,5 +1,4 @@
 <div class="max-full mx-auto" x-data="reportApp()" x-init="init()">
-    <?php include __DIR__ . '/../../partials/breadcrumb.view.php'; ?>
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-blue-900">Reports</h1>
     </div>
