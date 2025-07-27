@@ -178,6 +178,7 @@ class AdminController extends AdminControllerBase
         $all = Review::all();
 
         $vars = [
+            'all' => $all,
             'products' => $query->generate('Top Rated Products', true),
         ];
         // Debugging method to inspect variables
@@ -188,7 +189,6 @@ class AdminController extends AdminControllerBase
                 ['label' => 'Dashboard', 'url' => url('admin')],
                 ['label' => 'Debug']
             ],
-            'all' => $all,
             'query' => $query->toSql(),
             'vars' => $vars,
         ]);
