@@ -10,53 +10,43 @@ class AdminController extends AdminControllerBase
 {
     public function index()
     {
-        $this->view->layout('admin');
-
-        // Use ReportBuilder for review statistics
-        $reviewStats = ReportBuilder::build('reviews', 'created_at')
-            ->forPeriod('2000-01-01', date('Y-m-d'))
+        $reviewsReport = ReportBuilder::build('reviews', 'created_at')
+            ->forPeriod(date('2020-01-01'), date('Y-m-t'))
+            ->withPercentage('recommendation_score', 'Recommendation')
+            ->withAverage('quality_rating', 'Quality')
+            ->withAverage('pricing_rating', 'Pricing')
+            ->withAverage('communication_rating', 'Communication')
+            ->withAverage('packaging_rating', 'Packaging')
+            ->withAverage('delivery_rating', 'Delivery')
             ->withCount('*', 'Total Reviews')
-            ->withPercentage('recommendation_score', 'Total Recommendations', 10)
-            ->withAverage('quality_rating', 'Average Quality')
-            ->withAverage('pricing_rating', 'Average Pricing')
-            ->withAverage('communication_rating', 'Average Communication')
-            ->withAverage('packaging_rating', 'Average Packaging')
-            ->withAverage('delivery_rating', 'Average Delivery')
-            ->generate('Review Statistics', true);
+            ->generate('Reviews Report', true);
 
-        // Get recent reviews (latest 3) using array_map and Review model
-        $recentReviews = array_map(
-            fn($row) => new Review($row),
-            Review::query()
-                ->orderBy('created_at', 'desc')
-                ->limit(3)
-                ->get()
-        );
-
-        $matrices = [
-            ['label' => 'Product Quality', 'score' => $reviewStats[0]['Average Quality'] ?? 0],
-            ['label' => 'Pricing', 'score' => $reviewStats[0]['Average Pricing'] ?? 0],
-            ['label' => 'Communication', 'score' => $reviewStats[0]['Average Communication'] ?? 0],
-            ['label' => 'Packaging', 'score' => $reviewStats[0]['Average Packaging'] ?? 0],
-            ['label' => 'Delivery', 'score' => $reviewStats[0]['Average Delivery'] ?? 0],
+        $ratings = [
+            'Quality' => $reviewsReport['data'][0]['Quality'] ?? 0,
+            'Pricing' => $reviewsReport['data'][0]['Pricing'] ?? 0,
+            'Communication' => $reviewsReport['data'][0]['Communication'] ?? 0,
+            'Packaging' => $reviewsReport['data'][0]['Packaging'] ?? 0,
+            'Delivery' => $reviewsReport['data'][0]['Delivery'] ?? 0,
         ];
 
-        $overallAvg = !empty($matrices)
-            ? round(array_sum(array_column($matrices, 'score')) / count($matrices), 2)
-            : 0;
-        $totalReviews = $reviewStats[0]['Total Reviews'] ?? 0;
+        $recommendPercent = $reviewsReport['data'][0]['Recommendation'] ?? 0;
 
+        $overallAvg = array_sum(array_values($ratings)) / count($ratings);
+
+        $ratingStats = [
+            'ratings' => $ratings,
+            'recommendPercent' => $recommendPercent,
+            'overallAvg' => $overallAvg,
+        ];
+        // Debugging method to inspect variables
+        $this->view->layout('admin');
         $this->view('admin/index', [
             'title' => 'Admin Dashboard',
             'breadcrumb' => [
-                ['label' => 'Dashboard', 'url' => url('admin')]
+                ['label' => 'Dashboard', 'url' => url('admin')],
+                ['label' => 'Home']
             ],
-            'recentReviews' => $recentReviews,
-            'recommendPercent' => $reviewStats[0]['Total Recommendations'] ?? 0,
-            'overallAvg' => $overallAvg,
-            'matrices' => $matrices,
-            'totalReviews' => $totalReviews,
-            'reviewStats' => $reviewStats[0] ?? []
+            'ratingStats' => $ratingStats,
         ]);
     }
 
