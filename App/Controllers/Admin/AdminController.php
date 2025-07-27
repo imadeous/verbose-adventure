@@ -128,16 +128,17 @@ class AdminController extends AdminControllerBase
     {
 
         //get the hottest categories
-        $hottestCategories = ReportBuilder::build('transactions', 'date')
+        $query  = ReportBuilder::build('transactions', 'date')
             ->forPeriod(date('Y-m-01'), date('Y-m-t'))
             ->where('type', '=', 'income')
-            // ->whereNotNull('category_id')
+            ->whereNotNull('category_id')
             ->groupBy('category_id')
-            ->withSum('amount', 'Total')
+            ->withSum('amount', 'total_income')
+            ->orderBy('total_income', 'desc')
             ->limit(5);
 
         $vars = [
-            'hottestCategories' => $hottestCategories->get(),
+            'hottestCategories' => $query->get(),
         ];
         // Debugging method to inspect variables
         $this->view->layout('admin');
@@ -147,7 +148,7 @@ class AdminController extends AdminControllerBase
                 ['label' => 'Dashboard', 'url' => url('admin')],
                 ['label' => 'Debug']
             ],
-            'query' => $hottestCategories->toSql(),
+            'query' => $query->toSql(),
             'vars' => $vars,
         ]);
     }
