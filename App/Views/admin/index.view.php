@@ -47,7 +47,7 @@
             </div>
             <div>
                 <div class="text-xs text-blue-500 font-medium uppercase tracking-wide">CSAT</div>
-                <div class="text-2xl font-bold text-blue-900"><?php echo $ratingStats['overallAvg'] ?? 0; ?>/5</div>
+                <div class="text-2xl font-bold text-blue-900"><?php echo number_format($ratingStats['overallAvg'] ?? 0, 1); ?>/5</div>
             </div>
         </div>
     </div>
