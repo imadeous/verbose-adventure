@@ -125,4 +125,28 @@ class AdminController extends AdminControllerBase
             'report' => $report,
         ]);
     }
+
+    public function debug()
+    {
+
+        $reviewsReport = ReportBuilder::build('reviews', 'created_at')
+            ->forPeriod(date('Y-m-01'), date('Y-m-t'))
+            ->withAverage('recommendation_score', 'Recommendation')
+            ->withAverage('quality_rating', 'Quality')
+            ->withAverage('pricing_rating', 'Pricing')
+            ->withAverage('communication_rating', 'Communication')
+            ->withAverage('packaging_rating', 'Packaging')
+            ->withAverage('delivery_rating', 'Delivery')
+            ->generate('Reviews Report', true);
+        // Debugging method to inspect variables
+        $this->view->layout('admin');
+        $this->view('admin/debug', [
+            'title' => 'Debugging',
+            'breadcrumb' => [
+                ['label' => 'Dashboard', 'url' => url('admin')],
+                ['label' => 'Debug']
+            ],
+            'reviewsReport' => $reviewsReport,
+        ]);
+    }
 }
