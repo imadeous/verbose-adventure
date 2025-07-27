@@ -294,11 +294,15 @@ class ReportBuilder extends QueryBuilder
     {
         $alias = $alias ?? "percent_{$column}";
         // (SUM(column) / COUNT(column) * base) * 100
-        $expr = "((SUM(`$column`) / NULLIF(COUNT(`$column`), 0)) / $base) * 100";
+        $expr = "((SUM(`$column`) / NULLIF(COUNT(`$column`), 0)) * $base) * 100";
         $this->aggregates[] = "$expr AS `$alias`";
         $this->columnAliases[$alias] = ucwords(str_replace('_', ' ', $alias));
         return $this;
     }
+
+    // -------
+    // PERIOD GROUPING 
+    // -------
 
     /**
      * Group results by day using the date column.
