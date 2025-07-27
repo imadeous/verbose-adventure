@@ -130,7 +130,7 @@ class AdminController extends AdminControllerBase
     {
 
         $reviewsReport = ReportBuilder::build('reviews', 'created_at')
-            ->forPeriod(date('Y-m-01'), date('Y-m-t'))
+            ->forPeriod(date('2020-01-01'), date('Y-m-t'))
             ->withAverage('recommendation_score', 'Recommendation')
             ->withAverage('quality_rating', 'Quality')
             ->withAverage('pricing_rating', 'Pricing')
@@ -139,8 +139,16 @@ class AdminController extends AdminControllerBase
             ->withAverage('delivery_rating', 'Delivery')
             ->generate('Reviews Report', true);
 
+        $overallAvg = (
+            $reviewsReport['data']['Quality'] +
+            $reviewsReport['data']['Pricing'] +
+            $reviewsReport['data']['Communication'] +
+            $reviewsReport['data']['Packaging'] +
+            $reviewsReport['data']['Delivery']
+        ) / 5;
 
         $vars['reviewsReport'] = $reviewsReport;
+        $vars['overallAvg'] = $overallAvg;
         // Debugging method to inspect variables
         $this->view->layout('admin');
         $this->view('admin/debug', [
