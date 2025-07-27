@@ -31,7 +31,7 @@ class AdminController extends AdminControllerBase
                 '#60a5fa',
                 '#93c5fd'
             ])
-            ->legend(['display' => false])
+            ->legend('bottom')
             ->pie();
 
         $thisMonth = ReportBuilder::build('transactions', 'date')
@@ -128,7 +128,7 @@ class AdminController extends AdminControllerBase
                 ['label' => 'Home']
             ],
             'transactionsChart' => $transactionsChart->toJson(),
-            'quarterlyChart' => $quarterlyChart,
+            'quarterlyChart' => $quarterlyChart->toJson(),
             'thisMonth' => $thisMonth,
             'lastMonth' => $lastMonth,
             'hottestCategories' => $hottestCategories,
