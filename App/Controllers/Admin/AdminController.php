@@ -24,18 +24,14 @@ class AdminController extends AdminControllerBase
             ->withAverage('delivery_rating', 'Average Delivery')
             ->generate('Review Statistics', true);
 
-        // Get recent reviews (latest 3) using Review model
-        $recentReviews = Review::query()
-            ->orderBy('created_at', 'desc')
-            ->limit(3)
-            ->get();
-
-        // Ensure recentReviews is an array of Review objects
-        if (is_array($recentReviews) && !empty($recentReviews) && is_array($recentReviews[0])) {
-            $recentReviews = array_map(function ($row) {
-                return (object)$row;
-            }, $recentReviews);
-        }
+        // Get recent reviews (latest 3) using array_map and Review model
+        $recentReviews = array_map(
+            fn($row) => new Review($row),
+            Review::query()
+                ->orderBy('created_at', 'desc')
+                ->limit(3)
+                ->get()
+        );
 
         $matrices = [
             ['label' => 'Product Quality', 'score' => $reviewStats[0]['Average Quality'] ?? 0],
