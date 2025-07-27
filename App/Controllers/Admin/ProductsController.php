@@ -22,7 +22,7 @@ class ProductsController extends AdminControllerBase
         ];
         $this->view('admin/products/index', [
             'products' => $products,
-            'breadcrumbs' => $breadcrumbs
+            'breadcrumb' => $breadcrumbs
         ]);
     }
 
@@ -46,7 +46,7 @@ class ProductsController extends AdminControllerBase
             'product' => $product,
             'reviews' => $reviews,
             'gallery' => $gallery,
-            'breadcrumbs' => $breadcrumbs
+            'breadcrumb' => $breadcrumbs
         ]);
     }
 
@@ -61,7 +61,7 @@ class ProductsController extends AdminControllerBase
         ];
         $this->view('admin/products/create', [
             'categories' => $categories,
-            'breadcrumbs' => $breadcrumbs
+            'breadcrumb' => $breadcrumbs
         ]);
     }
 
@@ -98,7 +98,7 @@ class ProductsController extends AdminControllerBase
         $this->view('admin/products/edit', [
             'product' => $product,
             'categories' => $categories,
-            'breadcrumbs' => $breadcrumbs
+            'breadcrumb' => $breadcrumbs
         ]);
     }
 
@@ -142,7 +142,7 @@ class ProductsController extends AdminControllerBase
         ];
         $this->view('admin/products/addImage', [
             'product' => $product,
-            'breadcrumbs' => $breadcrumbs
+            'breadcrumb' => $breadcrumbs
         ]);
     }
 
