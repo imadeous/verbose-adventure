@@ -19,9 +19,9 @@ print_r($vars);
         </div>
 
     </div>
-    <canvas id="quarterlyReportChart" class="w-full h-96"></canvas>
 
 </div>
+<canvas id="quarterlyReportChart" class="w-full h-96"></canvas>
 <script>
     // Quarterly Report Bar Chart
     const ctx2 = document.getElementById('quarterlyReportChart').getContext('2d');
