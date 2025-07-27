@@ -22,6 +22,20 @@ class AdminController extends AdminControllerBase
             ->orderBy('COUNT(category_id)', 'desc') // Use column name instead of alias
             ->limit(5)->generate()['data'];
 
+        // Fetch expenses and generate report
+        $heaviestExpenses = ReportBuilder::build('transactions', 'date')
+            ->forPeriod(date('Y-m-01'), date('Y-m-t'))
+            ->where('type', '=', 'expense')
+            ->with('category_id')
+            ->whereNotNull('category_id')
+            ->groupBy('category_id')
+            ->withSum('amount', 'Total')
+            ->withCount('*', 'Count')
+            ->orderBy('COUNT(category_id)', 'desc') // Use column name instead of alias
+            ->limit(5)->generate()['data'];
+
+        $this->view->layout('admin');
+
         // Fetch recent reviews and generate report
         $recentReviews = Review::query()
             ->orderBy('created_at', 'desc')
@@ -66,6 +80,7 @@ class AdminController extends AdminControllerBase
                 ['label' => 'Home']
             ],
             'hottestCategories' => $hottestCategories,
+            'heaviestExpenses' => $heaviestExpenses,
             'ratingStats' => $ratingStats,
             'recentReviews' => array_map(fn($row) => new Review($row), $recentReviews),
         ]);

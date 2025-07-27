@@ -151,30 +151,16 @@
                 Expense Breakdown
             </h4>
             <div class="flex flex-col gap-3">
-                <div class="flex items-center gap-2">
-                    <span class="inline-block w-3 h-3 rounded-full bg-blue-700"></span>
-                    <span class="font-medium">Materials</span>
-                    <div class="w-24 bg-blue-200 rounded-full h-2 mx-2">
-                        <div class="bg-blue-700 h-2 rounded-full" style="width: 60%"></div>
+                <?php foreach (($heaviestExpenses ?? []) as $category): ?>
+                    <div class="flex items-center gap-2">
+                        <span class="inline-block w-3 h-3 rounded-full bg-blue-700"></span>
+                        <span class="font-medium"><?= e($category['name']) ?></span>
+                        <div class="w-24 bg-blue-200 rounded-full h-2 mx-2">
+                            <div class="bg-blue-700 h-2 rounded-full" style="width: <?= e($category['percentage']) ?>%"></div>
+                        </div>
+                        <span class="ml-auto font-semibold text-blue-900">MVR <?= e($category['total']) ?></span>
                     </div>
-                    <span class="ml-auto font-semibold text-blue-900">MVR 2,100</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="inline-block w-3 h-3 rounded-full bg-blue-500"></span>
-                    <span class="font-medium">Maintenance</span>
-                    <div class="w-24 bg-blue-100 rounded-full h-2 mx-2">
-                        <div class="bg-blue-500 h-2 rounded-full" style="width: 25%"></div>
-                    </div>
-                    <span class="ml-auto font-semibold text-blue-700">MVR 800</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="inline-block w-3 h-3 rounded-full bg-blue-300"></span>
-                    <span class="font-medium">Marketing</span>
-                    <div class="w-24 bg-blue-50 rounded-full h-2 mx-2">
-                        <div class="bg-blue-300 h-2 rounded-full" style="width: 15%"></div>
-                    </div>
-                    <span class="ml-auto font-semibold text-blue-600">MVR 500</span>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
