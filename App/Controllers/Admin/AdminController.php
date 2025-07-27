@@ -139,16 +139,23 @@ class AdminController extends AdminControllerBase
             ->withAverage('delivery_rating', 'Delivery')
             ->generate('Reviews Report', true);
 
-        $overallAvg = (
-            $reviewsReport['data'][0]['Quality'] +
-            $reviewsReport['data'][0]['Pricing'] +
-            $reviewsReport['data'][0]['Communication'] +
-            $reviewsReport['data'][0]['Packaging'] +
-            $reviewsReport['data'][0]['Delivery']
-        ) / 5;
+        $ratings = [
+            'Quality' => $reviewsReport['data'][0]['Quality'] ?? 0,
+            'Pricing' => $reviewsReport['data'][0]['Pricing'] ?? 0,
+            'Communication' => $reviewsReport['data'][0]['Communication'] ?? 0,
+            'Packaging' => $reviewsReport['data'][0]['Packaging'] ?? 0,
+            'Delivery' => $reviewsReport['data'][0]['Delivery'] ?? 0,
+        ];
 
-        $vars['averageRatings'] = $reviewsReport['data'][0] ?? [];
-        $vars['overallAvg'] = $overallAvg;
+        $recommendPercent = $reviewsReport['data'][0]['Recommendation'] ?? 0;
+
+        $overallAvg = array_sum(array_values($ratings)) / count($ratings);
+
+        $vars = [
+            'ratings' => $ratings,
+            'recommendPercent' => $recommendPercent,
+            'overallAvg' => $overallAvg,
+        ];
         // Debugging method to inspect variables
         $this->view->layout('admin');
         $this->view('admin/debug', [
