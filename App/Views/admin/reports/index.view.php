@@ -14,7 +14,7 @@
             <?php endif; ?>
         </nav>
     </div>
-    <?= $this->partial('breadcrumb'); ?>
+    <?= include 'partials/breadcrumb.view.php'; ?>
     <div class="bg-white rounded-xl shadow-md p-6">
         <form @change="fetchReport" class="mb-6 flex flex-wrap gap-4 items-end">
             <div>
