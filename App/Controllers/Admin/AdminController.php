@@ -168,6 +168,7 @@ class AdminController extends AdminControllerBase
         $query  = ReportBuilder::build('reviews', 'product_id')
             ->forPeriod(date('2020-01-01'), date('Y-m-t'))
             ->whereNotNull('product_id')
+            ->where('product_id', '!=', '')
             ->with('product_id')
             ->withAverage('pricing_rating', 'Overall Rating')
             ->withCount('*', 'Total Reviews')
