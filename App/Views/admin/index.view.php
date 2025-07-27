@@ -96,7 +96,7 @@ use App\Models\Product;
                 <canvas id="quarterlyReportChart" class="w-full max-w-xs" style="height:140px!important;max-height:140px;min-height:140px;" height="140"></canvas>
                 <ul class="text-blue-700 text-xs mt-4 w-full flex justify-between px-2">
                     <?php
-                    foreach ($quarterlyChart->generate()['data'] as $quarter => $amount): ?>
+                    foreach ($quarterlyChart->generate()[0] as $quarter => $amount): ?>
                         <li><?php echo $quarter; ?>: <span class="font-semibold"><?php echo number_shorten($amount); ?></span></li>
                     <?php endforeach; ?>
                 </ul>
