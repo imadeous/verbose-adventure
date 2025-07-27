@@ -16,7 +16,7 @@ class AdminController extends AdminControllerBase
             ->where('type', '=', 'income')
             ->withSum('amount', 'Total Amount')
             ->withCount('*', 'Total Orders')
-            ->generate()['data'];
+            ->generate()['data'][0] ?? [];
 
         // Fetch categories and generate report
         $hottestCategories  = ReportBuilder::build('transactions', 'date')
@@ -28,7 +28,7 @@ class AdminController extends AdminControllerBase
             ->withSum('amount', 'Total')
             ->withCount('*', 'Count')
             ->orderBy('COUNT(category_id)', 'desc') // Use column name instead of alias
-            ->limit(5)->generate()['data'];
+            ->limit(5)->generate()['data'] ?? [];
 
         // Fetch expenses and generate report
         $heaviestExpenses = ReportBuilder::build('transactions', 'date')
@@ -39,7 +39,7 @@ class AdminController extends AdminControllerBase
             ->groupBy('category_id')
             ->withSum('amount', 'Total')
             ->orderBy('COUNT(category_id)', 'desc') // Use column name instead of alias
-            ->limit(5)->generate()['data'];
+            ->limit(5)->generate()['data'] ?? [];
 
         $this->view->layout('admin');
 
@@ -69,7 +69,7 @@ class AdminController extends AdminControllerBase
             ->withCount('*', 'Total Reviews')
             ->orderBy('SUM(pricing_rating)', 'desc')
             ->groupBy('product_id')
-            ->limit(5)->generate()['data'];
+            ->limit(5)->generate()['data'] ?? [];
 
         $ratings = [
             'Quality' => $reviewsReport['data'][0]['Quality'] ?? 0,
