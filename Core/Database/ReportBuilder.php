@@ -300,6 +300,20 @@ class ReportBuilder extends QueryBuilder
         return $this;
     }
 
+    /**
+     * Include non-numerical columns in the report output.
+     * @param string|array $columns Column name or array of column names.
+     * @return static
+     */
+    public function with(string|array $columns): static
+    {
+        foreach ((array)$columns as $col) {
+            $this->aggregates[] = "`$col`";
+            $this->columnAliases[$col] = ucwords(str_replace('_', ' ', $col));
+        }
+        return $this;
+    }
+
     // -------
     // PERIOD GROUPING 
     // -------
