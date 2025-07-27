@@ -213,14 +213,7 @@ class AdminController extends AdminControllerBase
             ->forPeriod(date('Y-01-01'), date('Y-m-d'))
             ->quarterly()
             ->where('type', '=', 'income')
-            ->withSum('amount', 'Total Amount')
-            ->colors([
-                '#2563eb',
-                '#3b82f6',
-                '#60a5fa',
-                '#93c5fd'
-            ])
-            ->legend(['display' => false]);
+            ->withSum('amount', 'Total Amount');
 
         $vars = [
             'products' => $query->generate()
