@@ -207,13 +207,16 @@ class AdminController extends AdminControllerBase
 
     public function debug()
     {
-        // Mixed bar-line chart with dynamic data
+        // Mixed bar-line chart with dynamic data and auto y-axis assignment
         $query = ChartBuilder::build('transactions', 'date')
             ->forPeriod('2025-01-01', '2025-07-31')
             ->monthly()
             ->withSum('amount', 'Revenue')
             ->withCount('*', 'Orders')
-            ->bar();
+            ->mixedChart([
+                'Revenue' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#2563eb', 'fill' => false],
+                'Orders' => ['type' => 'bar', 'yAxisID' => 'y', 'backgroundColor' => '#60a5fa']
+            ]);
 
         $vars = [
             'products' => $query->toJson()

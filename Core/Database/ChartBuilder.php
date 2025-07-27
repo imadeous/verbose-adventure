@@ -5,6 +5,7 @@ namespace Core\Database;
 use Core\Database\ReportBuilder;
 
 class ChartBuilder extends ReportBuilder
+
 {
 
     protected string $chartType = 'bar';
@@ -66,6 +67,23 @@ class ChartBuilder extends ReportBuilder
     public function doughnut(): static
     {
         $this->chartType = 'doughnut';
+        return $this;
+    }
+
+    /**
+     * Configure a mixed bar-line chart with auto-detected datasets and custom type/yAxisID per metric.
+     *
+     * @param array $datasetTypes Associative array: ['Metric Label' => ['type' => 'bar'|'line', 'yAxisID' => 'y'|'y1', ...]]
+     * @return static
+     */
+    public function mixedChart(array $datasetTypes = []): static
+    {
+        $this->chartType = 'bar'; // Chart.js requires a base type for mixed charts
+        $this->chartOptions['scales'] = $this->chartOptions['scales'] ?? [];
+
+        // Mark for mixed chart rendering in toArray()
+        $this->chartOptions['isMixedChart'] = true;
+        $this->chartOptions['mixedDatasetTypes'] = $datasetTypes;
         return $this;
     }
 
@@ -249,6 +267,20 @@ class ChartBuilder extends ReportBuilder
                     'data' => array_map(fn($row) => $row[$key], $data),
                 ];
             }
+        }
+
+
+        // Mixed chart: assign type/yAxisID per dataset if requested
+        if (!empty($this->chartOptions['isMixedChart']) && !empty($this->chartOptions['mixedDatasetTypes'])) {
+            foreach ($datasets as &$dataset) {
+                $label = $dataset['label'] ?? null;
+                if ($label && isset($this->chartOptions['mixedDatasetTypes'][$label])) {
+                    foreach ($this->chartOptions['mixedDatasetTypes'][$label] as $key => $value) {
+                        $dataset[$key] = $value;
+                    }
+                }
+            }
+            unset($dataset);
         }
 
         // Apply colors to dataset for pie/doughnut charts
