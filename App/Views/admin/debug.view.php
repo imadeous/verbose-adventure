@@ -24,13 +24,15 @@ else echo 'No variables set.'; ?>
                         <tr class="border-b border-zinc-700">
                             <th class="px-4 py-2 text-left text-yellow-300">Category</th>
                             <th class="px-4 py-2 text-left text-yellow-300">Total Amount</th>
+                            <th class="px-4 py-2 text-left text-yellow-300">Count</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($vars['hottestCategories']['data'] as $category): ?>
                             <tr class="border-b border-zinc-700">
                                 <td class="px-4 py-2"><?= htmlspecialchars($category['category_id']) ?></td>
-                                <td class="px-4 py-2"><?= number_format($category['amount'], 2) ?></td>
+                                <td class="px-4 py-2"><?= number_format($category['Total Amount'], 2) ?></td>
+                                <td class="px-4 py-2"><?= htmlspecialchars($category['Count']) ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
