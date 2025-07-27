@@ -134,15 +134,14 @@ class AdminController extends AdminControllerBase
             ->groupBy('description')
             ->withSum('amount', 'Total')
             ->orderBy('SUM(amount)', 'desc') // Use aggregate expression, not alias
-            ->limit(5)
-            ->toSql();
+            ->limit(5);
 
 
 
 
 
         $vars = [
-            'hottestCategories' => $hottestCategories,
+            'hottestCategories' => $hottestCategories->get(),
         ];
         // Debugging method to inspect variables
         $this->view->layout('admin');
@@ -152,6 +151,7 @@ class AdminController extends AdminControllerBase
                 ['label' => 'Dashboard', 'url' => url('admin')],
                 ['label' => 'Debug']
             ],
+            'query' => $hottestCategories->toSql(),
             'vars' => $vars,
         ]);
     }
