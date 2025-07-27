@@ -212,17 +212,16 @@ class AdminController extends AdminControllerBase
     public function debug()
     {
         // Mixed bar-line chart with dynamic data and auto y-axis assignment
-        $query = ChartBuilder::build('transactions', 'date')
-            ->forPeriod('2025-01-01', '2025-07-31')
-            ->monthly()
-            ->withSum('amount', 'Revenue')
-            ->withCount('*', 'Orders')
-            ->withAverage('amount', 'Average Amount')
-            ->mixedChart([
-                'Revenue' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#2563eb', 'fill' => false],
-                'Orders' => ['type' => 'bar', 'yAxisID' => 'y', 'backgroundColor' => '#60a5fa'],
-                'Average Amount' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#05011bff', 'fill' => false]
-            ]);
+        $query =  $reviewsReport = ChartBuilder::build('reviews', 'created_at')
+            ->forPeriod(date('2020-01-01'), date('Y-m-t'))
+            ->withPercentage('recommendation_score', 'Recommendation')
+            ->withAverage('quality_rating', 'Quality')
+            ->withAverage('pricing_rating', 'Pricing')
+            ->withAverage('communication_rating', 'Communication')
+            ->withAverage('packaging_rating', 'Packaging')
+            ->withAverage('delivery_rating', 'Delivery')
+            ->withCount('*', 'Total Reviews')
+            ->radar();
 
         $vars = [
             'products' => $query->toJson()
