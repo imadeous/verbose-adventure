@@ -322,6 +322,6 @@ use App\Models\Product;
 
     // Ratings Chart (dynamic from PHP)
     const ctx3 = document.getElementById('ratingsChart').getContext('2d');
-    const ratingsChartConfig = JSON.parse(`<?php echo addslashes($quarterlyChart->toJson()); ?>`);
+    const ratingsChartConfig = JSON.parse(`<?php echo addslashes($ratingsChart->toJson()); ?>`);
     new Chart(ctx3, ratingsChartConfig);
 </script>
