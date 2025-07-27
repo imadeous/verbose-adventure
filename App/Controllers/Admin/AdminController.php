@@ -12,6 +12,14 @@ class AdminController extends AdminControllerBase
     public function index()
     {
 
+        $transactionsChart = ChartBuilder::build('transactions', 'date')
+            ->forPeriod(date('Y-m-01'), date('Y-m-d'))
+            ->daily()
+            ->where('type', '=', 'income')
+            ->withSum('amount', 'Total Amount')
+            ->withCount('*', 'Total Orders')
+            ->line();
+
         $thisMonth = ReportBuilder::build('transactions', 'date')
             ->forPeriod(date('Y-m-01'), date('Y-m-d'))
             ->where('type', '=', 'income')
@@ -97,7 +105,7 @@ class AdminController extends AdminControllerBase
             'overallAvg' => $overallAvg,
             'count' => $reviewsReport['data'][0]['Total Reviews'] ?? 0,
         ];
-        // Debugging method to inspect variables
+
         $this->view->layout('admin');
         $this->view('admin/index', [
             'title' => 'Admin Dashboard',
@@ -105,6 +113,7 @@ class AdminController extends AdminControllerBase
                 ['label' => 'Dashboard', 'url' => url('admin')],
                 ['label' => 'Home']
             ],
+            'transactionsChart' => $transactionsChart->toJson(),
             'thisMonth' => $thisMonth,
             'lastMonth' => $lastMonth,
             'hottestCategories' => $hottestCategories,
