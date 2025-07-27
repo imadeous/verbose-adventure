@@ -81,7 +81,7 @@ class AdminController extends AdminControllerBase
         // Fetch recent reviews and generate report
         $recentReviews = Review::query()
             ->orderBy('created_at', 'desc')
-            ->limit(5)
+            ->limit(3)
             ->get();
 
         $reviewsReport = ReportBuilder::build('reviews', 'created_at')
