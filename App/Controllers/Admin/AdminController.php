@@ -15,7 +15,7 @@ class AdminController extends AdminControllerBase
         $reviewStats = ReportBuilder::build('reviews', 'created_at')
             ->forPeriod('2000-01-01', date('Y-m-d'))
             ->withCount('*', 'Total Reviews')
-            ->withSum('recommendation_score', 'Total Recommendations')
+            ->withPercentage('recommendation_score', 'Total Recommendations', 10)
             ->withAverage('quality_rating', 'Average Quality')
             ->withAverage('pricing_rating', 'Average Pricing')
             ->withAverage('communication_rating', 'Average Communication')
@@ -37,9 +37,6 @@ class AdminController extends AdminControllerBase
             ['label' => 'Delivery', 'score' => $reviewStats[0]['Average Delivery'] ?? 0],
         ];
 
-        $recommendPercent = !empty($reviewStats[0]['Total Reviews']) && !empty($reviewStats[0]['Total Recommendations'])
-            ? round(($reviewStats[0]['Total Recommendations'] / ($reviewStats[0]['Total Reviews'] * 10)) * 100)
-            : 0;
         $overallAvg = !empty($matrices)
             ? round(array_sum(array_column($matrices, 'score')) / count($matrices), 2)
             : 0;
@@ -51,7 +48,7 @@ class AdminController extends AdminControllerBase
                 ['label' => 'Dashboard', 'url' => url('admin')]
             ],
             'recentReviews' => $recentReviews,
-            'recommendPercent' => $recommendPercent,
+            'recommendPercent' => $reviewStats[0]['Total Recommendations'] ?? 0,
             'overallAvg' => $overallAvg,
             'matrices' => $matrices,
             'totalReviews' => $totalReviews,

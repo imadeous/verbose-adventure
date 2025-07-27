@@ -283,6 +283,24 @@ class ReportBuilder extends QueryBuilder
     }
 
     /**
+     * Add a percentage aggregate for a column.
+     * Calculates (SUM(column) / COUNT(column) * base) * 100 as percentage.
+     * @param string $column The column to aggregate.
+     * @param float|int $base The max score or denominator multiplier.
+     * @param string|null $alias The alias for the result column.
+     * @return static
+     */
+    public function withPercentage(string $column, ?string $alias = null, float|int $base = 10): static
+    {
+        $alias = $alias ?? "percent_{$column}";
+        // (SUM(column) / COUNT(column) * base) * 100
+        $expr = "((SUM(`$column`) / NULLIF(COUNT(`$column`), 0)) / $base) * 100";
+        $this->aggregates[] = "$expr AS `$alias`";
+        $this->columnAliases[$alias] = ucwords(str_replace('_', ' ', $alias));
+        return $this;
+    }
+
+    /**
      * Group results by day using the date column.
      * @param string|null $alias
      * @return static
