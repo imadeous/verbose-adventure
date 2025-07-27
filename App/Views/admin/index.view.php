@@ -28,7 +28,7 @@ use App\Models\Product;
             </div>
             <div>
                 <div class="text-xs text-blue-600 font-medium uppercase tracking-wide">Revenue</div>
-                <div class="text-2xl font-bold text-blue-900"><?= e("MVR " . number_format($thisMonth['Total Amount'], 2)) ?></div>
+                <div class="text-2xl font-bold text-blue-900"> <span class="text-xs text-blue-700">MVR</span> <?= e(number_format($thisMonth['Total Amount'], 2)) ?></div>
             </div>
         </div>
         <!-- Trend -->
