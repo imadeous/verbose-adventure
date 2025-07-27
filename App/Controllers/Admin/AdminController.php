@@ -133,6 +133,7 @@ class AdminController extends AdminControllerBase
             ->where('type', '=', 'income')
             ->whereNotNull('category_id')
             ->groupBy('category_id')
+            ->withSum('amount', 'Total')
             ->withCount('*', 'Count')
             ->orderBy('COUNT(category_id)', 'desc') // Use column name instead of alias
             ->limit(5);
