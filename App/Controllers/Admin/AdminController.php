@@ -195,8 +195,7 @@ class AdminController extends AdminControllerBase
 
 
         $vars = [
-            'products' => $query->toJson(),
-            'query' => $query->toArray(),
+            'products' => $query->toJson()
         ];
         // Debugging method to inspect variables
         $this->view->layout('admin');
