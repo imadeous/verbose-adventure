@@ -92,13 +92,21 @@ class ChartBuilder extends ReportBuilder
     }
 
     /**
-     * Set legend position (Chart.js plugin).
-     * @param string $position
+     * Set legend options for Chart.js plugin.
+     * Accepts either a string (position) or an array of legend options.
+     * @param string|array $options Legend position as string, or full legend options as array.
      * @return static
      */
-    public function legend(string $position = 'top'): static
+    public function legend(string|array $options = 'top'): static
     {
-        $this->chartOptions['plugins']['legend']['position'] = $position;
+        if (is_array($options)) {
+            $this->chartOptions['plugins']['legend'] = array_merge(
+                $this->chartOptions['plugins']['legend'],
+                $options
+            );
+        } else {
+            $this->chartOptions['plugins']['legend']['position'] = $options;
+        }
         return $this;
     }
 
