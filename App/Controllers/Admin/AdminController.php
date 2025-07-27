@@ -175,6 +175,8 @@ class AdminController extends AdminControllerBase
             ->groupBy('product_id')
             ->limit(5);
 
+        $all = Review::all();
+
         $vars = [
             'products' => $query->generate('Top Rated Products', true),
         ];
@@ -186,6 +188,7 @@ class AdminController extends AdminControllerBase
                 ['label' => 'Dashboard', 'url' => url('admin')],
                 ['label' => 'Debug']
             ],
+            'all' => $all,
             'query' => $query->toSql(),
             'vars' => $vars,
         ]);
