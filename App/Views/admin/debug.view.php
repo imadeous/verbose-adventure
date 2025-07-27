@@ -13,20 +13,7 @@ else echo 'No SQL query set.'; ?>
             <h2 class="text-xl font-semibold mb-4 text-yellow-400">Variables Dump</h2>
             <pre class="bg-zinc-900 text-yellow-300 p-4 rounded-md whitespace-pre-wrap break-words text-base">
 <?php
-if (isset($vars['products'])) {
-    // Pretty-print JSON string if valid
-    $json = $vars['products'];
-    $decoded = json_decode($json, true);
-    if (json_last_error() === JSON_ERROR_NONE) {
-        echo json_encode($decoded, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-    } else {
-        echo htmlspecialchars($json);
-    }
-} elseif (isset($vars)) {
-    print_r($vars);
-} else {
-    echo 'No variables set.';
-}
+print_r($vars ?? [], true);
 ?>
             </pre>
         </div>
