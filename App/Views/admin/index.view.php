@@ -331,8 +331,8 @@ use App\Models\Product;
 
     // Quarterly Report Bar Chart
     const ctx2 = document.getElementById('quarterlyReportChart').getContext('2d');
-    new Chart(ctx2, {
-        type: 'pie',
+    const quarterlyReportChartConfig = {
+        type: 'bar',
         data: {
             labels: ['Q1', 'Q2', 'Q3', 'Q4'],
             datasets: [{
@@ -345,7 +345,7 @@ use App\Models\Product;
                     '#93c5fd'
                 ],
                 borderWidth: 1,
-                borderRadius: 4 // <-- Add border radius to pie sectors
+                borderRadius: 4 // <-- Add border radius to bar corners
             }]
         },
         options: {
@@ -358,5 +358,6 @@ use App\Models\Product;
             responsive: true,
             maintainAspectRatio: false
         }
-    });
+    };
+    new Chart(ctx2, quarterlyReportChartConfig);
 </script>
