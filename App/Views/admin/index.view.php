@@ -110,7 +110,7 @@
                 <?php foreach ($hottestCategories as $category): ?>
                     <div class="flex items-center gap-2">
                         <span class="inline-block w-3 h-3 rounded-full bg-blue-500"></span>
-                        <span class="font-medium"><?php echo Category::find($category['category_id'])->name ?? 'Unknown'; ?></span>
+                        <span class="font-medium"><?php echo Category::find($category['category_id'])->name ?? 'Others'; ?></span>
                         <span class="ml-auto bg-blue-200 text-blue-800 text-xs px-2 py-1 rounded-full"><?php echo $category['Count']; ?> orders</span>
                     </div>
                 <?php endforeach; ?>
