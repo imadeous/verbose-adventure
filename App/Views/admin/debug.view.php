@@ -16,5 +16,29 @@ else echo 'No SQL query set.'; ?>
 else echo 'No debug variables set.'; ?>
             </pre>
         </div>
+        <div>
+            make a table to display the hottest categories
+            <h2 class="text-xl font-semibold mb-4 text-yellow-400">Hottest Categories</h2>
+            <?php if (isset($hottestCategories) && !empty($hottestCategories)): ?>
+                <table class="min-w-full bg-zinc-800 text-sm">
+                    <thead>
+                        <tr class="border-b border-zinc-700">
+                            <th class="px-4 py-2 text-left text-yellow-300">Category</th>
+                            <th class="px-4 py-2 text-left text-yellow-300">Total Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($hottestCategories as $category): ?>
+                            <tr class="border-b border-zinc-700">
+                                <td class="px-4 py-2"><?= htmlspecialchars($category['description']) ?></td>
+                                <td class="px-4 py-2"><?= number_format($category['Total'], 2) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php else: ?>
+                <p class="text-yellow-300">No hottest categories data available.</p>
+            <?php endif; ?>
+        </div>
     </div>
 </div>
