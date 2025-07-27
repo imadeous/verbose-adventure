@@ -50,6 +50,7 @@
                 <div class="text-2xl font-bold text-blue-900"><?php
 
                                                                 use App\Models\Category;
+                                                                use App\Models\Product;
 
                                                                 echo number_format($ratingStats['overallAvg'] ?? 0, 1); ?>/5</div>
             </div>
@@ -292,10 +293,10 @@
                         ['color' => 'bg-blue-500', 'name' => 'Custom Keychains', 'rating' => 4.7],
                         ['color' => 'bg-blue-300', 'name' => 'Miniature Figures', 'rating' => 4.6],
                     ];
-                    foreach ($topRated as $product): ?>
+                    foreach ($topRatedProducts['data'] as $product): ?>
                         <div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-blue-100 transition border border-transparent hover:border-blue-300 shadow-sm">
-                            <span class="inline-block w-3 h-3 rounded-full <?php echo $product['color']; ?>"></span>
-                            <span class="font-medium text-blue-900 flex-1"><?php echo htmlspecialchars($product['name']); ?></span>
+                            <span class="inline-block w-3 h-3 rounded-full text-blue-700"></span>
+                            <span class="font-medium text-blue-900 flex-1"><?php echo Product::find($product['product_id'])->name ?? 'Unknown Product'; ?></span>
                             <div class="flex items-center gap-1 bg-blue-200 px-2 py-1 rounded-full">
                                 <span class="text-blue-700 font-bold"><?php echo number_format($product['rating'], 1); ?></span>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-blue-700">

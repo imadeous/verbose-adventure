@@ -52,6 +52,15 @@ class AdminController extends AdminControllerBase
             ->withCount('*', 'Total Reviews')
             ->generate('Reviews Report', true);
 
+        $topRatedProducts = ReportBuilder::build('reviews', 'product_id')
+            ->forPeriod(date('2020-01-01'), date('Y-m-t'))
+            ->withAverage('pricing_rating', 'Overall Rating')
+            ->withCount('*', 'Total Reviews')
+            ->groupBy('product_id')
+            ->orderBy('SUM(pricing_rating)', 'desc')
+            ->limit(5)
+            ->generate()['data'];
+
         $ratings = [
             'Quality' => $reviewsReport['data'][0]['Quality'] ?? 0,
             'Pricing' => $reviewsReport['data'][0]['Pricing'] ?? 0,
@@ -82,6 +91,7 @@ class AdminController extends AdminControllerBase
             'heaviestExpenses' => $heaviestExpenses,
             'ratingStats' => $ratingStats,
             'recentReviews' => array_map(fn($row) => new Review($row), $recentReviews),
+            'topRatedProducts' => $topRatedProducts,
         ]);
     }
 
