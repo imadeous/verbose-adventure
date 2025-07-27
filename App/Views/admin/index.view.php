@@ -156,7 +156,7 @@ use App\Models\Product;
                     <div class="flex items-center gap-2">
                         <span class="inline-block w-3 h-3 rounded-full bg-blue-700"></span>
                         <span class="font-medium"><?php echo Category::find($category['category_id'])->name ?? 'Others'; ?></span>
-                        <span class="ml-auto font-semibold text-blue-900">MVR <?= e($category['Total']) ?></span>
+                        <span class="ml-auto font-semibold text-blue-900">MVR <?= e(number_shorten($category['Total'])) ?></span>
                     </div>
                 <?php endforeach; ?>
             </div>
