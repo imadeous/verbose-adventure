@@ -11,7 +11,7 @@ class AdminController extends AdminControllerBase
     public function index()
     {
 
-        $recentREviews = Review::query()
+        $recentReviews = Review::query()
             ->orderBy('created_at', 'desc')
             ->limit(5)
             ->get();
@@ -53,7 +53,7 @@ class AdminController extends AdminControllerBase
                 ['label' => 'Home']
             ],
             'ratingStats' => $ratingStats,
-            'recentReviews' => array_map(fn($row) => new Review($row), $recentREviews),
+            'recentReviews' => array_map(fn($row) => new Review($row), $recentReviews),
         ]);
     }
 
