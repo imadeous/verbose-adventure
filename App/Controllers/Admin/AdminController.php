@@ -9,50 +9,42 @@ class AdminController extends AdminControllerBase
 {
     public function index()
     {
-        // Set the layout for the admin dashboard
-        $this->view->layout('admin'); // uses App/Views/layouts/admin.php
+        $this->view->layout('admin');
 
-        // Fetch all reviews
-        $allReviews = \App\Models\Review::all();
+        // Use ReportBuilder for review statistics
+        $reviewStats = ReportBuilder::build('reviews', 'created_at')
+            ->forPeriod('2000-01-01', date('Y-m-d'))
+            ->withCount('*', 'Total Reviews')
+            ->withSum('recommendation_score', 'Total Recommendations')
+            ->withAverage('quality_rating', 'Average Quality')
+            ->withAverage('pricing_rating', 'Average Pricing')
+            ->withAverage('communication_rating', 'Average Communication')
+            ->withAverage('packaging_rating', 'Average Packaging')
+            ->withAverage('delivery_rating', 'Average Delivery')
+            ->get();
 
-        // Sort reviews by created_at descending and get the latest 3
-        usort($allReviews, function ($a, $b) {
-            return strtotime($b->created_at) <=> strtotime($a->created_at);
-        });
-        $recentReviews = array_slice($allReviews, 0, 3);
+        // Get recent reviews (latest 3)
+        $recentReviews = ReportBuilder::build('reviews', 'created_at')
+            ->orderBy('created_at', 'desc')
+            ->limit(3)
+            ->get();
 
-        // Calculate recommendation percentage
-        $totalReviews = count($allReviews);
-        $sumRecommend = 0;
-        $sumQuality = $sumPricing = $sumCommunication = $sumPackaging = $sumDelivery = 0;
-        foreach ($allReviews as $review) {
-            $sumRecommend += (float)($review->recommendation_score ?? 0);
-            $sumQuality += (float)($review->quality_rating ?? 0);
-            $sumPricing += (float)($review->pricing_rating ?? 0);
-            $sumCommunication += (float)($review->communication_rating ?? 0);
-            $sumPackaging += (float)($review->packaging_rating ?? 0);
-            $sumDelivery += (float)($review->delivery_rating ?? 0);
-        }
-        $recommendPercent = $totalReviews > 0 ? round(($sumRecommend / ($totalReviews * 10)) * 100) : 0;
-
-        // Calculate averages
-        $avgQuality = $totalReviews > 0 ? $sumQuality / $totalReviews : 0;
-        $avgPricing = $totalReviews > 0 ? $sumPricing / $totalReviews : 0;
-        $avgCommunication = $totalReviews > 0 ? $sumCommunication / $totalReviews : 0;
-        $avgPackaging = $totalReviews > 0 ? $sumPackaging / $totalReviews : 0;
-        $avgDelivery = $totalReviews > 0 ? $sumDelivery / $totalReviews : 0;
-        $overallAvg = $totalReviews > 0 ? round((($avgQuality + $avgPricing + $avgCommunication + $avgPackaging + $avgDelivery) / 5), 2) : 0;
-
-        // Prepare category averages for insights
         $matrices = [
-            ['label' => 'Product Quality', 'score' => round($avgQuality, 1)],
-            ['label' => 'Pricing', 'score' => round($avgPricing, 1)],
-            ['label' => 'Communication', 'score' => round($avgCommunication, 1)],
-            ['label' => 'Packaging', 'score' => round($avgPackaging, 1)],
-            ['label' => 'Delivery', 'score' => round($avgDelivery, 1)],
+            ['label' => 'Product Quality', 'score' => $reviewStats[0]['Average Quality'] ?? 0],
+            ['label' => 'Pricing', 'score' => $reviewStats[0]['Average Pricing'] ?? 0],
+            ['label' => 'Communication', 'score' => $reviewStats[0]['Average Communication'] ?? 0],
+            ['label' => 'Packaging', 'score' => $reviewStats[0]['Average Packaging'] ?? 0],
+            ['label' => 'Delivery', 'score' => $reviewStats[0]['Average Delivery'] ?? 0],
         ];
 
-        // Render the view using section/yield system
+        $recommendPercent = !empty($reviewStats[0]['Total Reviews']) && !empty($reviewStats[0]['Total Recommendations'])
+            ? round(($reviewStats[0]['Total Recommendations'] / ($reviewStats[0]['Total Reviews'] * 10)) * 100)
+            : 0;
+        $overallAvg = !empty($matrices)
+            ? round(array_sum(array_column($matrices, 'score')) / count($matrices), 2)
+            : 0;
+        $totalReviews = $reviewStats[0]['Total Reviews'] ?? 0;
+
         $this->view('admin/index', [
             'title' => 'Admin Dashboard',
             'breadcrumb' => [
@@ -62,7 +54,8 @@ class AdminController extends AdminControllerBase
             'recommendPercent' => $recommendPercent,
             'overallAvg' => $overallAvg,
             'matrices' => $matrices,
-            'totalReviews' => $totalReviews
+            'totalReviews' => $totalReviews,
+            'reviewStats' => $reviewStats[0] ?? []
         ]);
     }
 
