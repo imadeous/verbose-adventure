@@ -128,7 +128,7 @@ class AdminController extends AdminControllerBase
                 ['label' => 'Home']
             ],
             'transactionsChart' => $transactionsChart->toJson(),
-            'quarterlyChart' => $quarterlyChart->toJson(),
+            'quarterlyChart' => $quarterlyChart,
             'thisMonth' => $thisMonth,
             'lastMonth' => $lastMonth,
             'hottestCategories' => $hottestCategories,

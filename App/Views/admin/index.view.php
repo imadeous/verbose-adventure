@@ -95,10 +95,10 @@ use App\Models\Product;
             <div class="flex-1 flex flex-col items-center justify-center mt-2" style="height:180px;min-height:140px;max-height:180px;">
                 <canvas id="quarterlyReportChart" class="w-full max-w-xs" style="height:140px!important;max-height:140px;min-height:140px;" height="140"></canvas>
                 <ul class="text-blue-700 text-xs mt-4 w-full flex justify-between px-2">
-                    <li>Q1: <span class="font-semibold">5,200</span></li>
-                    <li>Q2: <span class="font-semibold">6,800</span></li>
-                    <li>Q3: <span class="font-semibold">4,500</span></li>
-                    <li>Q4: <span class="font-semibold">2,000</span></li>
+                    <?php
+                    foreach ($quarterlyChart->generate() as $quarter => $amount): ?>
+                        <li><?php echo $quarter; ?>: <span class="font-semibold"><?php echo number_shorten($amount); ?></span></li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
         </div>
@@ -331,6 +331,6 @@ use App\Models\Product;
 
     // Quarterly Report Bar Chart
     const ctx2 = document.getElementById('quarterlyReportChart').getContext('2d');
-    const quarterlyReportChartConfig = JSON.parse(`<?php echo addslashes($quarterlyChart); ?>`);
+    const quarterlyReportChartConfig = JSON.parse(`<?php echo addslashes($quarterlyChart->toJson()); ?>`);
     new Chart(ctx2, quarterlyReportChartConfig);
 </script>
