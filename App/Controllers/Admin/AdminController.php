@@ -10,7 +10,19 @@ class AdminController extends AdminControllerBase
 {
     public function index()
     {
+        // Fetch categories and generate report
+        $query  = ReportBuilder::build('transactions', 'date')
+            ->forPeriod(date('Y-m-01'), date('Y-m-t'))
+            ->where('type', '=', 'income')
+            ->with('category_id')
+            ->whereNotNull('category_id')
+            ->groupBy('category_id')
+            ->withSum('amount', 'Total')
+            ->withCount('*', 'Count')
+            ->orderBy('COUNT(category_id)', 'desc') // Use column name instead of alias
+            ->limit(5)->generate();
 
+        // Fetch recent reviews and generate report
         $recentReviews = Review::query()
             ->orderBy('created_at', 'desc')
             ->limit(5)
@@ -140,7 +152,7 @@ class AdminController extends AdminControllerBase
             ->limit(5);
 
         $vars = [
-            'hottestCategories' => $query->get(),
+            'hottestCategories' => $query->generate('Hottest Categories', true),
         ];
         // Debugging method to inspect variables
         $this->view->layout('admin');
