@@ -30,6 +30,13 @@ class AdminController extends AdminControllerBase
             ->limit(3)
             ->get();
 
+        // Ensure recentReviews is an array of Review objects
+        if (is_array($recentReviews) && !empty($recentReviews) && is_array($recentReviews[0])) {
+            $recentReviews = array_map(function ($row) {
+                return (object)$row;
+            }, $recentReviews);
+        }
+
         $matrices = [
             ['label' => 'Product Quality', 'score' => $reviewStats[0]['Average Quality'] ?? 0],
             ['label' => 'Pricing', 'score' => $reviewStats[0]['Average Pricing'] ?? 0],
