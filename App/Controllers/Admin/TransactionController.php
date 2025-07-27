@@ -32,9 +32,14 @@ class TransactionController extends AdminControllerBase
             ->generate('Daily Transactions Report', true);
 
         $this->view->layout('admin');
+        $breadcrumbs = [
+            ['label' => 'Dashboard', 'url' => url('/admin')],
+            ['label' => 'Transactions', 'url' => url('/admin/transactions')]
+        ];
         $this->view('admin/transactions/index', [
             'transactions' => $transactions,
             'dailyReport' => $dailyReport,
+            'breadcrumb' => $breadcrumbs
         ]);
     }
 
@@ -45,15 +50,16 @@ class TransactionController extends AdminControllerBase
         $promo_codes = [];
 
         $this->view->layout('admin');
+        $breadcrumbs = [
+            ['label' => 'Dashboard', 'url' => url('/admin')],
+            ['label' => 'Transactions', 'url' => url('/admin/transactions')],
+            ['label' => 'Create', 'url' => url('/admin/transactions/create')],
+        ];
         $this->view('admin/transactions/create', [
-            'breadcrumb' => [
-                ['label' => 'Dashboard', 'url' => url('/admin')],
-                ['label' => 'Transactions', 'url' => url('/admin/transactions')],
-                ['label' => 'Create'],
-            ],
             'categories' => $categories,
             'quotes' => $quotes,
             'promo_codes' => $promo_codes,
+            'breadcrumb' => $breadcrumbs
         ]);
     }
     public function store()
@@ -137,8 +143,14 @@ class TransactionController extends AdminControllerBase
             $this->redirect('/admin/transactions');
             return;
         }
+        $breadcrumbs = [
+            ['label' => 'Dashboard', 'url' => url('/admin')],
+            ['label' => 'Transactions', 'url' => url('/admin/transactions')],
+            ['label' => 'Transaction #' . $id, 'url' => url('/admin/transactions/' . $id)]
+        ];
         $this->view('admin/transactions/show', [
-            'transaction' => $transaction
+            'transaction' => $transaction,
+            'breadcrumb' => $breadcrumbs
         ]);
     }
 
@@ -151,13 +163,14 @@ class TransactionController extends AdminControllerBase
             $this->redirect('/admin/transactions');
             return;
         }
+        $breadcrumbs = [
+            ['label' => 'Dashboard', 'url' => url('/admin')],
+            ['label' => 'Transactions', 'url' => url('/admin/transactions')],
+            ['label' => 'Edit Transaction #' . $id, 'url' => url('/admin/transactions/edit/' . $id)]
+        ];
         $this->view('admin/transactions/edit', [
             'transaction' => $transaction,
-            'breadcrumb' => [
-                ['label' => 'Dashboard', 'url' => url('/admin')],
-                ['label' => 'Transactions', 'url' => url('/admin/transactions')],
-                ['label' => 'Edit'],
-            ],
+            'breadcrumb' => $breadcrumbs
         ]);
     }
     public function update($id)
