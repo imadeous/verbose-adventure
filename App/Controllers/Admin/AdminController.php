@@ -132,7 +132,7 @@ class AdminController extends AdminControllerBase
             ->forPeriod(date('Y-m-01'), date('Y-m-t'))
             ->groupBy('category_id')
             ->withSum('amount', 'Total')
-            ->orderBy('Total', 'desc')
+            ->orderBy('SUM(amount)', 'desc') // Use aggregate expression, not alias
             ->limit(5)
             ->get();
 
