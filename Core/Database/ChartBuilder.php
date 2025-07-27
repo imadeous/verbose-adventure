@@ -6,40 +6,8 @@ use Core\Database\ReportBuilder;
 
 class ChartBuilder extends ReportBuilder
 {
-    /**
-     * ChartBuilder provides a fluent interface for building chart configuration and datasets.
-     * Supports multiple chart types (bar, line, pie, doughnut), custom options, axes, themes, and datasets.
-     *
-     * @property string $chartType The type of chart (bar, line, pie, doughnut).
-     * @property string $xAxisLabel Label for the X axis.
-     * @property string $yAxisLabel Label for the Y axis.
-     * @property array $chartOptions Chart configuration options (responsive, plugins, scales, etc.).
-     * @property array $customDatasets Custom datasets to be included in the chart.
-     *
-     * @method static build(string $table, string $dateColumn = 'date') Create a new ChartBuilder instance for a table.
-     * @method bar() Set chart type to 'bar'.
-     * @method line() Set chart type to 'line'.
-     * @method pie() Set chart type to 'pie'.
-     * @method doughnut() Set chart type to 'doughnut'.
-     * @method responsive(bool $value = true) Enable or disable chart responsiveness.
-     * @method title(string $text) Set chart title.
-     * @method legend(string $position = 'top') Set legend position.
-     * @method scaleY(float|int $min, float|int $max) Set Y axis min/max values.
-     * @method scaleX(float|int $min, float|int $max) Set X axis min/max values.
-     * @method colors(array $colors) Set chart colors.
-     * @method theme(string $name) Set chart theme.
-     * @method setXAxis(string $label) Set X axis label.
-     * @method setYAxis(string $label) Set Y axis label.
-     * @method withOptions(array $options) Merge additional chart options.
-     * @method addDataset(string $label, array $data, array $options = []) Add a custom dataset.
-     * @method stacked(bool $enable = true) Enable or disable stacked charts.
-     * @method multiAxis(array $axesConfig) Configure multiple axes for multi-axis charts.
-     * @method toArray() Convert chart configuration and data to array.
-     * @method toJson() Convert chart configuration and data to JSON.
-     */
+
     protected string $chartType = 'bar';
-    protected string $xAxisLabel = 'Period';
-    protected string $yAxisLabel = 'Value';
     protected array $chartOptions = [
         'responsive' => true,
         'plugins' => [
@@ -48,103 +16,180 @@ class ChartBuilder extends ReportBuilder
         ],
         'scales' => [],
     ];
+    protected array $customDatasets = [];
 
+    /**
+     * Create a new ChartBuilder instance for a table and date column.
+     * @param string $table The table to report/chart on.
+     * @param string $dateColumn The date column for period filtering.
+     * @return static
+     */
+    public static function build(string $table, string $dateColumn = 'date'): static
+    {
+        return new static($table, $dateColumn);
+    }
+
+    /**
+     * Set chart type to 'bar'.
+     * @return static
+     */
     public function bar(): static
     {
         $this->chartType = 'bar';
         return $this;
     }
+
+    /**
+     * Set chart type to 'line'.
+     * @return static
+     */
     public function line(): static
     {
         $this->chartType = 'line';
         return $this;
     }
+
+    /**
+     * Set chart type to 'pie'.
+     * @return static
+     */
     public function pie(): static
     {
         $this->chartType = 'pie';
         return $this;
     }
+
+    /**
+     * Set chart type to 'doughnut'.
+     * @return static
+     */
     public function doughnut(): static
     {
         $this->chartType = 'doughnut';
         return $this;
     }
 
+    /**
+     * Enable or disable Chart.js responsiveness.
+     * @param bool $value
+     * @return static
+     */
     public function responsive(bool $value = true): static
     {
         $this->chartOptions['responsive'] = $value;
         return $this;
     }
 
+    /**
+     * Set the chart title (Chart.js plugin).
+     * @param string $text
+     * @return static
+     */
     public function title(string $text): static
     {
-        $this->chartOptions['plugins']['title'] = [
-            'display' => true,
-            'text' => $text
-        ];
+        $this->chartOptions['plugins']['title'] = ['display' => true, 'text' => $text];
         return $this;
     }
 
+    /**
+     * Set legend position (Chart.js plugin).
+     * @param string $position
+     * @return static
+     */
     public function legend(string $position = 'top'): static
     {
         $this->chartOptions['plugins']['legend']['position'] = $position;
         return $this;
     }
 
+    /**
+     * Set Y axis min/max values (Chart.js scales).
+     * @param float|int $min
+     * @param float|int $max
+     * @return static
+     */
     public function scaleY(float|int $min, float|int $max): static
     {
         $this->chartOptions['scales']['y'] = ['min' => $min, 'max' => $max];
         return $this;
     }
 
+    /**
+     * Set X axis min/max values (Chart.js scales).
+     * @param float|int $min
+     * @param float|int $max
+     * @return static
+     */
     public function scaleX(float|int $min, float|int $max): static
     {
         $this->chartOptions['scales']['x'] = ['min' => $min, 'max' => $max];
         return $this;
     }
 
+    /**
+     * Set chart colors (custom, not Chart.js native).
+     * @param array $colors
+     * @return static
+     */
     public function colors(array $colors): static
     {
         $this->chartOptions['colors'] = $colors;
         return $this;
     }
 
+    /**
+     * Set chart theme (custom, not Chart.js native).
+     * @param string $name
+     * @return static
+     */
     public function theme(string $name): static
     {
         $this->chartOptions['theme'] = $name;
         return $this;
     }
 
-    public function setXAxis(string $label): static
-    {
-        $this->xAxisLabel = $label;
-        return $this;
-    }
-
-    public function setYAxis(string $label): static
-    {
-        $this->yAxisLabel = $label;
-        return $this;
-    }
-
+    /**
+     * Merge additional Chart.js options (deep merge).
+     * @param array $options
+     * @return static
+     */
     public function withOptions(array $options): static
     {
         $this->chartOptions = array_merge_recursive($this->chartOptions, $options);
         return $this;
     }
 
-    protected array $customDatasets = [];
-
-    public static function build(string $table, string $dateColumn = 'date'): static
+    /**
+     * Enable or disable stacked charts (bar, line).
+     * @param bool $enable
+     * @return static
+     */
+    public function stacked(bool $enable = true): static
     {
-        return new static($table, $dateColumn);
+        $this->chartOptions['scales']['x']['stacked'] = $enable;
+        $this->chartOptions['scales']['y']['stacked'] = $enable;
+        return $this;
     }
 
-    // Existing chainable methods (bar(), line(), title(), legend(), etc.) omitted for brevity...
+    /**
+     * Configure multiple axes for multi-axis charts.
+     * @param array $axesConfig Array of axes config, keyed by axis ID (e.g. 'y', 'y1').
+     * @return static
+     */
+    public function multiAxis(array $axesConfig): static
+    {
+        foreach ($axesConfig as $axisId => $config) {
+            $this->chartOptions['scales'][$axisId] = $config;
+        }
+        return $this;
+    }
 
     /**
-     * Add a custom dataset with label, data array and options.
-     * This dataset will be included in the final chart output.
+     * Add a custom dataset for Chart.js datasets array.
+     * @param string $label Dataset label.
+     * @param array $data Data array for the dataset.
+     * @param array $options Additional Chart.js dataset options.
+     * @return static
      */
     public function addDataset(string $label, array $data, array $options = []): static
     {
@@ -156,62 +201,67 @@ class ChartBuilder extends ReportBuilder
     }
 
     /**
-     * Enable or disable stacked charts (for bar, line).
-     */
-    public function stacked(bool $enable = true): static
-    {
-        $this->chartOptions['scales']['x']['stacked'] = $enable;
-        $this->chartOptions['scales']['y']['stacked'] = $enable;
-        return $this;
-    }
-
-    /**
-     * Configure multiple axes for multi-axis charts.
-     * Accepts an array of axes config, keyed by axis ID.
-     */
-    public function multiAxis(array $axesConfig): static
-    {
-        foreach ($axesConfig as $axisId => $config) {
-            $this->chartOptions['scales'][$axisId] = $config;
-        }
-        return $this;
-    }
-
-    /**
-     * Override the toArray method to inject custom datasets if any.
+     * Output Chart.js config array, using ReportBuilder's fluent API for data aggregation.
+     * Labels are period or group values, datasets are values for each metric.
+     * @return array Chart.js config array.
      */
     public function toArray(): array
     {
         $report = parent::generate();
+        $labels = [];
+        $datasets = [];
 
-        $datasets = $this->customDatasets;
-
-        // If no custom datasets, fall back to using report data as dataset(s)
-        if (empty($datasets)) {
-            $datasets = [$report['data']]; // Wrap in array for uniformity
+        // If custom datasets are set, use them directly
+        if (!empty($this->customDatasets)) {
+            $datasets = $this->customDatasets;
+            // Try to extract labels from first dataset if possible
+            if (isset($datasets[0]['data']) && is_array($datasets[0]['data'])) {
+                $labels = array_keys($datasets[0]['data']);
+            }
+        } else {
+            // Otherwise, build datasets from report data
+            $columns = $report['columns'];
+            $data = $report['data'];
+            // Find label column (period, group, etc.)
+            $labelKey = null;
+            foreach ($columns as $key => $name) {
+                if (stripos($key, 'period_') === 0 || stripos($name, 'Day') !== false || stripos($name, 'Month') !== false || stripos($name, 'Year') !== false || stripos($name, 'Week') !== false || stripos($name, 'Quarter') !== false) {
+                    $labelKey = $key;
+                    break;
+                }
+            }
+            if ($labelKey) {
+                $labels = array_map(fn($row) => $row[$labelKey], $data);
+            }
+            // For each metric column, build a dataset
+            foreach ($columns as $key => $name) {
+                if ($key === $labelKey) continue;
+                $datasets[] = [
+                    'label' => $name,
+                    'data' => array_map(fn($row) => $row[$key], $data),
+                ];
+            }
         }
 
         return [
-            'title' => $report['title'],
             'type' => $this->chartType,
-            'xAxis' => $this->xAxisLabel,
-            'yAxis' => $this->yAxisLabel,
-            'labels' => array_values($report['columns']),
-            'datasets' => $datasets,
+            'data' => [
+                'labels' => $labels,
+                'datasets' => $datasets,
+            ],
             'options' => $this->chartOptions,
         ];
     }
 
     /**
-     * Convert the chart data to JSON format.
-     * Useful for passing to JavaScript chart libraries.
+     * Output Chart.js config as JSON string.
+     * @return string JSON config for Chart.js.
      */
     public function toJson(): string
     {
         return json_encode($this->toArray(), JSON_PRETTY_PRINT);
     }
 }
-
 // Example usage:
 // $chart = ChartBuilder::build('ratings')
 //     ->forPeriod('2024-01-01', '2024-12-31')
