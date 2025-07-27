@@ -45,6 +45,7 @@ $router->post('/contact', [ContactController::class, 'store']);
 // Admin routes (protected by AuthMiddleware) => Login required
 $router->middleware([AuthMiddleware::class], function ($router) {
     $router->get('/admin', [AdminController::class, 'index']);
+    $router->get('/admin/debug', [AdminController::class, 'debug']);
     $router->resource('/admin/users', AdminUserController::class)
         ->middleware(RoleMiddleware::class, ['create', 'store', 'destroy']);
     $router->resource('/admin/contacts', AdminContactController::class);
