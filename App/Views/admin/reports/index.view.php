@@ -1,18 +1,7 @@
 <div class="max-full mx-auto" x-data="reportApp()" x-init="init()">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-blue-900">Reports</h1>
-        <nav class="text-sm text-blue-700">
-            <?php if (!empty($breadcrumb)): ?>
-                <?php foreach ($breadcrumb as $i => $crumb): ?>
-                    <?php if (!empty($crumb['url'])): ?>
-                        <a href="<?= htmlspecialchars($crumb['url']) ?>" class="hover:underline"><?= htmlspecialchars($crumb['label']) ?></a>
-                        <?php if ($i < count($breadcrumb) - 1): ?> &raquo; <?php endif; ?>
-                    <?php else: ?>
-                        <span><?= htmlspecialchars($crumb['label']) ?></span>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </nav>
+        <?php include __DIR__ . '/../partials/breadcrumb.view.php'; ?>
     </div>
     <div class="bg-white rounded-xl shadow-md p-6">
         <form @change="fetchReport" class="mb-6 flex flex-wrap gap-4 items-end">
