@@ -40,7 +40,13 @@ use App\Models\Product;
             </div>
             <div>
                 <div class="text-xs text-blue-400 font-medium uppercase tracking-wide">Trend</div>
-                <div class="text-2xl font-bold text-blue-900"><?= e(number_shorten($thisMonth['Total Amount'] - $lastMonth['Total Amount'])) ?></div>
+                <?php
+                $current = $thisMonth['Total Amount'] ?? 0;
+                $previous = $lastMonth['Total Amount'] ?? 0;
+                $percent = ($previous > 0) ? (($current - $previous) / $previous) * 100 : 0;
+                $trendText = ($percent >= 0 ? '+' : '') . number_format($percent, 1) . '%';
+                ?>
+                <div class="text-2xl font-bold text-blue-900"><?= $trendText ?></div>
             </div>
         </div>
         <!-- CSAT -->
