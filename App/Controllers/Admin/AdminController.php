@@ -130,6 +130,7 @@ class AdminController extends AdminControllerBase
         //get the hottest categories
         $hottestCategories = ReportBuilder::build('transactions', 'date')
             ->forPeriod(date('Y-m-01'), date('Y-m-t'))
+            ->where('type', '=', 'income')
             ->groupBy('description')
             ->withSum('amount', 'Total')
             ->orderBy('SUM(amount)', 'desc') // Use aggregate expression, not alias
