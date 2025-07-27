@@ -70,6 +70,18 @@ class ChartBuilder extends ReportBuilder
         return $this;
     }
 
+
+    /**
+     * Set chart type to 'radar'.
+     * @return static
+     */
+    public function radar(): static
+    {
+        $this->chartType = 'radar';
+        return $this;
+    }
+
+
     /**
      * Configure a mixed bar-line chart with auto-detected datasets and custom type/yAxisID per metric.
      *
