@@ -15,6 +15,7 @@ class AdminController extends AdminControllerBase
         $transactionsChart = ChartBuilder::build('transactions', 'date')
             ->forPeriod('2025-01-01', '2025-07-31')
             ->monthly()
+            ->where('type', '=', 'income')
             ->withSum('amount', 'Revenue')
             ->withCount('*', 'Orders')
             // ->withAverage('amount', 'Average Amount')
