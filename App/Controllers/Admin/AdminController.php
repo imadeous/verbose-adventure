@@ -210,12 +210,18 @@ class AdminController extends AdminControllerBase
 
         //this month transactions chart
         $query = ChartBuilder::build('transactions', 'date')
-            ->forPeriod(date('Y-m-01'), date('Y-m-d'))
-            ->daily()
+            ->forPeriod(date('Y-01-01'), date('Y-m-d'))
+            ->quarterly()
             ->where('type', '=', 'income')
             ->withSum('amount', 'Total Amount')
-            ->withCount('*', 'Total Orders')
-            ->line();
+            ->colors([
+                '#2563eb',
+                '#3b82f6',
+                '#60a5fa',
+                '#93c5fd'
+            ])
+            ->legend('top')
+            ->pie();
 
 
         $vars = [
