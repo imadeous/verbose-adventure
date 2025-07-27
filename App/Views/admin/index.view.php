@@ -179,7 +179,7 @@
                         <div class="bg-blue-100 border border-blue-200 rounded-lg p-4 flex flex-col gap-2 shadow-sm">
                             <div class="flex items-center gap-2">
                                 <span class="font-semibold text-blue-900"><?= e($review->customer_name) ?></span>
-                                <span class="text-xs text-blue-400 ml-auto flex space-x-1"><?= e($review->recommendation_score ?? '-') ?>
+                                <span class="text-xs text-blue-400 ml-auto flex space-x-2"><?= e($review->recommendation_score ?? '-') ?>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
