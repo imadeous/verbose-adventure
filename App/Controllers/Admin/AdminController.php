@@ -167,8 +167,11 @@ class AdminController extends AdminControllerBase
         //get the hottest categories
         $query  = ReportBuilder::build('reviews', 'product_id')
             ->forPeriod(date('2020-01-01'), date('Y-m-t'))
+            ->whereNotNull('product_id')
+            ->with('product_id')
             ->withAverage('pricing_rating', 'Overall Rating')
             ->withCount('*', 'Total Reviews')
+            ->orderBy('SUM(pricing_rating)', 'desc')
             ->groupBy('product_id')
             ->limit(5);
 
