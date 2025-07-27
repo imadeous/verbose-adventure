@@ -40,7 +40,7 @@ use App\Models\Product;
             </div>
             <div>
                 <div class="text-xs text-blue-400 font-medium uppercase tracking-wide">Trend</div>
-                <div class="text-2xl font-bold text-blue-900">+12%</div>
+                <div class="text-2xl font-bold text-blue-900"><?= e(number_shorten($thisMonth['Total Amount'] - $lastMonth['Total Amount'])) ?></div>
             </div>
         </div>
         <!-- CSAT -->
