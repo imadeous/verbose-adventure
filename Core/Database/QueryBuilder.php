@@ -227,7 +227,7 @@ class QueryBuilder
         $this->bindings = []; // Reset bindings before building SQL
         $sql = $this->buildSql();
         // Debug output
-        var_dump('SQL:', $sql, 'Bindings:', $this->bindings);
+        // var_dump('SQL:', $sql, 'Bindings:', $this->bindings);
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($this->bindings);
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
