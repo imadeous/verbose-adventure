@@ -113,6 +113,17 @@ class AdminController extends AdminControllerBase
             'Delivery' => $reviewsReport['data'][0]['Delivery'] ?? 0,
         ];
 
+        $ratingsChart = ChartBuilder::build('reviews', 'created_at')
+            ->forPeriod(date('2020-01-01'), date('Y-m-t'))
+            ->withAverage('quality_rating', 'Quality')
+            ->withAverage('pricing_rating', 'Pricing')
+            ->withAverage('communication_rating', 'Communication')
+            ->withAverage('packaging_rating', 'Packaging')
+            ->withAverage('delivery_rating', 'Delivery')
+            ->radar()
+            ->colors(['#2563eb', '#3b82f6', '#60a5fa', '#93c5fd', '#bfdbfe'])
+            ->toJson();
+
         $recommendPercent = $reviewsReport['data'][0]['Recommendation'] ?? 0;
 
         $overallAvg = array_sum(array_values($ratings)) / count($ratings);

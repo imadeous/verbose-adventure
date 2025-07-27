@@ -276,21 +276,7 @@ use App\Models\Product;
                         </div>
                         <div class="text-xs text-blue-400 mb-4">Based on <?= $ratingStats['count'] ?? 0 ?> reviews</div>
                         <div class="w-full">
-                            <div class="grid grid-cols-1 gap-2">
-                                <?php foreach (($ratingStats['ratings'] ?? []) as $matrix => $score): ?>
-                                    <?php
-                                    $percent = ($score / 5) * 100;
-                                    ?>
-                                    <div class="flex items-center gap-2">
-                                        <span class="w-3 h-3 rounded-full bg-blue-400"></span>
-                                        <span class="flex-1 text-sm text-blue-900 font-medium"><?= e($matrix) ?></span>
-                                        <div class="w-24 bg-blue-200 rounded-full h-2 mx-2">
-                                            <div class="bg-blue-400 h-2 rounded-full" style="width: <?= $percent ?>%"></div>
-                                        </div>
-                                        <span class="text-xs text-blue-700 font-semibold"><?= number_format($score, 1) ?></span>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
+                            <canvas id="ratingsChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -333,4 +319,9 @@ use App\Models\Product;
     const ctx2 = document.getElementById('quarterlyReportChart').getContext('2d');
     const quarterlyReportChartConfig = JSON.parse(`<?php echo addslashes($quarterlyChart->toJson()); ?>`);
     new Chart(ctx2, quarterlyReportChartConfig);
+
+    // Ratings Chart (dynamic from PHP)
+    const ctx3 = document.getElementById('ratingsChart').getContext('2d');
+    const ratingsChartConfig = <?php echo $ratingsChart; ?>;
+    new Chart(ctx3, ratingsChartConfig);
 </script>
