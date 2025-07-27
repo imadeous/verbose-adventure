@@ -33,6 +33,7 @@ class AdminController extends AdminControllerBase
                 '#60a5fa',
                 '#93c5fd'
             ])
+            ->legend('top')
             ->pie();
 
         $thisMonth = ReportBuilder::build('transactions', 'date')
