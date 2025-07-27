@@ -133,12 +133,7 @@ class AdminController extends AdminControllerBase
             ->where('type', '=', 'income')
             ->groupBy('description')
             ->withSum('amount', 'Total')
-            ->orderBy('SUM(amount)', 'desc') // Use aggregate expression, not alias
             ->limit(5);
-
-
-
-
 
         $vars = [
             'hottestCategories' => $hottestCategories->get(),
