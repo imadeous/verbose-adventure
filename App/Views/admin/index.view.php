@@ -154,11 +154,11 @@
                 <?php foreach (($heaviestExpenses ?? []) as $category): ?>
                     <div class="flex items-center gap-2">
                         <span class="inline-block w-3 h-3 rounded-full bg-blue-700"></span>
-                        <span class="font-medium"><?= e(Category::find($category['category_id'])->name) ?></span>
+                        <span class="font-medium"><?= e(Category::find($category['category_id'])->name) ?? 'Uncategorized' ?></span>
                         <div class="w-24 bg-blue-200 rounded-full h-2 mx-2">
-                            <div class="bg-blue-700 h-2 rounded-full" style="width: <?= e($category['percentage']) ?>%"></div>
+                            <div class="bg-blue-700 h-2 rounded-full" style="width: <?= e($category['Total']) ?>%"></div>
                         </div>
-                        <span class="ml-auto font-semibold text-blue-900">MVR <?= e($category['total']) ?></span>
+                        <span class="ml-auto font-semibold text-blue-900">MVR <?= e($category['COount']) ?></span>
                     </div>
                 <?php endforeach; ?>
             </div>
