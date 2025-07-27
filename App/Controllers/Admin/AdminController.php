@@ -131,7 +131,7 @@ class AdminController extends AdminControllerBase
         $hottestCategories = ReportBuilder::build('transactions', 'date')
             ->forPeriod(date('Y-m-01'), date('Y-m-t'))
             ->where('type', '=', 'income')
-            ->whereNotNull('category_id')
+            // ->whereNotNull('category_id')
             ->groupBy('category_id')
             ->withSum('amount', 'Total')
             ->limit(5);
