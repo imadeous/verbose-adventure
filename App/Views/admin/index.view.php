@@ -326,6 +326,16 @@
                     <?php endforeach; ?>
                 </div>
             </div>
+
+            <div>
+                <pre>
+        <?php print_r($recentReviews); ?>
+        <?php print_r($matrices); ?>
+        <?php print_r($recommendPercent); ?>
+        <?php print_r($overallAvg); ?>
+        <?php print_r($totalReviews); ?>
+    </pre>
+            </div>
         </div>
 
         <!-- Chart.js CDN -->
