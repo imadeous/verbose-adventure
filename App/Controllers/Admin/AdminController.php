@@ -135,7 +135,7 @@ class AdminController extends AdminControllerBase
             ->withSum('amount', 'Total')
             ->orderBy('SUM(amount)', 'desc') // Use aggregate expression, not alias
             ->limit(5)
-            ->get();
+            ->toSql();
 
 
 
