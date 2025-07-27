@@ -11,7 +11,7 @@ class AdminController extends AdminControllerBase
     public function index()
     {
         // Fetch categories and generate report
-        $query  = ReportBuilder::build('transactions', 'date')
+        $hottestCategories  = ReportBuilder::build('transactions', 'date')
             ->forPeriod(date('Y-m-01'), date('Y-m-t'))
             ->where('type', '=', 'income')
             ->with('category_id')
@@ -20,7 +20,7 @@ class AdminController extends AdminControllerBase
             ->withSum('amount', 'Total')
             ->withCount('*', 'Count')
             ->orderBy('COUNT(category_id)', 'desc') // Use column name instead of alias
-            ->limit(5)->generate();
+            ->limit(5)->generate()['data'];
 
         // Fetch recent reviews and generate report
         $recentReviews = Review::query()
@@ -65,6 +65,7 @@ class AdminController extends AdminControllerBase
                 ['label' => 'Dashboard', 'url' => url('admin')],
                 ['label' => 'Home']
             ],
+            'hottestCategories' => $hottestCategories,
             'ratingStats' => $ratingStats,
             'recentReviews' => array_map(fn($row) => new Review($row), $recentReviews),
         ]);
