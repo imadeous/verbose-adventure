@@ -93,7 +93,7 @@
         </div>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8 py-6">
-        <!-- Top Products -->
+        <!-- Top Categories -->
         <div class="col-span-1 bg-blue-50 rounded-xl shadow-md p-5 flex flex-col border border-blue-200 hover:shadow-lg transition">
             <h4 class="text-blue-700 font-semibold mb-4 flex items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -105,228 +105,222 @@
             <div class="flex flex-col gap-3">
                 <?php foreach ($hottestCategories as $category): ?>
                     <div class="flex items-center gap-2">
-                        <span class="inline-block w-3 h-3 rounded-full bg-blue-400"></span>
+                        <span class="inline-block w-3 h-3 rounded-full bg-blue-500"></span>
                         <span class="font-medium"><?php echo $category['category_id']; ?></span>
-                        <span class="ml-auto bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full"><?php echo $category['count']; ?> orders</span>
+                        <span class="ml-auto bg-blue-200 text-blue-800 text-xs px-2 py-1 rounded-full"><?php echo $category['count']; ?> orders</span>
                     </div>
                 <?php endforeach; ?>
             </div>
         </div>
-        <span class="inline-block w-3 h-3 rounded-full bg-blue-500"></span>
-        <span class="font-medium">Custom Keychains</span>
-        <span class="ml-auto bg-blue-200 text-blue-800 text-xs px-2 py-1 rounded-full">12 orders</span>
-    </div>
-</div>
-</div>
-<!-- Promo Code Usage -->
-<div class="col-span-1 bg-blue-50 rounded-xl shadow-md p-5 flex flex-col border border-blue-200 hover:shadow-lg transition">
-    <h4 class="text-blue-600 font-semibold mb-4 flex items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 1 1 0-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 0 1-1.44-4.282m3.102.069a18.03 18.03 0 0 1-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 0 1 8.835 2.535M10.34 6.66a23.847 23.847 0 0 0 8.835-2.535m0 0A23.74 23.74 0 0 0 18.795 3m.38 1.125a23.91 23.91 0 0 1 1.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 0 0 1.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 0 1 0 3.46" />
-        </svg>
-        Promo Code Usage
-    </h4>
-    <div class="flex flex-col gap-3">
-        <div class="flex items-center gap-2">
-            <span class="font-mono bg-blue-200 text-blue-800 px-2 py-1 rounded">WELCOME10</span>
-            <div class="w-32 bg-blue-100 rounded-full h-2 mx-2">
-                <div class="bg-blue-500 h-2 rounded-full" style="width: 70%"></div>
+        <!-- Promo Code Usage -->
+        <div class="col-span-1 bg-blue-50 rounded-xl shadow-md p-5 flex flex-col border border-blue-200 hover:shadow-lg transition">
+            <h4 class="text-blue-600 font-semibold mb-4 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 1 1 0-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 0 1-1.44-4.282m3.102.069a18.03 18.03 0 0 1-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 0 1 8.835 2.535M10.34 6.66a23.847 23.847 0 0 0 8.835-2.535m0 0A23.74 23.74 0 0 0 18.795 3m.38 1.125a23.91 23.91 0 0 1 1.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 0 0 1.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 0 1 0 3.46" />
+                </svg>
+                Promo Code Usage
+            </h4>
+            <div class="flex flex-col gap-3">
+                <div class="flex items-center gap-2">
+                    <span class="font-mono bg-blue-200 text-blue-800 px-2 py-1 rounded">WELCOME10</span>
+                    <div class="w-32 bg-blue-100 rounded-full h-2 mx-2">
+                        <div class="bg-blue-500 h-2 rounded-full" style="width: 70%"></div>
+                    </div>
+                    <span class="text-xs text-blue-700">6 uses</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="font-mono bg-blue-100 text-blue-700 px-2 py-1 rounded">SUMMER25</span>
+                    <div class="w-32 bg-blue-50 rounded-full h-2 mx-2">
+                        <div class="bg-blue-400 h-2 rounded-full" style="width: 35%"></div>
+                    </div>
+                    <span class="text-xs text-blue-700">3 uses</span>
+                </div>
             </div>
-            <span class="text-xs text-blue-700">6 uses</span>
         </div>
-        <div class="flex items-center gap-2">
-            <span class="font-mono bg-blue-100 text-blue-700 px-2 py-1 rounded">SUMMER25</span>
-            <div class="w-32 bg-blue-50 rounded-full h-2 mx-2">
-                <div class="bg-blue-400 h-2 rounded-full" style="width: 35%"></div>
+        <!-- Expense Breakdown -->
+        <div class="col-span-1 bg-blue-50 rounded-xl shadow-md p-5 flex flex-col border border-blue-200 hover:shadow-lg transition">
+            <h4 class="text-blue-800 font-semibold mb-4 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75a4.5 4.5 0 0 1-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 1 1-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 0 1 6.336-4.486l-3.276 3.276a3.004 3.004 0 0 0 2.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.867 19.125h.008v.008h-.008v-.008Z" />
+                </svg>
+                Expense Breakdown
+            </h4>
+            <div class="flex flex-col gap-3">
+                <div class="flex items-center gap-2">
+                    <span class="inline-block w-3 h-3 rounded-full bg-blue-700"></span>
+                    <span class="font-medium">Materials</span>
+                    <div class="w-24 bg-blue-200 rounded-full h-2 mx-2">
+                        <div class="bg-blue-700 h-2 rounded-full" style="width: 60%"></div>
+                    </div>
+                    <span class="ml-auto font-semibold text-blue-900">MVR 2,100</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="inline-block w-3 h-3 rounded-full bg-blue-500"></span>
+                    <span class="font-medium">Maintenance</span>
+                    <div class="w-24 bg-blue-100 rounded-full h-2 mx-2">
+                        <div class="bg-blue-500 h-2 rounded-full" style="width: 25%"></div>
+                    </div>
+                    <span class="ml-auto font-semibold text-blue-700">MVR 800</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="inline-block w-3 h-3 rounded-full bg-blue-300"></span>
+                    <span class="font-medium">Marketing</span>
+                    <div class="w-24 bg-blue-50 rounded-full h-2 mx-2">
+                        <div class="bg-blue-300 h-2 rounded-full" style="width: 15%"></div>
+                    </div>
+                    <span class="ml-auto font-semibold text-blue-600">MVR 500</span>
+                </div>
             </div>
-            <span class="text-xs text-blue-700">3 uses</span>
-        </div>
-    </div>
-</div>
-<!-- Expense Breakdown -->
-<div class="col-span-1 bg-blue-50 rounded-xl shadow-md p-5 flex flex-col border border-blue-200 hover:shadow-lg transition">
-    <h4 class="text-blue-800 font-semibold mb-4 flex items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75a4.5 4.5 0 0 1-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 1 1-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 0 1 6.336-4.486l-3.276 3.276a3.004 3.004 0 0 0 2.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852Z" />
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4.867 19.125h.008v.008h-.008v-.008Z" />
-        </svg>
-        Expense Breakdown
-    </h4>
-    <div class="flex flex-col gap-3">
-        <div class="flex items-center gap-2">
-            <span class="inline-block w-3 h-3 rounded-full bg-blue-700"></span>
-            <span class="font-medium">Materials</span>
-            <div class="w-24 bg-blue-200 rounded-full h-2 mx-2">
-                <div class="bg-blue-700 h-2 rounded-full" style="width: 60%"></div>
-            </div>
-            <span class="ml-auto font-semibold text-blue-900">MVR 2,100</span>
-        </div>
-        <div class="flex items-center gap-2">
-            <span class="inline-block w-3 h-3 rounded-full bg-blue-500"></span>
-            <span class="font-medium">Maintenance</span>
-            <div class="w-24 bg-blue-100 rounded-full h-2 mx-2">
-                <div class="bg-blue-500 h-2 rounded-full" style="width: 25%"></div>
-            </div>
-            <span class="ml-auto font-semibold text-blue-700">MVR 800</span>
-        </div>
-        <div class="flex items-center gap-2">
-            <span class="inline-block w-3 h-3 rounded-full bg-blue-300"></span>
-            <span class="font-medium">Marketing</span>
-            <div class="w-24 bg-blue-50 rounded-full h-2 mx-2">
-                <div class="bg-blue-300 h-2 rounded-full" style="width: 15%"></div>
-            </div>
-            <span class="ml-auto font-semibold text-blue-600">MVR 500</span>
         </div>
     </div>
-</div>
-</div>
 
-<div class="mb-8">
-    <h3 class="text-base font-semibold leading-6 text-blue-900">Rating Insights</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4 mb-8">
-        <!-- Recent Reviews -->
-        <div class="col-span-1 bg-blue-50 rounded-xl shadow-md p-5 border border-blue-200 hover:shadow-lg transition flex flex-col overflow-y-scroll max-h-[500px]">
-            <h4 class="text-blue-700 font-semibold mb-4 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
-                </svg>
-                Recent Reviews
-            </h4>
-            <div class="flex flex-col gap-3">
-                <?php foreach (($recentReviews ?? []) as $review): ?>
-                    <div class="bg-blue-100 border border-blue-200 rounded-lg p-4 flex flex-col gap-2 shadow-sm">
-                        <div class="flex items-center gap-2">
-                            <span class="font-semibold text-blue-900"><?= e($review->customer_name) ?></span>
-                            <span class="text-xs text-blue-400 ml-auto"><?= e($review->product_id ?? $review->quote_id ?? '-') ?></span>
-                        </div>
-                        <div class="flex items-center gap-1">
-                            <?php $stars = round($review->quality_rating ?? 0);
-                            for ($i = 1; $i <= 5; $i++): ?>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 <?= $i <= $stars ? 'text-blue-700' : 'text-blue-300' ?>">
-                                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
-                                </svg>
-                            <?php endfor; ?>
-                        </div>
-                        <div class="text-blue-700 text-sm"><?= e($review->comments) ?></div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        </div>
-        <!-- Recommendations + Overall Ratings (Stacked) -->
-        <div class="col-span-1 flex flex-col gap-6 h-full">
-            <!-- Recommendations (1x1) -->
-            <div class="bg-blue-50 rounded-xl shadow-md p-5 border border-blue-200 hover:shadow-lg transition flex flex-col items-start justify-center">
-                <div class="flex flex-col w-full">
-                    <h4 class="text-blue-500 font-semibold mb-4 flex gap-2 items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z" />
-                        </svg>
-                        Recommendations
-                    </h4>
-                    <div
-                        class="flex items-center gap-2 w-full justify-between">
-                        <div class="flex flex-col flex-1 items-start w-full">
-                            <div class="text-3xl font-bold text-blue-900 mb-2"><?= number_format($ratingStats['recommendPercent'], 0) ?? 0 ?>%</div>
-                            <div class="text-sm text-blue-400">Based on <?= $ratingStats['count'] ?? 0 ?> reviews</div>
-                        </div>
-                        <div class="flex-shrink-0 flex items-center justify-end">
-                            <?php if ($ratingStats['recommendPercent'] > 50): ?>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    class="size-12 text-blue-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z" />
-                                </svg>
-                            <?php else: ?>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    class="size-12 text-blue-300">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M7.498 15.25H4.372c-1.026 0-1.945-.694-2.054-1.715a12.137 12.137 0 0 1-.068-1.285c0-2.848.992-5.464 2.649-7.521C5.287 4.247 5.886 4 6.504 4h4.016a4.5 4.5 0 0 1 1.423.23l3.114 1.04a4.5 4.5 0 0 0 1.423.23h1.294M7.498 15.25c.618 0 .991.724.725 1.282A7.471 7.471 0 0 0 7.5 19.75 2.25 2.25 0 0 0 9.75 22a.75.75 0 0 0 .75-.75v-.633c0-.573.11-1.14.322-1.672.304-.76.93-1.33 1.653-1.715a9.04 9.04 0 0 0 2.86-2.4c.498-.634 1.226-1.08 2.032-1.08h.384m-10.253 1.5H9.7m8.075-9.75c.01.05.027.1.05.148.593 1.2.925 2.55.925 3.977 0 1.487-.36 2.89-.999 4.125m.023-8.25c-.076-.365.183-.75.575-.75h.908c.889 0 1.713.518 1.972 1.368.339 1.11.521 2.287.521 3.507 0 1.553-.295 3.036-.831 4.398-.306.774-1.086 1.227-1.918 1.227h-1.053c-.472 0-.745-.556-.5-.96a8.95 8.95 0 0 0 .303-.54" />
-                                </svg>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Overall Ratings (1x2) -->
-            <div class="flex-1 bg-blue-50 rounded-xl shadow-md p-5 border border-blue-200 hover:shadow-lg transition flex flex-col items-start">
-                <h4 class="text-blue-700 font-bold mb-4 flex gap-2 items-center text-base tracking-wide">
+    <div class="mb-8">
+        <h3 class="text-base font-semibold leading-6 text-blue-900">Rating Insights</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4 mb-8">
+            <!-- Recent Reviews -->
+            <div class="col-span-1 bg-blue-50 rounded-xl shadow-md p-5 border border-blue-200 hover:shadow-lg transition flex flex-col overflow-y-scroll max-h-[500px]">
+                <h4 class="text-blue-700 font-semibold mb-4 flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
                     </svg>
-                    Overall Ratings
+                    Recent Reviews
                 </h4>
-                <div class="flex flex-col items-start w-full">
-                    <div class="flex items-center gap-2 mb-1">
-                        <span class="text-3xl font-extrabold text-blue-900"><?= number_format($ratingStats['overallAvg'] ?? 0, 1) ?></span>
-                        <div class="flex">
-                            <?php $stars = round($ratingStats['overallAvg'] ?? 0);
-                            for ($i = 1; $i <= 5; $i++): ?>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 <?= $i <= $stars ? 'text-blue-700' : 'text-blue-300' ?>">
-                                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
-                                </svg>
-                            <?php endfor; ?>
+                <div class="flex flex-col gap-3">
+                    <?php foreach (($recentReviews ?? []) as $review): ?>
+                        <div class="bg-blue-100 border border-blue-200 rounded-lg p-4 flex flex-col gap-2 shadow-sm">
+                            <div class="flex items-center gap-2">
+                                <span class="font-semibold text-blue-900"><?= e($review->customer_name) ?></span>
+                                <span class="text-xs text-blue-400 ml-auto"><?= e($review->product_id ?? $review->quote_id ?? '-') ?></span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <?php $stars = round($review->quality_rating ?? 0);
+                                for ($i = 1; $i <= 5; $i++): ?>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 <?= $i <= $stars ? 'text-blue-700' : 'text-blue-300' ?>">
+                                        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
+                                    </svg>
+                                <?php endfor; ?>
+                            </div>
+                            <div class="text-blue-700 text-sm"><?= e($review->comments) ?></div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            <!-- Recommendations + Overall Ratings (Stacked) -->
+            <div class="col-span-1 flex flex-col gap-6 h-full">
+                <!-- Recommendations (1x1) -->
+                <div class="bg-blue-50 rounded-xl shadow-md p-5 border border-blue-200 hover:shadow-lg transition flex flex-col items-start justify-center">
+                    <div class="flex flex-col w-full">
+                        <h4 class="text-blue-500 font-semibold mb-4 flex gap-2 items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z" />
+                            </svg>
+                            Recommendations
+                        </h4>
+                        <div
+                            class="flex items-center gap-2 w-full justify-between">
+                            <div class="flex flex-col flex-1 items-start w-full">
+                                <div class="text-3xl font-bold text-blue-900 mb-2"><?= number_format($ratingStats['recommendPercent'], 0) ?? 0 ?>%</div>
+                                <div class="text-sm text-blue-400">Based on <?= $ratingStats['count'] ?? 0 ?> reviews</div>
+                            </div>
+                            <div class="flex-shrink-0 flex items-center justify-end">
+                                <?php if ($ratingStats['recommendPercent'] > 50): ?>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="currentColor"
+                                        class="size-12 text-blue-500">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z" />
+                                    </svg>
+                                <?php else: ?>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="currentColor"
+                                        class="size-12 text-blue-300">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M7.498 15.25H4.372c-1.026 0-1.945-.694-2.054-1.715a12.137 12.137 0 0 1-.068-1.285c0-2.848.992-5.464 2.649-7.521C5.287 4.247 5.886 4 6.504 4h4.016a4.5 4.5 0 0 1 1.423.23l3.114 1.04a4.5 4.5 0 0 0 1.423.23h1.294M7.498 15.25c.618 0 .991.724.725 1.282A7.471 7.471 0 0 0 7.5 19.75 2.25 2.25 0 0 0 9.75 22a.75.75 0 0 0 .75-.75v-.633c0-.573.11-1.14.322-1.672.304-.76.93-1.33 1.653-1.715a9.04 9.04 0 0 0 2.86-2.4c.498-.634 1.226-1.08 2.032-1.08h.384m-10.253 1.5H9.7m8.075-9.75c.01.05.027.1.05.148.593 1.2.925 2.55.925 3.977 0 1.487-.36 2.89-.999 4.125m.023-8.25c-.076-.365.183-.75.575-.75h.908c.889 0 1.713.518 1.972 1.368.339 1.11.521 2.287.521 3.507 0 1.553-.295 3.036-.831 4.398-.306.774-1.086 1.227-1.918 1.227h-1.053c-.472 0-.745-.556-.5-.96a8.95 8.95 0 0 0 .303-.54" />
+                                    </svg>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </div>
-                    <div class="text-xs text-blue-400 mb-4">Based on <?= $ratingStats['count'] ?? 0 ?> reviews</div>
-                    <div class="w-full">
-                        <div class="grid grid-cols-1 gap-2">
-                            <?php foreach (($ratingStats['ratings'] ?? []) as $matrix => $score): ?>
-                                <?php
-                                $percent = ($score / 5) * 100;
-                                ?>
-                                <div class="flex items-center gap-2">
-                                    <span class="w-3 h-3 rounded-full bg-blue-400"></span>
-                                    <span class="flex-1 text-sm text-blue-900 font-medium"><?= e($matrix) ?></span>
-                                    <div class="w-24 bg-blue-200 rounded-full h-2 mx-2">
-                                        <div class="bg-blue-400 h-2 rounded-full" style="width: <?= $percent ?>%"></div>
+                </div>
+                <!-- Overall Ratings (1x2) -->
+                <div class="flex-1 bg-blue-50 rounded-xl shadow-md p-5 border border-blue-200 hover:shadow-lg transition flex flex-col items-start">
+                    <h4 class="text-blue-700 font-bold mb-4 flex gap-2 items-center text-base tracking-wide">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                        </svg>
+                        Overall Ratings
+                    </h4>
+                    <div class="flex flex-col items-start w-full">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-3xl font-extrabold text-blue-900"><?= number_format($ratingStats['overallAvg'] ?? 0, 1) ?></span>
+                            <div class="flex">
+                                <?php $stars = round($ratingStats['overallAvg'] ?? 0);
+                                for ($i = 1; $i <= 5; $i++): ?>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 <?= $i <= $stars ? 'text-blue-700' : 'text-blue-300' ?>">
+                                        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
+                                    </svg>
+                                <?php endfor; ?>
+                            </div>
+                        </div>
+                        <div class="text-xs text-blue-400 mb-4">Based on <?= $ratingStats['count'] ?? 0 ?> reviews</div>
+                        <div class="w-full">
+                            <div class="grid grid-cols-1 gap-2">
+                                <?php foreach (($ratingStats['ratings'] ?? []) as $matrix => $score): ?>
+                                    <?php
+                                    $percent = ($score / 5) * 100;
+                                    ?>
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-3 h-3 rounded-full bg-blue-400"></span>
+                                        <span class="flex-1 text-sm text-blue-900 font-medium"><?= e($matrix) ?></span>
+                                        <div class="w-24 bg-blue-200 rounded-full h-2 mx-2">
+                                            <div class="bg-blue-400 h-2 rounded-full" style="width: <?= $percent ?>%"></div>
+                                        </div>
+                                        <span class="text-xs text-blue-700 font-semibold"><?= number_format($score, 1) ?></span>
                                     </div>
-                                    <span class="text-xs text-blue-700 font-semibold"><?= number_format($score, 1) ?></span>
-                                </div>
-                            <?php endforeach; ?>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Top Rated Products -->
-        <div class="col-span-1 bg-blue-50 rounded-xl shadow-md p-5 border border-blue-200 hover:shadow-lg transition flex flex-col">
-            <h4 class="text-blue-500 font-semibold mb-4 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
-                </svg>
-                Top Rated Products
-            </h4>
-            <div class="flex flex-col gap-3">
-                <?php
-                $topRated = [
-                    ['color' => 'bg-blue-700', 'name' => 'Architectural Models', 'rating' => 4.8],
-                    ['color' => 'bg-blue-500', 'name' => 'Custom Keychains', 'rating' => 4.7],
-                    ['color' => 'bg-blue-300', 'name' => 'Miniature Figures', 'rating' => 4.6],
-                ];
-                foreach ($topRated as $product): ?>
-                    <div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-blue-100 transition border border-transparent hover:border-blue-300 shadow-sm">
-                        <span class="inline-block w-3 h-3 rounded-full <?php echo $product['color']; ?>"></span>
-                        <span class="font-medium text-blue-900 flex-1"><?php echo htmlspecialchars($product['name']); ?></span>
-                        <div class="flex items-center gap-1 bg-blue-200 px-2 py-1 rounded-full">
-                            <span class="text-blue-700 font-bold"><?php echo number_format($product['rating'], 1); ?></span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-blue-700">
-                                <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
-                            </svg>
+            <!-- Top Rated Products -->
+            <div class="col-span-1 bg-blue-50 rounded-xl shadow-md p-5 border border-blue-200 hover:shadow-lg transition flex flex-col">
+                <h4 class="text-blue-500 font-semibold mb-4 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+                    </svg>
+                    Top Rated Products
+                </h4>
+                <div class="flex flex-col gap-3">
+                    <?php
+                    $topRated = [
+                        ['color' => 'bg-blue-700', 'name' => 'Architectural Models', 'rating' => 4.8],
+                        ['color' => 'bg-blue-500', 'name' => 'Custom Keychains', 'rating' => 4.7],
+                        ['color' => 'bg-blue-300', 'name' => 'Miniature Figures', 'rating' => 4.6],
+                    ];
+                    foreach ($topRated as $product): ?>
+                        <div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-blue-100 transition border border-transparent hover:border-blue-300 shadow-sm">
+                            <span class="inline-block w-3 h-3 rounded-full <?php echo $product['color']; ?>"></span>
+                            <span class="font-medium text-blue-900 flex-1"><?php echo htmlspecialchars($product['name']); ?></span>
+                            <div class="flex items-center gap-1 bg-blue-200 px-2 py-1 rounded-full">
+                                <span class="text-blue-700 font-bold"><?php echo number_format($product['rating'], 1); ?></span>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-blue-700">
+                                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
                         </div>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 <!-- Chart.js CDN -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
