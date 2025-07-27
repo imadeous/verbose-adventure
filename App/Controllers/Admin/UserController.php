@@ -118,7 +118,6 @@ class UserController extends AdminControllerBase
         foreach ($data as $key => $value) {
             $user->$key = $value;
         }
-        $user->updated_at = date('Y-m-d H:i:s');
         $user->update();
         $this->redirect('/admin/users/' . $id);
         exit;
