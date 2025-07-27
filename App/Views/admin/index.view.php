@@ -1,10 +1,4 @@
 <?php
-// Try both possible locations for Functions.php (local and production)
-if (file_exists(__DIR__ . '/../../../helpers/Functions.php')) {
-    require_once __DIR__ . '/../../../helpers/Functions.php';
-} elseif (file_exists(__DIR__ . '/../../../Helpers/Functions.php')) {
-    require_once __DIR__ . '/../../../Helpers/Functions.php';
-}
 
 use App\Models\Category;
 use App\Models\Product;

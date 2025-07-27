@@ -106,35 +106,35 @@ if (!function_exists('asset')) {
     }
 }
 
-if (!function_exists('is_null')) {
-    if (!function_exists('number_shorten')) {
-        /**
-         * Shorten large numbers with K, M, B, T suffixes (e.g. 1.2K, 3.4M)
-         * @param float|int $number
-         * @param int $precision
-         * @return string
-         */
-        function number_shorten($number, $precision = 1): string
-        {
-            if (!is_numeric($number)) return (string)$number;
-            $abs = abs($number);
-            if ($abs < 1000) {
-                return number_format($number, $precision);
-            }
-            $units = [
-                12 => 'T', // Trillion
-                9 => 'B',  // Billion
-                6 => 'M',  // Million
-                3 => 'K',  // Thousand
-            ];
-            foreach ($units as $exp => $unit) {
-                if ($abs >= pow(10, $exp)) {
-                    return number_format($number / pow(10, $exp), $precision) . $unit;
-                }
-            }
+if (!function_exists('number_shorten')) {
+    /**
+     * Shorten large numbers with K, M, B, T suffixes (e.g. 1.2K, 3.4M)
+     * @param float|int $number
+     * @param int $precision
+     * @return string
+     */
+    function number_shorten($number, $precision = 1): string
+    {
+        if (!is_numeric($number)) return (string)$number;
+        $abs = abs($number);
+        if ($abs < 1000) {
             return number_format($number, $precision);
         }
+        $units = [
+            12 => 'T', // Trillion
+            9 => 'B',  // Billion
+            6 => 'M',  // Million
+            3 => 'K',  // Thousand
+        ];
+        foreach ($units as $exp => $unit) {
+            if ($abs >= pow(10, $exp)) {
+                return number_format($number / pow(10, $exp), $precision) . $unit;
+            }
+        }
+        return number_format($number, $precision);
     }
+}
+if (!function_exists('is_null')) {
     /**
      * Check if a variable is null
      * @param mixed $var
