@@ -277,10 +277,10 @@
                                 <?php endfor; ?>
                             </div>
                         </div>
-                        <div class="text-xs text-blue-400 mb-4">Based on <?= $ratingStats['count'] ?? 0 ?> reviews</div>
+                        <div class="text-xs text-blue-400 mb-4">Based on <?= $totalReviews ?? 0 ?> reviews</div>
                         <div class="w-full">
                             <div class="grid grid-cols-1 gap-2">
-                                <?php foreach (($ratingStats['matrices'] ?? []) as $matrix):
+                                <?php foreach (($matrices ?? []) as $matrix):
                                     $percent = ($matrix['score'] / 5) * 100;
                                 ?>
                                     <div class="flex items-center gap-2">

@@ -27,7 +27,7 @@ class AdminController extends AdminControllerBase
             ->withCount('*', 'Total Reviews')
             ->generate('Reviews Report', true);
 
-        $matrices = [
+        $ratings = [
             'Quality' => $reviewsReport['data'][0]['Quality'] ?? 0,
             'Pricing' => $reviewsReport['data'][0]['Pricing'] ?? 0,
             'Communication' => $reviewsReport['data'][0]['Communication'] ?? 0,
@@ -37,10 +37,10 @@ class AdminController extends AdminControllerBase
 
         $recommendPercent = $reviewsReport['data'][0]['Recommendation'] ?? 0;
 
-        $overallAvg = array_sum(array_values($matrices)) / count($matrices);
+        $overallAvg = array_sum(array_values($ratings)) / count($ratings);
 
         $ratingStats = [
-            'matrices' => $matrices,
+            'ratings' => $ratings,
             'recommendPercent' => $recommendPercent,
             'overallAvg' => $overallAvg,
             'count' => $reviewsReport['data'][0]['Total Reviews'] ?? 0,
