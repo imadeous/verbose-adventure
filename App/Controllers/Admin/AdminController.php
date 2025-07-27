@@ -127,32 +127,21 @@ class AdminController extends AdminControllerBase
     public function debug()
     {
 
-        $reviewsReport = ReportBuilder::build('reviews', 'created_at')
-            ->forPeriod(date('2020-01-01'), date('Y-m-t'))
-            ->withPercentage('recommendation_score', 'Recommendation')
-            ->withAverage('quality_rating', 'Quality')
-            ->withAverage('pricing_rating', 'Pricing')
-            ->withAverage('communication_rating', 'Communication')
-            ->withAverage('packaging_rating', 'Packaging')
-            ->withAverage('delivery_rating', 'Delivery')
-            ->generate('Reviews Report', true);
+        //get the hottest categories
+        $hottestCategories = ReportBuilder::build('transactions', 'date')
+            ->forPeriod(date('Y-m-01'), date('Y-m-t'))
+            ->groupBy('category_id')
+            ->withSum('amount', 'Total')
+            ->orderBy('Total', 'desc')
+            ->limit(5)
+            ->get();
 
-        $ratings = [
-            'Quality' => $reviewsReport['data'][0]['Quality'] ?? 0,
-            'Pricing' => $reviewsReport['data'][0]['Pricing'] ?? 0,
-            'Communication' => $reviewsReport['data'][0]['Communication'] ?? 0,
-            'Packaging' => $reviewsReport['data'][0]['Packaging'] ?? 0,
-            'Delivery' => $reviewsReport['data'][0]['Delivery'] ?? 0,
-        ];
 
-        $recommendPercent = $reviewsReport['data'][0]['Recommendation'] ?? 0;
 
-        $overallAvg = array_sum(array_values($ratings)) / count($ratings);
+
 
         $vars = [
-            'ratings' => $ratings,
-            'recommendPercent' => $recommendPercent,
-            'overallAvg' => $overallAvg,
+            'hottestCategories' => $hottestCategories,
         ];
         // Debugging method to inspect variables
         $this->view->layout('admin');
