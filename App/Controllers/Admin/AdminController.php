@@ -140,7 +140,7 @@ class AdminController extends AdminControllerBase
             ->limit(5);
 
         $vars = [
-            'hottestCategories' => $query->generate('Hottest Categories', true),
+            'hottestCategories' => $query->get(),
         ];
         // Debugging method to inspect variables
         $this->view->layout('admin');
