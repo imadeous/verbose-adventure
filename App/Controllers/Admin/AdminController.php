@@ -43,6 +43,7 @@ class AdminController extends AdminControllerBase
             'ratings' => $ratings,
             'recommendPercent' => $recommendPercent,
             'overallAvg' => $overallAvg,
+            'count' => $reviewsReport['data'][0]['Total Reviews'] ?? 0,
         ];
         // Debugging method to inspect variables
         $this->view->layout('admin');
