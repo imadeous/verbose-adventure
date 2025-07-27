@@ -69,7 +69,7 @@
                         <template x-for="(row, rowIndex) in report.data" :key="rowIndex">
                             <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
                                 <template x-for="(label, key) in columns" :key="key">
-                                    <td class="px-4 py-2 whitespace-nowrap">
+                                    <td class="px-4 py-2 whitespace-nowrap" :class="['Total','Average','Min','Max'].includes(key) && Number(row[key]) < 0 ? 'text-red-500' : 'text-blue-900'">
                                         <template x-if="['Total','Average','Min','Max','Count'].includes(key)">
                                             <span x-text="Number(row[key] ?? 0).toFixed(2)"></span>
                                         </template>
