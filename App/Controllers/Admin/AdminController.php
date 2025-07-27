@@ -214,13 +214,11 @@ class AdminController extends AdminControllerBase
         // Mixed bar-line chart with dynamic data and auto y-axis assignment
         $query =  $reviewsReport = ChartBuilder::build('reviews', 'created_at')
             ->forPeriod(date('2020-01-01'), date('Y-m-t'))
-            ->withPercentage('recommendation_score', 'Recommendation')
             ->withAverage('quality_rating', 'Quality')
             ->withAverage('pricing_rating', 'Pricing')
             ->withAverage('communication_rating', 'Communication')
             ->withAverage('packaging_rating', 'Packaging')
             ->withAverage('delivery_rating', 'Delivery')
-            ->withCount('*', 'Total Reviews')
             ->radar();
 
         $vars = [
