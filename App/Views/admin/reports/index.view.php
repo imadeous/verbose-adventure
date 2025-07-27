@@ -1,7 +1,7 @@
 <div class="max-full mx-auto" x-data="reportApp()" x-init="init()">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-blue-900">Reports</h1>
-        <?php include __DIR__ . '/../partials/breadcrumb.view.php'; ?>
+        <?php include __DIR__ . '/../../partials/breadcrumb.view.php'; ?>
     </div>
     <div class="bg-white rounded-xl shadow-md p-6">
         <form @change="fetchReport" class="mb-6 flex flex-wrap gap-4 items-end">
