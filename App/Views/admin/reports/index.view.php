@@ -19,9 +19,6 @@
                 <li>
                     <a href="#" @click.prevent="setPrebuilt('top_products')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Top Products</a>
                 </li>
-                <li>
-                    <a href="#" @click.prevent="setPrebuilt('review_stats')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Review Statistics</a>
-                </li>
             </ul>
         </nav>
         <div class="flex-1">
@@ -109,7 +106,7 @@
             return {
                 // ...existing code...
                 setPrebuilt(type) {
-                    // Pre-built report presets
+                    // Pre-built report presets (transactions table only)
                     const today = new Date();
                     const yyyy = today.getFullYear();
                     const mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -165,16 +162,6 @@
                         this.aggregate_avg = false;
                         this.aggregate_min = false;
                         this.aggregate_max = false;
-                    } else if (type === 'review_stats') {
-                        this.period_start = `${yyyy}-01-01`;
-                        this.period_end = `${yyyy}-12-31`;
-                        this.grouping = 'monthly';
-                        this.type = 'all';
-                        this.aggregate_sum = false;
-                        this.aggregate_avg = true;
-                        this.aggregate_min = false;
-                        this.aggregate_max = false;
-                        this.aggregate_count = true;
                     }
                     this.fetchReport();
                 },
