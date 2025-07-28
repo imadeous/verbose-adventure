@@ -18,7 +18,7 @@ class TransactionController extends AdminControllerBase
         $totalTransactions = Transaction::query()
             ->where('date', '>=', date('Y-m-01'))
             ->where('date', '<=', date('Y-m-t'))
-            ->count();
+            ->count()['count'];
 
         var_dump($totalTransactions);
 
