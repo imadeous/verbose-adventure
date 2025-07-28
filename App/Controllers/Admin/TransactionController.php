@@ -50,6 +50,8 @@ class TransactionController extends AdminControllerBase
             ['label' => 'Transactions', 'url' => url('/admin/transactions')]
         ];
         $this->view('admin/transactions/index', [
+            'currentLimit' => $limit,
+            'currentPage' => $page,
             'transactions' => $transactions,
             'dailyReport' => $dailyReport,
             'breadcrumb' => $breadcrumbs
