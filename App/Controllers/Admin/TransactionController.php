@@ -10,16 +10,27 @@ class TransactionController extends AdminControllerBase
 {
     public function index()
     {
+
         // Validate and sanitize pagination parameters
+        $page = isset($_GET['page']) && is_numeric($_GET['page']) && (int)$_GET['page'] > 0 ? (int)$_GET['page'] : 1;
+        $perPage = isset($_GET['limit']) && is_numeric($_GET['limit']) && (int)$_GET['limit'] > 0 ? (int)$_GET['limit'] : 10;
+        $offset = ($page - 1) * $perPage;
+
+        $totalTransactions = Transaction::query()
+            ->where('date', '>=', date('Y-m-01'))
+            ->where('date', '<=', date('Y-m-t'))
+            ->count();
+
+        $totalPages = (int) ceil($totalTransactions / $perPage);
 
         $transactions = array_map(
             fn($row) => new Transaction($row),
             Transaction::query()
-                ->where('date', '>=', date('Y-m-01')) // Filter for current month
-                ->where('date', '<=', date('Y-m-t')) // Filter for current month
+                ->where('date', '>=', date('Y-m-01'))
+                ->where('date', '<=', date('Y-m-t'))
                 ->orderBy('created_at', 'desc')
-                ->limit(10)
-                ->offset(0) // Adjust offset for pagination
+                ->limit($perPage)
+                ->offset($offset)
                 ->get()
         );
 
@@ -41,9 +52,9 @@ class TransactionController extends AdminControllerBase
             ['label' => 'Transactions', 'url' => url('/admin/transactions')]
         ];
         $this->view('admin/transactions/index', [
-            'currentLimit' => 10, // Default limit for pagination
-            'currentPage' => 1, // Default page for pagination
-            'totalPages' => 20, // Calculate total pages
+            'currentLimit' => $perPage,
+            'currentPage' => $page,
+            'totalPages' => $totalPages,
             'transactions' => $transactions,
             'dailyReport' => $dailyReport,
             'breadcrumb' => $breadcrumbs
