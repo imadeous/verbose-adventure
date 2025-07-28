@@ -51,7 +51,7 @@
                                 <?php endif; ?>
                             </td>
                             <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction->promo_code_id ?? '-') ?></td>
-                            <td class="px-4 py-2 whitespace-nowrap">
+                            <td class="px-4 py-2 whitespace-nowrap hidden">
                                 <a href="<?= url('admin/transactions/show/' . $transaction->id) ?>" class="text-blue-600 hover:underline">View</a>
                             </td>
                         </tr>
