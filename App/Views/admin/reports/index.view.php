@@ -8,6 +8,8 @@
                     <h2 class="text-lg font-semibold text-blue-800 mb-2">Pre-built Reports</h2>
                     <select class="w-full border rounded-lg px-3 py-2 text-blue-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-300" @change="setPrebuilt($event.target.value)">
                         <option value="" disabled selected>Select a report...</option>
+                        <option value="daily_income">Daily Income</option>
+                        <option value="daily_expense">Daily Expenses</option>
                         <option value="monthly_income">Monthly Income</option>
                         <option value="monthly_expense">Monthly Expenses</option>
                         <option value="quarterly_income">Quarterly Income</option>
@@ -99,13 +101,37 @@
             return {
                 // ...existing code...
                 setPrebuilt(type) {
+
                     // Pre-built report presets (transactions table only)
                     const today = new Date();
                     const yyyy = today.getFullYear();
                     const mm = String(today.getMonth() + 1).padStart(2, '0');
                     const firstDay = `${yyyy}-01-01`;
                     const lastDay = new Date(yyyy, today.getMonth() + 1, 0).toISOString().slice(0, 10);
-                    if (type === 'monthly_income') {
+                    if (type === 'daily_income') {
+                        // Today only, daily grouping
+                        const todayStr = today.toISOString().slice(0, 10);
+                        this.period_start = todayStr;
+                        this.period_end = todayStr;
+                        this.grouping = 'daily';
+                        this.type = 'income';
+                        this.aggregate_sum = true;
+                        this.aggregate_avg = true;
+                        this.aggregate_min = false;
+                        this.aggregate_max = false;
+                        this.aggregate_count = true;
+                    } else if (type === 'daily_expense') {
+                        const todayStr = today.toISOString().slice(0, 10);
+                        this.period_start = todayStr;
+                        this.period_end = todayStr;
+                        this.grouping = 'daily';
+                        this.type = 'expense';
+                        this.aggregate_sum = true;
+                        this.aggregate_avg = true;
+                        this.aggregate_min = false;
+                        this.aggregate_max = false;
+                        this.aggregate_count = true;
+                    } else if (type === 'monthly_income') {
                         this.period_start = firstDay;
                         this.period_end = lastDay;
                         this.grouping = 'monthly';
