@@ -10,8 +10,13 @@ class TransactionController extends AdminControllerBase
 {
     public function index()
     {
-        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $perPage = isset($_GET['limit']) ? (int)$_GET['limit'] : 10;
+        // Validate and sanitize pagination parameters
+        $page = isset($_GET['page']) && is_numeric($_GET['page']) && (int)$_GET['page'] > 0 ? (int)$_GET['page'] : 1;
+        $perPage = isset($_GET['limit']) && is_numeric($_GET['limit']) && (int)$_GET['limit'] > 0 ? (int)$_GET['limit'] : 10;
+        // Prevent $perPage from being an array or invalid value
+        if (!is_int($perPage) || $perPage < 1) {
+            $perPage = 10;
+        }
         $offset = ($page - 1) * $perPage;
 
         $totalTransactions = Transaction::query()
