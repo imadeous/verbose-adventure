@@ -107,11 +107,12 @@
                     const yyyy = today.getFullYear();
                     const mm = String(today.getMonth() + 1).padStart(2, '0');
                     const firstDay = `${yyyy}-01-01`;
+                    const firstDayofMonth = new Date(yyyy, today.getMonth(), 1).toISOString().slice(0, 10);
                     const lastDay = new Date(yyyy, today.getMonth() + 1, 0).toISOString().slice(0, 10);
                     if (type === 'daily_income') {
                         // Today only, daily grouping
                         const todayStr = today.toISOString().slice(0, 10);
-                        this.period_start = todayStr;
+                        this.period_start = firstDayofMonth;
                         this.period_end = todayStr;
                         this.grouping = 'daily';
                         this.type = 'income';
