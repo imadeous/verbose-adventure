@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Models\Transaction;
 use Core\AdminControllerBase;
+use Core\Database\Paginator;
 use Core\Database\ReportBuilder;
 
 class TransactionController extends AdminControllerBase
@@ -12,11 +13,12 @@ class TransactionController extends AdminControllerBase
     {
         $transactions = array_map(
             fn($row) => new Transaction($row),
-            Transaction::query()
+            Paginator::build('transactions')->perPage(20)->page(2)
                 ->where('date', '>=', date('Y-m-01')) // Filter for current month
                 ->where('date', '<=', date('Y-m-t')) // Filter for current month
                 ->orderBy('created_at', 'desc')
-                ->get()
+                ->paginate()
+                ->getPaginatedReport()
         );
 
         $dailyReport = ReportBuilder::build('transactions', 'date')
