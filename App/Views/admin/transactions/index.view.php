@@ -19,18 +19,18 @@
             </form>
         </div>
         <div class="mb-4">
-            <p class="text-sm text-gray-600">Showing page <?= $currentPage ?> of <?= $transactions->totalPages() ?>, total transactions: <?= $transactions->totalCount() ?></p>
+            <p class="text-sm text-gray-600">Showing page <?= $currentPage ?> of <?= $totalPages() ?>, total transactions: <?= $transactions->totalCount() ?></p>
         </div>
         <div class="overflow-x-auto">
             <nav class="mb-4">
-                <ul class="flex space
-                    <?php for ($i = 1; $i <= $transactions->totalPages(); $i++): ?>
+                <ul class="flex space-x-2">
+                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                         <li>
                             <a href=" <?= url('admin/transactions?page=' . $i . '&limit=' . $currentLimit) ?>" class="px-3 py-2 rounded-md text-sm font-medium <?= ($i == $currentPage) ? 'bg-blue-600 text-white' : 'text-blue-700 hover:bg-blue-50' ?>">
-                    <?= $i ?>
-                    </a>
-                    </li>
-                <?php endfor; ?>
+                                <?= $i ?>
+                            </a>
+                        </li>
+                    <?php endfor; ?>
                 </ul>
             </nav>
         </div>

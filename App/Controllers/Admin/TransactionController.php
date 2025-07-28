@@ -21,6 +21,15 @@ class TransactionController extends AdminControllerBase
         } else {
             $page = 1; // Default to page 1
         }
+
+        $totalTransactions = Transaction::query()
+            ->where('date', '>=', date('Y-m-01')) // Filter for current month
+            ->where('date', '<=', date('Y-m-t')) // Filter for current month
+            ->count();
+
+        $totalPages = (int) ceil($totalTransactions / $limit);
+
+
         $transactions = array_map(
             fn($row) => new Transaction($row),
             Transaction::query()
@@ -52,6 +61,7 @@ class TransactionController extends AdminControllerBase
         $this->view('admin/transactions/index', [
             'currentLimit' => $limit,
             'currentPage' => $page,
+            'totalPages' => $totalPages,
             'transactions' => $transactions,
             'dailyReport' => $dailyReport,
             'breadcrumb' => $breadcrumbs
