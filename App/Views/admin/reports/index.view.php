@@ -1,22 +1,22 @@
 <div class="max-full mx-auto" x-data="reportApp()" x-init="init()">
     <div class="flex flex-col md:flex-row gap-6">
-        <!-- Sidebar nav for pre-built reports -->
-        <nav class="md:w-64 w-full mb-4 md:mb-0">
-            <h2 class="text-lg font-semibold text-blue-800 mb-2">Pre-built Reports</h2>
-            <select class="w-full border rounded-lg px-3 py-2 text-blue-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-300" @change="setPrebuilt($event.target.value)">
-                <option value="" disabled selected>Select a report...</option>
-                <option value="monthly_income">Monthly Income</option>
-                <option value="monthly_expense">Monthly Expenses</option>
-                <option value="quarterly_income">Quarterly Income</option>
-                <option value="quarterly_expense">Quarterly Expenses</option>
-                <option value="yearly_income">Yearly Income</option>
-                <option value="yearly_expense">Yearly Expenses</option>
-                <option value="all_transactions">All Transactions</option>
-            </select>
-        </nav>
         <div class="flex-1">
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-2xl font-bold text-blue-900">Reports</h1>
+                <!-- Sidebar nav for pre-built reports -->
+                <nav class="md:w-64 w-full mb-4 md:mb-0">
+                    <h2 class="text-lg font-semibold text-blue-800 mb-2">Pre-built Reports</h2>
+                    <select class="w-full border rounded-lg px-3 py-2 text-blue-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-300" @change="setPrebuilt($event.target.value)">
+                        <option value="" disabled selected>Select a report...</option>
+                        <option value="monthly_income">Monthly Income</option>
+                        <option value="monthly_expense">Monthly Expenses</option>
+                        <option value="quarterly_income">Quarterly Income</option>
+                        <option value="quarterly_expense">Quarterly Expenses</option>
+                        <option value="yearly_income">Yearly Income</option>
+                        <option value="yearly_expense">Yearly Expenses</option>
+                        <option value="all_transactions">All Transactions</option>
+                    </select>
+                </nav>
             </div>
             <div class="bg-white rounded-xl shadow-md p-6">
                 <form @change="fetchReport" class="mb-6 flex flex-wrap gap-4 items-end">
