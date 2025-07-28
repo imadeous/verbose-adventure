@@ -78,32 +78,4 @@
             </div>
         </div>
     </div>
-    <?php if (!empty($dailyReport)): ?>
-        <div class="mt-8 bg-white rounded-xl shadow-md p-6">
-            <h2 class="text-xl font-semibold text-blue-900 mb-4"><?= htmlspecialchars($dailyReport['title']) ?></h2>
-            <p class="text-sm text-gray-600 mb-4"><?= htmlspecialchars($dailyReport['caption']) ?></p>
-            <table class="min-w-full bg-white rounded-xl text-sm">
-                <thead>
-                    <tr>
-                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Date</th>
-                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Total Amount</th>
-                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Range</th>
-                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Average Amount</th>
-                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Count</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($dailyReport['data'] as $day): ?>
-                        <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
-                            <td class="px-4 py-2"><?= htmlspecialchars(date('d M', strtotime($day['period_day']))) ?></td>
-                            <td class="px-4 py-2"><?= number_format($day['Total'] ?? 0, 2) ?></td>
-                            <td class="px-4 py-2"><?= number_format($day['Min'] ?? 0, 2) ?> - <?= number_format($day['Max'] ?? 0, 2) ?></td>
-                            <td class="px-4 py-2"><?= number_format($day['Average'] ?? 0, 2) ?></td>
-                            <td class="px-4 py-2"><?= htmlspecialchars($day['Count'] ?? '0') ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-    <?php endif; ?>
 </div>
