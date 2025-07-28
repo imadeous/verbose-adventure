@@ -41,6 +41,9 @@ class TransactionController extends AdminControllerBase
             ['label' => 'Transactions', 'url' => url('/admin/transactions')]
         ];
         $this->view('admin/transactions/index', [
+            'currentLimit' => 10, // Default limit for pagination
+            'currentPage' => 1, // Default page for pagination
+            'totalPages' => ceil(Transaction::count() / 10), // Calculate total pages
             'transactions' => $transactions,
             'dailyReport' => $dailyReport,
             'breadcrumb' => $breadcrumbs
