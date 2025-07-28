@@ -7,6 +7,7 @@
                 <li><a href="#" @click.prevent="setPrebuilt('monthly_income')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Monthly Income</a></li>
                 <li><a href="#" @click.prevent="setPrebuilt('monthly_expense')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Monthly Expenses</a></li>
                 <li><a href="#" @click.prevent="setPrebuilt('quarterly_income')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Quarterly Income</a></li>
+                <li><a href="#" @click.prevent="setPrebuilt('quarterly_expense')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Quarterly Expenses</a></li>
                 <li><a href="#" @click.prevent="setPrebuilt('yearly_income')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Yearly Income</a></li>
                 <li><a href="#" @click.prevent="setPrebuilt('yearly_expense')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Yearly Expenses</a></li>
                 <li><a href="#" @click.prevent="setPrebuilt('all_transactions')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">All Transactions</a></li>
@@ -128,6 +129,16 @@
                         this.period_end = `${yyyy}-12-31`;
                         this.grouping = 'quarterly';
                         this.type = 'income';
+                        this.aggregate_sum = true;
+                        this.aggregate_avg = true;
+                        this.aggregate_min = false;
+                        this.aggregate_max = false;
+                        this.aggregate_count = true;
+                    } else if (type === 'quarterly_expense') {
+                        this.period_start = `${yyyy}-01-01`;
+                        this.period_end = `${yyyy}-12-31`;
+                        this.grouping = 'quarterly';
+                        this.type = 'expense';
                         this.aggregate_sum = true;
                         this.aggregate_avg = true;
                         this.aggregate_min = false;
