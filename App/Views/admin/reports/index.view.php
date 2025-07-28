@@ -123,7 +123,7 @@
                         this.aggregate_count = true;
                     } else if (type === 'daily_expense') {
                         const todayStr = today.toISOString().slice(0, 10);
-                        this.period_start = todayStr;
+                        this.period_start = firstDayofMonth;
                         this.period_end = todayStr;
                         this.grouping = 'daily';
                         this.type = 'expense';
