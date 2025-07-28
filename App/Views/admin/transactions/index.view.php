@@ -19,22 +19,7 @@
                 <button type="submit" class="ml-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-blue-700 transition">Apply</button>
             </form>
         </div>
-        <div class="mb-4">
-            <p class="text-sm text-gray-600">Showing page <?= $paginator->currentPage ?> of <?= $paginator->totalPages ?>, total transactions: <?= $paginator->totalCount ?></p>
-        </div>
-        <div class="overflow-x-auto">
-            <nav class="mb-4">
-                <ul class="flex space-x-2">
-                    <?php for ($i = 1; $i <= $paginator->totalPages; $i++): ?>
-                        <li>
-                            <a href="<?= url('admin/transactions?page=' . $i . '&limit=' . $paginator->perPage) ?>" class="px-3 py-2 rounded-md text-sm font-medium <?= ($i == $paginator->currentPage) ? 'bg-blue-600 text-white' : 'text-blue-700 hover:bg-blue-50' ?>">
-                                <?= $i ?>
-                            </a>
-                        </li>
-                    <?php endfor; ?>
-                </ul>
-            </nav>
-        </div>
+
         <table class="min-w-full bg-white rounded-xl text-sm">
             <thead>
                 <tr>
@@ -75,6 +60,24 @@
                 <?php endif; ?>
             </tbody>
         </table>
+        <div class="flex-justify-end">
+            <div class="mb-4">
+                <p class="text-sm text-gray-600">Showing page <?= $paginator->currentPage ?> of <?= $paginator->totalPages ?>, total transactions: <?= $paginator->totalCount ?></p>
+            </div>
+            <div class="overflow-x-auto">
+                <nav class="mb-4">
+                    <ul class="flex space-x-2">
+                        <?php for ($i = 1; $i <= $paginator->totalPages; $i++): ?>
+                            <li>
+                                <a href="<?= url('admin/transactions?page=' . $i . '&limit=' . $paginator->perPage) ?>" class="px-3 py-2 rounded-md text-sm font-medium <?= ($i == $paginator->currentPage) ? 'bg-blue-600 text-white' : 'text-blue-700 hover:bg-blue-50' ?>">
+                                    <?= $i ?>
+                                </a>
+                            </li>
+                        <?php endfor; ?>
+                    </ul>
+                </nav>
+            </div>
+        </div>
     </div>
     <?php if (!empty($dailyReport)): ?>
         <div class="mt-8 bg-white rounded-xl shadow-md p-6">
