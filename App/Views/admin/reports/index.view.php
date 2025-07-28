@@ -146,7 +146,7 @@
                         this.aggregate_max = false;
                         this.aggregate_count = true;
                     } else if (type === 'yearly_income') {
-                        this.period_start = `${yyyy}-01-01`;
+                        this.period_start = `2020-01-01`;
                         this.period_end = `${yyyy}-12-31`;
                         this.grouping = 'yearly';
                         this.type = 'income';
@@ -156,7 +156,7 @@
                         this.aggregate_max = false;
                         this.aggregate_count = true;
                     } else if (type === 'yearly_expense') {
-                        this.period_start = `${yyyy}-01-01`;
+                        this.period_start = `2020-01-01`;
                         this.period_end = `${yyyy}-12-31`;
                         this.grouping = 'yearly';
                         this.type = 'expense';
