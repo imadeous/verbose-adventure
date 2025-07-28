@@ -11,6 +11,7 @@
             <form action="<?= url('admin/transactions') ?>" method="GET" class="flex items-center">
                 <label for="limit" class="mr-2">Show:</label>
                 <select name="limit" id="limit" class="border border-blue-300 rounded-md p-2">
+                    <option value="5" <?= ($paginator->perPage == 5) ? 'selected' : '' ?>>5</option>
                     <option value="10" <?= ($paginator->perPage == 10) ? 'selected' : '' ?>>10</option>
                     <option value="25" <?= ($paginator->perPage == 25) ? 'selected' : '' ?>>25</option>
                     <option value="50" <?= ($paginator->perPage == 50) ? 'selected' : '' ?>>50</option>
