@@ -1,84 +1,183 @@
 <div class="max-full mx-auto" x-data="reportApp()" x-init="init()">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold text-blue-900">Reports</h1>
-    </div>
-    <div class="bg-white rounded-xl shadow-md p-6">
-        <form @change="fetchReport" class="mb-6 flex flex-wrap gap-4 items-end">
-            <div>
-                <label for="period_start" class="block text-sm font-medium text-blue-900">Period Start</label>
-                <input type="date" x-model="period_start" class="border rounded-lg px-2 py-1 text-sm w-40">
+    <div class="flex flex-col md:flex-row gap-6">
+        <!-- Sidebar nav for pre-built reports -->
+        <nav class="md:w-64 w-full mb-4 md:mb-0">
+            <h2 class="text-lg font-semibold text-blue-800 mb-2">Pre-built Reports</h2>
+            <ul class="space-y-2">
+                <li>
+                    <a href="#" @click.prevent="setPrebuilt('monthly_income')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Monthly Income</a>
+                </li>
+                <li>
+                    <a href="#" @click.prevent="setPrebuilt('monthly_expense')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Monthly Expenses</a>
+                </li>
+                <li>
+                    <a href="#" @click.prevent="setPrebuilt('quarterly_income')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Quarterly Income</a>
+                </li>
+                <li>
+                    <a href="#" @click.prevent="setPrebuilt('top_categories')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Top Categories</a>
+                </li>
+                <li>
+                    <a href="#" @click.prevent="setPrebuilt('top_products')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Top Products</a>
+                </li>
+                <li>
+                    <a href="#" @click.prevent="setPrebuilt('review_stats')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Review Statistics</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="flex-1">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-bold text-blue-900">Reports</h1>
             </div>
-            <div>
-                <label for="period_end" class="block text-sm font-medium text-blue-900">Period End</label>
-                <input type="date" x-model="period_end" class="border rounded-lg px-2 py-1 text-sm w-40">
-            </div>
-            <div>
-                <label for="grouping" class="block text-sm font-medium text-blue-900">Grouping Period</label>
-                <select x-model="grouping" class="border rounded-lg px-2 py-1 text-sm">
-                    <template x-for="(label, key) in groupings" :key="key">
-                        <option :value="key" x-text="label"></option>
-                    </template>
-                </select>
-            </div>
-            <div>
-                <label for="type" class="block text-sm font-medium text-blue-900">Type</label>
-                <select x-model="type" class="border rounded-lg px-2 py-1 text-sm">
-                    <option value="all">All</option>
-                    <option value="income">Income</option>
-                    <option value="expense">Expense</option>
-                </select>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-blue-900">Aggregates</label>
-                <div class="flex gap-2">
-                    <label><input type="checkbox" checked x-model="aggregate_sum"> Sum</label>
-                    <label><input type="checkbox" x-model="aggregate_avg"> Average</label>
-                    <label><input type="checkbox" x-model="aggregate_min"> Min</label>
-                    <label><input type="checkbox" x-model="aggregate_max"> Max</label>
-                    <label><input type="checkbox" x-model="aggregate_count"> Count</label>
-                </div>
-            </div>
-        </form>
-        <template x-if="loading">
-            <div class="text-blue-400">Loading report...</div>
-        </template>
-        <h2 class="text-xl font-semibold text-blue-900 mb-4" x-text="`Transactions Report: ${period_start} to ${period_end}`"></h2>
-        <template x-if="!loading && report && report.data && report.data.length">
-            <div class="overflow-x-auto w-full">
-                <table class="min-w-full bg-white rounded-xl text-sm">
-                    <thead>
-                        <tr>
-                            <template x-for="(label, key) in columns" :key="key">
-                                <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200" x-text="label"></th>
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <form @change="fetchReport" class="mb-6 flex flex-wrap gap-4 items-end">
+                    <div>
+                        <label for="period_start" class="block text-sm font-medium text-blue-900">Period Start</label>
+                        <input type="date" x-model="period_start" class="border rounded-lg px-2 py-1 text-sm w-40">
+                    </div>
+                    <div>
+                        <label for="period_end" class="block text-sm font-medium text-blue-900">Period End</label>
+                        <input type="date" x-model="period_end" class="border rounded-lg px-2 py-1 text-sm w-40">
+                    </div>
+                    <div>
+                        <label for="grouping" class="block text-sm font-medium text-blue-900">Grouping Period</label>
+                        <select x-model="grouping" class="border rounded-lg px-2 py-1 text-sm">
+                            <template x-for="(label, key) in groupings" :key="key">
+                                <option :value="key" x-text="label"></option>
                             </template>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <template x-for="(row, rowIndex) in report.data" :key="rowIndex">
-                            <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
-                                <template x-for="(label, key) in columns" :key="key">
-                                    <td class="px-4 py-2 whitespace-nowrap" :class="['Total','Average','Min','Max'].includes(key) && Number(row[key]) < 0 ? 'text-red-500' : 'text-blue-900'">
-                                        <template x-if="['Total','Average','Min','Max','Count'].includes(key)">
-                                            <span x-text="Number(row[key] ?? 0).toFixed(2)"></span>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="type" class="block text-sm font-medium text-blue-900">Type</label>
+                        <select x-model="type" class="border rounded-lg px-2 py-1 text-sm">
+                            <option value="all">All</option>
+                            <option value="income">Income</option>
+                            <option value="expense">Expense</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-blue-900">Aggregates</label>
+                        <div class="flex gap-2">
+                            <label><input type="checkbox" checked x-model="aggregate_sum"> Sum</label>
+                            <label><input type="checkbox" x-model="aggregate_avg"> Average</label>
+                            <label><input type="checkbox" x-model="aggregate_min"> Min</label>
+                            <label><input type="checkbox" x-model="aggregate_max"> Max</label>
+                            <label><input type="checkbox" x-model="aggregate_count"> Count</label>
+                        </div>
+                    </div>
+                </form>
+                <template x-if="loading">
+                    <div class="text-blue-400">Loading report...</div>
+                </template>
+                <h2 class="text-xl font-semibold text-blue-900 mb-4" x-text="`Transactions Report: ${period_start} to ${period_end}`"></h2>
+                <template x-if="!loading && report && report.data && report.data.length">
+                    <div class="overflow-x-auto w-full">
+                        <table class="min-w-full bg-white rounded-xl text-sm">
+                            <thead>
+                                <tr>
+                                    <template x-for="(label, key) in columns" :key="key">
+                                        <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200" x-text="label"></th>
+                                    </template>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template x-for="(row, rowIndex) in report.data" :key="rowIndex">
+                                    <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
+                                        <template x-for="(label, key) in columns" :key="key">
+                                            <td class="px-4 py-2 whitespace-nowrap" :class="['Total','Average','Min','Max'].includes(key) && Number(row[key]) < 0 ? 'text-red-500' : 'text-blue-900'">
+                                                <template x-if="['Total','Average','Min','Max','Count'].includes(key)">
+                                                    <span x-text="Number(row[key] ?? 0).toFixed(2)"></span>
+                                                </template>
+                                                <template x-if="!['Total','Average','Min','Max','Count'].includes(key)">
+                                                    <span x-text="row[key] ?? '-'"></span>
+                                                </template>
+                                            </td>
                                         </template>
-                                        <template x-if="!['Total','Average','Min','Max','Count'].includes(key)">
-                                            <span x-text="row[key] ?? '-'"></span>
-                                        </template>
-                                    </td>
+                                    </tr>
                                 </template>
-                            </tr>
-                        </template>
-                    </tbody>
-                </table>
+                            </tbody>
+                        </table>
+                    </div>
+                </template>
+                <template x-if="!loading && (!report || !report.data || !report.data.length)">
+                    <p class="text-blue-400">No report data available for this period.</p>
+                </template>
             </div>
-        </template>
-        <template x-if="!loading && (!report || !report.data || !report.data.length)">
-            <p class="text-blue-400">No report data available for this period.</p>
-        </template>
+        </div>
     </div>
     <script>
         function reportApp() {
             return {
+                // ...existing code...
+                setPrebuilt(type) {
+                    // Pre-built report presets
+                    const today = new Date();
+                    const yyyy = today.getFullYear();
+                    const mm = String(today.getMonth() + 1).padStart(2, '0');
+                    const firstDay = `${yyyy}-${mm}-01`;
+                    const lastDay = new Date(yyyy, today.getMonth() + 1, 0).toISOString().slice(0, 10);
+                    if (type === 'monthly_income') {
+                        this.period_start = firstDay;
+                        this.period_end = lastDay;
+                        this.grouping = 'monthly';
+                        this.type = 'income';
+                        this.aggregate_sum = true;
+                        this.aggregate_avg = true;
+                        this.aggregate_min = false;
+                        this.aggregate_max = false;
+                        this.aggregate_count = true;
+                    } else if (type === 'monthly_expense') {
+                        this.period_start = firstDay;
+                        this.period_end = lastDay;
+                        this.grouping = 'monthly';
+                        this.type = 'expense';
+                        this.aggregate_sum = true;
+                        this.aggregate_avg = true;
+                        this.aggregate_min = false;
+                        this.aggregate_max = false;
+                        this.aggregate_count = true;
+                    } else if (type === 'quarterly_income') {
+                        this.period_start = `${yyyy}-01-01`;
+                        this.period_end = `${yyyy}-12-31`;
+                        this.grouping = 'quarterly';
+                        this.type = 'income';
+                        this.aggregate_sum = true;
+                        this.aggregate_avg = true;
+                        this.aggregate_min = false;
+                        this.aggregate_max = false;
+                        this.aggregate_count = true;
+                    } else if (type === 'top_categories') {
+                        this.period_start = `${yyyy}-01-01`;
+                        this.period_end = `${yyyy}-12-31`;
+                        this.grouping = 'monthly';
+                        this.type = 'income';
+                        this.aggregate_sum = true;
+                        this.aggregate_count = true;
+                        this.aggregate_avg = false;
+                        this.aggregate_min = false;
+                        this.aggregate_max = false;
+                    } else if (type === 'top_products') {
+                        this.period_start = `${yyyy}-01-01`;
+                        this.period_end = `${yyyy}-12-31`;
+                        this.grouping = 'monthly';
+                        this.type = 'income';
+                        this.aggregate_sum = true;
+                        this.aggregate_count = true;
+                        this.aggregate_avg = false;
+                        this.aggregate_min = false;
+                        this.aggregate_max = false;
+                    } else if (type === 'review_stats') {
+                        this.period_start = `${yyyy}-01-01`;
+                        this.period_end = `${yyyy}-12-31`;
+                        this.grouping = 'monthly';
+                        this.type = 'all';
+                        this.aggregate_sum = false;
+                        this.aggregate_avg = true;
+                        this.aggregate_min = false;
+                        this.aggregate_max = false;
+                        this.aggregate_count = true;
+                    }
+                    this.fetchReport();
+                },
                 period_start: '<?= htmlspecialchars($_GET['period_start'] ?? date('Y-01-01')) ?>',
                 period_end: '<?= htmlspecialchars($_GET['period_end'] ?? date('Y-12-31')) ?>',
                 grouping: '<?= htmlspecialchars($_GET['grouping'] ?? 'monthly') ?>',
