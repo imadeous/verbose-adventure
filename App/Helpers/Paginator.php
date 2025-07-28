@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 class Paginator
+
 {
     public $totalCount;
     public $perPage;
@@ -34,5 +35,17 @@ class Paginator
     public function hasNext()
     {
         return $this->nextPage !== null;
+    }
+
+    public function debugInfo()
+    {
+        return [
+            'totalCount' => $this->totalCount,
+            'perPage' => $this->perPage,
+            'currentPage' => $this->currentPage,
+            'totalPages' => $this->totalPages,
+            'prevPage' => $this->prevPage,
+            'nextPage' => $this->nextPage,
+        ];
     }
 }

@@ -18,6 +18,7 @@
                 </select>
                 <button type="submit" class="ml-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-blue-700 transition">Apply</button>
             </form>
+            <?php var_dump($paginator); ?>
         </div>
         <div class="mb-4">
             <p class="text-sm text-gray-600">Showing page <?= $paginator->currentPage ?> of <?= $paginator->totalPages ?>, total transactions: <?= $paginator->totalCount ?></p>
