@@ -103,7 +103,7 @@
                     const today = new Date();
                     const yyyy = today.getFullYear();
                     const mm = String(today.getMonth() + 1).padStart(2, '0');
-                    const firstDay = `${yyyy}-${mm}-01`;
+                    const firstDay = `${yyyy}-01-01`;
                     const lastDay = new Date(yyyy, today.getMonth() + 1, 0).toISOString().slice(0, 10);
                     if (type === 'monthly_income') {
                         this.period_start = firstDay;
