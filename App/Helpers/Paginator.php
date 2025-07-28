@@ -15,8 +15,8 @@ class Paginator
     {
         $this->totalCount = max(0, (int)$totalCount);
         $this->perPage = max(1, (int)$perPage);
-        $this->totalPages = (int) ceil($this->totalCount / $this->perPage);
-        $this->currentPage = max(1, min((int)$currentPage, $this->totalPages > 0 ? $this->totalPages : 1));
+        $this->totalPages = max(1, (int) ceil($this->totalCount / $this->perPage));
+        $this->currentPage = max(1, min((int)$currentPage, $this->totalPages));
         $this->prevPage = $this->currentPage > 1 ? $this->currentPage - 1 : null;
         $this->nextPage = $this->currentPage < $this->totalPages ? $this->currentPage + 1 : null;
     }
