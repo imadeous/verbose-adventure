@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Admin;
 
+use App\Helpers\Paginator;
 use App\Models\Transaction;
 use Core\AdminControllerBase;
 use Core\Database\ReportBuilder;
@@ -10,18 +11,16 @@ class TransactionController extends AdminControllerBase
 {
     public function index()
     {
-
         // Validate and sanitize pagination parameters
         $page = isset($_GET['page']) && is_numeric($_GET['page']) && (int)$_GET['page'] > 0 ? (int)$_GET['page'] : 1;
         $perPage = isset($_GET['limit']) && is_numeric($_GET['limit']) && (int)$_GET['limit'] > 0 ? (int)$_GET['limit'] : 10;
-        $offset = ($page - 1) * $perPage;
 
         $totalTransactions = Transaction::query()
             ->where('date', '>=', date('Y-m-01'))
             ->where('date', '<=', date('Y-m-t'))
             ->count();
 
-        $totalPages = (int) ceil($totalTransactions / $perPage);
+        $paginator = new Paginator($totalTransactions, $perPage, $page);
 
         $transactions = array_map(
             fn($row) => new Transaction($row),
@@ -29,8 +28,8 @@ class TransactionController extends AdminControllerBase
                 ->where('date', '>=', date('Y-m-01'))
                 ->where('date', '<=', date('Y-m-t'))
                 ->orderBy('created_at', 'desc')
-                ->limit($perPage)
-                ->offset($offset)
+                ->limit($paginator->perPage)
+                ->offset($paginator->offset())
                 ->get()
         );
 
@@ -52,9 +51,7 @@ class TransactionController extends AdminControllerBase
             ['label' => 'Transactions', 'url' => url('/admin/transactions')]
         ];
         $this->view('admin/transactions/index', [
-            'currentLimit' => $perPage,
-            'currentPage' => $page,
-            'totalPages' => $totalPages,
+            'paginator' => $paginator,
             'transactions' => $transactions,
             'dailyReport' => $dailyReport,
             'breadcrumb' => $breadcrumbs

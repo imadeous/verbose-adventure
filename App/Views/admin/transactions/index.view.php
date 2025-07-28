@@ -11,22 +11,22 @@
             <form action="<?= url('admin/transactions') ?>" method="GET" class="flex items-center">
                 <label for="limit" class="mr-2">Show:</label>
                 <select name="limit" id="limit" class="border border-blue-300 rounded-md p-2">
-                    <option value="10" <?= ($currentLimit == 10) ? 'selected' : '' ?>>10</option>
-                    <option value="25" <?= ($currentLimit == 25) ? 'selected' : '' ?>>25</option>
-                    <option value="50" <?= ($currentLimit == 50) ? 'selected' : '' ?>>50</option>
+                    <option value="10" <?= ($paginator->perPage == 10) ? 'selected' : '' ?>>10</option>
+                    <option value="25" <?= ($paginator->perPage == 25) ? 'selected' : '' ?>>25</option>
+                    <option value="50" <?= ($paginator->perPage == 50) ? 'selected' : '' ?>>50</option>
                 </select>
                 <button type="submit" class="ml-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-blue-700 transition">Apply</button>
             </form>
         </div>
         <div class="mb-4">
-            <p class="text-sm text-gray-600">Showing page <?= $currentPage ?> of <?= $totalPages() ?>, total transactions: <?= $transactions->totalCount() ?></p>
+            <p class="text-sm text-gray-600">Showing page <?= $paginator->currentPage ?> of <?= $paginator->totalPages ?>, total transactions: <?= $paginator->totalCount ?></p>
         </div>
         <div class="overflow-x-auto">
             <nav class="mb-4">
                 <ul class="flex space-x-2">
-                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                    <?php for ($i = 1; $i <= $paginator->totalPages; $i++): ?>
                         <li>
-                            <a href=" <?= url('admin/transactions?page=' . $i . '&limit=' . $currentLimit) ?>" class="px-3 py-2 rounded-md text-sm font-medium <?= ($i == $currentPage) ? 'bg-blue-600 text-white' : 'text-blue-700 hover:bg-blue-50' ?>">
+                            <a href="<?= url('admin/transactions?page=' . $i . '&limit=' . $paginator->perPage) ?>" class="px-3 py-2 rounded-md text-sm font-medium <?= ($i == $paginator->currentPage) ? 'bg-blue-600 text-white' : 'text-blue-700 hover:bg-blue-50' ?>">
                                 <?= $i ?>
                             </a>
                         </li>
