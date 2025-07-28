@@ -10,13 +10,12 @@
             <h2 class="text-xl font-semibold text-blue-900 mb-4">Transactions this Month</h2>
             <form action="<?= url('admin/transactions') ?>" method="GET" class="flex items-center">
                 <label for="limit" class="mr-2">Show:</label>
-                <select name="limit" id="limit" class="border border-blue-300 rounded-md p-2">
+                <select name="limit" id="limit" class="border border-blue-300 rounded-md p-2" onchange="this.form.submit()">
                     <option value="5" <?= ($paginator->perPage == 5) ? 'selected' : '' ?>>5</option>
                     <option value="10" <?= ($paginator->perPage == 10) ? 'selected' : '' ?>>10</option>
                     <option value="25" <?= ($paginator->perPage == 25) ? 'selected' : '' ?>>25</option>
                     <option value="50" <?= ($paginator->perPage == 50) ? 'selected' : '' ?>>50</option>
                 </select>
-                <button type="submit" class="ml-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-blue-700 transition">Apply</button>
             </form>
         </div>
 
