@@ -42,7 +42,7 @@
         <template x-if="loading">
             <div class="text-blue-400">Loading report...</div>
         </template>
-        <h2 class="text-xl font-semibold text-blue-900 mb-4">Transactions Report</h2>
+        <h2 class="text-xl font-semibold text-blue-900 mb-4" x-text="`Transactions Report: ${period_start} to ${period_end}`"></h2>
         <template x-if="!loading && report && report.data && report.data.length">
             <div class="overflow-x-auto w-full">
                 <table class="min-w-full bg-white rounded-xl text-sm">
