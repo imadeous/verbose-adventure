@@ -3,15 +3,16 @@
         <!-- Sidebar nav for pre-built reports -->
         <nav class="md:w-64 w-full mb-4 md:mb-0">
             <h2 class="text-lg font-semibold text-blue-800 mb-2">Pre-built Reports</h2>
-            <ul class="space-y-2">
-                <li><a href="#" @click.prevent="setPrebuilt('monthly_income')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Monthly Income</a></li>
-                <li><a href="#" @click.prevent="setPrebuilt('monthly_expense')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Monthly Expenses</a></li>
-                <li><a href="#" @click.prevent="setPrebuilt('quarterly_income')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Quarterly Income</a></li>
-                <li><a href="#" @click.prevent="setPrebuilt('quarterly_expense')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Quarterly Expenses</a></li>
-                <li><a href="#" @click.prevent="setPrebuilt('yearly_income')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Yearly Income</a></li>
-                <li><a href="#" @click.prevent="setPrebuilt('yearly_expense')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Yearly Expenses</a></li>
-                <li><a href="#" @click.prevent="setPrebuilt('all_transactions')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">All Transactions</a></li>
-            </ul>
+            <select class="w-full border rounded-lg px-3 py-2 text-blue-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-300" @change="setPrebuilt($event.target.value)">
+                <option value="" disabled selected>Select a report...</option>
+                <option value="monthly_income">Monthly Income</option>
+                <option value="monthly_expense">Monthly Expenses</option>
+                <option value="quarterly_income">Quarterly Income</option>
+                <option value="quarterly_expense">Quarterly Expenses</option>
+                <option value="yearly_income">Yearly Income</option>
+                <option value="yearly_expense">Yearly Expenses</option>
+                <option value="all_transactions">All Transactions</option>
+            </select>
         </nav>
         <div class="flex-1">
             <div class="flex justify-between items-center mb-6">
