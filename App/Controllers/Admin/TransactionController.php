@@ -16,7 +16,7 @@ class TransactionController extends AdminControllerBase
                 ->where('date', '>=', date('Y-m-01')) // Filter for current month
                 ->where('date', '<=', date('Y-m-t')) // Filter for current month
                 ->orderBy('created_at', 'desc')
-                ->limit(20)
+                ->limit(10)
                 ->offset(0) // Adjust offset for pagination
                 ->get()
         );
