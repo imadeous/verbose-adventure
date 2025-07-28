@@ -82,7 +82,7 @@
                 period_start: '<?= htmlspecialchars($_GET['period_start'] ?? date('Y-01-01')) ?>',
                 period_end: '<?= htmlspecialchars($_GET['period_end'] ?? date('Y-12-31')) ?>',
                 grouping: '<?= htmlspecialchars($_GET['grouping'] ?? 'monthly') ?>',
-                type: '<?= htmlspecialchars($_GET['type'] ?? 'all') ?>',
+                type: '<?= htmlspecialchars($_GET['type'] ?? 'income') ?>',
                 aggregate_sum: <?= !empty($_GET['aggregate_sum']) ? 'true' : 'true' ?>,
                 aggregate_avg: <?= !empty($_GET['aggregate_avg']) ? 'true' : 'false' ?>,
                 aggregate_min: <?= !empty($_GET['aggregate_min']) ? 'true' : 'false' ?>,
