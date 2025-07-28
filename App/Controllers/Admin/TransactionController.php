@@ -20,6 +20,8 @@ class TransactionController extends AdminControllerBase
             ->where('date', '<=', date('Y-m-t'))
             ->count();
 
+        var_dump($totalTransactions);
+
         $paginator = new Paginator($totalTransactions, $perPage, $page);
 
         $transactions = array_map(
