@@ -79,7 +79,7 @@
     <script>
         function reportApp() {
             return {
-                period_start: '<?= htmlspecialchars($_GET['period_start'] ?? date('Y-m-01')) ?>',
+                period_start: '<?= htmlspecialchars($_GET['period_start'] ?? date('Y-m-d')) ?>',
                 period_end: '<?= htmlspecialchars($_GET['period_end'] ?? date('Y-m-t')) ?>',
                 grouping: '<?= htmlspecialchars($_GET['grouping'] ?? 'daily') ?>',
                 type: '<?= htmlspecialchars($_GET['type'] ?? 'all') ?>',
