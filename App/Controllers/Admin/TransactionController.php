@@ -10,14 +10,25 @@ class TransactionController extends AdminControllerBase
 {
     public function index()
     {
+        if (isset($_GET['limit']) && is_numeric($_GET['limit'])) {
+            $limit = (int)$_GET['limit'];
+        } else {
+            $limit = 10; // Default to 10
+        }
+
+        if (isset($_GET['page']) && is_numeric($_GET['page'])) {
+            $page = (int)$_GET['page'];
+        } else {
+            $page = 1; // Default to page 1
+        }
         $transactions = array_map(
             fn($row) => new Transaction($row),
             Transaction::query()
                 ->where('date', '>=', date('Y-m-01')) // Filter for current month
                 ->where('date', '<=', date('Y-m-t')) // Filter for current month
                 ->orderBy('created_at', 'desc')
-                ->limit(10)
-                ->offset(0) // Adjust offset for pagination
+                ->limit($limit)
+                ->offset(($page - 1) * $limit) // Adjust offset for pagination
                 ->get()
         );
 

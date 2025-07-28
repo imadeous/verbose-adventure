@@ -6,7 +6,18 @@
         <?php endif; ?>
     </div>
     <div class="mt-8 bg-white rounded-xl shadow-md p-6">
-        <h2 class="text-xl font-semibold text-blue-900 mb-4">Transactions this Month</h2>
+        <div class="flex justify-between items-center">
+            <h2 class="text-xl font-semibold text-blue-900 mb-4">Transactions this Month</h2>
+            <form action="<?= url('admin/transactions') ?>" method="GET" class="flex items-center">
+                <label for="limit" class="mr-2">Show:</label>
+                <select name="limit" id="limit" class="border border-blue-300 rounded-md p-2">
+                    <option value="10" <?= ($currentLimit == 10) ? 'selected' : '' ?>>10</option>
+                    <option value="25" <?= ($currentLimit == 25) ? 'selected' : '' ?>>25</option>
+                    <option value="50" <?= ($currentLimit == 50) ? 'selected' : '' ?>>50</option>
+                </select>
+                <button type="submit" class="ml-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-blue-700 transition">Apply</button>
+            </form>
+        </div>
         <table class="min-w-full bg-white rounded-xl text-sm">
             <thead>
                 <tr>
