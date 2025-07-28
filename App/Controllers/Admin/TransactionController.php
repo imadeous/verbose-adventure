@@ -33,18 +33,6 @@ class TransactionController extends AdminControllerBase
                 ->get()
         );
 
-        $dailyReport = ReportBuilder::build('transactions', 'date')
-            ->forPeriod(date('Y-m-01'), date('Y-m-t')) // Aggregate for current month
-            ->daily()
-            // ->where('type', '=', 'expense') // Only include expenses
-            // ->withEmptyNodes(true)
-            ->withSum('amount', 'Total')
-            ->withMax('amount', 'Max')
-            ->withMin('amount', 'Min')
-            ->withAverage('amount', 'Average')
-            ->withCount('*', 'Count')
-            ->generate('Daily Transactions Report', true);
-
         $this->view->layout('admin');
         $breadcrumbs = [
             ['label' => 'Dashboard', 'url' => url('/admin')],
@@ -53,7 +41,6 @@ class TransactionController extends AdminControllerBase
         $this->view('admin/transactions/index', [
             'paginator' => $paginator,
             'transactions' => $transactions,
-            'dailyReport' => $dailyReport,
             'breadcrumb' => $breadcrumbs
         ]);
     }
