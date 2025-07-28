@@ -60,7 +60,7 @@
                 <?php endif; ?>
             </tbody>
         </table>
-        <div class="flex flex-col items-end justify-center w-full mt-4">
+        <div class="flex items-center justify-between w-full mt-4">
             <div class="mb-4">
                 <p class="text-sm text-gray-600">Showing page <?= $paginator->currentPage ?> of <?= $paginator->totalPages ?>, total transactions: <?= $paginator->totalCount ?></p>
             </div>
