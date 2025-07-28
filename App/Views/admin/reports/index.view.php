@@ -4,21 +4,15 @@
         <nav class="md:w-64 w-full mb-4 md:mb-0">
             <h2 class="text-lg font-semibold text-blue-800 mb-2">Pre-built Reports</h2>
             <ul class="space-y-2">
-                <li>
-                    <a href="#" @click.prevent="setPrebuilt('monthly_income')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Monthly Income</a>
-                </li>
-                <li>
-                    <a href="#" @click.prevent="setPrebuilt('monthly_expense')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Monthly Expenses</a>
-                </li>
-                <li>
-                    <a href="#" @click.prevent="setPrebuilt('quarterly_income')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Quarterly Income</a>
-                </li>
-                <li>
-                    <a href="#" @click.prevent="setPrebuilt('top_categories')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Top Categories</a>
-                </li>
-                <li>
-                    <a href="#" @click.prevent="setPrebuilt('top_products')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Top Products</a>
-                </li>
+                <li><a href="#" @click.prevent="setPrebuilt('monthly_income')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Monthly Income</a></li>
+                <li><a href="#" @click.prevent="setPrebuilt('monthly_expense')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Monthly Expenses</a></li>
+                <li><a href="#" @click.prevent="setPrebuilt('quarterly_income')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Quarterly Income</a></li>
+                <li><a href="#" @click.prevent="setPrebuilt('yearly_income')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Yearly Income</a></li>
+                <li><a href="#" @click.prevent="setPrebuilt('yearly_expense')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Yearly Expenses</a></li>
+                <li><a href="#" @click.prevent="setPrebuilt('top_income_categories')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Top Income Categories</a></li>
+                <li><a href="#" @click.prevent="setPrebuilt('top_expense_categories')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Top Expense Categories</a></li>
+                <li><a href="#" @click.prevent="setPrebuilt('top_products')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">Top Products</a></li>
+                <li><a href="#" @click.prevent="setPrebuilt('all_transactions')" class="block px-4 py-2 rounded hover:bg-blue-100 text-blue-900">All Transactions</a></li>
             </ul>
         </nav>
         <div class="flex-1">
@@ -142,11 +136,41 @@
                         this.aggregate_min = false;
                         this.aggregate_max = false;
                         this.aggregate_count = true;
-                    } else if (type === 'top_categories') {
+                    } else if (type === 'yearly_income') {
+                        this.period_start = `${yyyy}-01-01`;
+                        this.period_end = `${yyyy}-12-31`;
+                        this.grouping = 'yearly';
+                        this.type = 'income';
+                        this.aggregate_sum = true;
+                        this.aggregate_avg = true;
+                        this.aggregate_min = false;
+                        this.aggregate_max = false;
+                        this.aggregate_count = true;
+                    } else if (type === 'yearly_expense') {
+                        this.period_start = `${yyyy}-01-01`;
+                        this.period_end = `${yyyy}-12-31`;
+                        this.grouping = 'yearly';
+                        this.type = 'expense';
+                        this.aggregate_sum = true;
+                        this.aggregate_avg = true;
+                        this.aggregate_min = false;
+                        this.aggregate_max = false;
+                        this.aggregate_count = true;
+                    } else if (type === 'top_income_categories') {
                         this.period_start = `${yyyy}-01-01`;
                         this.period_end = `${yyyy}-12-31`;
                         this.grouping = 'monthly';
                         this.type = 'income';
+                        this.aggregate_sum = true;
+                        this.aggregate_count = true;
+                        this.aggregate_avg = false;
+                        this.aggregate_min = false;
+                        this.aggregate_max = false;
+                    } else if (type === 'top_expense_categories') {
+                        this.period_start = `${yyyy}-01-01`;
+                        this.period_end = `${yyyy}-12-31`;
+                        this.grouping = 'monthly';
+                        this.type = 'expense';
                         this.aggregate_sum = true;
                         this.aggregate_count = true;
                         this.aggregate_avg = false;
@@ -162,6 +186,16 @@
                         this.aggregate_avg = false;
                         this.aggregate_min = false;
                         this.aggregate_max = false;
+                    } else if (type === 'all_transactions') {
+                        this.period_start = `${yyyy}-01-01`;
+                        this.period_end = `${yyyy}-12-31`;
+                        this.grouping = 'monthly';
+                        this.type = 'all';
+                        this.aggregate_sum = true;
+                        this.aggregate_avg = true;
+                        this.aggregate_min = true;
+                        this.aggregate_max = true;
+                        this.aggregate_count = true;
                     }
                     this.fetchReport();
                 },
