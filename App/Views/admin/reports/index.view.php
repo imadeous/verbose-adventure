@@ -79,11 +79,11 @@
     <script>
         function reportApp() {
             return {
-                period_start: '<?= htmlspecialchars($_GET['period_start'] ?? date('Y-m-d')) ?>',
-                period_end: '<?= htmlspecialchars($_GET['period_end'] ?? date('Y-m-t')) ?>',
-                grouping: '<?= htmlspecialchars($_GET['grouping'] ?? 'daily') ?>',
+                period_start: '<?= htmlspecialchars($_GET['period_start'] ?? date('Y-01-01')) ?>',
+                period_end: '<?= htmlspecialchars($_GET['period_end'] ?? date('Y-12-31')) ?>',
+                grouping: '<?= htmlspecialchars($_GET['grouping'] ?? 'monthly') ?>',
                 type: '<?= htmlspecialchars($_GET['type'] ?? 'all') ?>',
-                aggregate_sum: <?= !empty($_GET['aggregate_sum']) ? 'true' : 'false' ?>,
+                aggregate_sum: <?= !empty($_GET['aggregate_sum']) ? 'true' : 'true' ?>,
                 aggregate_avg: <?= !empty($_GET['aggregate_avg']) ? 'true' : 'false' ?>,
                 aggregate_min: <?= !empty($_GET['aggregate_min']) ? 'true' : 'false' ?>,
                 aggregate_max: <?= !empty($_GET['aggregate_max']) ? 'true' : 'false' ?>,
