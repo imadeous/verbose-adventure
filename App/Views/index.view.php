@@ -121,7 +121,7 @@
                     <div class="relative w-full h-64 md:h-80 overflow-hidden">
                         <template x-for="(img, i) in images" :key="i">
                             <img :src="img.src" alt="gallery"
-                                class="w-3/4 md:w-2/3 h-64 md:h-80 object-cover object-center absolute top-0 transition-transform transition-opacity duration-500"
+                                class="w-3/4 md:w-2/3 h-64 md:h-80 object-cover object-center absolute top-0 transition-transform duration-500"
                                 :class="{
                                     // Current image
                                     'left-1/2 -translate-x-1/2 z-20 opacity-100 scale-100': current === i,
