@@ -158,9 +158,9 @@ class ReportBuilder extends QueryBuilder
                     if (count($numericKeys) === 2) break;
                 }
             }
-            if (count($numericKeys) >= 2) {
+            if (count($numericKeys) >= 1) {
                 $total = array_sum(array_column($results, $numericKeys[0]));
-                $count = array_sum(array_column($results, $numericKeys[1]));
+                $count = count(array_column($results, $numericKeys[0]));
                 $summary['Report Total'] = $total;
                 $summary['Report Count'] = $count;
                 $summary['Report Average'] = $count ? $total / $count : 0;
