@@ -225,17 +225,16 @@ class AdminController extends AdminControllerBase
     public function debug()
     {
         // Mixed bar-line chart with dynamic data and auto y-axis assignment
-        $query =  $reviewsReport = ChartBuilder::build('reviews', 'created_at')
-            ->forPeriod(date('2020-01-01'), date('Y-m-t'))
-            ->withAverage('quality_rating', 'Quality')
-            ->withAverage('pricing_rating', 'Pricing')
-            ->withAverage('communication_rating', 'Communication')
-            ->withAverage('packaging_rating', 'Packaging')
-            ->withAverage('delivery_rating', 'Delivery')
-            ->radar();
+        $query =  ReportBuilder::build('transactions', 'date')
+            ->forPeriod(date('Y-01-01'), date('Y-m-d'))
+            ->monthly()
+            ->where('type', '=', 'income')
+            ->withSum('amount', 'Revenue')
+            ->withCount('*', 'Orders')
+            ->withTotal('amount', 'Total Amount');
 
         $vars = [
-            'products' => $query->toJson()
+            'products' => $query->generate(),
         ];
         // Debugging method to inspect variables
         $this->view->layout('admin');

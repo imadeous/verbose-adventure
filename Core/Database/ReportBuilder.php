@@ -153,6 +153,26 @@ class ReportBuilder extends QueryBuilder
             }
         }
 
+        // If 'Total' is present in columnAliases, append a summary row
+        if (isset($this->columnAliases['Total']) && !empty($results)) {
+            $totalRow = [];
+            // Copy period columns as blank or label
+            foreach ($this->columnAliases as $key => $label) {
+                if (strpos($key, 'period_') === 0) {
+                    $totalRow[$key] = ($key === array_key_first($this->columnAliases)) ? 'Total' : '';
+                } elseif ($key === 'Total') {
+                    // Sum the 'Total' column
+                    $totalRow[$key] = array_sum(array_column($results, $key));
+                } elseif (in_array($key, ['Average', 'Min', 'Max', 'Count'])) {
+                    // For other aggregates, leave blank or calculate as needed
+                    $totalRow[$key] = '';
+                } else {
+                    $totalRow[$key] = '';
+                }
+            }
+            $results[] = $totalRow;
+        }
+
         return [
             'title' => $this->reportTitle,
             'caption' => $autoCaption,
@@ -220,6 +240,19 @@ class ReportBuilder extends QueryBuilder
         $alias = $alias ?? "sum_{$column}";
         $this->aggregates[] = "SUM(`{$column}`) AS `{$alias}`";
         $this->columnAliases[$alias] = ucwords(str_replace('_', ' ', $alias));
+        return $this;
+    }
+
+    /**
+     * Add a SUM aggregate for a column with alias 'Total'.
+     *
+     * @param string $column
+     * @return static
+     */
+    public function withTotal(string $column): static
+    {
+        $this->aggregates[] = "SUM(`{$column}`) AS `Total`";
+        $this->columnAliases['Total'] = 'Total';
         return $this;
     }
 
