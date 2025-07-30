@@ -227,7 +227,7 @@ class AdminController extends AdminControllerBase
     {
         // Mixed bar-line chart with dynamic data and auto y-axis assignment
         $query =   $productTransactions = ReportBuilder::build('transactions', 'date')
-            ->where('type', '=', 'product')
+            ->where('type', '=', 'income')
             ->with('description')
             ->where('description', '=', 'DHC-6 300 Twin Otter Seaplane')
             ->withSum('amount', 'Total Revenue')
