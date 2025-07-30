@@ -19,14 +19,14 @@
             </form>
         </div>
 
-        <table class="min-w-full bg-white rounded-xl text-sm">
+        <table class="min-w-full bg-white rounded-xl text-sm overflow-x-auto">
             <thead>
                 <tr>
                     <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Date</th>
                     <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Amount</th>
-                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Category</th>
-                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Quote ID</th>
-                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Promo Code ID</th>
+                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200 hidden md:table-cell">Category</th>
+                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200 hidden md:table-cell">Quote ID</th>
+                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200 hidden md:table-cell">Promo Code ID</th>
                     <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200 hidden">Actions</th>
                 </tr>
             </thead>
@@ -42,15 +42,15 @@
                             <td class="px-4 py-2 whitespace-nowrap font-semibold <?= ($transaction->type ?? '') === 'income' ? 'text-green-600' : 'text-red-600'; ?>">
                                 <?= htmlspecialchars($transaction->amount ?? '-') ?>
                             </td>
-                            <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction->category_name ?? '-') ?></td>
-                            <td class="px-4 py-2 whitespace-nowrap">
+                            <td class="px-4 py-2 whitespace-nowrap hidden md:table-cell"><?= htmlspecialchars($transaction->category_name ?? '-') ?></td>
+                            <td class="px-4 py-2 whitespace-nowrap hidden md:table-cell">
                                 <?php if (!empty($transaction->quote_id)): ?>
                                     <a href="<?= url('admin/quotes/' . $transaction->quote_id) ?>"><?= htmlspecialchars($transaction->quote_id) ?></a>
                                 <?php else: ?>
                                     -
                                 <?php endif; ?>
                             </td>
-                            <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction->promo_code_id ?? '-') ?></td>
+                            <td class="px-4 py-2 whitespace-nowrap hidden md:table-cell"><?= htmlspecialchars($transaction->promo_code_id ?? '-') ?></td>
                             <td class="px-4 py-2 whitespace-nowrap hidden">
                                 <a href="<?= url('admin/transactions/show/' . $transaction->id) ?>" class="text-blue-600 hover:underline">View</a>
                             </td>
