@@ -153,6 +153,27 @@ class ReportBuilder extends QueryBuilder
             }
         }
 
+        // Add summary row if enabled
+        $summary = [];
+        if ($this->withSummary && !empty($results)) {
+            // Find the first numeric aggregate column (skip period columns)
+            $numericKey = null;
+            foreach ($this->columnAliases as $key => $label) {
+                if (strpos($key, 'period_') === 0) continue;
+                // Check if the column is numeric in the first row
+                if (isset($results[0][$key]) && is_numeric($results[0][$key])) {
+                    $numericKey = $key;
+                    break;
+                }
+            }
+            if ($numericKey) {
+                $values = array_column($results, $numericKey);
+                $summary['Report Total'] = array_sum($values);
+                $summary['Report Average'] = count($values) ? array_sum($values) / count($values) : 0;
+                $summary['Report Count'] = count($values);
+            }
+        }
+
         return [
             'title' => $this->reportTitle,
             'caption' => $autoCaption,
@@ -162,6 +183,7 @@ class ReportBuilder extends QueryBuilder
             ],
             'columns' => $this->columnAliases,
             'data' => $results,
+            'summary' => $summary,
         ];
     }
     // -------
@@ -311,6 +333,22 @@ class ReportBuilder extends QueryBuilder
             $this->aggregates[] = "`$col`";
             $this->columnAliases[$col] = ucwords(str_replace('_', ' ', $col));
         }
+        return $this;
+    }
+
+    /**
+     * Enable summary row with Report Total, Report Average, and Report Count.
+     * @var bool
+     */
+    protected bool $withSummary = false;
+
+    /**
+     * Call to add summary row (Report Total, Report Average, Report Count) for the first numeric aggregate column.
+     * @return static
+     */
+    public function withSummary(): static
+    {
+        $this->withSummary = true;
         return $this;
     }
 
