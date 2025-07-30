@@ -15,8 +15,6 @@
                 <div class="p-2 flex-1 flex flex-col justify-between">
                     <div class="font-semibold text-blue-900 text-xs truncate mb-1"><?= $image['title'] ?></div>
                     <div class="flex gap-1 mt-auto">
-                        <a href="#" class="bg-blue-100 text-blue-700 hover:bg-blue-200 border border-blue-200 rounded px-2 py-0.5 font-semibold transition shadow-sm text-[10px]">View</a>
-                        <a href="#" class="bg-blue-100 text-blue-700 hover:bg-blue-200 border border-blue-200 rounded px-2 py-0.5 font-semibold transition shadow-sm text-[10px]">Edit</a>
                         <button class="bg-red-100 text-red-700 hover:bg-red-200 border border-red-200 rounded px-2 py-0.5 font-semibold transition shadow-sm text-[10px]">Delete</button>
                     </div>
                 </div>
