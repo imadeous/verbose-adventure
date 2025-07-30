@@ -39,9 +39,10 @@ class ProductsController extends AdminControllerBase
         $reviews = $product ? $product->getReviews($id) : [];
         $gallery = Product::getImages($id);
         $productTransactions = ReportBuilder::build('transactions', 'date')
-            ->where('type', '=', 'product')
+            ->where('type', '=', 'income')
+            ->where('description', 'LIKE', '%DHC-6 TWIN OTTER%')
             ->with('description')
-            ->where('description', 'LIKE', '%' . $product->name . '%')
+            ->withSummary()
             ->withSum('amount', 'Total Revenue')
             ->withCount('*', 'Total Orders')
             ->generate()['data'][0] ?? [];
