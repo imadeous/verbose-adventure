@@ -168,9 +168,10 @@ class ReportBuilder extends QueryBuilder
             }
             if ($numericKey) {
                 $values = array_column($results, $numericKey);
-                $summary['Report Total'] = array_sum($values);
-                $summary['Report Average'] = count($values) ? array_sum($values) / count($values) : 0;
-                $summary['Report Count'] = count($values);
+                $total = array_sum($values);
+                $summary['Report Total'] = $total;
+                $summary['Report Average'] = count($values) ? $total / count($values) : 0;
+                $summary['Report Count'] = $total;
             }
         }
 
