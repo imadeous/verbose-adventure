@@ -20,11 +20,6 @@
                 </nav>
             </div>
             <div class="bg-white rounded-xl shadow-md p-6">
-                <div class="flex justify-end mb-4">
-                    <button id="export-pdf-btn" type="button" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-red-700 transition">
-                        Export to PDF
-                    </button>
-                </div>
                 <form @change="fetchReport" class="mb-6 flex flex-wrap gap-4 items-end">
                     <div>
                         <label for="period_start" class="block text-sm font-medium text-blue-900">Period Start</label>
