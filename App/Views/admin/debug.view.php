@@ -21,10 +21,3 @@ var_dump($vars);
     </div>
 
 </div>
-<canvas id="quarterlyReportChart" class="w-full h-96"></canvas>
-<script>
-    // Quarterly Report Bar Chart
-    const ctx2 = document.getElementById('quarterlyReportChart').getContext('2d');
-    const quarterlyReportChartConfig = JSON.parse(`<?php echo addslashes($vars['products']); ?>`);
-    new Chart(ctx2, quarterlyReportChartConfig);
-</script>
