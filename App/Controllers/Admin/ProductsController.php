@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Gallery;
 use App\Models\Review;
+use Core\Database\ReportBuilder;
 
 class ProductsController extends AdminControllerBase
 {
@@ -37,10 +38,13 @@ class ProductsController extends AdminControllerBase
         }
         $reviews = $product ? $product->getReviews($id) : [];
         $gallery = Product::getImages($id);
-        $productTransactions = QueryBuilder::table('transactions')
-            ->where('description', '=', $product->name)
+        $productTransactions = ReportBuilder::build('transactions', 'date')
             ->where('type', '=', 'product')
-            ->get();
+            ->with('description')
+            ->where('description', '=', $product->name)
+            ->withSum('amount', 'Total Revenue')
+            ->with('count', '*', 'Total Orders')
+            ->generate()['data'] ?? [];
         $breadcrumbs = [
             ['label' => 'Dashboard', 'url' => '/admin'],
             ['label' => 'Products', 'url' => '/admin/products'],
