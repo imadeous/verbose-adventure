@@ -43,7 +43,7 @@ class ProductsController extends AdminControllerBase
             ->with('description')
             ->where('description', '=', $product->name)
             ->withSum('amount', 'Total Revenue')
-            ->with('count', '*', 'Total Orders')
+            ->withCount('*', 'Total Orders')
             ->generate()['data'] ?? [];
         $breadcrumbs = [
             ['label' => 'Dashboard', 'url' => '/admin'],
