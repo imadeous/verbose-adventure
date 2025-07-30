@@ -230,8 +230,7 @@ class AdminController extends AdminControllerBase
             ->monthly()
             ->where('type', '=', 'income')
             ->withSum('amount', 'Revenue')
-            ->withCount('*', 'Orders')
-            ->withTotal('amount', 'Total Amount');
+            ->withCount('*', 'Orders');
 
         $vars = [
             'report' => $query->generate(),

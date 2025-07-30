@@ -153,40 +153,6 @@ class ReportBuilder extends QueryBuilder
             }
         }
 
-        // If 'Total' is present in columnAliases, prepare a summary array and remove duplicate 'Total' from data rows if it matches another aggregate
-        $summary = [];
-        if (isset($this->columnAliases['Total']) && !empty($results)) {
-            $summary['Total'] = array_sum(array_column($results, 'Total'));
-            // Remove 'Total' from each row if it is a duplicate of another aggregate (e.g., Revenue)
-            // Find which column is duplicated
-            $duplicateKey = null;
-            foreach ($this->columnAliases as $key => $label) {
-                if ($key !== 'Total' && isset($results[0][$key]) && isset($results[0]['Total'])) {
-                    $allMatch = true;
-                    foreach ($results as $row) {
-                        if (!isset($row[$key], $row['Total'])) {
-                            $allMatch = false;
-                            break;
-                        }
-                        if ((string)$row[$key] !== (string)$row['Total']) {
-                            $allMatch = false;
-                            break;
-                        }
-                    }
-                    if ($allMatch) {
-                        $duplicateKey = $key;
-                        break;
-                    }
-                }
-            }
-            if ($duplicateKey) {
-                foreach ($results as &$row) {
-                    unset($row['Total']);
-                }
-                unset($this->columnAliases['Total']);
-            }
-        }
-
         return [
             'title' => $this->reportTitle,
             'caption' => $autoCaption,
@@ -196,7 +162,6 @@ class ReportBuilder extends QueryBuilder
             ],
             'columns' => $this->columnAliases,
             'data' => $results,
-            'summary' => $summary,
         ];
     }
     // -------
@@ -255,19 +220,6 @@ class ReportBuilder extends QueryBuilder
         $alias = $alias ?? "sum_{$column}";
         $this->aggregates[] = "SUM(`{$column}`) AS `{$alias}`";
         $this->columnAliases[$alias] = ucwords(str_replace('_', ' ', $alias));
-        return $this;
-    }
-
-    /**
-     * Add a SUM aggregate for a column with alias 'Total'.
-     *
-     * @param string $column
-     * @return static
-     */
-    public function withTotal(string $column): static
-    {
-        $this->aggregates[] = "SUM(`{$column}`) AS `Total`";
-        $this->columnAliases['Total'] = 'Total';
         return $this;
     }
 
