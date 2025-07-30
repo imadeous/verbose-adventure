@@ -38,7 +38,7 @@ class ProductsController extends AdminControllerBase
         $reviews = $product ? $product->getReviews($id) : [];
         $gallery = Product::getImages($id);
         $productTransactionsCount = QueryBuilder::table('transactions')
-            ->where('related_id', '=', $id)
+            ->where('description', '=', $product->name)
             ->where('type', '=', 'product')
             ->count('*');
         $breadcrumbs = [
