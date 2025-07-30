@@ -106,6 +106,7 @@
                 <template x-if="!loading && (!report || !report.data || !report.data.length)">
                     <p class="text-blue-400">No report data available for this period.</p>
                 </template>
+                <pre x-text="JSON.stringify(report.summary, null, 2)"></pre>
             </div>
         </div>
     </div>
