@@ -234,7 +234,7 @@ class AdminController extends AdminControllerBase
             ->withTotal('amount', 'Total Amount');
 
         $vars = [
-            'products' => $query->generate(),
+            'report' => $query->generate(),
         ];
         // Debugging method to inspect variables
         $this->view->layout('admin');
