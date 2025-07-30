@@ -41,7 +41,7 @@ class ProductsController extends AdminControllerBase
         $productTransactions = ReportBuilder::build('transactions', 'date')
             ->where('type', '=', 'product')
             ->with('description')
-            ->where('description', 'LIKE', '%' . addslashes($product->name) . '%')
+            ->where('description', 'LIKE', '%' . $product->name . '%')
             ->withSum('amount', 'Total Revenue')
             ->withCount('*', 'Total Orders')
             ->generate()['data'][0] ?? [];
