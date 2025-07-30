@@ -156,22 +156,27 @@ class ReportBuilder extends QueryBuilder
         // Add summary row if enabled
         $summary = [];
         if ($this->withSummary && !empty($results)) {
-            // Find the first numeric aggregate column (skip period columns)
-            $numericKey = null;
+            // Find the first two numeric aggregate columns (skip period columns)
+            $numericKeys = [];
             foreach ($this->columnAliases as $key => $label) {
                 if (strpos($key, 'period_') === 0) continue;
-                // Check if the column is numeric in the first row
                 if (isset($results[0][$key]) && is_numeric($results[0][$key])) {
-                    $numericKey = $key;
-                    break;
+                    $numericKeys[] = $key;
+                    if (count($numericKeys) === 2) break;
                 }
             }
-            if ($numericKey) {
-                $values = array_column($results, $numericKey);
+            if (count($numericKeys) >= 2) {
+                $total = array_sum(array_column($results, $numericKeys[0]));
+                $count = array_sum(array_column($results, $numericKeys[1]));
+                $summary['Report Total'] = $total;
+                $summary['Report Count'] = $count;
+                $summary['Report Average'] = $count ? $total / $count : 0;
+            } elseif (count($numericKeys) === 1) {
+                $values = array_column($results, $numericKeys[0]);
                 $total = array_sum($values);
                 $summary['Report Total'] = $total;
-                $summary['Report Average'] = count($values) ? $total / count($values) : 0;
                 $summary['Report Count'] = $total;
+                $summary['Report Average'] = count($values) ? $total / count($values) : 0;
             }
         }
 
