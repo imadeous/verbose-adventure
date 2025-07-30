@@ -128,7 +128,7 @@ use App\Models\Product;
                 </div>
                 <div>
                     <div class="text-xs text-blue-500 font-medium uppercase tracking-wide">Revenue</div>
-                    <div class="text-2xl font-bold text-blue-900">$12,340</div>
+                    <div class="text-2xl font-bold text-blue-900"><?= e($productTransactions['Total Revenue']) ?></div>
                 </div>
             </div>
             <!-- Overall Rating Card -->
