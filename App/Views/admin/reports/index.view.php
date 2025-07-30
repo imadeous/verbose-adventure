@@ -89,7 +89,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <template x-if="show_summary && report.summary && Object.keys(report.summary).length">
+                    <template x-if="show_summary && report.summary">
                         <div class="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4 w-full max-w-lg">
                             <h3 class="font-semibold text-blue-900 mb-2">Report Summary</h3>
                             <ul>
