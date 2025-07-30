@@ -89,25 +89,6 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="mt-6 w-full max-w-2xl">
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div class="bg-white border border-blue-200 rounded-lg shadow-sm p-4 flex flex-col items-center">
-                                <div class="text-blue-600 text-2xl font-bold mb-1">Σ</div>
-                                <div class="text-2xl font-extrabold text-blue-900 mb-1" x-text="Number(report.summary && report.summary['Report Total'] ? report.summary['Report Total'] : 0).toLocaleString(undefined, {maximumFractionDigits: 2})"></div>
-                                <div class="text-xs uppercase tracking-wide text-blue-700 font-semibold">Total</div>
-                            </div>
-                            <div class="bg-white border border-blue-200 rounded-lg shadow-sm p-4 flex flex-col items-center">
-                                <div class="text-blue-600 text-2xl font-bold mb-1">#</div>
-                                <div class="text-2xl font-extrabold text-blue-900 mb-1" x-text="Number(report.summary && report.summary['Report Count'] ? report.summary['Report Count'] : 0).toLocaleString(undefined, {maximumFractionDigits: 2})"></div>
-                                <div class="text-xs uppercase tracking-wide text-blue-700 font-semibold">Count</div>
-                            </div>
-                            <div class="bg-white border border-blue-200 rounded-lg shadow-sm p-4 flex flex-col items-center">
-                                <div class="text-blue-600 text-2xl font-bold mb-1">⌀</div>
-                                <div class="text-2xl font-extrabold text-blue-900 mb-1" x-text="Number(report.summary && report.summary['Report Average'] ? report.summary['Report Average'] : 0).toLocaleString(undefined, {maximumFractionDigits: 2})"></div>
-                                <div class="text-xs uppercase tracking-wide text-blue-700 font-semibold">Average</div>
-                            </div>
-                        </div>
-                    </div>
                 </template>
                 <template x-if="!loading && (!report || !report.data || !report.data.length)">
                     <p class="text-blue-400">No report data available for this period.</p>
