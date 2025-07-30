@@ -40,7 +40,7 @@ class ProductsController extends AdminControllerBase
         $productTransactionsCount = QueryBuilder::table('transactions')
             ->where('description', '=', $product->name)
             ->where('type', '=', 'product')
-            ->count('*');
+            ->count('*')[0]['count'] ?? 0;
         $breadcrumbs = [
             ['label' => 'Dashboard', 'url' => '/admin'],
             ['label' => 'Products', 'url' => '/admin/products'],
