@@ -14,7 +14,7 @@
         <thead>
             <tr>
                 <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Sender</th>
-                <th class="contacts-table-message-col px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Message</th>
+                <th class="contacts-table-message-col px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200 hidden md:table-cell">Message</th>
                 <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Actions</th>
             </tr>
         </thead>
@@ -30,7 +30,7 @@
                             <div class="font-semibold text-blue-900"><?= e($contact->name) ?></div>
                             <div class="text-blue-500 text-xs"><?= e($contact->email) ?></div>
                         </td>
-                        <td class="px-4 py-2 whitespace-nowrap text-blue-700 <?= is_null($contact->opened_at) ? 'font-semibold' : '' ?>">
+                        <td class="px-4 py-2 whitespace-nowrap text-blue-700 <?= is_null($contact->opened_at) ? 'font-semibold' : '' ?> hidden md:table-cell">
                             <a href="<?= url('admin/contacts/' . $contact->id) ?>" class="block"><?= e(mb_strimwidth($contact->message, 0, 100, '...')) ?></a>
                         </td>
                         <td class="px-4 py-2 whitespace-nowrap flex items-center space-x-2">
