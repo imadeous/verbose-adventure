@@ -231,8 +231,7 @@ class AdminController extends AdminControllerBase
             ->with('description')
             ->where('description', '=', 'DHC-6 300 Twin Otter Seaplane')
             ->withSum('amount', 'Total Revenue')
-            ->withCount('*', 'Total Orders')
-            ->generate()['data'] ?? [];
+            ->withCount('*', 'Total Orders');
 
         $vars = [
             'report' => $query->generate(),
