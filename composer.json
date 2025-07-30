@@ -6,5 +6,8 @@
             "Database\\": "Database/",
             "Helpers\\": "App/Helpers/"
         }
+    },
+    "require": {
+        "dompdf/dompdf": "^3.1"
     }
 }
