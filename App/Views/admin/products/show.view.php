@@ -115,7 +115,7 @@ use App\Models\Product;
                 </div>
                 <div>
                     <div class="text-xs text-blue-500 font-medium uppercase tracking-wide">Orders</div>
-                    <div class="text-2xl font-bold text-blue-900"><?= e($productTransactionsCount) ?></div>
+                    <div class="text-2xl font-bold text-blue-900"><?= e(count($productTransactions)) ?></div>
                 </div>
             </div>
             <!-- Revenue Card -->

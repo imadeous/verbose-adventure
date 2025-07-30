@@ -37,10 +37,10 @@ class ProductsController extends AdminControllerBase
         }
         $reviews = $product ? $product->getReviews($id) : [];
         $gallery = Product::getImages($id);
-        $productTransactionsCount = QueryBuilder::table('transactions')
+        $productTransactions = QueryBuilder::table('transactions')
             ->where('description', '=', $product->name)
             ->where('type', '=', 'product')
-            ->count('*')[0]['count'] ?? 0;
+            ->get();
         $breadcrumbs = [
             ['label' => 'Dashboard', 'url' => '/admin'],
             ['label' => 'Products', 'url' => '/admin/products'],
@@ -48,7 +48,7 @@ class ProductsController extends AdminControllerBase
         ];
         $this->view('admin/products/show', [
             'product' => $product,
-            'productTransactionsCount' => $productTransactionsCount,
+            'productTransactions' => $productTransactions,
             'reviews' => $reviews,
             'gallery' => $gallery,
             'breadcrumb' => $breadcrumbs
