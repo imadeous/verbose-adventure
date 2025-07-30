@@ -229,7 +229,6 @@ class AdminController extends AdminControllerBase
         $query =   $productTransactions = ReportBuilder::build('transactions', 'date')
             ->where('type', '=', 'income')
             ->with('description')
-            ->where('description', '=', 'DHC-6 300 Twin Otter Seaplane')
             ->withSum('amount', 'Total Revenue')
             ->withCount('*', 'Total Orders');
 
