@@ -203,6 +203,7 @@ class AdminController extends AdminControllerBase
         if ($aggMin) $builder->withMin('amount', 'Min');
         if ($aggMax) $builder->withMax('amount', 'Max');
         if ($aggCount) $builder->withCount('*', 'Count');
+        if (!empty($_GET['aggregate_summary'])) $builder->withSummary();
 
         $report = $builder->generate($autoTitle, true);
 

@@ -53,6 +53,7 @@
                             <label><input type="checkbox" x-model="aggregate_min"> Min</label>
                             <label><input type="checkbox" x-model="aggregate_max"> Max</label>
                             <label><input type="checkbox" x-model="aggregate_count"> Count</label>
+                            <label><input type="checkbox" x-model="aggregate_summary"> Summary</label>
                         </div>
                     </div>
                 </form>
@@ -88,6 +89,19 @@
                             </tbody>
                         </table>
                     </div>
+                    <template x-if="report.summary && Object.keys(report.summary).length">
+                        <div class="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4 w-full max-w-lg">
+                            <h3 class="font-semibold text-blue-900 mb-2">Report Summary</h3>
+                            <ul>
+                                <template x-for="(value, key) in report.summary" :key="key">
+                                    <li class="flex justify-between py-1">
+                                        <span class="font-medium text-blue-800" x-text="key.replace('Report ', '')"></span>
+                                        <span class="text-blue-900" x-text="Number(value).toLocaleString(undefined, {maximumFractionDigits: 2})"></span>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </template>
                 </template>
                 <template x-if="!loading && (!report || !report.data || !report.data.length)">
                     <p class="text-blue-400">No report data available for this period.</p>
@@ -213,6 +227,7 @@
                 aggregate_min: <?= !empty($_GET['aggregate_min']) ? 'true' : 'false' ?>,
                 aggregate_max: <?= !empty($_GET['aggregate_max']) ? 'true' : 'false' ?>,
                 aggregate_count: <?= !empty($_GET['aggregate_count']) ? 'true' : 'false' ?>,
+                aggregate_summary: <?= !empty($_GET['aggregate_summary']) ? 'true' : 'false' ?>,
                 groupings: {
                     daily: 'Daily',
                     weekly: 'Weekly',
@@ -238,7 +253,8 @@
                         aggregate_min: this.aggregate_min ? '1' : '',
                         aggregate_max: this.aggregate_max ? '1' : '',
                         aggregate_count: this.aggregate_count ? '1' : '',
-                        ajax: '1' // Add a flag to request JSON only
+                        aggregate_summary: this.aggregate_summary ? '1' : '',
+                        ajax: '1'
                     });
                     fetch(window.location.pathname + '?' + params.toString())
                         .then(r => r.json())
