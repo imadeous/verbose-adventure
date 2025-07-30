@@ -14,7 +14,7 @@ else echo 'No SQL query set.'; ?>
             <pre class="bg-zinc-900 text-yellow-300 p-4 rounded-md whitespace-pre-wrap break-words text-base">
 <?php
 var_dump($vars['report'] ?? 'No report data available.');
-echo mysql_real_escape_string('%DHC-6 300%');
+// echo mysql_real_escape_string('%DHC-6 300%'); // Removed: function not available in modern PHP
 ?>
             </pre>
         </div>
