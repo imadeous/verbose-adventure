@@ -8,8 +8,8 @@
             <thead>
                 <tr>
                     <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Name</th>
-                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Category</th>
-                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Price</th>
+                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200 hidden md:table-cell">Category</th>
+                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200 hidden md:table-cell">Price</th>
                     <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Actions</th>
                 </tr>
             </thead>
@@ -22,8 +22,8 @@
                 <?php foreach ($products as $product): ?>
                     <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
                         <td class="px-4 py-2 whitespace-nowrap font-semibold text-blue-900"><?= e($product->name) ?></td>
-                        <td class="px-4 py-2 whitespace-nowrap text-blue-700"></td>
-                        <td class="px-4 py-2 whitespace-nowrap text-blue-700"><?= e($product->price) ?></td>
+                        <td class="px-4 py-2 whitespace-nowrap text-blue-700 hidden md:table-cell"></td>
+                        <td class="px-4 py-2 whitespace-nowrap text-blue-700 hidden md:table-cell"><?= e($product->price) ?></td>
                         <td class="px-4 py-2 whitespace-nowrap flex items-center space-x-2">
                             <a href="<?= url('admin/products/' . $product->id) ?>" class="bg-blue-100 text-blue-700 hover:bg-blue-200 border border-blue-300 rounded px-2 py-1 flex items-center gap-1 transition shadow-sm" title="Edit">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
