@@ -89,16 +89,26 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4 w-full max-w-lg">
-                        <h3 class="font-semibold text-blue-900 mb-2">Report Summary</h3>
-                        <ul>
+                    <div class="mt-6 w-full max-w-2xl">
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <template x-for="(value, key) in report.summary" :key="key">
-                                <li class="flex justify-between py-1">
-                                    <span class="font-medium text-blue-800" x-text="key.replace('Report ', '')"></span>
-                                    <span class="text-blue-900" x-text="Number(value).toLocaleString(undefined, {maximumFractionDigits: 2})"></span>
-                                </li>
+                                <div class="bg-white border border-blue-200 rounded-lg shadow-sm p-4 flex flex-col items-center">
+                                    <div class="text-blue-600 text-2xl font-bold mb-1">
+                                        <template x-if="key.includes('Total')">
+                                            <span>Σ</span>
+                                        </template>
+                                        <template x-if="key.includes('Average')">
+                                            <span>⌀</span>
+                                        </template>
+                                        <template x-if="key.includes('Count')">
+                                            <span>#</span>
+                                        </template>
+                                    </div>
+                                    <div class="text-2xl font-extrabold text-blue-900 mb-1" x-text="Number(value).toLocaleString(undefined, {maximumFractionDigits: 2})"></div>
+                                    <div class="text-xs uppercase tracking-wide text-blue-700 font-semibold" x-text="key.replace('Report ', '')"></div>
+                                </div>
                             </template>
-                        </ul>
+                        </div>
                     </div>
                 </template>
                 <template x-if="!loading && (!report || !report.data || !report.data.length)">
