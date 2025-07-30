@@ -153,24 +153,10 @@ class ReportBuilder extends QueryBuilder
             }
         }
 
-        // If 'Total' is present in columnAliases, append a summary row
+        // If 'Total' is present in columnAliases, prepare a summary array instead of a summary row in data
+        $summary = [];
         if (isset($this->columnAliases['Total']) && !empty($results)) {
-            $totalRow = [];
-            // Copy period columns as blank or label
-            foreach ($this->columnAliases as $key => $label) {
-                if (strpos($key, 'period_') === 0) {
-                    $totalRow[$key] = ($key === array_key_first($this->columnAliases)) ? 'Total' : '';
-                } elseif ($key === 'Total') {
-                    // Sum the 'Total' column
-                    $totalRow[$key] = array_sum(array_column($results, $key));
-                } elseif (in_array($key, ['Average', 'Min', 'Max', 'Count'])) {
-                    // For other aggregates, leave blank or calculate as needed
-                    $totalRow[$key] = '';
-                } else {
-                    $totalRow[$key] = '';
-                }
-            }
-            $results[] = $totalRow;
+            $summary['Total'] = array_sum(array_column($results, 'Total'));
         }
 
         return [
@@ -182,6 +168,7 @@ class ReportBuilder extends QueryBuilder
             ],
             'columns' => $this->columnAliases,
             'data' => $results,
+            'summary' => $summary,
         ];
     }
     // -------
