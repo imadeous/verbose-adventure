@@ -2,30 +2,25 @@
 
 namespace Core\Database;
 
-// $report = ReportBuilder::build('orders')
-//     ->forPeriod('2024-01-01', '2024-12-31')
-//     ->monthly()
-//     ->groupByUser()
-//     ->withSum('total_amount')
-//     ->withAverage('rating')
-//     ->withCount()
-//     ->setTitle('Monthly Sales Report')
-//     ->generate();
-
 class ReportBuilder extends QueryBuilder
 {
+    // Core report configuration
     protected ?string $startDate = null;
     protected ?string $endDate = null;
-    protected array $aggregates = [];
-    protected array $columnAliases = [];
     protected string $dateColumn = 'date';
-    protected array $periodSelects = [];
     protected ?string $reportTitle = 'Report';
     protected bool $aggregatePeriod = false;
 
+    // Query and output configuration
+    protected array $aggregates = [];
+    protected array $columnAliases = [];
+    protected array $periodSelects = [];
+    protected bool $withEmptyNodes = false;
+    protected bool $withSummary = false;
+
+
     /**
      * ReportBuilder constructor.
-     *
      * @param string $table The table to report on.
      * @param string $dateColumn The date column for period filtering.
      */
@@ -36,10 +31,9 @@ class ReportBuilder extends QueryBuilder
     }
 
     /**
-     * Create a new ReportBuilder instance.
-     *
-     * @param string $table The table to report on.
-     * @param string $dateColumn The date column for period filtering.
+     * Static factory for ReportBuilder.
+     * @param string $table
+     * @param string $dateColumn
      * @return static
      */
     public static function build(string $table, string $dateColumn = 'date'): static
@@ -48,11 +42,10 @@ class ReportBuilder extends QueryBuilder
     }
 
     /**
-     * Generate the report with the specified title and caption.
-     *
-     * @param string|null $title The title of the report.
-     * @param bool $caption Whether to include a caption.
-     * @return array The generated report data.
+     * Generate the report and return structured data.
+     * @param string|null $title
+     * @param bool $caption
+     * @return array
      */
     public function generate(?string $title = null, bool $caption = false)
     {
@@ -344,12 +337,6 @@ class ReportBuilder extends QueryBuilder
 
     /**
      * Enable summary row with Report Total, Report Average, and Report Count.
-     * @var bool
-     */
-    protected bool $withSummary = false;
-
-    /**
-     * Call to add summary row (Report Total, Report Average, Report Count) for the first numeric aggregate column.
      * @return static
      */
     public function withSummary(): static
@@ -435,15 +422,9 @@ class ReportBuilder extends QueryBuilder
         return $this;
     }
 
-    /**********************************************
-     * Add support for empty nodes in period range *
-     **********************************************/
-    protected bool $withEmptyNodes = false;
-
     /**
      * Toggle inclusion of empty nodes (periods with no data).
      * Useful for charting to keep the x-axis continuous.
-     *
      * @param bool $enable
      * @return static
      */
