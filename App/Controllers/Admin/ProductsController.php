@@ -40,7 +40,7 @@ class ProductsController extends AdminControllerBase
         $gallery = Product::getImages($id);
         $productTransactions = ReportBuilder::build('transactions', 'date')
             ->where('type', '=', 'income')
-            ->where('description', 'LIKE', '%' . addslashes($product->name) . '%')
+            ->where('description', 'LIKE', '%' . $product->name . '%')
             ->with('description')
             ->withSummary()
             ->withSum('amount', 'Total Revenue')
