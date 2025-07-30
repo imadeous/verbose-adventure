@@ -5,9 +5,8 @@
                 <h1 class="text-2xl font-bold text-blue-900">Reports</h1>
                 <!-- Sidebar nav for pre-built reports -->
                 <nav class="md:w-64 w-full mb-4 md:mb-0">
-                    <h2 class="text-lg font-semibold text-blue-800 mb-2">Pre-built Reports</h2>
                     <select class="w-full border rounded-lg px-3 py-2 text-blue-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-300" @change="setPrebuilt($event.target.value)">
-                        <option value="" disabled selected>Select a report...</option>
+                        <option value="" disabled selected>Select preset</option>
                         <option value="daily_income">Daily Income</option>
                         <option value="daily_expense">Daily Expenses</option>
                         <option value="monthly_income">Monthly Income</option>
