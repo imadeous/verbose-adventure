@@ -230,6 +230,7 @@ class AdminController extends AdminControllerBase
             ->where('type', '=', 'income')
             ->where('description', 'LIKE', '%DHC-6 300 Twin Otter Seaplane%')
             ->with('description')
+            ->withSummary()
             ->withSum('amount', 'Total Revenue')
             ->withCount('*', 'Total Orders');
 
