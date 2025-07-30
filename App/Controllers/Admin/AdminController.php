@@ -226,13 +226,13 @@ class AdminController extends AdminControllerBase
     public function debug()
     {
         // Mixed bar-line chart with dynamic data and auto y-axis assignment
-        $query =  ReportBuilder::build('transactions', 'date')
-            ->forPeriod(date('Y-01-01'), date('Y-m-d'))
-            ->monthly()
-            ->where('type', '=', 'income')
-            ->withSum('amount', 'Revenue')
-            ->withCount('*', 'Orders')
-            ->withSummary();
+        $query =   $productTransactions = ReportBuilder::build('transactions', 'date')
+            ->where('type', '=', 'product')
+            ->with('description')
+            ->where('description', '=', 'DHC-6 300 Twin Otter Seaplane')
+            ->withSum('amount', 'Total Revenue')
+            ->withCount('*', 'Total Orders')
+            ->generate()['data'] ?? [];
 
         $vars = [
             'report' => $query->generate(),
