@@ -155,7 +155,7 @@ class ReportBuilder extends QueryBuilder
                 if (strpos($key, 'period_') === 0) continue;
                 if (isset($results[0][$key]) && is_numeric($results[0][$key])) {
                     $numericKeys[] = $key;
-                    if (count($numericKeys) === 2) break;
+                    if (count($numericKeys) === 1) break;
                 }
             }
             if (count($numericKeys) >= 1) {
