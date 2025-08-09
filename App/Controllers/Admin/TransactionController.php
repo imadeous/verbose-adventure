@@ -15,19 +15,72 @@ class TransactionController extends AdminControllerBase
         $page = isset($_GET['page']) && is_numeric($_GET['page']) && (int)$_GET['page'] > 0 ? (int)$_GET['page'] : 1;
         $perPage = isset($_GET['limit']) && is_numeric($_GET['limit']) && (int)$_GET['limit'] > 0 ? (int)$_GET['limit'] : 10;
 
-        $totalTransactions = Transaction::query()
-            ->where('date', '>=', date('Y-m-01'))
-            ->where('date', '<=', date('Y-m-t'))
-            ->count()[0]['count'];
+        // Get filter parameters
+        $filters = [
+            'date_from' => $_GET['date_from'] ?? null,
+            'date_to' => $_GET['date_to'] ?? null,
+            'type' => $_GET['type'] ?? null,
+            'category' => $_GET['category'] ?? null,
+            'min_amount' => isset($_GET['min_amount']) && is_numeric($_GET['min_amount']) ? (float)$_GET['min_amount'] : null,
+            'max_amount' => isset($_GET['max_amount']) && is_numeric($_GET['max_amount']) ? (float)$_GET['max_amount'] : null,
+        ];
 
+        // Build the base query with filters
+        $query = Transaction::query();
+
+        // Apply date filters (default to current month if no filters provided)
+        if (!empty($filters['date_from']) || !empty($filters['date_to'])) {
+            if (!empty($filters['date_from'])) {
+                $query->where('date', '>=', $filters['date_from']);
+            }
+            if (!empty($filters['date_to'])) {
+                $query->where('date', '<=', $filters['date_to']);
+            }
+        } else {
+            // Default to current month if no date filters
+            $query->where('date', '>=', date('Y-m-01'))
+                ->where('date', '<=', date('Y-m-t'));
+        }
+
+        // Apply type filter
+        if (!empty($filters['type'])) {
+            $query->where('type', '=', $filters['type']);
+        }
+
+        // Apply category filter (search in category name)
+        if (!empty($filters['category'])) {
+            // Get category IDs that match the search term
+            $categoryQuery = \App\Models\Category::query()
+                ->where('name', 'LIKE', '%' . $filters['category'] . '%')
+                ->get();
+
+            if (!empty($categoryQuery)) {
+                // For simplicity, just use the first matching category
+                // In a more advanced implementation, you could build a more complex query
+                $categoryId = $categoryQuery[0]['id'];
+                $query->where('category_id', '=', $categoryId);
+            } else {
+                // No matching categories found, return empty result
+                $query->where('id', '=', -1); // Force no results
+            }
+        }
+
+        // Apply amount range filters
+        if ($filters['min_amount'] !== null) {
+            $query->where('amount', '>=', $filters['min_amount']);
+        }
+        if ($filters['max_amount'] !== null) {
+            $query->where('amount', '<=', $filters['max_amount']);
+        }
+
+        // Get total count for pagination
+        $totalTransactions = $query->count()[0]['count'];
         $paginator = new Paginator($totalTransactions, $perPage, $page);
 
+        // Get transactions with pagination
         $transactions = array_map(
             fn($row) => new Transaction($row),
-            Transaction::query()
-                ->where('date', '>=', date('Y-m-01'))
-                ->where('date', '<=', date('Y-m-t'))
-                ->orderBy('created_at', 'desc')
+            $query->orderBy('created_at', 'desc')
                 ->limit($paginator->perPage)
                 ->offset($paginator->offset())
                 ->get()
