@@ -43,4 +43,64 @@ class QuotesController extends AdminControllerBase
         header('Location: ' . url('admin/quotes'));
         exit;
     }
+
+    public function bulkAction()
+    {
+        $action = $_POST['action'] ?? '';
+        $quoteIds = $_POST['quote_ids'] ?? '';
+
+        if (empty($action) || empty($quoteIds)) {
+            header('Location: ' . url('admin/quotes'));
+            exit;
+        }
+
+        $ids = array_filter(array_map('intval', explode(',', $quoteIds)));
+
+        if (empty($ids)) {
+            header('Location: ' . url('admin/quotes'));
+            exit;
+        }
+
+        switch ($action) {
+            case 'delete':
+                $this->bulkDelete($ids);
+                break;
+            case 'mark_read':
+                $this->bulkMarkAsRead($ids);
+                break;
+        }
+
+        header('Location: ' . url('admin/quotes'));
+        exit;
+    }
+
+    private function bulkDelete($ids)
+    {
+        foreach ($ids as $id) {
+            $quote = Quote::find($id);
+            if ($quote) {
+                $quote->delete();
+            }
+        }
+
+        // Set success message
+        $_SESSION['flash_message'] = 'Selected quotes have been deleted successfully.';
+        $_SESSION['flash_type'] = 'success';
+    }
+
+    private function bulkMarkAsRead($ids)
+    {
+        foreach ($ids as $id) {
+            $quote = Quote::find($id);
+            if ($quote) {
+                // Assuming there's a 'read_at' or 'status' field to mark as read
+                // Update this based on your actual Quote model structure
+                $quote->update(['status' => 'read']);
+            }
+        }
+
+        // Set success message
+        $_SESSION['flash_message'] = 'Selected quotes have been marked as read.';
+        $_SESSION['flash_type'] = 'success';
+    }
 }

@@ -50,6 +50,7 @@ $router->middleware([AuthMiddleware::class], function ($router) {
         ->middleware(RoleMiddleware::class, ['create', 'store', 'destroy']);
     $router->resource('/admin/contacts', AdminContactController::class);
     $router->resource('/admin/quotes', AdminQuotesController::class);
+    $router->post('/admin/quotes/bulk-action', [AdminQuotesController::class, 'bulkAction']);
     $router->resource('/admin/reviews', AdminReviewsController::class);
     $router->resource('/admin/products', AdminProductsController::class);
     $router->resource('/admin/transactions', AdminTransactionController::class);
