@@ -164,14 +164,14 @@
                                     <input type="checkbox" value="design_consultation" x-model="form.services" class="form-checkbox text-yellow-500 mr-2">
                                     <span class="text-gray-100">Design Consultation</span>
                                 </div>
-                                <span class="text-yellow-400 text-xs ml-2">+MVR 50/hour</span>
+                                <span class="text-yellow-400 text-xs ml-2">+MVR 25/hour</span>
                             </label>
                             <label class="flex items-center justify-between bg-gray-800 bg-opacity-40 rounded px-3 py-2 border border-gray-700">
                                 <div class="flex items-center">
                                     <input type="checkbox" value="post_processing" x-model="form.services" class="form-checkbox text-yellow-500 mr-2">
                                     <span class="text-gray-100">Post-processing & Finishing</span>
                                 </div>
-                                <span class="text-yellow-400 text-xs ml-2">+MVR 7,500</span>
+                                <span class="text-yellow-400 text-xs ml-2">+MVR 75</span>
                             </label>
                             <label class="flex items-center justify-between bg-gray-800 bg-opacity-40 rounded px-3 py-2 border border-gray-700">
                                 <div class="flex items-center">
