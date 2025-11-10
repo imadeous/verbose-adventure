@@ -259,12 +259,12 @@
                         <div class="h-full w-6 absolute inset-0 flex items-center justify-center">
                             <div class="h-full w-1 bg-gray-800 pointer-events-none"></div>
                         </div>
-                        <div class="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-yellow-500 text-gray-900 relative z-10 title-font font-semibold text-sm" x-text="step.number"></div>
-                        <div class="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
-                            <div class="flex-shrink-0 w-24 h-24 bg-gray-800 text-yellow-500 rounded-full inline-flex items-center justify-center">
+                        <div class="shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-yellow-500 text-gray-900 relative z-10 title-font font-semibold text-sm" x-text="step.number"></div>
+                        <div class="grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
+                            <div class="shrink-0 w-24 h-24 bg-gray-800 text-yellow-500 rounded-full inline-flex items-center justify-center">
                                 <span x-html="step.icon"></span>
                             </div>
-                            <div class="flex-grow sm:pl-6 mt-6 sm:mt-0">
+                            <div class="grow sm:pl-6 mt-6 sm:mt-0">
                                 <h2 class="font-medium title-font text-white mb-1 text-xl" x-text="step.title"></h2>
                                 <p class="leading-relaxed" x-text="step.desc"></p>
                             </div>
@@ -287,8 +287,8 @@
                         </svg>
                         <p class="leading-relaxed mb-6">Craftophile brought my prototype to life with incredible precision and speed. The team was responsive, and the final product exceeded my expectations. I highly recommend their 3D printing services to anyone looking for quality and professionalism.</p>
                         <a class="inline-flex items-center">
-                            <img alt="testimonial" src="https://dummyimage.com/106x106" class="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center">
-                            <span class="flex-grow flex flex-col pl-4">
+                            <img alt="testimonial" src="https://dummyimage.com/106x106" class="w-12 h-12 rounded-full shrink-0 object-cover object-center">
+                            <span class="grow flex flex-col pl-4">
                                 <span class="title-font font-medium text-white">Priya Sharma</span>
                                 <span class="text-gray-500 text-sm">Product Designer</span>
                             </span>
@@ -302,8 +302,8 @@
                         </svg>
                         <p class="leading-relaxed mb-6">I needed a batch of custom parts for my robotics project, and Craftophile delivered flawless prints ahead of schedule. The quality and attention to detail were outstanding. I’ll definitely use their services again for future projects.</p>
                         <a class="inline-flex items-center">
-                            <img alt="testimonial" src="https://dummyimage.com/107x107" class="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center">
-                            <span class="flex-grow flex flex-col pl-4">
+                            <img alt="testimonial" src="https://dummyimage.com/107x107" class="w-12 h-12 rounded-full shrink-0 object-cover object-center">
+                            <span class="grow flex flex-col pl-4">
                                 <span class="title-font font-medium text-white">Michael Lee</span>
                                 <span class="text-gray-500 text-sm">Engineering Student</span>
                             </span>

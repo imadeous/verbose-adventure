@@ -9,7 +9,7 @@
 </head>
 </head>
 
-<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-200 px-4">
+<body class="min-h-screen flex items-center justify-center bg-linear-to-br from-blue-50 to-blue-200 px-4">
     <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 sm:p-10">
         <div class="mb-6 text-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-12 w-12 text-blue-600 mx-auto">

@@ -82,7 +82,7 @@
                 <div class="bg-white rounded-3xl shadow-lg border border-blue-100 p-6 flex flex-col hover:shadow-xl transition-all duration-300 group relative overflow-hidden">
                     <!-- Ribbon for featured/new products (optional) -->
                     <?php if (!empty($product['is_featured'])): ?>
-                        <span class="absolute top-4 left-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg z-10">Featured</span>
+                        <span class="absolute top-4 left-4 bg-linear-to-r from-blue-500 to-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg z-10">Featured</span>
                     <?php endif; ?>
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-xs font-bold text-blue-700 bg-blue-100 rounded-full px-3 py-1">ID: <?= e($product['id']) ?></span>
@@ -92,7 +92,7 @@
                         <?php if (!empty($product['image_url'])): ?>
                             <img src="<?= e($product['image_url']) ?>" alt="<?= e($product['name']) ?>" class="h-32 w-32 object-cover rounded-xl border border-gray-200 shadow-md group-hover:scale-105 transition-transform duration-300" />
                         <?php else: ?>
-                            <div class="h-32 w-32 flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl text-gray-300 text-4xl">
+                            <div class="h-32 w-32 flex items-center justify-center bg-linear-to-br from-gray-100 to-gray-200 rounded-xl text-gray-300 text-4xl">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a4 4 0 004 4h10a4 4 0 004-4V7a4 4 0 00-4-4H7a4 4 0 00-4 4z" />
                                 </svg>

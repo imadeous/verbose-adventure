@@ -7,7 +7,7 @@
     </div>
     <div class="bg-white shadow rounded-lg p-4 sm:p-6">
         <div class="mb-4 flex items-center space-x-3">
-            <div class="flex-shrink-0 bg-blue-100 rounded-full w-12 h-12 flex items-center justify-center text-blue-600 font-bold uppercase text-xl">
+            <div class="shrink-0 bg-blue-100 rounded-full w-12 h-12 flex items-center justify-center text-blue-600 font-bold uppercase text-xl">
                 <?= strtoupper(mb_substr($contact->name, 0, 1)) ?>
             </div>
             <div>

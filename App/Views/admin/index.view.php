@@ -228,7 +228,7 @@ use App\Models\Product;
                                 <div class="text-3xl font-bold text-blue-900 mb-2"><?= number_format($ratingStats['recommendPercent'], 0) ?? 0 ?>%</div>
                                 <div class="text-sm text-blue-400">Based on <?= $ratingStats['count'] ?? 0 ?> reviews</div>
                             </div>
-                            <div class="flex-shrink-0 flex items-center justify-end">
+                            <div class="shrink-0 flex items-center justify-end">
                                 <?php if ($ratingStats['recommendPercent'] > 50): ?>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"

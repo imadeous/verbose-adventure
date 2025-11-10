@@ -245,11 +245,11 @@
                                 <div class="w-full border-t border-gray-700 my-3"></div>
                                 <div class="w-full flex flex-col gap-2">
                                     <div class="flex items-start">
-                                        <span class="text-gray-500 w-24 text-xs flex-shrink-0">Delivery:</span>
+                                        <span class="text-gray-500 w-24 text-xs shrink-0">Delivery:</span>
                                         <span class="font-semibold text-gray-100 ml-2" x-text="form.delivery_address"></span>
                                     </div>
                                     <div class="flex items-start">
-                                        <span class="text-gray-500 w-24 text-xs flex-shrink-0">Billing:</span>
+                                        <span class="text-gray-500 w-24 text-xs shrink-0">Billing:</span>
                                         <span class="font-semibold text-gray-100 ml-2" x-text="form.billing_address || '-'"></span>
                                     </div>
                                 </div>

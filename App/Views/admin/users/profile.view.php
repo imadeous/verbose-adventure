@@ -1,5 +1,5 @@
 <div class="max-w-2xl mx-auto p-8">
-    <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-lg border border-blue-200 p-0 overflow-hidden">
+    <div class="bg-linear-to-br from-blue-50 to-blue-100 rounded-2xl shadow-lg border border-blue-200 p-0 overflow-hidden">
         <div class="flex flex-col md:flex-row items-center gap-0 md:gap-8">
             <!-- Avatar and Basic Info -->
             <div class="flex flex-col items-center bg-blue-200/40 p-8 md:p-10 w-full md:w-1/3">
