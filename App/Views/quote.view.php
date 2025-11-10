@@ -164,7 +164,7 @@
                                     <input type="checkbox" value="design_consultation" x-model="form.services" class="form-checkbox text-yellow-500 mr-2">
                                     <span class="text-gray-100">Design Consultation</span>
                                 </div>
-                                <span class="text-yellow-400 text-xs ml-2">+MVR 25/hour</span>
+                                <span class="text-yellow-400 text-xs ml-2">+MVR 25</span>
                             </label>
                             <label class="flex items-center justify-between bg-gray-800 bg-opacity-40 rounded px-3 py-2 border border-gray-700">
                                 <div class="flex items-center">
@@ -178,7 +178,7 @@
                                     <input type="checkbox" value="assembly" x-model="form.services" class="form-checkbox text-yellow-500 mr-2">
                                     <span class="text-gray-100">Assembly</span>
                                 </div>
-                                <span class="text-yellow-400 text-xs ml-2">+MVR 50/hour</span>
+                                <span class="text-yellow-400 text-xs ml-2">+MVR 50</span>
                             </label>
                             <label class="flex items-center justify-between bg-gray-800 bg-opacity-40 rounded px-3 py-2 border border-gray-700">
                                 <div class="flex items-center">
@@ -486,9 +486,9 @@
             },
             servicePrice(val) {
                 const map = {
-                    design_consultation: '+MVR 25/hour',
+                    design_consultation: '+MVR 25',
                     post_processing: '+MVR 75',
-                    assembly: '+MVR 25/hour',
+                    assembly: '+MVR 50',
                     rush_delivery: '+5%'
                 };
                 return map[val] || '';
