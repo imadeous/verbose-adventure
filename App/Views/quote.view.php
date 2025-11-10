@@ -185,7 +185,7 @@
                                     <input type="checkbox" value="rush_delivery" x-model="form.services" class="form-checkbox text-yellow-500 mr-2">
                                     <span class="text-gray-100">Rush Delivery (24 hours)</span>
                                 </div>
-                                <span class="text-yellow-400 text-xs ml-2">+20%</span>
+                                <span class="text-yellow-400 text-xs ml-2">+5%</span>
                             </label>
                         </div>
                     </div>
@@ -486,20 +486,20 @@
             },
             servicePrice(val) {
                 const map = {
-                    design_consultation: '+₦50/hour',
-                    post_processing: '+₦7,500',
-                    assembly: '+₦50/hour',
-                    rush_delivery: '+50%'
+                    design_consultation: '+MVR 25/hour',
+                    post_processing: '+MVR 75',
+                    assembly: '+MVR 25/hour',
+                    rush_delivery: '+5%'
                 };
                 return map[val] || '';
             },
             budgetLabel(val) {
                 const map = {
-                    under_50k: 'Under ₦50,000',
-                    '50k_100k': '₦50,000 - ₦100,000',
-                    '100k_250k': '₦100,000 - ₦250,000',
-                    '250k_500k': '₦250,000 - ₦500,000',
-                    over_500k: 'Over ₦500,000',
+                    under_50k: 'Under MVR50,000',
+                    '50k_100k': 'MVR50,000 - MVR100,000',
+                    '100k_250k': 'MVR100,000 - MVR250,000',
+                    '250k_500k': 'MVR250,000 - MVR500,000',
+                    over_500k: 'Over MVR500,000',
                     '': 'No preference'
                 };
                 return map[val] || 'No preference';
