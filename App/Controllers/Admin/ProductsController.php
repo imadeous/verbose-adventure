@@ -57,10 +57,7 @@ class ProductsController extends AdminControllerBase
             ->withCount('*', 'Orders')
             ->limit(10)
             ->legend(['display' => false])
-            ->line()
-            ->scaleX(false, false) // Hide X axis
-            ->scaleY(false, false) // Hide Y axis
-            ->toArray();
+            ->line()->toArray();
 
         $breadcrumbs = [
             ['label' => 'Dashboard', 'url' => '/admin'],
