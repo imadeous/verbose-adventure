@@ -85,8 +85,64 @@ class ProductsController extends AdminControllerBase
             return;
         }
         unset($data['_csrf'], $data['_method']);
+
+        // Create the product first
         $product = new Product($data);
         $product->save();
+
+        // Handle image uploads if any
+        if (!empty($_FILES['images']['name'][0])) {
+            $uploadedCount = 0;
+            $maxImages = 8;
+
+            foreach ($_FILES['images']['name'] as $index => $filename) {
+                if ($uploadedCount >= $maxImages) {
+                    break;
+                }
+
+                // Skip if no file was uploaded at this index
+                if (empty($filename)) {
+                    continue;
+                }
+
+                // Prepare file array in format expected by File::upload
+                $file = [
+                    'name' => $_FILES['images']['name'][$index],
+                    'type' => $_FILES['images']['type'][$index],
+                    'tmp_name' => $_FILES['images']['tmp_name'][$index],
+                    'error' => $_FILES['images']['error'][$index],
+                    'size' => $_FILES['images']['size'][$index]
+                ];
+
+                // Upload the file
+                $result = \App\Helpers\File::upload($file, 'products', [
+                    'allowed_types' => ['jpg', 'jpeg', 'png', 'webp'],
+                    'max_size' => 5 * 1024 * 1024 // 5MB
+                ]);
+
+                if ($result['success']) {
+                    // Save to gallery table
+                    $gallery = new Gallery([
+                        'product_id' => $product->id,
+                        'image_path' => $result['path']
+                    ]);
+                    $gallery->save();
+                    $uploadedCount++;
+                } else {
+                    // Log error but continue with other images
+                    error_log("Failed to upload image: " . $result['error']);
+                }
+            }
+
+            if ($uploadedCount > 0) {
+                flash('success', "Product created successfully with {$uploadedCount} image(s).");
+            } else {
+                flash('success', 'Product created successfully.');
+            }
+        } else {
+            flash('success', 'Product created successfully.');
+        }
+
         $this->redirect('/admin/products');
     }
 
