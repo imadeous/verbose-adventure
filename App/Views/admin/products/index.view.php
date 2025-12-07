@@ -43,7 +43,7 @@ use App\Models\Product; ?>
                                 <span class="text-gray-400">-</span>
                             <?php else: ?>
                                 <span class="font-semibold text-green-700">
-                                    $<?= number_format($product->total_revenue, 2) ?>
+                                    <span class="text-xs">MVR </span><?= number_format($product->total_revenue, 2) ?>
                                 </span>
                             <?php endif; ?>
                         </td>
