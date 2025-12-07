@@ -28,16 +28,23 @@ class File
         if ($maxSize && $file['size'] > $maxSize) {
             return ['success' => false, 'path' => null, 'error' => 'File too large.'];
         }
-        $baseDir = 'public/storage/';
-        $dir = rtrim($baseDir . '/' . ltrim($targetDir, '/\\'), '/\\');
+
+        // Determine the base directory (relative to project root, not public/)
+        // Since this runs from public/index.php, we need to go up one level
+        $baseDir = __DIR__ . '/../../public/storage';
+        $targetDir = ltrim($targetDir, '/\\');
+        $dir = $targetDir ? $baseDir . '/' . $targetDir : $baseDir;
+
         if (!is_dir($dir)) {
             mkdir($dir, 0777, true);
         }
         $filename = $newName ? $newName . '.' . $ext : uniqid('file_', true) . '.' . $ext;
         $dest = $dir . DIRECTORY_SEPARATOR . $filename;
+
         if (move_uploaded_file($file['tmp_name'], $dest)) {
-            // Return web-accessible path (remove 'public/' prefix and normalize slashes)
-            $webPath = str_replace('\\', '/', str_replace('public/', '', $dest));
+            // Return web-accessible path (normalize slashes and make relative to public/)
+            $relativePath = 'storage/' . ($targetDir ? $targetDir . '/' : '') . $filename;
+            $webPath = str_replace('\\', '/', $relativePath);
             return ['success' => true, 'path' => $webPath, 'error' => null];
         }
         return ['success' => false, 'path' => null, 'error' => 'Failed to move uploaded file.'];
