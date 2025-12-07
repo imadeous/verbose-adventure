@@ -13,9 +13,9 @@
                         </svg>
                     </div>
                     <div class="flex flex-col items-center text-center justify-center">
-                        <h2 class="font-medium title-font mt-4 text-white text-lg">Alex Turner</h2>
+                        <h2 class="font-medium title-font mt-4 text-white text-lg">Mohamed Imad</h2>
                         <div class="w-12 h-1 bg-yellow-500 rounded mt-2 mb-4"></div>
-                        <p class="text-base text-gray-400">Founder & Lead Designer<br>Alex is passionate about bringing creative ideas to life through 3D printing. With years of experience in design and fabrication, Alex ensures every project meets the highest standards.</p>
+                        <p class="text-base text-gray-400">Founder & Lead Designer<br>Mohamed is passionate about bringing creative ideas to life through 3D printing. With years of experience in design and fabrication, Mohamed ensures every project meets the highest standards.</p>
                     </div>
                 </div>
                 <div class="sm:w-2/3 sm:pl-8 sm:py-8 sm:border-l border-gray-800 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
