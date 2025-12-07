@@ -397,7 +397,6 @@ $highestPrice = Product::getHighestPrice($product->id);
                                             <div
                                                 class="w-6 h-6 rounded border border-gray-300"
                                                 style="background-color: <?= e($variantObj->getColorHex()) ?>"></div>
-                                            <span class="text-xs text-gray-600"><?= e($variantObj->getColorHex()) ?></span>
                                         </div>
                                     <?php else: ?>
                                         <span class="text-sm text-gray-400">—</span>
