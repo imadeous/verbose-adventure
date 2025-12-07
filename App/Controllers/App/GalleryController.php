@@ -139,8 +139,8 @@ class GalleryController extends Controller
                     // Calculate price display
                     $hasRelatedVariants = Product::hasVariants($relatedId);
                     if ($hasRelatedVariants) {
-                        $relatedPriceRange = Product::getPriceRange($relatedId);
-                        $relatedArray['price_display'] = 'From $' . number_format($relatedPriceRange['min'], 2);
+                        $lowestPrice = Product::getLowestPrice($relatedId);
+                        $relatedArray['price_display'] = 'From $' . number_format($lowestPrice, 2);
                     } else {
                         $relatedArray['price_display'] = '$' . number_format($relatedArray['price'] ?? 0, 2);
                     }
