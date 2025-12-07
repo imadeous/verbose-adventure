@@ -61,18 +61,51 @@
                 <?php if ($hasVariants && !empty($variants)): ?>
                     <div class="mb-6">
                         <h3 class="text-white text-lg font-medium mb-3">Available Options:</h3>
-                        <div class="space-y-2">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <?php foreach ($variants as $variant): ?>
-                                <div class="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
-                                    <div>
-                                        <span class="text-white font-medium"><?= htmlspecialchars($variant['sku'] ?? 'N/A') ?></span>
-                                        <span class="text-gray-400 text-sm ml-2">
-                                            (Stock: <?= $variant['stock_quantity'] ?? 0 ?>)
-                                        </span>
+                                <div class="bg-gray-800 rounded-lg overflow-hidden hover:ring-2 hover:ring-indigo-500 transition-all">
+                                    <?php if (!empty($variant['image'])): ?>
+                                        <div class="h-40 overflow-hidden">
+                                            <img src="<?= htmlspecialchars($variant['image']) ?>"
+                                                alt="<?= htmlspecialchars($variant['sku'] ?? 'Variant') ?>"
+                                                class="w-full h-full object-cover">
+                                        </div>
+                                    <?php endif; ?>
+                                    <div class="p-4">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div>
+                                                <h4 class="text-white font-medium"><?= htmlspecialchars($variant['sku'] ?? 'N/A') ?></h4>
+                                                <?php if (!empty($variant['dimensions'])): ?>
+                                                    <p class="text-gray-400 text-sm"><?= htmlspecialchars($variant['dimensions']) ?></p>
+                                                <?php endif; ?>
+                                            </div>
+                                            <span class="text-indigo-400 font-semibold text-lg">
+                                                $<?= number_format($variant['price'] ?? 0, 2) ?>
+                                            </span>
+                                        </div>
+                                        <div class="flex flex-wrap gap-2 text-xs">
+                                            <?php if (!empty($variant['material'])): ?>
+                                                <span class="px-2 py-1 bg-gray-700 text-gray-300 rounded"><?= htmlspecialchars($variant['material']) ?></span>
+                                            <?php endif; ?>
+                                            <?php if (!empty($variant['color'])): ?>
+                                                <span class="px-2 py-1 bg-gray-700 text-gray-300 rounded flex items-center gap-1">
+                                                    <span class="w-3 h-3 rounded-full" style="background-color: <?= htmlspecialchars($variant['color']) ?>"></span>
+                                                    <?= htmlspecialchars($variant['color']) ?>
+                                                </span>
+                                            <?php endif; ?>
+                                            <?php if (!empty($variant['finishing'])): ?>
+                                                <span class="px-2 py-1 bg-gray-700 text-gray-300 rounded"><?= htmlspecialchars($variant['finishing']) ?></span>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="mt-3 flex justify-between items-center">
+                                            <span class="text-sm <?= ($variant['stock_quantity'] ?? 0) > 0 ? 'text-green-400' : 'text-red-400' ?>">
+                                                <?= ($variant['stock_quantity'] ?? 0) > 0 ? 'In Stock (' . $variant['stock_quantity'] . ')' : 'Out of Stock' ?>
+                                            </span>
+                                            <?php if ($variant['assembly_required'] ?? false): ?>
+                                                <span class="text-xs text-yellow-400">⚙️ Assembly Required</span>
+                                            <?php endif; ?>
+                                        </div>
                                     </div>
-                                    <span class="text-indigo-400 font-semibold">
-                                        $<?= number_format($variant['price'] ?? 0, 2) ?>
-                                    </span>
                                 </div>
                             <?php endforeach; ?>
                         </div>

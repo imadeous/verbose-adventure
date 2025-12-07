@@ -66,6 +66,17 @@ class GalleryController extends Controller
         $variants = Product::getVariants($id);
         $hasVariants = Product::hasVariants($id);
 
+        // Attach images to each variant
+        if ($hasVariants && !empty($variants)) {
+            foreach ($variants as &$variant) {
+                $variantImages = Gallery::where('entity_id', '=', $variant['id'])
+                    ->where('image_type', '=', 'variant')
+                    ->get();
+                $variant['image'] = !empty($variantImages) ? $variantImages[0]['image_url'] : null;
+            }
+            unset($variant); // Break reference
+        }
+
         // Pass all data to view
         $this->view('product-detail', [
             'product' => $product,
