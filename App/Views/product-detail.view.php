@@ -39,7 +39,7 @@
                             <button
                                 @click="currentImage = index"
                                 :class="currentImage === index ? 'ring-2 ring-indigo-500' : ''"
-                                class="flex-shrink-0 w-20 h-20 rounded overflow-hidden focus:outline-none">
+                                class="shrink-0 w-20 h-20 rounded overflow-hidden focus:outline-none">
                                 <img :src="image"
                                     :alt="'Thumbnail ' + (index + 1)"
                                     class="w-full h-full object-cover">
@@ -60,6 +60,41 @@
                 <p class="leading-relaxed mb-4">
                     <?= nl2br(htmlspecialchars($product->description ?? 'No description available.')) ?>
                 </p>
+
+                <!-- Price and Variants -->
+                <?php
+                $variants = Product::getVariants($product->id);
+                $hasVariants = Product::hasVariants($product->id);
+                ?>
+
+                <?php if ($hasVariants && !empty($variants)): ?>
+                    <div class="mb-6">
+                        <h3 class="text-white text-lg font-medium mb-3">Available Options:</h3>
+                        <div class="space-y-2">
+                            <?php foreach ($variants as $variant): ?>
+                                <div class="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
+                                    <div>
+                                        <span class="text-white font-medium"><?= htmlspecialchars($variant['variant_name']) ?></span>
+                                        <span class="text-gray-400 text-sm ml-2">
+                                            (Stock: <?= $variant['stock_quantity'] ?>)
+                                        </span>
+                                    </div>
+                                    <span class="text-indigo-400 font-semibold">
+                                        $<?= number_format($variant['price'], 2) ?>
+                                    </span>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <div class="mb-6">
+                        <div class="flex items-baseline">
+                            <span class="text-3xl font-medium text-white">
+                                $<?= number_format($product->price ?? 0, 2) ?>
+                            </span>
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
