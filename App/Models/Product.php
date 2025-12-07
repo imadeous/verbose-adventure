@@ -62,7 +62,8 @@ class Product extends Model
 
         $totalRating = 0;
         foreach ($reviews as $review) {
-            $totalRating += $review->rating;
+            $rating = is_array($review) ? ($review['rating'] ?? 0) : ($review->rating ?? 0);
+            $totalRating += $rating;
         }
         return round($totalRating / count($reviews), 1);
     }
