@@ -12,13 +12,13 @@
             <!-- Product Information -->
             <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                 <h2 class="text-sm title-font text-gray-500 tracking-widest mb-1">
-                    <?= htmlspecialchars($product['category_id'] ?? 'General') ?>
+                    <?= htmlspecialchars($product->category_id ?? 'General') ?>
                 </h2>
                 <h1 class="text-white text-3xl title-font font-medium mb-4">
-                    <?= htmlspecialchars($product['name'] ?? 'Product Name') ?>
+                    <?= htmlspecialchars($product->name ?? 'Product Name') ?>
                 </h1>
                 <p class="leading-relaxed mb-4">
-                    <?= nl2br(htmlspecialchars($product['description'] ?? 'No description available.')) ?>
+                    <?= nl2br(htmlspecialchars($product->description ?? 'No description available.')) ?>
                 </p>
             </div>
         </div>
