@@ -55,6 +55,7 @@ class ProductsController extends AdminControllerBase
             ->andWhere('product_id', '=', $id)
             ->withSum('amount', 'Revenue')
             ->withCount('*', 'Orders')
+            ->withAverage('amount', 'Average')
             ->limit(10)
             ->legend(['display' => false])
             // ->withAverage('amount', 'Average')
