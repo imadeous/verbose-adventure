@@ -46,6 +46,18 @@ class ProductsController extends AdminControllerBase
             ->withSum('amount', 'Total Revenue')
             ->withCount('*', 'Total Orders')
             ->generate()['data'][0] ?? [];
+        
+        // Get last 50 sales for chart
+        $salesData = QueryBuilder::table('transactions')
+            ->where('type', '=', 'income')
+            ->andWhere('description', 'LIKE', '%' . strtoupper($product->name) . '%')
+            ->orderBy('date', 'DESC')
+            ->limit(50)
+            ->get();
+        
+        // Reverse to show chronologically
+        $salesData = array_reverse($salesData);
+        
         $breadcrumbs = [
             ['label' => 'Dashboard', 'url' => '/admin'],
             ['label' => 'Products', 'url' => '/admin/products'],
@@ -54,6 +66,7 @@ class ProductsController extends AdminControllerBase
         $this->view('admin/products/show', [
             'product' => $product,
             'productTransactions' => $productTransactions,
+            'salesData' => $salesData,
             'reviews' => $reviews,
             'gallery' => $gallery,
             'breadcrumb' => $breadcrumbs
