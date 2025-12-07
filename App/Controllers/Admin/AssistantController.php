@@ -143,19 +143,22 @@ class AssistantController extends AdminController
             $outOfStock = [];
 
             foreach ($products as $product) {
-                $variants = Product::getVariants($product['id']);
+                $productId = is_array($product) ? $product['id'] : $product->id;
+                $productName = is_array($product) ? $product['name'] : $product->name;
+
+                $variants = Product::getVariants($productId);
                 foreach ($variants as $variant) {
                     $stock = $variant['stock_quantity'] ?? 0;
                     $totalStock += $stock;
 
                     if ($stock == 0) {
                         $outOfStock[] = [
-                            'product' => $product['name'],
+                            'product' => $productName,
                             'variant' => $variant['sku'] ?? 'N/A'
                         ];
                     } elseif ($stock <= 10) {
                         $lowStock[] = [
-                            'product' => $product['name'],
+                            'product' => $productName,
                             'variant' => $variant['sku'] ?? 'N/A',
                             'stock' => $stock
                         ];
@@ -203,9 +206,12 @@ class AssistantController extends AdminController
             $productPerformance = [];
 
             foreach ($products as $product) {
+                $productId = is_array($product) ? $product['id'] : $product->id;
+                $productName = is_array($product) ? $product['name'] : $product->name;
+
                 $stats = ReportBuilder::build('transactions', 'date')
                     ->where('type', '=', 'income')
-                    ->where('product_id', '=', $product['id'])
+                    ->where('product_id', '=', $productId)
                     ->where('date', '>=', $startDate)
                     ->where('date', '<=', $endDate)
                     ->withSum('amount', 'Revenue')
@@ -213,7 +219,7 @@ class AssistantController extends AdminController
                     ->generate()['data'][0] ?? [];
 
                 $productPerformance[] = [
-                    'name' => $product['name'],
+                    'name' => $productName,
                     'revenue' => $stats['Revenue'] ?? 0,
                     'orders' => $stats['Orders'] ?? 0
                 ];
