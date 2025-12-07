@@ -1,19 +1,21 @@
-<div class="max-w-xl mx-auto overflow-x-hidden">
+<div class="max-w-2xl mx-auto overflow-x-hidden">
     <div
         x-data='galleryForm(<?= json_encode($categories) ?>, <?= json_encode($products) ?>)'
-        class="bg-white rounded-xl shadow-md border border-blue-100 p-8">
-        <h1 class="text-3xl font-extrabold text-blue-900 mb-8">Add Gallery Image</h1>
-        <form class="space-y-5" autocomplete="off" method="POST" action="<?= url('admin/gallery') ?>">
+        class="bg-white rounded-xl shadow-md border border-gray-200 p-8">
+        <h1 class="text-3xl font-extrabold text-gray-900 mb-8">Add Gallery Image</h1>
+        <form class="space-y-6" autocomplete="off" method="POST" action="<?= url('admin/gallery') ?>" enctype="multipart/form-data">
+            <?= csrf_field() ?>
+
+            <!-- Image Upload Section -->
             <div class="flex flex-col md:flex-row gap-6">
-                <?php csrf_field(); ?>
-                <!-- Left Column: Label, Input, Preview -->
+                <!-- Left Column: Image Preview -->
                 <div class="flex-1">
-                    <label class="block text-blue-700 font-semibold mb-1">Image</label>
-                    <label class="block cursor-pointer group w-fit">
+                    <label class="block text-gray-700 font-semibold mb-2">Image Preview</label>
+                    <label class="block cursor-pointer group w-full">
                         <img
                             :src="imageUrl"
                             alt="Select Image"
-                            class="rounded border border-blue-200 shadow w-64 h-48 object-cover transition ring-2 ring-transparent group-hover:ring-blue-400"
+                            class="rounded-lg border-2 border-gray-200 shadow w-full h-64 object-cover transition hover:border-blue-400"
                             @click="$refs.fileInput.click()">
                     </label>
                     <input
@@ -24,98 +26,153 @@
                         accept="image/*"
                         @change="onFileChange"
                         x-ref="fileInput">
+                    <p class="text-xs text-gray-500 mt-2">Click image to select file (Max 5MB)</p>
                 </div>
-                <!-- Right Column: Image Data -->
+
+                <!-- Right Column: Image Info -->
                 <div class="flex-1 flex flex-col justify-center">
                     <template x-if="imageFile">
-                        <div class="bg-blue-50 rounded-lg p-4 border border-blue-200 text-blue-900 text-sm space-y-2">
-                            <div><span class="font-semibold">Name:</span> <span x-text="imageFile.name"></span></div>
+                        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200 text-gray-900 text-sm space-y-2">
+                            <div><span class="font-semibold">Name:</span> <span x-text="imageFile.name" class="break-all"></span></div>
                             <div>
                                 <span class="font-semibold">Size:</span>
-                                <span :class="imageFile.size > 2 * 1024 * 1024 ? 'text-red-600' : ''" x-text="(imageFile.size/1024).toFixed(2) + ' KB'"></span>
+                                <span :class="imageFile.size > 5 * 1024 * 1024 ? 'text-red-600 font-bold' : 'text-green-600'" x-text="(imageFile.size/1024/1024).toFixed(2) + ' MB'"></span>
                             </div>
                             <div><span class="font-semibold">Type:</span> <span x-text="imageFile.type"></span></div>
-                            <div><span class="font-semibold">Extension:</span> <span x-text="imageFile.name.split('.').pop()"></span></div>
                         </div>
                     </template>
                     <template x-if="!imageFile">
-                        <div class="text-blue-400 italic">No image selected</div>
+                        <div class="text-gray-400 italic text-center py-8">No image selected</div>
                     </template>
                 </div>
             </div>
+
+            <!-- Title -->
             <div>
-                <label class="block text-blue-700 font-semibold mb-1">Title</label>
+                <label class="block text-gray-700 font-semibold mb-2">Title <span class="text-red-500">*</span></label>
                 <input
                     type="text"
                     name="title"
-                    class="w-full border border-blue-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-blue-900"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     x-model="title"
+                    placeholder="Enter image title"
                     required>
             </div>
+
+            <!-- Caption -->
             <div>
-                <label class="block text-blue-700 font-semibold mb-1">Caption</label>
-                <input
-                    type="text"
+                <label class="block text-gray-700 font-semibold mb-2">Caption</label>
+                <textarea
                     name="caption"
-                    class="w-full border border-blue-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-blue-900">
+                    rows="2"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Optional caption or description"></textarea>
             </div>
+
+            <!-- Image Type -->
             <div>
-                <label class="block text-blue-700 font-semibold mb-1">Type</label>
+                <label class="block text-gray-700 font-semibold mb-2">Image Type <span class="text-red-500">*</span></label>
                 <select
                     name="image_type"
-                    class="w-full border border-blue-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-blue-900"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     x-model="type"
                     required>
                     <option value="">Select Type</option>
                     <option value="site">Site</option>
                     <option value="category">Category</option>
                     <option value="product">Product</option>
+                    <option value="variant">Variant</option>
                 </select>
             </div>
-            <div x-show="type && type !== 'site'" x-transition>
-                <label class="block text-blue-700 font-semibold mb-1">Related ID</label>
+
+            <!-- Related Category -->
+            <div x-show="type === 'category'" x-transition>
+                <label class="block text-gray-700 font-semibold mb-2">Select Category <span class="text-red-500">*</span></label>
                 <select
                     name="related_id"
-                    class="w-full border border-blue-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-blue-900"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     x-model="relatedId"
-                    :required="type !== 'site'">
-                    <?php if (!empty($categories) && !empty($products)): ?>
-                        <optgroup label="Categories" x-show="type === 'category'">
-                            <?php foreach ($categories as $category): ?>
-                                <option value="<?= e($category->id) ?>" x-show="type === 'category'"><?= e($category->name) ?></option>
-                            <?php endforeach; ?>
-                        </optgroup>
-                        <optgroup label="Products" x-show="type === 'product'">
-                            <?php foreach ($products as $product): ?>
-                                <option value="<?= e($product->id) ?>" x-show="type === 'product'"><?= e($product->name) ?></option>
-                            <?php endforeach; ?>
-                        </optgroup>
-                    <?php endif; ?>
+                    :required="type === 'category'">
+                    <option value="">Select Category</option>
+                    <?php foreach ($categories as $category): ?>
+                        <option value="<?= e($category->id) ?>"><?= e($category->name) ?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
-            <div class="flex justify-end">
+
+            <!-- Related Product -->
+            <div x-show="type === 'product'" x-transition>
+                <label class="block text-gray-700 font-semibold mb-2">Select Product <span class="text-red-500">*</span></label>
+                <select
+                    name="related_id"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    x-model="relatedId"
+                    :required="type === 'product'">
+                    <option value="">Select Product</option>
+                    <?php foreach ($products as $product): ?>
+                        <option value="<?= e($product->id) ?>"><?= e($product->name) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <!-- Variant Selection (Product -> Variant cascade) -->
+            <div x-show="type === 'variant'" x-transition>
+                <label class="block text-gray-700 font-semibold mb-2">Select Product <span class="text-red-500">*</span></label>
+                <select
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mb-4"
+                    x-model="selectedProduct"
+                    @change="loadVariants()"
+                    :required="type === 'variant'">
+                    <option value="">Select Product First</option>
+                    <?php foreach ($products as $product): ?>
+                        <option value="<?= e($product->id) ?>"><?= e($product->name) ?></option>
+                    <?php endforeach; ?>
+                </select>
+
+                <template x-if="selectedProduct">
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Select Variant <span class="text-red-500">*</span></label>
+                        <select
+                            name="related_id"
+                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            x-model="relatedId"
+                            :required="type === 'variant'">
+                            <option value="">Loading variants...</option>
+                            <template x-for="variant in variants" :key="variant.id">
+                                <option :value="variant.id" x-text="`${variant.sku || 'Variant #' + variant.id} - $${variant.price}`"></option>
+                            </template>
+                        </select>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Submit Buttons -->
+            <div class="flex justify-end gap-3 pt-4">
+                <a href="<?= url('admin/gallery') ?>" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-2 rounded-lg font-semibold transition">
+                    Cancel
+                </a>
                 <button
                     type="submit"
-                    class="bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold shadow border border-blue-400">Upload</button>
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold shadow transition">
+                    Upload Image
+                </button>
             </div>
         </form>
     </div>
 
     <script>
         document.addEventListener('alpine:init', () => {
-            Alpine.data('galleryForm', () => ({
-                imageUrl: 'https://placehold.co/100x80/3b82f6/fff?text=Preview',
+            Alpine.data('galleryForm', (categories, products) => ({
+                imageUrl: 'https://placehold.co/400x300/e5e7eb/6b7280?text=Click+to+Select+Image',
                 imageFile: null,
                 title: '',
                 type: '',
                 relatedId: '',
-                categories: <?= json_encode($categories) ?>,
-                products: <?= json_encode($products) ?>,
-                isValid() {
-                    if (!this.imageFile || !this.title.trim() || !this.type) return false;
-                    if (this.type !== 'site' && !this.relatedId) return false;
-                    return true;
-                },
+                selectedProduct: '',
+                variants: [],
+                categories: categories,
+                products: products,
+
                 onFileChange(e) {
                     const file = e.target.files[0];
                     this.imageFile = file;
@@ -126,18 +183,41 @@
                         };
                         reader.readAsDataURL(file);
                     } else {
-                        this.imageUrl = 'https://placehold.co/100x80/3b82f6/fff?text=Select+Image';
+                        this.imageUrl = 'https://placehold.co/400x300/e5e7eb/6b7280?text=Click+to+Select+Image';
                     }
                 },
-                // Watch for type changes and clear relatedId if type is 'site'
+
+                async loadVariants() {
+                    if (!this.selectedProduct) {
+                        this.variants = [];
+                        this.relatedId = '';
+                        return;
+                    }
+
+                    try {
+                        const response = await fetch(`<?= url('admin/products/') ?>/${this.selectedProduct}/variants-json`);
+                        const data = await response.json();
+                        this.variants = data.variants || [];
+                        this.relatedId = '';
+                    } catch (error) {
+                        console.error('Error loading variants:', error);
+                        this.variants = [];
+                    }
+                },
+
                 init() {
                     this.$watch('type', value => {
-                        if (value === 'site') this.relatedId = '';
+                        if (value === 'site') {
+                            this.relatedId = '';
+                            this.selectedProduct = '';
+                            this.variants = [];
+                        } else if (value !== 'variant') {
+                            this.selectedProduct = '';
+                            this.variants = [];
+                        }
                     });
                 }
             }));
         });
     </script>
-    </form>
-</div>
 </div>

@@ -60,6 +60,7 @@ $router->middleware([AuthMiddleware::class], function ($router) {
     $router->get('/admin/products/{id}/addImage', [AdminProductsController::class, 'addImage']);
     $router->post('/admin/products/{id}/addImage', [AdminProductsController::class, 'storeImage']);
     // Product variant routes (inline creation/editing on product page)
+    $router->get('/admin/products/{id}/variants-json', [AdminProductsController::class, 'variantsJson']);
     $router->post('/admin/products/{id}/variants', [AdminVariantsController::class, 'store']);
     $router->post('/admin/products/{productId}/variants/{variantId}/delete', [AdminVariantsController::class, 'destroy']);
     $router->resource('/admin/categories', AdminCategoriesController::class);

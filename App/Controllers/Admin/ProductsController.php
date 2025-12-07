@@ -302,6 +302,24 @@ class ProductsController extends AdminControllerBase
         $this->redirect('/admin/products/' . $id);
     }
 
+    public function variantsJson($id)
+    {
+        $product = Product::find($id);
+        if (!$product) {
+            header('Content-Type: application/json');
+            echo json_encode(['variants' => []]);
+            return;
+        }
+
+        $variants = \App\Models\Variant::query()
+            ->where('product_id', '=', $id)
+            ->orderBy('sku', 'ASC')
+            ->get();
+
+        header('Content-Type: application/json');
+        echo json_encode(['variants' => $variants]);
+    }
+
     public function destroy($id)
     {
         $product = Product::find($id);
