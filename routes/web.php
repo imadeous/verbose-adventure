@@ -120,4 +120,4 @@ $router->post('/setup', [AuthController::class, 'storeSetup']);
 // Generic page route
 // this is for showing static pages based on the page title like privacy, terms, etc.
 // This route will call the page method in HomeController with the page title as a parameter
-$router->get('/{pageTitle}', [HomeController::class, 'page']);
+// $router->get('/{pageTitle}', [HomeController::class, 'page']);
