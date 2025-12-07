@@ -11,7 +11,7 @@ class Variant extends Model
     protected $fillable = [
         'product_id',
         'dimensions',
-        'weight',
+        'weight_grams',
         'material',
         'color',
         'finishing',
