@@ -119,6 +119,43 @@ class GalleryController extends Controller
         $overallRating = Product::getOverallRating($id);
         $reviewCount = count($reviews);
 
+        // Get more products from same category (highest rated)
+        $relatedProducts = [];
+        if ($product->category_id) {
+            $categoryProducts = Product::getByCategory($product->category_id);
+
+            // Filter out current product and get ratings
+            foreach ($categoryProducts as $relatedProduct) {
+                $relatedId = is_array($relatedProduct) ? $relatedProduct['id'] : $relatedProduct->id;
+                if ($relatedId != $id) {
+                    $relatedArray = is_array($relatedProduct) ? $relatedProduct : (array)$relatedProduct;
+                    $relatedArray['overall_rating'] = Product::getOverallRating($relatedId);
+                    $relatedArray['review_count'] = count(Product::getReviews($relatedId));
+
+                    // Get first image
+                    $relatedImages = Product::getImages($relatedId);
+                    $relatedArray['image_url'] = !empty($relatedImages) ? '/' . ltrim($relatedImages[0]['image_url'], '/') : null;
+
+                    // Calculate price display
+                    $hasRelatedVariants = Product::hasVariants($relatedId);
+                    if ($hasRelatedVariants) {
+                        $relatedPriceRange = Product::getPriceRange($relatedId);
+                        $relatedArray['price_display'] = 'From $' . number_format($relatedPriceRange['min'], 2);
+                    } else {
+                        $relatedArray['price_display'] = '$' . number_format($relatedArray['price'] ?? 0, 2);
+                    }
+
+                    $relatedProducts[] = $relatedArray;
+                }
+            }            // Sort by rating (highest first)
+            usort($relatedProducts, function ($a, $b) {
+                return $b['overall_rating'] <=> $a['overall_rating'];
+            });
+
+            // Limit to 4 products
+            $relatedProducts = array_slice($relatedProducts, 0, 4);
+        }
+
         // Pass all data to view
         $this->view('product-detail', [
             'product' => $product,
@@ -129,6 +166,7 @@ class GalleryController extends Controller
             'reviews' => $reviews,
             'overallRating' => $overallRating,
             'reviewCount' => $reviewCount,
+            'relatedProducts' => $relatedProducts,
         ]);
     }
 }

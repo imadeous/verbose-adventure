@@ -238,5 +238,47 @@
                 </div>
             <?php endif; ?>
         </div>
+
+        <!-- More from this Category Section -->
+        <?php if (!empty($relatedProducts)): ?>
+            <div class="lg:w-4/5 mx-auto mt-12">
+                <h3 class="text-white text-2xl font-medium mb-6">More from this Category</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <?php foreach ($relatedProducts as $relatedProduct): ?>
+                        <a href="<?= url('/product/' . $relatedProduct['id']) ?>" class="bg-gray-800 rounded-lg overflow-hidden hover:ring-2 hover:ring-indigo-500 transition-all group">
+                            <?php if (!empty($relatedProduct['image_url'])): ?>
+                                <div class="h-48 overflow-hidden">
+                                    <img src="<?= htmlspecialchars($relatedProduct['image_url']) ?>"
+                                        alt="<?= htmlspecialchars($relatedProduct['name'] ?? 'Product') ?>"
+                                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                                </div>
+                            <?php else: ?>
+                                <div class="h-48 bg-gray-700 flex items-center justify-center">
+                                    <span class="text-gray-500">No Image</span>
+                                </div>
+                            <?php endif; ?>
+                            <div class="p-4">
+                                <h4 class="text-white font-medium mb-2 line-clamp-2"><?= htmlspecialchars($relatedProduct['name'] ?? 'Product') ?></h4>
+
+                                <!-- Rating -->
+                                <div class="flex items-center mb-2">
+                                    <div class="flex text-yellow-400">
+                                        <?php for ($i = 0; $i < 5; $i++): ?>
+                                            <svg fill="<?= $i < round($relatedProduct['overall_rating']) ? 'currentColor' : 'none' ?>" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-3 h-3" viewBox="0 0 24 24">
+                                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                                            </svg>
+                                        <?php endfor; ?>
+                                    </div>
+                                    <span class="text-gray-400 text-xs ml-2"><?= number_format($relatedProduct['overall_rating'], 1) ?><?= $relatedProduct['review_count'] > 0 ? ' (' . $relatedProduct['review_count'] . ')' : '' ?></span>
+                                </div>
+
+                                <!-- Price -->
+                                <div class="text-indigo-400 font-semibold"><?= $relatedProduct['price_display'] ?? '$0.00' ?></div>
+                            </div>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
 </section>
