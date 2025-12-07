@@ -9,10 +9,10 @@
             <div
                 x-data="{
                     stats: [
-                        { label: 'Machines', value: 2, display: 0 },
-                        { label: 'Materials', value: 5, display: 0 },
-                        { label: 'Prints', value: 153, display: 0 },
-                        { label: 'Followers', value: 2300, display: 0, format: v => v >= 1000 ? (v/1000).toFixed(1) + 'K' : v }
+                        { label: 'Products', value: <?= $totalProducts ?? 0 ?>, display: 0 },
+                        { label: 'Gallery Items', value: <?= $totalGalleryItems ?? 0 ?>, display: 0 },
+                        { label: 'Categories', value: <?= count(array_unique(array_column($galleryItems ?? [], 'category_name'))) ?>, display: 0 },
+                        { label: 'Images', value: <?= array_sum(array_column($galleryItems ?? [], 'image_count')) ?>, display: 0 }
                     ],
                     animate(idx) {
                         let stat = this.stats[idx];
@@ -60,66 +60,37 @@
             <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Explore a curated selection of our recent 3D printed projects. From engineering prototypes to custom art pieces, each item highlights our precision, creativity, and commitment to quality.</p>
         </div>
         <div class="flex flex-wrap -m-4">
-            <div class="lg:w-1/3 sm:w-1/2 p-4">
-                <div class="flex relative">
-                    <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="https://dummyimage.com/600x360">
-                    <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-800 bg-gray-900 opacity-0 hover:opacity-100">
-                        <h2 class="tracking-widest text-sm title-font font-medium text-yellow-400 mb-1">PROTOTYPE</h2>
-                        <h1 class="title-font text-lg font-medium text-white mb-3">Custom Gear Assembly</h1>
-                        <p class="leading-relaxed">Precision-engineered gears for a robotics client, demonstrating tight tolerances and smooth mechanical function.</p>
+            <?php if (!empty($galleryItems)): ?>
+                <?php foreach ($galleryItems as $item): ?>
+                    <div class="lg:w-1/3 sm:w-1/2 p-4">
+                        <div class="flex relative">
+                            <img alt="<?= htmlspecialchars($item['name']) ?>"
+                                class="absolute inset-0 w-full h-full object-cover object-center"
+                                src="<?= htmlspecialchars($item['image_url']) ?>">
+                            <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-800 bg-gray-900 opacity-0 hover:opacity-100 transition-opacity duration-300">
+                                <h2 class="tracking-widest text-sm title-font font-medium text-yellow-400 mb-1">
+                                    <?= strtoupper(htmlspecialchars($item['category_name'])) ?>
+                                </h2>
+                                <h1 class="title-font text-lg font-medium text-white mb-3">
+                                    <?= htmlspecialchars($item['name']) ?>
+                                </h1>
+                                <p class="leading-relaxed">
+                                    <?= htmlspecialchars(substr($item['description'], 0, 150)) ?><?= strlen($item['description']) > 150 ? '...' : '' ?>
+                                </p>
+                                <?php if ($item['image_count'] > 1): ?>
+                                    <p class="text-yellow-400 text-xs mt-2">
+                                        +<?= $item['image_count'] - 1 ?> more image<?= $item['image_count'] > 2 ? 's' : '' ?>
+                                    </p>
+                                <?php endif; ?>
+                            </div>
+                        </div>
                     </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="w-full text-center py-12">
+                    <p class="text-gray-400 text-lg">No gallery items available yet. Check back soon!</p>
                 </div>
-            </div>
-            <div class="lg:w-1/3 sm:w-1/2 p-4">
-                <div class="flex relative">
-                    <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="https://dummyimage.com/601x361">
-                    <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-800 bg-gray-900 opacity-0 hover:opacity-100">
-                        <h2 class="tracking-widest text-sm title-font font-medium text-yellow-400 mb-1">ART PIECE</h2>
-                        <h1 class="title-font text-lg font-medium text-white mb-3">Modern Sculpture</h1>
-                        <p class="leading-relaxed">A unique, multi-material sculpture designed for a local artist, showcasing complex geometry and vibrant color blending.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="lg:w-1/3 sm:w-1/2 p-4">
-                <div class="flex relative">
-                    <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="https://dummyimage.com/603x363">
-                    <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-800 bg-gray-900 opacity-0 hover:opacity-100">
-                        <h2 class="tracking-widest text-sm title-font font-medium text-yellow-400 mb-1">PRODUCT DESIGN</h2>
-                        <h1 class="title-font text-lg font-medium text-white mb-3">Ergonomic Handle</h1>
-                        <p class="leading-relaxed">Functional prototype for a kitchenware startup, featuring an ergonomic grip and food-safe materials.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="lg:w-1/3 sm:w-1/2 p-4">
-                <div class="flex relative">
-                    <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="https://dummyimage.com/602x362">
-                    <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-800 bg-gray-900 opacity-0 hover:opacity-100">
-                        <h2 class="tracking-widest text-sm title-font font-medium text-yellow-400 mb-1">ARCHITECTURAL MODEL</h2>
-                        <h1 class="title-font text-lg font-medium text-white mb-3">Residential Scale Model</h1>
-                        <p class="leading-relaxed">Detailed scale model of a modern home, used by architects to visualize and present their designs to clients.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="lg:w-1/3 sm:w-1/2 p-4">
-                <div class="flex relative">
-                    <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="https://dummyimage.com/605x365">
-                    <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-800 bg-gray-900 opacity-0 hover:opacity-100">
-                        <h2 class="tracking-widest text-sm title-font font-medium text-yellow-400 mb-1">EDUCATIONAL TOOL</h2>
-                        <h1 class="title-font text-lg font-medium text-white mb-3">Molecular Model Kit</h1>
-                        <p class="leading-relaxed">A set of interlocking molecular models for a local school, designed to help students visualize complex chemical structures.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="lg:w-1/3 sm:w-1/2 p-4">
-                <div class="flex relative">
-                    <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="https://dummyimage.com/606x366">
-                    <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-800 bg-gray-900 opacity-0 hover:opacity-100">
-                        <h2 class="tracking-widest text-sm title-font font-medium text-yellow-400 mb-1">CUSTOM MINIATURE</h2>
-                        <h1 class="title-font text-lg font-medium text-white mb-3">Fantasy Game Figure</h1>
-                        <p class="leading-relaxed">Highly detailed miniature for tabletop gaming, painted and finished to client specifications.</p>
-                    </div>
-                </div>
-            </div>
+            <?php endif; ?>
         </div>
     </div>
 </section>

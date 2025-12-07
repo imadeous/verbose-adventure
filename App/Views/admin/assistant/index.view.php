@@ -101,8 +101,8 @@
             Advanced Tools
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <a href="<?= url('admin/assistant/sandbox') ?>" class="group bg-white hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-50 rounded-lg shadow hover:shadow-lg transition-all p-4 border border-gray-200 hover:border-purple-300 flex items-center gap-4">
-                <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center text-white text-xl group-hover:scale-110 transition-transform">
+            <a href="<?=  ?> url('admin/assistant/sandbox') ?>" class="group bg-white hover:bg-linear-to-r hover:from-purple-50 hover:to-pink-50 rounded-lg shadow hover:shadow-lg transition-all p-4 border border-gray-200 hover:border-purple-300 flex items-center gap-4">
+                <div class="w-10 h-10 bg-linear-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center text-white text-xl group-hover:scale-110 transition-transform">
                     🤖
                 </div>
                 <div>

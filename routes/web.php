@@ -17,6 +17,7 @@ use App\Controllers\AuthController;
 use App\Controllers\App\HomeController;
 use App\Controllers\App\QuotesController;
 use App\Controllers\App\ContactController;
+use App\Controllers\App\GalleryController;
 
 use App\Controllers\Admin\AdminController;
 use App\Controllers\Admin\UserController as AdminUserController;
@@ -37,6 +38,8 @@ use App\Middleware\RoleMiddleware;
 // Define the base path for the application
 $router->get('/', [HomeController::class, 'index']);
 // Public routes
+// Public gallery route
+$router->get('/gallery', [GalleryController::class, 'index']);
 // Public quote routes
 $router->get('/quote', [QuotesController::class, 'index']);
 $router->post('/quote', [QuotesController::class, 'store']);
