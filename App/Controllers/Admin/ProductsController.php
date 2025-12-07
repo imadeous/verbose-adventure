@@ -38,19 +38,21 @@ class ProductsController extends AdminControllerBase
         }
         $reviews = $product ? $product->getReviews($id) : [];
         $gallery = Product::getImages($id);
+
+        // Use product_id instead of searching description
         $productTransactions = ReportBuilder::build('transactions', 'date')
             ->where('type', '=', 'income')
-            ->where('description', 'LIKE', '%' . strtoupper($product->name) . '%')
+            ->where('product_id', '=', $id)
             ->with('description')
             ->withSummary()
             ->withSum('amount', 'Total Revenue')
             ->withCount('*', 'Total Orders')
             ->generate()['data'][0] ?? [];
 
-        // Get last 50 sales for chart
+        // Get last 50 sales for chart using product_id
         $salesData = QueryBuilder::table('transactions')
             ->where('type', '=', 'income')
-            ->andWhere('description', 'LIKE', '%' . strtoupper($product->name) . '%')
+            ->andWhere('product_id', '=', $id)
             ->orderBy('date', 'DESC')
             ->limit(50)
             ->get();
