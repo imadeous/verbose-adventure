@@ -58,7 +58,7 @@ class GalleryController extends Controller
 
         // Get the product
         $product = Product::find($id);
-        
+
         if (!$product) {
             flash('error', 'Product not found.');
             $this->redirect('/gallery');
@@ -66,8 +66,26 @@ class GalleryController extends Controller
         }
 
         // Convert to array for consistent access
-        $productData = is_array($product) ? $product : (array)$product;
-        
+        if (is_object($product)) {
+            // Handle stdClass or Model object
+            $productData = [
+                'id' => $product->id ?? null,
+                'name' => $product->name ?? '',
+                'description' => $product->description ?? '',
+                'category_id' => $product->category_id ?? null,
+                'image_url' => $product->image_url ?? '',
+                'created_at' => $product->created_at ?? null
+            ];
+        } else {
+            $productData = $product;
+        }
+
+        // Ensure required keys exist
+        $productData['id'] = $productData['id'] ?? $id;
+        $productData['name'] = $productData['name'] ?? 'Unknown Product';
+        $productData['description'] = $productData['description'] ?? '';
+        $productData['category_id'] = $productData['category_id'] ?? null;
+
         // Get product details
         $productId = $productData['id'];
         $images = Product::getImages($productId);
