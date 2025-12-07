@@ -78,16 +78,16 @@ class GalleryController extends AdminController
 
         // Determine upload path based on image type
         $imageType = $_POST['image_type'] ?? 'site';
-        $uploadPath = 'public/storage/' . $imageType;
+        $uploadSubPath = $imageType;
         if ($imageType === 'variant') {
-            $uploadPath = 'public/storage/variants';
+            $uploadSubPath = 'variants';
         } elseif ($imageType === 'product') {
-            $uploadPath = 'public/storage/products';
+            $uploadSubPath = 'products';
         } elseif ($imageType === 'category') {
-            $uploadPath = 'public/storage/categories';
+            $uploadSubPath = 'categories';
         }
 
-        $upload = File::upload($_FILES['image'], $uploadPath, [
+        $upload = File::upload($_FILES['image'], $uploadSubPath, [
             'allowed_types' => ['jpg', 'jpeg', 'png', 'gif', 'webp'],
             'max_size' => 5 * 1024 * 1024
         ]);
@@ -96,7 +96,9 @@ class GalleryController extends AdminController
             $this->redirect('/admin/gallery/create');
             return;
         }
-        $imagePath = str_replace('public/', '', $upload['path']);
+
+        // The File::upload returns path like "storage/variants/file_xxx.jpg"
+        $imagePath = $upload['path'];
 
         $galleryData = [
             'title' => $_POST['title'] ?? null,
