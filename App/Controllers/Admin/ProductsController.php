@@ -55,6 +55,7 @@ class ProductsController extends AdminControllerBase
             ->andWhere('product_id', '=', $id)
             ->withSum('amount', 'Revenue')
             ->withCount('*', 'Orders')
+            ->limit(50)
             // ->withAverage('amount', 'Average')
             ->mixedChart([
                 'Revenue' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#2563eb', 'fill' => false],
