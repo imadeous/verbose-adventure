@@ -2,9 +2,9 @@
 
 use App\Models\Product;
 ?>
-<div class="max-w-full space-y-10">
+<div class="space-y-10">
     <!-- Top Section: 2 Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-y-8 md:gap-8 w-full">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
         <!-- Card 1: Product Details -->
         <div class="col-span-2 bg-blue-50 rounded-xl shadow-md flex flex-col gap-4 border border-blue-200 hover:shadow-lg transition">
             <div class="flex items-center gap-4 mb-2 px-5 pt-5">
