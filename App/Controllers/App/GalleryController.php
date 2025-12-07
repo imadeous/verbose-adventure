@@ -62,13 +62,16 @@ class GalleryController extends Controller
         // Get product images
         $images = Product::getImages($id);
 
-        // Add leading slash to image URLs
-        foreach ($images as &$image) {
-            if (isset($image['image_url'])) {
-                $image['image_url'] = '/' . $image['image_url'];
+        // Convert to array and add leading slash to image URLs
+        $processedImages = [];
+        foreach ($images as $image) {
+            $imageArray = is_array($image) ? $image : (array)$image;
+            if (isset($imageArray['image_url'])) {
+                $imageArray['image_url'] = '/' . ltrim($imageArray['image_url'], '/');
+                $processedImages[] = $imageArray;
             }
         }
-        unset($image);
+        $images = $processedImages;
 
         // Get variants information
         $variants = Product::getVariants($id);
