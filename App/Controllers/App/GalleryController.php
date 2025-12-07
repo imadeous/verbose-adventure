@@ -33,7 +33,7 @@ class GalleryController extends Controller
                     'id' => $productId,
                     'name' => $productName,
                     'description' => $productDescription,
-                    'image_url' => $firstImage['image_url'] ?? 'https://dummyimage.com/600x360',
+                    'image_url' => '/' . ($firstImage['image_url'] ?? 'https://dummyimage.com/600x360'),
                     'category_id' => $categoryId,
                     'category_name' => $categoryId ? Product::getCategoryName($categoryId) : 'General',
                     'image_count' => count($images)
