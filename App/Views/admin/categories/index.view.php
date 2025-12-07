@@ -6,22 +6,41 @@
         <table class="min-w-full bg-white rounded-xl text-sm">
             <thead>
                 <tr>
-                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Category Name</th>
-                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Actions</th>
+                    <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider border-b-2 border-gray-200">Category Name</th>
+                    <th class="px-4 py-3 text-center text-xs font-bold text-gray-600 uppercase tracking-wider border-b-2 border-gray-200">Products</th>
+                    <th class="px-4 py-3 text-center text-xs font-bold text-gray-600 uppercase tracking-wider border-b-2 border-gray-200">Orders</th>
+                    <th class="px-4 py-3 text-center text-xs font-bold text-gray-600 uppercase tracking-wider border-b-2 border-gray-200">Revenue</th>
+                    <th class="px-4 py-3 text-center text-xs font-bold text-gray-600 uppercase tracking-wider border-b-2 border-gray-200">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (empty($categories)): ?>
                     <tr>
-                        <td colspan="5" class="px-4 py-4 text-center text-blue-400">No categories found.</td>
+                        <td colspan="5" class="px-4 py-8 text-center text-gray-500">No categories found.</td>
                     </tr>
                 <?php else: ?>
                     <?php foreach ($categories as $category): ?>
-                        <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
-                            <td class="px-4 py-2 whitespace-nowrap">
-                                <div class="font-semibold text-blue-900"><?= e($category['name']) ?></div>
+                        <tr class="border-t border-gray-100 hover:bg-gray-50 transition">
+                            <td class="px-4 py-3">
+                                <div class="font-semibold text-gray-900"><?= e($category['name']) ?></div>
                             </td>
-                            <td class="px-4 py-2 whitespace-nowrap flex items-center space-x-2">
+                            <td class="px-4 py-3 text-center">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                                    <?= e($category['total_products']) ?>
+                                </span>
+                            </td>
+                            <td class="px-4 py-3 text-center">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                    <?= e($category['total_orders']) ?>
+                                </span>
+                            </td>
+                            <td class="px-4 py-3 text-center">
+                                <span class="font-semibold text-green-700">
+                                    $<?= number_format($category['total_revenue'], 2) ?>
+                                </span>
+                            </td>
+                            <td class="px-4 py-3">
+                                <div class="flex items-center justify-center gap-2">
                                 <a href="<?= url('admin/categories/' . $category['id']) ?>" class="bg-blue-100 text-blue-700 hover:bg-blue-200 border border-blue-300 rounded px-2 py-1 flex items-center gap-1 transition shadow-sm" title="Edit">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />

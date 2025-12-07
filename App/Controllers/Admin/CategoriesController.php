@@ -3,16 +3,40 @@
 namespace App\Controllers\Admin;
 
 use App\Models\Category;
+use App\Models\Product;
 use Core\AdminControllerBase;
+use Core\Database\ReportBuilder;
 
 class CategoriesController extends AdminControllerBase
 {
     public function index()
     {
         $categories = Category::query()->orderBy('name', 'asc')->get();
+        
+        // Enrich each category with analytics
+        $enrichedCategories = [];
+        foreach ($categories as $category) {
+            // Get transaction stats for this category
+            $stats = ReportBuilder::build('transactions', 'date')
+                ->where('type', '=', 'income')
+                ->where('category_id', '=', $category['id'])
+                ->withSum('amount', 'Revenue')
+                ->withCount('*', 'Orders')
+                ->generate()['data'][0] ?? [];
+            
+            // Get product count for this category
+            $productCount = count(Product::query()->where('category_id', '=', $category['id'])->get());
+            
+            $category['total_orders'] = $stats['Orders'] ?? 0;
+            $category['total_revenue'] = $stats['Revenue'] ?? 0;
+            $category['total_products'] = $productCount;
+            
+            $enrichedCategories[] = $category;
+        }
+        
         $this->view->layout('admin');
         $this->view('admin/categories/index', [
-            'categories' => $categories,
+            'categories' => $enrichedCategories,
             'breadcrumb' => [
                 ['label' => 'Dashboard', 'url' => url('admin')],
                 ['label' => 'Categories']
