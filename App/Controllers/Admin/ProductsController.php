@@ -52,6 +52,7 @@ class ProductsController extends AdminControllerBase
         $salesData =  ChartBuilder::build('transactions', 'date')
             ->daily()
             ->where('type', '=', 'income')
+            ->andWhere('product_id', '=', $id)
             ->withSum('amount', 'Revenue')
             ->withCount('*', 'Orders')
             ->limit(50)
