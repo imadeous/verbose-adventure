@@ -53,6 +53,7 @@ class ProductsController extends AdminControllerBase
             ->where('type', '=', 'income')
             ->andWhere('product_id', '=', $id)
             ->orderBy('date', 'DESC')
+            ->withSum('amount', 'total_amount')
             ->limit(50)
             ->get();
 
