@@ -68,6 +68,8 @@ $router->middleware([AuthMiddleware::class], function ($router) {
     $router->resource('/admin/gallery', AdminGalleryController::class);
     // AI Assistant routes
     $router->get('/admin/assistant', [AdminAssistantController::class, 'index']);
+    $router->get('/admin/assistant/analyze', [AdminAssistantController::class, 'analyze']);
+    $router->post('/admin/assistant/analyze/generate', [AdminAssistantController::class, 'generateAnalysis']);
     // Admin user profile route
     $router->get('/admin/profile', [AdminUserController::class, 'profile']);
     // $router->resource('/admin/events', EventController::class);
