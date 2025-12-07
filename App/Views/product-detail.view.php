@@ -3,14 +3,14 @@
     <div class="container px-5 py-24 mx-auto">
         <div class="lg:w-4/5 mx-auto flex flex-wrap">
             <!-- Image Gallery (All Images: Product + Variants) -->
-            <div class="lg:w-1/2 w-full" x-data="{ 
-                currentImage: 0,
-                images: <?php
-                        echo json_encode(array_map(function ($img) {
-                            return $img['image_url'];
-                        }, $images));
-                        ?>
-            }">
+            <div class="lg:w-1/2 w-full" x-data='<?php
+                                                    echo json_encode([
+                                                        "currentImage" => 0,
+                                                        "images" => array_map(function ($img) {
+                                                            return $img["image_url"];
+                                                        }, $images)
+                                                    ], JSON_HEX_APOS | JSON_HEX_QUOT);
+                                                    ?>'>
                 <!-- Main Image -->
                 <div class="relative h-96 rounded-lg overflow-hidden mb-4">
                     <?php if (!empty($images)): ?>
