@@ -188,11 +188,11 @@ $overallRating = Product::getOverallRating($product->id);
 
                     <!-- Weight -->
                     <div>
-                        <label for="weight_grams" class="block text-sm font-medium text-gray-700 mb-1">Weight (grams)</label>
+                        <label for="weight" class="block text-sm font-medium text-gray-700 mb-1">Weight (grams)</label>
                         <input
                             type="number"
-                            name="weight_grams"
-                            id="weight_grams"
+                            name="weight"
+                            id="weight"
                             min="0"
                             placeholder="0"
                             class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
@@ -318,7 +318,7 @@ $overallRating = Product::getOverallRating($product->id);
                                 </td>
                                 <td class="px-4 py-3 whitespace-nowrap">
                                     <span class="text-sm text-gray-700">
-                                        <?= $variantObj->weight_grams ? $variantObj->getFormattedWeight() : '—' ?>
+                                        <?= $variantObj->weight ? $variantObj->getFormattedWeight() : '—' ?>
                                     </span>
                                 </td>
                                 <td class="px-4 py-3 whitespace-nowrap">
