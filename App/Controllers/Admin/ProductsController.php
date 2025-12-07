@@ -60,7 +60,8 @@ class ProductsController extends AdminControllerBase
                 'Revenue' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#2563eb', 'fill' => false],
                 'Orders' => ['type' => 'bar', 'yAxisID' => 'y', 'backgroundColor' => '#60a5fa'],
                 // 'Average' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#05011bff', 'fill' => false]
-            ]);
+            ])
+            ->toArray();
 
         $breadcrumbs = [
             ['label' => 'Dashboard', 'url' => '/admin'],
