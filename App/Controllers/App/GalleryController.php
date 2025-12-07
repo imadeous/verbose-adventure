@@ -62,6 +62,14 @@ class GalleryController extends Controller
         // Get product images
         $images = Product::getImages($id);
 
+        // Add leading slash to image URLs
+        foreach ($images as &$image) {
+            if (isset($image['image_url'])) {
+                $image['image_url'] = '/' . $image['image_url'];
+            }
+        }
+        unset($image);
+
         // Get variants information
         $variants = Product::getVariants($id);
         $hasVariants = Product::hasVariants($id);
@@ -72,7 +80,7 @@ class GalleryController extends Controller
                 $variantImages = Gallery::where('related_id', '=', $variant['id'])
                     ->where('image_type', '=', 'variant')
                     ->get();
-                $variant['image'] = !empty($variantImages) ? $variantImages[0]['image_url'] : null;
+                $variant['image'] = !empty($variantImages) ? '/' . $variantImages[0]['image_url'] : null;
             }
             unset($variant); // Break reference
         }
