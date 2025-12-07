@@ -39,9 +39,13 @@ use App\Models\Product; ?>
                             </span>
                         </td>
                         <td class="px-4 py-3 text-center">
-                            <span class="font-semibold text-green-700">
-                                $<?= number_format($product->total_revenue, 2) ?>
-                            </span>
+                            <?php if ($product->total_revenue === 0): ?>
+                                <span class="text-gray-400">-</span>
+                            <?php else: ?>
+                                <span class="font-semibold text-green-700">
+                                    $<?= number_format($product->total_revenue, 2) ?>
+                                </span>
+                            <?php endif; ?>
                         </td>
                         <td class="px-4 py-3 text-center">
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
