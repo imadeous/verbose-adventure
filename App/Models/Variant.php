@@ -93,7 +93,9 @@ class Variant extends Model
             ->limit(1)
             ->get();
 
-        return !empty($result) ? $result[0]->price : null;
+        if (empty($result)) return null;
+        $variant = $result[0];
+        return is_array($variant) ? ($variant['price'] ?? null) : ($variant->price ?? null);
     }
 
     /**
@@ -107,7 +109,9 @@ class Variant extends Model
             ->limit(1)
             ->get();
 
-        return !empty($result) ? $result[0]->price : null;
+        if (empty($result)) return null;
+        $variant = $result[0];
+        return is_array($variant) ? ($variant['price'] ?? null) : ($variant->price ?? null);
     }
 
     /**
