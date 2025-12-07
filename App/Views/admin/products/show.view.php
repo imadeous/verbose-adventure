@@ -3,7 +3,7 @@
 use App\Models\Product;
 
 $variants = $product->getVariants();
-$stats = $product->getReviewStats();
+$overallRating = Product::getOverallRating($product->id);
 ?>
 
 <div class="space-y-6">
@@ -84,7 +84,7 @@ $stats = $product->getReviewStats();
                                 <?php foreach ($gallery as $idx => $image): ?>
                                     <button
                                         @click="active = <?= $idx ?>"
-                                        class="flex-shrink-0 w-16 h-16 rounded border-2 transition overflow-hidden"
+                                        class="shrink-0 w-16 h-16 rounded border-2 transition overflow-hidden"
                                         :class="active === <?= $idx ?> ? 'border-blue-500' : 'border-gray-300 hover:border-gray-400'">
                                         <img
                                             src="<?= url('storage/product/' . e($image['image_url'])) ?>"
@@ -398,9 +398,9 @@ $stats = $product->getReviewStats();
                 </div>
                 <div>
                     <h2 class="text-xl font-bold text-gray-900">Customer Reviews</h2>
-                    <?php if (isset($stats['overall_rating'])): ?>
+                    <?php if ($overallRating > 0): ?>
                         <p class="text-sm text-gray-600">
-                            Average rating: <span class="font-semibold"><?= number_format($stats['overall_rating'], 1) ?></span> / 5.0
+                            Average rating: <span class="font-semibold"><?= number_format($overallRating, 1) ?></span> / 5.0
                         </p>
                     <?php endif; ?>
                 </div>
