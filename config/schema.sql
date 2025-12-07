@@ -52,10 +52,29 @@ CREATE TABLE products (
     name VARCHAR(100) NOT NULL,
     category_id INT,
     description TEXT,
-    price DECIMAL(10,2) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
 );
+
+-- VARIANTS: product variants with dimensions, materials, pricing, etc.
+CREATE TABLE variants (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    dimensions VARCHAR(255) NULL COMMENT 'User-defined dimensions (e.g., "2x3x8 cm", "8\" wingspan", "6\" tall")',
+    weight INT NULL COMMENT 'Weight in grams',
+    material VARCHAR(255) NULL COMMENT 'Material description (user-defined)',
+    color VARCHAR(7) NULL COMMENT 'Hex color code (e.g., "#FF5733")',
+    finishing VARCHAR(255) NULL COMMENT 'Finishing description (e.g., "raw print", "sanded", "painted", "full post production")',
+    assembly_required BOOLEAN DEFAULT FALSE COMMENT 'Whether assembly is required',
+    price DECIMAL(10,2) NOT NULL COMMENT 'Price for this variant',
+    sku VARCHAR(100) NULL COMMENT 'Stock Keeping Unit (optional)',
+    stock_quantity INT DEFAULT 0 COMMENT 'Available stock quantity',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
+    INDEX idx_product_id (product_id),
+    INDEX idx_price (price)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE contacts (
     id INT AUTO_INCREMENT PRIMARY KEY,

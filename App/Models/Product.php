@@ -5,6 +5,7 @@ namespace App\Models;
 use Core\Model;
 use App\Models\Category;
 use App\Models\Gallery;
+use App\Models\Variant;
 use Core\Database\QueryBuilder;
 
 class Product extends Model
@@ -16,7 +17,6 @@ class Product extends Model
         'name',
         'category_id',
         'description',
-        'price',
         'image_url',
         'created_at'
     ];
@@ -65,5 +65,46 @@ class Product extends Model
             $totalRating += $review->rating;
         }
         return round($totalRating / count($reviews), 1);
+    }
+
+    /**
+     * Get all variants for this product
+     */
+    public function getVariants()
+    {
+        return Variant::getByProduct($this->id);
+    }
+
+    /**
+     * Get the price range for this product based on variants
+     */
+    public function getPriceRange()
+    {
+        return Variant::getPriceRange($this->id);
+    }
+
+    /**
+     * Get the lowest price variant
+     */
+    public function getLowestPrice()
+    {
+        return Variant::getLowestPrice($this->id);
+    }
+
+    /**
+     * Get the highest price variant
+     */
+    public function getHighestPrice()
+    {
+        return Variant::getHighestPrice($this->id);
+    }
+
+    /**
+     * Check if product has variants
+     */
+    public function hasVariants()
+    {
+        $variants = $this->getVariants();
+        return !empty($variants);
     }
 }

@@ -26,10 +26,6 @@ use App\Models\Product;
                         <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">Category</span>
                         <span class="text-blue-900"><?= e(Product::getCategoryName($product->category_id)) ?></span>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">Price</span>
-                        <span class="text-blue-900"><?= e($product->price) ?></span>
-                    </div>
                     <div class="flex items-start gap-2">
                         <span class="text-xs text-blue-500 font-medium uppercase tracking-wide w-28">Description</span>
                         <span class="text-blue-800"><?= e($product->description) ?></span>
@@ -148,6 +144,141 @@ use App\Models\Product;
             </div>
         </div>
     </div>
+
+    <!-- Product Variants Section -->
+    <div class="bg-white rounded-xl shadow-md border border-blue-100 p-6">
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center gap-3">
+                <div class="bg-blue-200 text-blue-700 rounded-lg p-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
+                    </svg>
+                </div>
+                <h2 class="text-xl font-bold text-blue-900">Product Variants</h2>
+            </div>
+            <a href="<?= url('admin/products/' . $product->id . '/variants/create') ?>"
+                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow transition flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                Add Variant
+            </a>
+        </div>
+
+        <?php
+        $variants = $product->getVariants();
+        if (empty($variants)):
+        ?>
+            <div class="text-center py-12 bg-blue-50 rounded-lg border border-blue-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto text-blue-400 mb-3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+                </svg>
+                <p class="text-gray-600 mb-4">No variants created yet</p>
+                <a href="<?= url('admin/products/' . $product->id . '/variants/create') ?>"
+                    class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition">
+                    Create First Variant
+                </a>
+            </div>
+        <?php else: ?>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <?php foreach ($variants as $variant):
+                    $variantObj = new \App\Models\Variant((array)$variant);
+                ?>
+                    <div class="bg-blue-50 rounded-lg border border-blue-200 p-4 hover:shadow-md transition">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex-1">
+                                <div class="text-2xl font-bold text-blue-900 mb-1">
+                                    $<?= number_format($variant->price, 2) ?>
+                                </div>
+                                <?php if (!empty($variant->sku)): ?>
+                                    <div class="text-xs text-gray-500">SKU: <?= e($variant->sku) ?></div>
+                                <?php endif; ?>
+                            </div>
+                            <?php if (!empty($variant->color)): ?>
+                                <div class="w-8 h-8 rounded-full border-2 border-white shadow-sm"
+                                    style="background-color: <?= e($variantObj->getColorHex()) ?>"></div>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="space-y-2 text-sm mb-4">
+                            <?php if (!empty($variant->dimensions)): ?>
+                                <div class="flex items-center gap-2 text-gray-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-blue-600">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                                    </svg>
+                                    <span><?= e($variant->dimensions) ?></span>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if (!empty($variant->weight)): ?>
+                                <div class="flex items-center gap-2 text-gray-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-blue-600">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0 0 12 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 0 1-2.031.352 5.988 5.988 0 0 1-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971Zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 0 1-2.031.352 5.989 5.989 0 0 1-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971Z" />
+                                    </svg>
+                                    <span><?= e($variantObj->getFormattedWeight()) ?></span>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if (!empty($variant->material)): ?>
+                                <div class="flex items-center gap-2 text-gray-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-blue-600">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
+                                    </svg>
+                                    <span><?= e($variant->material) ?></span>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if (!empty($variant->finishing)): ?>
+                                <div class="flex items-center gap-2 text-gray-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-blue-600">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42" />
+                                    </svg>
+                                    <span><?= e($variant->finishing) ?></span>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($variantObj->requiresAssembly()): ?>
+                                <div class="flex items-center gap-2 text-orange-600 font-medium">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z" />
+                                    </svg>
+                                    <span>Assembly Required</span>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if (isset($variant->stock_quantity)): ?>
+                                <div class="flex items-center gap-2 text-gray-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-blue-600">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+                                    </svg>
+                                    <span>Stock: <?= e($variant->stock_quantity) ?></span>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="flex gap-2 pt-3 border-t border-blue-200">
+                            <a href="<?= url('admin/products/' . $product->id . '/variants/' . $variant->id . '/edit') ?>"
+                                class="flex-1 bg-yellow-100 text-yellow-700 hover:bg-yellow-200 border border-yellow-300 rounded px-3 py-1.5 text-sm font-semibold text-center transition">
+                                Edit
+                            </a>
+                            <form action="<?= url('admin/products/' . $product->id . '/variants/' . $variant->id . '/delete') ?>"
+                                method="POST"
+                                class="flex-1"
+                                onsubmit="return confirm('Delete this variant?')">
+                                <?= csrf_field() ?>
+                                <button type="submit"
+                                    class="w-full bg-red-100 text-red-700 hover:bg-red-200 border border-red-200 rounded px-3 py-1.5 text-sm font-semibold transition">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+    </div>
+
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Transactions Table: spans 2 columns -->
         <div class="md:col-span-2">

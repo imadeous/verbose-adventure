@@ -42,23 +42,6 @@
                             </select>
                         </div>
 
-                        <!-- Price -->
-                        <div>
-                            <label for="price" class="block text-sm font-medium text-gray-700 mb-1">
-                                Price (optional)
-                            </label>
-                            <div class="relative">
-                                <span class="absolute left-3 top-2.5 text-gray-500">$</span>
-                                <input type="number"
-                                    name="price"
-                                    id="price"
-                                    step="0.01"
-                                    min="0"
-                                    placeholder="0.00"
-                                    class="w-full rounded-lg border border-blue-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 pl-8 pr-4 py-2 text-gray-900 bg-blue-50 transition">
-                            </div>
-                        </div>
-
                         <!-- Description -->
                         <div>
                             <label for="description" class="block text-sm font-medium text-gray-700 mb-1">
@@ -69,6 +52,19 @@
                                 rows="6"
                                 placeholder="Describe your product..."
                                 class="w-full rounded-lg border border-blue-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 px-4 py-2 text-gray-900 bg-blue-50 transition resize-none"></textarea>
+                        </div>
+
+                        <!-- Note about variants -->
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                            <div class="flex items-start space-x-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-blue-600 mt-0.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                                </svg>
+                                <div class="text-sm text-blue-800">
+                                    <p class="font-medium mb-1">Product Variants</p>
+                                    <p>After creating the product, you can add variants with specific dimensions, materials, colors, finishing options, and pricing.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
