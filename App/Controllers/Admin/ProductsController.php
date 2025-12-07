@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Admin;
 
-use Core\Database\QueryBuilder;
+use Core\Database\ChartBuilder;
 use Core\AdminControllerBase;
 use App\Models\Product;
 use App\Models\Category;
@@ -49,13 +49,18 @@ class ProductsController extends AdminControllerBase
             ->generate()['data'][0] ?? [];
 
         // Get last 50 sales for chart using product_id
-        $salesData = QueryBuilder::table('transactions')
+        $salesData =  ChartBuilder::build('transactions', 'date')
+            ->forPeriod('2025-01-01', '2025-07-31')
+            ->monthly()
             ->where('type', '=', 'income')
-            ->andWhere('product_id', '=', $id)
-            ->orderBy('date', 'DESC')
-            ->withSum('amount', 'total_amount')
-            ->limit(50)
-            ->get();
+            ->withSum('amount', 'Revenue')
+            ->withCount('*', 'Orders')
+            // ->withAverage('amount', 'Average')
+            ->mixedChart([
+                'Revenue' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#2563eb', 'fill' => false],
+                'Orders' => ['type' => 'bar', 'yAxisID' => 'y', 'backgroundColor' => '#60a5fa'],
+                // 'Average' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#05011bff', 'fill' => false]
+            ]);
 
         echo "<pre>";
         var_dump($salesData);
