@@ -56,7 +56,7 @@ class GalleryController extends Controller
     {
         $this->view->layout('app');
 
-        // Get the product
+        // Get the product - just basic info from products table
         $product = Product::find($id);
 
         if (!$product) {
@@ -67,7 +67,6 @@ class GalleryController extends Controller
 
         // Convert to array for consistent access
         if (is_object($product)) {
-            // Handle stdClass or Model object
             $productData = [
                 'id' => $product->id ?? null,
                 'name' => $product->name ?? '',
@@ -86,44 +85,10 @@ class GalleryController extends Controller
         $productData['description'] = $productData['description'] ?? '';
         $productData['category_id'] = $productData['category_id'] ?? null;
 
-        // Get product details
-        $productId = $productData['id'];
-        $images = Product::getImages($productId);
-        $reviews = Product::getReviews($productId);
-        $overallRating = Product::getOverallRating($productId);
-        $variants = Product::getVariants($productId);
-        $hasVariants = Product::hasVariants($productId);
-        $priceRange = $hasVariants ? Product::getPriceRange($productId) : null;
-        $categoryName = $productData['category_id'] ? Product::getCategoryName($productData['category_id']) : 'General';
-
-        // Process reviews for display
-        $reviewsData = [];
-        foreach ($reviews as $review) {
-            $reviewsData[] = is_array($review) ? $review : (array)$review;
-        }
-
-        // Process images
-        $imagesData = [];
-        foreach ($images as $image) {
-            $imagesData[] = is_array($image) ? $image : (array)$image;
-        }
-
-        // Process variants
-        $variantsData = [];
-        foreach ($variants as $variant) {
-            $variantsData[] = is_array($variant) ? $variant : (array)$variant;
-        }
-
+        // Pass minimal data to view - view will load additional data as needed
         $this->view('product-detail', [
             'product' => $productData,
-            'images' => $imagesData,
-            'reviews' => $reviewsData,
-            'overallRating' => $overallRating,
-            'variants' => $variantsData,
-            'hasVariants' => $hasVariants,
-            'priceRange' => $priceRange,
-            'categoryName' => $categoryName,
-            'reviewCount' => count($reviewsData)
+            'productId' => $productData['id']
         ]);
     }
 }

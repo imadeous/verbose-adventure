@@ -1,3 +1,18 @@
+<?php
+// Lazy load additional data only when needed
+use App\Models\Product;
+
+$productId = $product['id'];
+$images = Product::getImages($productId);
+$reviews = Product::getReviews($productId);
+$overallRating = Product::getOverallRating($productId);
+$variants = Product::getVariants($productId);
+$hasVariants = Product::hasVariants($productId);
+$priceRange = $hasVariants ? Product::getPriceRange($productId) : null;
+$categoryName = isset($product['category_id']) ? Product::getCategoryName($product['category_id']) : 'General';
+$reviewCount = count($reviews);
+?>
+
 <!-- Product Detail Section -->
 <section class="text-gray-400 bg-gray-900 body-font overflow-hidden">
     <div class="container px-5 py-24 mx-auto">
