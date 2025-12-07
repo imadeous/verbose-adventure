@@ -13,22 +13,6 @@
             }">
                 <!-- Main Image -->
                 <div class="relative h-96 rounded-lg overflow-hidden mb-4">
-                    <?php if (!empty($images)): ?>
-                        <template x-for="(image, index) in images" :key="index">
-                            <img
-                                x-show="currentImage === index"
-                                :alt="'<?= htmlspecialchars($product->name ?? 'Product') ?> - Image ' + (index + 1)"
-                                class="w-full h-full object-cover object-center"
-                                :src="image">
-                        </template>
-                    <?php else: ?>
-                        <img alt="<?= htmlspecialchars($product->name ?? 'Product') ?>"
-                            class="w-full h-full object-cover object-center"
-                            src="https://dummyimage.com/600x400/1f2937/9ca3af?text=No+Image">
-                    <?php endif; ?>
-                </div>
-
-                <div>
                     <img alt="<?= htmlspecialchars($product->name ?? 'Product') ?>"
                         class="w-full h-full object-cover object-center"
                         src="<?php echo $images[0]['image_url'] ?? 'https://dummyimage.com/600x400/1f2937/9ca3af?text=No+Image'; ?> ">
