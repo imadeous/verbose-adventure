@@ -135,6 +135,46 @@ $overallRating = Product::getOverallRating($product->id);
                 <?= csrf_field() ?>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                    <!-- Price (Required) -->
+                    <div>
+                        <label for="price" class="block text-sm font-medium text-gray-700 mb-1">
+                            Price ($) <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                            type="number"
+                            name="price"
+                            id="price"
+                            step="0.01"
+                            min="0"
+                            required
+                            placeholder="0.00"
+                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+
+                    <!-- SKU -->
+                    <div>
+                        <label for="sku" class="block text-sm font-medium text-gray-700 mb-1">SKU</label>
+                        <input
+                            type="text"
+                            name="sku"
+                            id="sku"
+                            placeholder="e.g., PROD-001-BLK"
+                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+
+                    <!-- Stock Quantity -->
+                    <div>
+                        <label for="stock_quantity" class="block text-sm font-medium text-gray-700 mb-1">Stock Quantity</label>
+                        <input
+                            type="number"
+                            name="stock_quantity"
+                            id="stock_quantity"
+                            min="0"
+                            value="0"
+                            placeholder="0"
+                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+
                     <!-- Dimensions -->
                     <div>
                         <label for="dimensions" class="block text-sm font-medium text-gray-700 mb-1">Dimensions</label>
@@ -142,7 +182,7 @@ $overallRating = Product::getOverallRating($product->id);
                             type="text"
                             name="dimensions"
                             id="dimensions"
-                            placeholder="e.g., 10x5x3 cm, 8\" wingspan"
+                            placeholder="e.g., 10x5x3 cm, 8&quot; wingspan"
                             class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
                     </div>
 
@@ -153,6 +193,8 @@ $overallRating = Product::getOverallRating($product->id);
                             type="number"
                             name="weight_grams"
                             id="weight_grams"
+                            min="0"
+                            placeholder="0"
                             class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
                     </div>
 
@@ -181,7 +223,9 @@ $overallRating = Product::getOverallRating($product->id);
                                 type="text"
                                 x-model="colorValue"
                                 placeholder="#000000"
-                                class="flex-1 rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-sm">
+                                maxlength="7"
+                                pattern="^#[0-9A-Fa-f]{6}$"
+                                class="flex-1 rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-sm font-mono">
                         </div>
                     </div>
 
@@ -193,41 +237,6 @@ $overallRating = Product::getOverallRating($product->id);
                             name="finishing"
                             id="finishing"
                             placeholder="e.g., Glossy, Matte, Polished"
-                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
-                    </div>
-
-                    <!-- Price -->
-                    <div>
-                        <label for="price" class="block text-sm font-medium text-gray-700 mb-1">Price ($) <span class="text-red-500">*</span></label>
-                        <input
-                            type="number"
-                            name="price"
-                            id="price"
-                            step="0.01"
-                            required
-                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
-                    </div>
-
-                    <!-- SKU -->
-                    <div>
-                        <label for="sku" class="block text-sm font-medium text-gray-700 mb-1">SKU</label>
-                        <input
-                            type="text"
-                            name="sku"
-                            id="sku"
-                            placeholder="PROD-001-BLK"
-                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
-                    </div>
-
-                    <!-- Stock -->
-                    <div>
-                        <label for="stock_quantity" class="block text-sm font-medium text-gray-700 mb-1">Stock Quantity</label>
-                        <input
-                            type="number"
-                            name="stock_quantity"
-                            id="stock_quantity"
-                            min="0"
-                            value="0"
                             class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
                     </div>
                 </div>
