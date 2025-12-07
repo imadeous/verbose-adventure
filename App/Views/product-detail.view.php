@@ -6,10 +6,6 @@
             <div class="lg:w-1/2 w-full" x-data="{ 
                 currentImage: 0,
                 images: <?php
-
-                        use App\Models\Product;
-
-                        $images = Product::getImages($product->id);
                         echo json_encode(array_map(function ($img) {
                             return $img['image_url'];
                         }, $images));
@@ -62,11 +58,6 @@
                 </p>
 
                 <!-- Price and Variants -->
-                <?php
-                $variants = Product::getVariants($product->id);
-                $hasVariants = Product::hasVariants($product->id);
-                ?>
-
                 <?php if ($hasVariants && !empty($variants)): ?>
                     <div class="mb-6">
                         <h3 class="text-white text-lg font-medium mb-3">Available Options:</h3>

@@ -56,13 +56,22 @@ class GalleryController extends Controller
     {
         $this->view->layout('app');
 
-        // Get the product - just basic info from products table
+        // Get the product
         $product = Product::find($id);
 
-        
-        // Pass minimal data to view - view will load additional data as needed
+        // Get product images
+        $images = Product::getImages($id);
+
+        // Get variants information
+        $variants = Product::getVariants($id);
+        $hasVariants = Product::hasVariants($id);
+
+        // Pass all data to view
         $this->view('product-detail', [
             'product' => $product,
+            'images' => $images,
+            'variants' => $variants,
+            'hasVariants' => $hasVariants,
         ]);
     }
 }
