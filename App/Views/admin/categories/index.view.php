@@ -36,7 +36,7 @@
                             </td>
                             <td class="px-4 py-3 text-center">
                                 <span class="font-semibold text-green-700">
-                                    <?php if ($category['total_revenue'] === null): ?>
+                                    <?php if ($category['total_revenue'] === 0): ?>
                                         -
                                     <?php else: ?>
                                         <span class="text-xs">MVR</span> <?= number_format($category['total_revenue'], 2) ?>
