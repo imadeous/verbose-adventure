@@ -54,16 +54,9 @@ class ProductsController extends AdminControllerBase
             ->where('type', '=', 'income')
             ->andWhere('product_id', '=', $id)
             ->withSum('amount', 'Revenue')
-            ->withCount('*', 'Orders')
-            ->withAverage('amount', 'Average')
             ->limit(10)
             ->legend(['display' => false])
-            // ->withAverage('amount', 'Average')
-            ->mixedChart([
-                'Revenue' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#2563eb', 'fill' => false],
-                // 'Orders' => ['type' => 'bar', 'yAxisID' => 'y', 'backgroundColor' => '#ffa5fa'],
-                // 'Average' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#ffa5fa', 'fill' => false]
-            ])
+            ->line()
             ->toArray();
 
         $breadcrumbs = [
