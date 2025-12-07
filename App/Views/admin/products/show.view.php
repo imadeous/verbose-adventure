@@ -117,7 +117,7 @@ $highestPrice = Product::getHighestPrice($product->id);
                         <div class="relative h-64 bg-gray-100 rounded-lg overflow-hidden">
                             <?php foreach ($gallery as $idx => $image): ?>
                                 <img
-                                    src="<?= url('storage/product/' . e($image['image_url'])) ?>"
+                                    src="/<?= e($image['image_url']) ?>"
                                     alt="<?= e($product->name) ?>"
                                     class="absolute inset-0 w-full h-full object-cover"
                                     x-show="active === <?= $idx ?>"
@@ -154,7 +154,7 @@ $highestPrice = Product::getHighestPrice($product->id);
                                         class="shrink-0 w-16 h-16 rounded border-2 transition overflow-hidden"
                                         :class="active === <?= $idx ?> ? 'border-blue-500' : 'border-gray-300 hover:border-gray-400'">
                                         <img
-                                            src="<?= url('storage/product/' . e($image['image_url'])) ?>"
+                                            src="/<?= e($image['image_url']) ?>"
                                             alt="Thumbnail <?= $idx + 1 ?>"
                                             class="w-full h-full object-cover">
                                     </button>
