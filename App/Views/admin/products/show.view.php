@@ -22,7 +22,7 @@ $highestPrice = Product::getHighestPrice($product->id);
                 <h2 class="text-2xl font-bold text-gray-900"><?= e($product->name) ?></h2>
                 <p class="text-sm text-gray-500 mt-1"><?= e(Product::getCategoryName($product->category_id)) ?></p>
             </div>
-            
+
             <!-- Overall Rating Badge -->
             <?php if ($overallRating > 0): ?>
                 <div class="flex items-center gap-2 bg-yellow-50 border border-yellow-200 rounded-lg px-4 py-2">
@@ -43,7 +43,7 @@ $highestPrice = Product::getHighestPrice($product->id);
                 <div class="space-y-4">
                     <!-- Price Range -->
                     <?php if (!empty($variants)): ?>
-                        <div class="bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-lg p-4">
+                        <div class="bg-linear-to-br from-green-50 to-emerald-50 border border-green-200 rounded-lg p-4">
                             <label class="text-sm font-medium text-green-700 mb-2 block">Price Range</label>
                             <?php if ($lowestPrice !== null && $highestPrice !== null && $lowestPrice == $highestPrice): ?>
                                 <div class="text-3xl font-bold text-green-900">
@@ -65,12 +65,12 @@ $highestPrice = Product::getHighestPrice($product->id);
                             <p class="text-xs text-green-600 mt-1"><?= count($variants) ?> variant<?= count($variants) != 1 ? 's' : '' ?> available</p>
                         </div>
                     <?php endif; ?>
-                    
+
                     <div>
                         <label class="text-sm font-medium text-gray-500">Description</label>
                         <p class="text-gray-900 mt-1"><?= e($product->description) ?></p>
                     </div>
-                    
+
                     <?php if (!empty($productTransactions)): ?>
                         <div class="pt-4 border-t border-gray-200">
                             <label class="text-sm font-medium text-gray-500 mb-3 block">Sales Performance</label>
@@ -84,21 +84,21 @@ $highestPrice = Product::getHighestPrice($product->id);
                                     <p class="text-2xl font-bold text-green-900">$<?= number_format($productTransactions['Total Revenue'] ?? 0, 2) ?></p>
                                 </div>
                             </div>
-                            
+
                             <!-- Sales Chart -->
                             <?php if (!empty($salesData) && count($salesData) > 1): ?>
                                 <div class="mt-4 bg-gray-50 border border-gray-200 rounded-lg p-4">
                                     <label class="text-xs font-medium text-gray-500 mb-2 block">Last <?= count($salesData) ?> Sales Trend</label>
                                     <svg viewBox="0 0 400 60" class="w-full h-16" preserveAspectRatio="none">
                                         <?php
-                                        $amounts = array_map(function($sale) {
+                                        $amounts = array_map(function ($sale) {
                                             return is_array($sale) ? ($sale['amount'] ?? 0) : ($sale->amount ?? 0);
                                         }, $salesData);
                                         $maxAmount = max($amounts);
                                         $minAmount = min($amounts);
                                         $range = $maxAmount - $minAmount;
                                         if ($range == 0) $range = 1;
-                                        
+
                                         $points = [];
                                         foreach ($amounts as $index => $amount) {
                                             $x = ($index / (count($amounts) - 1)) * 400;
