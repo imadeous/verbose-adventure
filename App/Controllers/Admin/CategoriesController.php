@@ -53,11 +53,28 @@ class CategoriesController extends AdminControllerBase
             $this->redirect('/admin/categories');
             return;
         }
-        // Assuming Category has a products() relationship
+
+        // Get products in this category
         $products = $category->getProductsWithCategory($id);
+
+        // Get category stats
+        $stats = ReportBuilder::build('transactions', 'date')
+            ->where('type', '=', 'income')
+            ->where('category_id', '=', $id)
+            ->withSum('amount', 'Revenue')
+            ->withCount('*', 'Orders')
+            ->generate()['data'][0] ?? [];
+
+        $categoryStats = [
+            'product_count' => count($products),
+            'total_revenue' => $stats['Revenue'] ?? 0,
+            'total_orders' => $stats['Orders'] ?? 0
+        ];
+
         $this->view('admin/categories/show', [
             'category' => $category,
             'products' => $products,
+            'stats' => $categoryStats,
             'breadcrumb' => [
                 ['label' => 'Dashboard', 'url' => url('admin')],
                 ['label' => 'Categories', 'url' => url('admin/categories')],
