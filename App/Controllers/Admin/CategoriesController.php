@@ -57,6 +57,17 @@ class CategoriesController extends AdminControllerBase
         // Get products in this category
         $products = $category->getProductsWithCategory($id);
 
+        // Fetch first gallery image for each product
+        foreach ($products as &$product) {
+            $gallery = \App\Models\Gallery::query()
+                ->where('image_type', '=', 'product')
+                ->where('related_id', '=', $product['id'])
+                ->limit(1)
+                ->get();
+            $product['image_url'] = !empty($gallery[0]['image_url']) ? '/' . $gallery[0]['image_url'] : null;
+        }
+        unset($product); // Break reference
+
         // Get category stats
         $stats = ReportBuilder::build('transactions', 'date')
             ->where('type', '=', 'income')
