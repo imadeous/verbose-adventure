@@ -76,16 +76,15 @@ class GalleryController extends AdminController
             return;
         }
 
-        // Determine upload path based on image type
+        // Determine upload path based on image type (use plural folder names)
         $imageType = $_POST['image_type'] ?? 'site';
-        $uploadSubPath = $imageType;
-        if ($imageType === 'variant') {
-            $uploadSubPath = 'variants';
-        } elseif ($imageType === 'product') {
-            $uploadSubPath = 'products';
-        } elseif ($imageType === 'category') {
-            $uploadSubPath = 'categories';
-        }
+        $uploadPaths = [
+            'site' => 'site',
+            'category' => 'categories',
+            'product' => 'products',
+            'variant' => 'variants'
+        ];
+        $uploadSubPath = $uploadPaths[$imageType] ?? 'site';
 
         $upload = File::upload($_FILES['image'], $uploadSubPath, [
             'allowed_types' => ['jpg', 'jpeg', 'png', 'gif', 'webp'],
