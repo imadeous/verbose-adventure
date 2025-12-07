@@ -105,7 +105,24 @@
                             <p class="text-gray-500 text-sm mb-2 line-clamp-3"><?= e($product['description']) ?></p>
                         <?php endif; ?>
                         <div class="flex items-center justify-between mt-auto">
-                            <p class="text-green-700 font-bold text-xl">MVR <?= e(number_format($product['price'], 2)) ?></p>
+                            <?php
+                            // Get price range from variants
+                            $variants = \App\Models\Product::getVariants($product['id']);
+                            if (!empty($variants)) {
+                                $lowestPrice = \App\Models\Product::getLowestPrice($product['id']);
+                                $highestPrice = \App\Models\Product::getHighestPrice($product['id']);
+
+                                if ($lowestPrice !== null && $highestPrice !== null && $lowestPrice == $highestPrice) {
+                                    echo '<p class="text-green-700 font-bold text-xl">$' . number_format($lowestPrice, 2) . '</p>';
+                                } elseif ($lowestPrice !== null && $highestPrice !== null) {
+                                    echo '<p class="text-green-700 font-bold text-lg">$' . number_format($lowestPrice, 2) . ' - $' . number_format($highestPrice, 2) . '</p>';
+                                } else {
+                                    echo '<p class="text-gray-400 text-sm italic">No pricing</p>';
+                                }
+                            } else {
+                                echo '<a href="/admin/products/' . e($product['id']) . '" class="text-amber-600 text-xs font-medium hover:text-amber-700">Add variants →</a>';
+                            }
+                            ?>
                             <a href="/admin/products/<?= e($product['id']) ?>" class="inline-flex items-center px-3 py-1.5 bg-blue-600 text-white text-xs font-semibold rounded-full shadow hover:bg-blue-700 transition-colors">
                                 View
                                 <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
