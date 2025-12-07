@@ -28,7 +28,7 @@ class File
         if ($maxSize && $file['size'] > $maxSize) {
             return ['success' => false, 'path' => null, 'error' => 'File too large.'];
         }
-        $baseDir = 'storage/';
+        $baseDir = 'public/storage/';
         $dir = rtrim($baseDir . '/' . ltrim($targetDir, '/\\'), '/\\');
         if (!is_dir($dir)) {
             mkdir($dir, 0777, true);
@@ -36,7 +36,9 @@ class File
         $filename = $newName ? $newName . '.' . $ext : uniqid('file_', true) . '.' . $ext;
         $dest = $dir . DIRECTORY_SEPARATOR . $filename;
         if (move_uploaded_file($file['tmp_name'], $dest)) {
-            return ['success' => true, 'path' => $dest, 'error' => null];
+            // Return web-accessible path (remove 'public/' prefix and normalize slashes)
+            $webPath = str_replace('\\', '/', str_replace('public/', '', $dest));
+            return ['success' => true, 'path' => $webPath, 'error' => null];
         }
         return ['success' => false, 'path' => null, 'error' => 'Failed to move uploaded file.'];
     }

@@ -97,8 +97,8 @@ class GalleryController extends AdminController
             return;
         }
 
-        // The File::upload returns path like "storage/variants/file_xxx.jpg"
-        $imagePath = $upload['path'];
+        // Normalize path to use forward slashes for web (Windows uses backslashes)
+        $imagePath = str_replace('\\', '/', $upload['path']);
 
         $galleryData = [
             'title' => $_POST['title'] ?? null,
