@@ -55,17 +55,12 @@ class ProductsController extends AdminControllerBase
             ->andWhere('product_id', '=', $id)
             ->withSum('amount', 'Revenue')
             ->withCount('*', 'Orders')
-            ->limit(50)
             // ->withAverage('amount', 'Average')
             ->mixedChart([
                 'Revenue' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#2563eb', 'fill' => false],
                 'Orders' => ['type' => 'bar', 'yAxisID' => 'y', 'backgroundColor' => '#60a5fa'],
                 // 'Average' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#05011bff', 'fill' => false]
             ]);
-
-
-        // Reverse to show chronologically
-        $salesData = array_reverse($salesData);
 
         $breadcrumbs = [
             ['label' => 'Dashboard', 'url' => '/admin'],
