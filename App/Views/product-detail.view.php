@@ -31,7 +31,7 @@
                 <div>
                     <img alt="<?= htmlspecialchars($product->name ?? 'Product') ?>"
                         class="w-full h-full object-cover object-center"
-                        src="https://dummyimage.com/600x400/1f2937/9ca3af?text=No+Image">
+                        src="<?php echo $images[0]['image_url'] ?? 'https://dummyimage.com/600x400/1f2937/9ca3af?text=No+Image'; ?> ">
                 </div>
 
                 <!-- Thumbnail Navigation -->
