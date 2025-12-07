@@ -33,7 +33,7 @@
                             <button
                                 @click="currentImage = <?= $index ?>"
                                 :class="currentImage === <?= $index ?> ? 'border-yellow-500' : 'border-gray-700'"
-                                class="flex-shrink-0 w-20 h-20 border-2 rounded-lg overflow-hidden hover:border-yellow-400 transition">
+                                class="shrink-0 w-20 h-20 border-2 rounded-lg overflow-hidden hover:border-yellow-400 transition">
                                 <img src="<?= htmlspecialchars($image['image_url']) ?>"
                                     alt="Thumbnail <?= $index + 1 ?>"
                                     class="w-full h-full object-cover">
