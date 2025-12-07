@@ -94,84 +94,11 @@ $highestPrice = Product::getHighestPrice($product->id);
                                     </div>
                                 </div>
 
-                                <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
                                 <script>
                                     document.addEventListener('DOMContentLoaded', function() {
                                         const ctx = document.getElementById('salesChart');
                                         if (ctx) {
                                             const chartConfig = <?= json_encode($salesData) ?>;
-
-                                            // Configure multi-axis scales
-                                            chartConfig.options.scales = {
-                                                y: {
-                                                    type: 'linear',
-                                                    position: 'left',
-                                                    title: {
-                                                        display: true,
-                                                        text: 'Orders',
-                                                        color: '#60a5fa'
-                                                    },
-                                                    ticks: {
-                                                        color: '#60a5fa',
-                                                        stepSize: 1
-                                                    },
-                                                    grid: {
-                                                        display: true,
-                                                        color: 'rgba(96, 165, 250, 0.1)'
-                                                    }
-                                                },
-                                                y1: {
-                                                    type: 'linear',
-                                                    position: 'right',
-                                                    title: {
-                                                        display: true,
-                                                        text: 'Revenue ($)',
-                                                        color: '#2563eb'
-                                                    },
-                                                    ticks: {
-                                                        color: '#2563eb',
-                                                        callback: function(value) {
-                                                            return '$' + value.toFixed(2);
-                                                        }
-                                                    },
-                                                    grid: {
-                                                        display: false
-                                                    }
-                                                },
-                                                x: {
-                                                    ticks: {
-                                                        maxRotation: 45,
-                                                        minRotation: 45
-                                                    }
-                                                }
-                                            };
-
-                                            // Add interaction options
-                                            chartConfig.options.interaction = {
-                                                mode: 'index',
-                                                intersect: false
-                                            };
-
-                                            chartConfig.options.plugins = {
-                                                ...chartConfig.options.plugins,
-                                                tooltip: {
-                                                    callbacks: {
-                                                        label: function(context) {
-                                                            let label = context.dataset.label || '';
-                                                            if (label) {
-                                                                label += ': ';
-                                                            }
-                                                            if (context.dataset.label === 'Revenue') {
-                                                                label += '$' + context.parsed.y.toFixed(2);
-                                                            } else {
-                                                                label += context.parsed.y;
-                                                            }
-                                                            return label;
-                                                        }
-                                                    }
-                                                }
-                                            };
-
                                             new Chart(ctx, chartConfig);
                                         }
                                     });
