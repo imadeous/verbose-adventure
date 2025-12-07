@@ -40,6 +40,8 @@ $router->get('/', [HomeController::class, 'index']);
 // Public routes
 // Public gallery route
 $router->get('/gallery', [GalleryController::class, 'index']);
+// Public product detail route
+$router->get('/{id}', [GalleryController::class, 'show']);
 // Public quote routes
 $router->get('/quote', [QuotesController::class, 'index']);
 $router->post('/quote', [QuotesController::class, 'store']);

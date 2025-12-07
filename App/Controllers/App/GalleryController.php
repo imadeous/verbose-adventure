@@ -51,4 +51,61 @@ class GalleryController extends Controller
             'totalGalleryItems' => $totalGalleryItems
         ]);
     }
+
+    public function show($id)
+    {
+        $this->view->layout('app');
+
+        // Get the product
+        $product = Product::find($id);
+        
+        if (!$product) {
+            flash('error', 'Product not found.');
+            $this->redirect('/gallery');
+            return;
+        }
+
+        // Convert to array for consistent access
+        $productData = is_array($product) ? $product : (array)$product;
+        
+        // Get product details
+        $productId = $productData['id'];
+        $images = Product::getImages($productId);
+        $reviews = Product::getReviews($productId);
+        $overallRating = Product::getOverallRating($productId);
+        $variants = Product::getVariants($productId);
+        $hasVariants = Product::hasVariants($productId);
+        $priceRange = $hasVariants ? Product::getPriceRange($productId) : null;
+        $categoryName = $productData['category_id'] ? Product::getCategoryName($productData['category_id']) : 'General';
+
+        // Process reviews for display
+        $reviewsData = [];
+        foreach ($reviews as $review) {
+            $reviewsData[] = is_array($review) ? $review : (array)$review;
+        }
+
+        // Process images
+        $imagesData = [];
+        foreach ($images as $image) {
+            $imagesData[] = is_array($image) ? $image : (array)$image;
+        }
+
+        // Process variants
+        $variantsData = [];
+        foreach ($variants as $variant) {
+            $variantsData[] = is_array($variant) ? $variant : (array)$variant;
+        }
+
+        $this->view('product-detail', [
+            'product' => $productData,
+            'images' => $imagesData,
+            'reviews' => $reviewsData,
+            'overallRating' => $overallRating,
+            'variants' => $variantsData,
+            'hasVariants' => $hasVariants,
+            'priceRange' => $priceRange,
+            'categoryName' => $categoryName,
+            'reviewCount' => count($reviewsData)
+        ]);
+    }
 }
