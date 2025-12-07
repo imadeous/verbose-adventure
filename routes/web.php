@@ -28,6 +28,7 @@ use App\Controllers\Admin\CategoriesController as AdminCategoriesController;
 use App\Controllers\Admin\TransactionController as AdminTransactionController;
 use App\Controllers\Admin\GalleryController as AdminGalleryController;
 use App\Controllers\Admin\VariantsController as AdminVariantsController;
+use App\Controllers\Admin\AssistantController as AdminAssistantController;
 
 // Middleware imports
 use App\Middleware\AuthMiddleware;
@@ -65,6 +66,8 @@ $router->middleware([AuthMiddleware::class], function ($router) {
     $router->post('/admin/products/{productId}/variants/{variantId}/delete', [AdminVariantsController::class, 'destroy']);
     $router->resource('/admin/categories', AdminCategoriesController::class);
     $router->resource('/admin/gallery', AdminGalleryController::class);
+    // AI Assistant routes
+    $router->get('/admin/assistant', [AdminAssistantController::class, 'index']);
     // Admin user profile route
     $router->get('/admin/profile', [AdminUserController::class, 'profile']);
     // $router->resource('/admin/events', EventController::class);
