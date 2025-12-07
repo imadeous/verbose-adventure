@@ -63,9 +63,6 @@ class ProductsController extends AdminControllerBase
                 // 'Average' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#05011bff', 'fill' => false]
             ]);
 
-        echo "<pre>";
-        var_dump($salesData);
-        die();
 
         // Reverse to show chronologically
         $salesData = array_reverse($salesData);
