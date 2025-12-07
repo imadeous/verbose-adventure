@@ -48,9 +48,6 @@ class ProductsController extends AdminControllerBase
             ->withCount('*', 'Total Orders')
             ->generate()['data'][0] ?? [];
 
-        var_dump($productTransactions);
-        die();
-
         // Get last 50 sales for chart using product_id
         $salesData = QueryBuilder::table('transactions')
             ->where('type', '=', 'income')
@@ -58,6 +55,9 @@ class ProductsController extends AdminControllerBase
             ->orderBy('date', 'DESC')
             ->limit(50)
             ->get();
+
+        var_dump($salesData);
+        die();
 
         // Reverse to show chronologically
         $salesData = array_reverse($salesData);
