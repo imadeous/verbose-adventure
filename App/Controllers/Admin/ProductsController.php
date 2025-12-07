@@ -44,7 +44,6 @@ class ProductsController extends AdminControllerBase
             ->where('type', '=', 'income')
             ->where('product_id', '=', $id)
             ->with('description')
-            ->withSummary()
             ->withSum('amount', 'Total Revenue')
             ->withCount('*', 'Total Orders')
             ->generate()['data'][0] ?? [];
