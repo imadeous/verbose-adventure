@@ -17,8 +17,9 @@
                         <template x-for="(image, index) in images" :key="index">
                             <img
                                 x-show="currentImage === index"
+                                x-transition
                                 :alt="'<?= htmlspecialchars($product->name ?? 'Product') ?> - Image ' + (index + 1)"
-                                class="w-full h-full object-cover object-center"
+                                class="w-full h-full object-cover object-center absolute inset-0"
                                 :src="image">
                         </template>
                     <?php else: ?>
