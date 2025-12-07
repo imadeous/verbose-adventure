@@ -11,9 +11,7 @@
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
             <?php foreach ($images as $image): ?>
                 <div class="bg-white rounded-lg shadow border border-blue-100 overflow-hidden flex flex-col">
-                    <!-- Debug: <?= e($image['image_url']) ?> -->
-                    <img src="/<?= e($image['image_url']) ?>" alt="<?= e($image['title']) ?>" class="w-full h-28 object-cover" onerror="this.parentElement.querySelector('.debug-path').style.display='block'">
-                    <div class="debug-path" style="display:none;padding:4px;font-size:10px;background:#fee;color:#c00;word-break:break-all;"><?= e($image['image_url']) ?></div>
+                    <img src="/<?= e($image['image_url']) ?>" alt="<?= e($image['title']) ?>" class="w-full h-28 object-cover">
                     <div class="p-2 flex-1 flex flex-col justify-between">
                         <div class="font-semibold text-blue-900 text-xs truncate mb-1" title="<?= e($image['title']) ?>"><?= e($image['title']) ?></div>
                         <?php if (!empty($image['caption'])): ?>
