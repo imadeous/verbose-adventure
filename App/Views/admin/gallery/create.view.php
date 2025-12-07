@@ -195,7 +195,7 @@
                     }
 
                     try {
-                        const response = await fetch(`<?= url('admin/products/') ?>/${this.selectedProduct}/variants-json`);
+                        const response = await fetch(`<?= url('admin/products') ?>/${this.selectedProduct}/variants-json`);
                         const data = await response.json();
                         this.variants = data.variants || [];
                         this.relatedId = '';
