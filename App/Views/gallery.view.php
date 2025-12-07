@@ -63,7 +63,7 @@
             <?php if (!empty($galleryItems)): ?>
                 <?php foreach ($galleryItems as $item): ?>
                     <div class="lg:w-1/3 sm:w-1/2 p-4">
-                        <a href="<?= url('/' . $item['id']) ?>" class="flex relative group cursor-pointer">
+                        <a href="<?= url('/product/' . $item['id']) ?>" class="flex relative group cursor-pointer">
                             <img alt="<?= htmlspecialchars($item['name']) ?>"
                                 class="absolute inset-0 w-full h-full object-cover object-center"
                                 src="<?= htmlspecialchars($item['image_url']) ?>">

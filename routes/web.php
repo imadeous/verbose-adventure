@@ -40,14 +40,14 @@ $router->get('/', [HomeController::class, 'index']);
 // Public routes
 // Public gallery route
 $router->get('/gallery', [GalleryController::class, 'index']);
-// Public product detail route
-$router->get('/{id}', [GalleryController::class, 'show']);
 // Public quote routes
 $router->get('/quote', [QuotesController::class, 'index']);
 $router->post('/quote', [QuotesController::class, 'store']);
 // Public contact routes
 $router->get('/contact', [ContactController::class, 'index']);
 $router->post('/contact', [ContactController::class, 'store']);
+// Public product detail route (must be last to avoid catching other routes)
+$router->get('/product/{id}', [GalleryController::class, 'show']);
 
 // Admin routes (protected by AuthMiddleware) => Login required
 $router->middleware([AuthMiddleware::class], function ($router) {
