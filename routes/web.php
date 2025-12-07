@@ -68,8 +68,17 @@ $router->middleware([AuthMiddleware::class], function ($router) {
     $router->resource('/admin/gallery', AdminGalleryController::class);
     // AI Assistant routes
     $router->get('/admin/assistant', [AdminAssistantController::class, 'index']);
+    // Individual analysis shortcuts
+    $router->get('/admin/assistant/swot', [AdminAssistantController::class, 'swot']);
+    $router->get('/admin/assistant/revenue', [AdminAssistantController::class, 'revenue']);
+    $router->get('/admin/assistant/forecast', [AdminAssistantController::class, 'forecast']);
+    $router->get('/admin/assistant/stock', [AdminAssistantController::class, 'stock']);
+    $router->get('/admin/assistant/csat', [AdminAssistantController::class, 'csat']);
+    $router->get('/admin/assistant/statistics', [AdminAssistantController::class, 'statistics']);
+    // Legacy analysis form (can be kept or removed)
     $router->get('/admin/assistant/analyze', [AdminAssistantController::class, 'analyze']);
     $router->post('/admin/assistant/analyze/generate', [AdminAssistantController::class, 'generateAnalysis']);
+    // AI Sandbox
     $router->get('/admin/assistant/sandbox', [AdminAssistantController::class, 'sandbox']);
     $router->post('/admin/assistant/sandbox/execute', [AdminAssistantController::class, 'runSandbox']);
     // Admin user profile route

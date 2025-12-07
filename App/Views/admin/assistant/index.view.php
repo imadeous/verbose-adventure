@@ -1,5 +1,5 @@
-<div class="max-w-6xl mx-auto">
-    <div class="flex items-center justify-between mb-8">
+<div class="max-w-7xl mx-auto">
+    <div class="flex items-center justify-between mb-6">
         <div>
             <h1 class="text-3xl font-extrabold text-gray-900 flex items-center gap-3">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-purple-600">
@@ -7,67 +7,116 @@
                 </svg>
                 AI Assistant
             </h1>
-            <p class="text-gray-600 mt-1">Your intelligent admin companion powered by OpenAI</p>
+            <p class="text-gray-600 mt-1">Intelligent business insights powered by OpenAI</p>
         </div>
     </div>
 
-    <!-- Main Content Area -->
-    <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-8">
-        <div class="text-center py-12">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-24 h-24 mx-auto text-purple-400 mb-4 animate-pulse">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
-            </svg>
-            <h2 class="text-2xl font-bold text-gray-800 mb-2">AI Assistant Ready</h2>
-            <p class="text-gray-600 mb-8">Choose a tool below to get started</p>
-
-            <!-- Quick Actions -->
-            <div class="flex justify-center gap-4 mb-12">
-                <a href="<?= url('admin/assistant/analyze') ?>" class="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-lg transition flex items-center gap-3 hover:scale-105 transform">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
-                    </svg>
-                    Business Analysis
-                </a>
-                <a href="<?= url('admin/assistant/sandbox') ?>" class="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-bold shadow-lg transition flex items-center gap-3 hover:scale-105 transform">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
-                    </svg>
-                    AI Sandbox
-                </a>
+    <!-- Analysis Tools Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <!-- SWOT Analysis -->
+        <a href="<?= url('admin/assistant/swot') ?>" class="group bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 rounded-xl shadow-md hover:shadow-xl transition-all p-6 border-2 border-blue-200 hover:border-blue-400">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center text-white text-2xl mr-3 group-hover:scale-110 transition-transform">
+                    🎯
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">SWOT Analysis</h3>
             </div>
+            <p class="text-gray-700 text-sm">
+                Identify Strengths, Weaknesses, Opportunities, and Threats in your business
+            </p>
+        </a>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-8">
-                <!-- Feature Card 1 -->
-                <div class="bg-linear-to-br from-purple-50 to-blue-50 rounded-lg p-6 border border-purple-200">
-                    <div class="bg-purple-200 text-purple-700 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
-                        </svg>
-                    </div>
-                    <h3 class="font-bold text-gray-800 mb-1">Chat Assistant</h3>
-                    <p class="text-sm text-gray-600">Ask questions and get intelligent responses</p>
+        <!-- Revenue Analysis -->
+        <a href="<?= url('admin/assistant/revenue') ?>" class="group bg-gradient-to-br from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 rounded-xl shadow-md hover:shadow-xl transition-all p-6 border-2 border-green-200 hover:border-green-400">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center text-white text-2xl mr-3 group-hover:scale-110 transition-transform">
+                    💰
                 </div>
+                <h3 class="text-xl font-bold text-gray-800">Revenue Analysis</h3>
+            </div>
+            <p class="text-gray-700 text-sm">
+                Analyze revenue trends, patterns, and growth opportunities
+            </p>
+        </a>
 
-                <!-- Feature Card 2 -->
-                <div class="bg-linear-to-br from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-200">
-                    <div class="bg-blue-200 text-blue-700 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
-                        </svg>
-                    </div>
-                    <h3 class="font-bold text-gray-800 mb-1">Content Generation</h3>
-                    <p class="text-sm text-gray-600">Generate descriptions and marketing copy</p>
+        <!-- Business Forecast -->
+        <a href="<?= url('admin/assistant/forecast') ?>" class="group bg-gradient-to-br from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 rounded-xl shadow-md hover:shadow-xl transition-all p-6 border-2 border-purple-200 hover:border-purple-400">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center text-white text-2xl mr-3 group-hover:scale-110 transition-transform">
+                    📈
                 </div>
+                <h3 class="text-xl font-bold text-gray-800">Business Forecast</h3>
+            </div>
+            <p class="text-gray-700 text-sm">
+                Predict future trends and sales based on historical data
+            </p>
+        </a>
 
-                <!-- Feature Card 3 -->
-                <div class="bg-linear-to-br from-indigo-50 to-purple-50 rounded-lg p-6 border border-indigo-200">
-                    <div class="bg-indigo-200 text-indigo-700 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
-                        </svg>
-                    </div>
-                    <h3 class="font-bold text-gray-800 mb-1">Data Analysis</h3>
-                    <p class="text-sm text-gray-600">Get insights from your business data</p>
+        <!-- Stock Analysis -->
+        <a href="<?= url('admin/assistant/stock') ?>" class="group bg-gradient-to-br from-orange-50 to-orange-100 hover:from-orange-100 hover:to-orange-200 rounded-xl shadow-md hover:shadow-xl transition-all p-6 border-2 border-orange-200 hover:border-orange-400">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center text-white text-2xl mr-3 group-hover:scale-110 transition-transform">
+                    📦
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">Stock Analysis</h3>
+            </div>
+            <p class="text-gray-700 text-sm">
+                Inventory insights and restocking recommendations
+            </p>
+        </a>
+
+        <!-- CSAT Analysis -->
+        <a href="<?= url('admin/assistant/csat') ?>" class="group bg-gradient-to-br from-pink-50 to-pink-100 hover:from-pink-100 hover:to-pink-200 rounded-xl shadow-md hover:shadow-xl transition-all p-6 border-2 border-pink-200 hover:border-pink-400">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-pink-500 rounded-lg flex items-center justify-center text-white text-2xl mr-3 group-hover:scale-110 transition-transform">
+                    ⭐
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">CSAT Analysis</h3>
+            </div>
+            <p class="text-gray-700 text-sm">
+                Customer satisfaction sentiment from reviews and ratings
+            </p>
+        </a>
+
+        <!-- Statistics -->
+        <a href="<?= url('admin/assistant/statistics') ?>" class="group bg-gradient-to-br from-indigo-50 to-indigo-100 hover:from-indigo-100 hover:to-indigo-200 rounded-xl shadow-md hover:shadow-xl transition-all p-6 border-2 border-indigo-200 hover:border-indigo-400">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-indigo-500 rounded-lg flex items-center justify-center text-white text-2xl mr-3 group-hover:scale-110 transition-transform">
+                    📊
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">Statistics</h3>
+            </div>
+            <p class="text-gray-700 text-sm">
+                Comprehensive business statistics and key metrics
+            </p>
+        </a>
+    </div>
+
+    <!-- Advanced Tools -->
+    <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+        <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-purple-600">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z" />
+            </svg>
+            Advanced Tools
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <a href="<?= url('admin/assistant/sandbox') ?>" class="group bg-white hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-50 rounded-lg shadow hover:shadow-lg transition-all p-4 border border-gray-200 hover:border-purple-300 flex items-center gap-4">
+                <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center text-white text-xl group-hover:scale-110 transition-transform">
+                    🤖
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-800">AI Sandbox</h3>
+                    <p class="text-sm text-gray-600">Custom prompts with transaction data</p>
+                </div>
+            </a>
+            <div class="bg-white rounded-lg shadow p-4 border border-gray-200 flex items-center gap-4 opacity-60">
+                <div class="w-10 h-10 bg-gray-300 rounded-lg flex items-center justify-center text-white text-xl">
+                    🔮
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-800">More Coming Soon</h3>
+                    <p class="text-sm text-gray-600">Additional AI tools in development</p>
                 </div>
             </div>
         </div>
