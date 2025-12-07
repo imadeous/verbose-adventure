@@ -88,55 +88,94 @@ $highestPrice = Product::getHighestPrice($product->id);
                             <!-- Sales Chart -->
                             <?php if (!empty($salesData['data']['datasets']) && !empty($salesData['data']['labels'])): ?>
                                 <div class="mt-4 bg-gray-50 border border-gray-200 rounded-lg p-4">
-                                    <label class="text-xs font-medium text-gray-500 mb-2 block">Last <?= count($salesData['data']['labels']) ?> Days Sales Trend</label>
-                                    <svg viewBox="0 0 400 60" class="w-full h-16" preserveAspectRatio="none">
-                                        <?php
-                                        // Get revenue data from the first dataset (Revenue)
-                                        $revenueDataset = null;
-                                        foreach ($salesData['data']['datasets'] as $dataset) {
-                                            if ($dataset['label'] === 'Revenue') {
-                                                $revenueDataset = $dataset;
-                                                break;
-                                            }
-                                        }
-                                        $amounts = $revenueDataset ? $revenueDataset['data'] : [];
-
-                                        if (!empty($amounts)) {
-                                            $maxAmount = max($amounts);
-                                            $minAmount = min($amounts);
-                                            $range = $maxAmount - $minAmount;
-                                            if ($range == 0) $range = 1;
-
-                                            $points = [];
-                                            foreach ($amounts as $index => $amount) {
-                                                $x = ($index / (count($amounts) - 1)) * 400;
-                                                $y = 60 - ((($amount - $minAmount) / $range) * 50 + 5);
-                                                $points[] = "$x,$y";
-                                            }
-                                            $pathData = 'M ' . implode(' L ', $points);
-                                        ?>
-                                            <!-- Gradient -->
-                                            <defs>
-                                                <linearGradient id="salesGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                                                    <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.3" />
-                                                    <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0.05" />
-                                                </linearGradient>
-                                            </defs>
-                                            <!-- Fill area -->
-                                            <path d="<?= $pathData ?> L 400,60 L 0,60 Z" fill="url(#salesGradient)" />
-                                            <!-- Line -->
-                                            <path d="<?= $pathData ?>" fill="none" stroke="#3b82f6" stroke-width="2" />
-                                        <?php } ?>
-                                        <!-- Points -->
-                                        <?php foreach ($points as $point): ?>
-                                            <circle cx="<?= explode(',', $point)[0] ?>" cy="<?= explode(',', $point)[1] ?>" r="2" fill="#2563eb" />
-                                        <?php endforeach; ?>
-                                    </svg>
-                                    <div class="flex justify-between text-xs text-gray-500 mt-1">
-                                        <span>Oldest</span>
-                                        <span>Most Recent</span>
+                                    <label class="text-xs font-medium text-gray-500 mb-2 block">Sales Trend (Last <?= count($salesData['data']['labels']) ?> Days)</label>
+                                    <div class="relative" style="height: 200px;">
+                                        <canvas id="salesChart"></canvas>
                                     </div>
                                 </div>
+
+                                <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        const ctx = document.getElementById('salesChart');
+                                        if (ctx) {
+                                            const chartConfig = <?= json_encode($salesData) ?>;
+
+                                            // Configure multi-axis scales
+                                            chartConfig.options.scales = {
+                                                y: {
+                                                    type: 'linear',
+                                                    position: 'left',
+                                                    title: {
+                                                        display: true,
+                                                        text: 'Orders',
+                                                        color: '#60a5fa'
+                                                    },
+                                                    ticks: {
+                                                        color: '#60a5fa',
+                                                        stepSize: 1
+                                                    },
+                                                    grid: {
+                                                        display: true,
+                                                        color: 'rgba(96, 165, 250, 0.1)'
+                                                    }
+                                                },
+                                                y1: {
+                                                    type: 'linear',
+                                                    position: 'right',
+                                                    title: {
+                                                        display: true,
+                                                        text: 'Revenue ($)',
+                                                        color: '#2563eb'
+                                                    },
+                                                    ticks: {
+                                                        color: '#2563eb',
+                                                        callback: function(value) {
+                                                            return '$' + value.toFixed(2);
+                                                        }
+                                                    },
+                                                    grid: {
+                                                        display: false
+                                                    }
+                                                },
+                                                x: {
+                                                    ticks: {
+                                                        maxRotation: 45,
+                                                        minRotation: 45
+                                                    }
+                                                }
+                                            };
+
+                                            // Add interaction options
+                                            chartConfig.options.interaction = {
+                                                mode: 'index',
+                                                intersect: false
+                                            };
+
+                                            chartConfig.options.plugins = {
+                                                ...chartConfig.options.plugins,
+                                                tooltip: {
+                                                    callbacks: {
+                                                        label: function(context) {
+                                                            let label = context.dataset.label || '';
+                                                            if (label) {
+                                                                label += ': ';
+                                                            }
+                                                            if (context.dataset.label === 'Revenue') {
+                                                                label += '$' + context.parsed.y.toFixed(2);
+                                                            } else {
+                                                                label += context.parsed.y;
+                                                            }
+                                                            return label;
+                                                        }
+                                                    }
+                                                }
+                                            };
+
+                                            new Chart(ctx, chartConfig);
+                                        }
+                                    });
+                                </script>
                             <?php endif; ?>
                         </div>
                     <?php endif; ?>
