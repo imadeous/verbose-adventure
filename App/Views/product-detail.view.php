@@ -7,7 +7,7 @@
                 currentImage: 0,
                 images: <?php
                         echo json_encode(array_map(function ($img) {
-                            return $img['image_url'];
+                            return '/' . $img['image_url'];
                         }, $images));
                         ?>
             }">
@@ -66,7 +66,7 @@
                                 <div class="bg-gray-800 rounded-lg overflow-hidden hover:ring-2 hover:ring-indigo-500 transition-all">
                                     <?php if (!empty($variant['image'])): ?>
                                         <div class="h-40 overflow-hidden">
-                                            <img src="<?= htmlspecialchars($variant['image']) ?>"
+                                            <img src="/<?= htmlspecialchars($variant['image']) ?>"
                                                 alt="<?= htmlspecialchars($variant['sku'] ?? 'Variant') ?>"
                                                 class="w-full h-full object-cover">
                                         </div>
