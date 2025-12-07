@@ -61,8 +61,8 @@ class ProductsController extends AdminControllerBase
             // ->withAverage('amount', 'Average')
             ->mixedChart([
                 'Revenue' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#2563eb', 'fill' => false],
-                'Orders' => ['type' => 'bar', 'yAxisID' => 'y', 'backgroundColor' => '#ffa5fa'],
-                'Average' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#ffa5fa', 'fill' => false]
+                // 'Orders' => ['type' => 'bar', 'yAxisID' => 'y', 'backgroundColor' => '#ffa5fa'],
+                // 'Average' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#ffa5fa', 'fill' => false]
             ])
             ->toArray();
 
