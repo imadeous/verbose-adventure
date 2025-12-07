@@ -88,9 +88,6 @@ class GalleryController extends Controller
             unset($variant); // Break reference
         }
 
-        var_dump($images); // Debug: Check processed images
-        die();
-
         // Pass all data to view
         $this->view('product-detail', [
             'product' => $product,

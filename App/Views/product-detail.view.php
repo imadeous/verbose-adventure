@@ -1,12 +1,6 @@
 <!-- Product Detail Section -->
 <section class="text-gray-400 bg-gray-900 body-font overflow-hidden">
     <div class="container px-5 py-24 mx-auto">
-        <?php
-        // Debug: Check what images we have
-        echo "<!-- DEBUG Images: ";
-        var_dump($images);
-        echo " -->";
-        ?>
         <div class="lg:w-4/5 mx-auto flex flex-wrap">
             <!-- Image Gallery -->
             <div class="lg:w-1/2 w-full" x-data="{ 
