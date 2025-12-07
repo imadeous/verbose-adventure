@@ -10,9 +10,9 @@
                 x-data="{
                     stats: [
                         { label: 'Machines', value: 2, display: 0 },
-                        { label: 'Filament Rolls', value: 74, display: 0 },
+                        { label: 'Materials', value: 5, display: 0 },
                         { label: 'Prints', value: 153, display: 0 },
-                        { label: 'Happy Clients', value: 1300, display: 0, format: v => v >= 1000 ? (v/1000).toFixed(1) + 'K' : v }
+                        { label: 'Followers', value: 2300, display: 0, format: v => v >= 1000 ? (v/1000).toFixed(1) + 'K' : v }
                     ],
                     animate(idx) {
                         let stat = this.stats[idx];
