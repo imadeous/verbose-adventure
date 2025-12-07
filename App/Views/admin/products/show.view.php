@@ -137,30 +137,12 @@ $overallRating = Product::getOverallRating($product->id);
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
                     <!-- Dimensions -->
                     <div>
-                        <label for="length" class="block text-sm font-medium text-gray-700 mb-1">Length (cm)</label>
+                        <label for="dimensions" class="block text-sm font-medium text-gray-700 mb-1">Dimensions</label>
                         <input
-                            type="number"
-                            name="length"
-                            id="length"
-                            step="0.01"
-                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label for="width" class="block text-sm font-medium text-gray-700 mb-1">Width (cm)</label>
-                        <input
-                            type="number"
-                            name="width"
-                            id="width"
-                            step="0.01"
-                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label for="height" class="block text-sm font-medium text-gray-700 mb-1">Height (cm)</label>
-                        <input
-                            type="number"
-                            name="height"
-                            id="height"
-                            step="0.01"
+                            type="text"
+                            name="dimensions"
+                            id="dimensions"
+                            placeholder="e.g., 10x5x3 cm, 8\" wingspan"
                             class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
                     </div>
 
@@ -323,13 +305,7 @@ $overallRating = Product::getOverallRating($product->id);
                                     <span class="text-sm text-gray-700"><?= e($variantObj->sku ?: '—') ?></span>
                                 </td>
                                 <td class="px-4 py-3 whitespace-nowrap">
-                                    <?php if ($variantObj->length || $variantObj->width || $variantObj->height): ?>
-                                        <span class="text-sm text-gray-700">
-                                            <?= e($variantObj->length) ?> × <?= e($variantObj->width) ?> × <?= e($variantObj->height) ?> cm
-                                        </span>
-                                    <?php else: ?>
-                                        <span class="text-sm text-gray-400">—</span>
-                                    <?php endif; ?>
+                                    <span class="text-sm text-gray-700"><?= e($variantObj->dimensions ?: '—') ?></span>
                                 </td>
                                 <td class="px-4 py-3 whitespace-nowrap">
                                     <span class="text-sm text-gray-700">
