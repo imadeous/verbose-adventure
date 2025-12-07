@@ -47,7 +47,7 @@ class VariantsController extends AdminControllerBase
         // CSRF validation
         if (empty($data['_csrf']) || !\App\Helpers\Csrf::check($data['_csrf'])) {
             flash('error', 'Invalid or missing CSRF token. Please try again.');
-            $this->redirect('/admin/products/' . $productId . '/variants/create');
+            $this->redirect('/admin/products/' . $productId);
             return;
         }
 

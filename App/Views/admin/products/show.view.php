@@ -146,7 +146,7 @@ use App\Models\Product;
     </div>
 
     <!-- Product Variants Section -->
-    <div class="bg-white rounded-xl shadow-md border border-blue-100 p-6">
+    <div class="bg-white rounded-xl shadow-md border border-blue-100 p-6" x-data="variantManager()">
         <div class="flex justify-between items-center mb-6">
             <div class="flex items-center gap-3">
                 <div class="bg-blue-200 text-blue-700 rounded-lg p-2">
@@ -157,28 +157,163 @@ use App\Models\Product;
                 </div>
                 <h2 class="text-xl font-bold text-blue-900">Product Variants</h2>
             </div>
-            <a href="<?= url('admin/products/' . $product->id . '/variants/create') ?>"
+            <button @click="showForm = !showForm"
+                type="button"
                 class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow transition flex items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
-                Add Variant
-            </a>
+                <span x-text="showForm ? 'Cancel' : 'Add Variant'"></span>
+            </button>
+        </div>
+
+        <!-- Inline Variant Form -->
+        <div x-show="showForm"
+            x-transition
+            class="mb-6 bg-blue-50 rounded-lg border border-blue-200 p-6">
+            <h3 class="text-lg font-semibold text-blue-900 mb-4">New Variant</h3>
+
+            <form action="<?= url('admin/products/' . $product->id . '/variants') ?>" method="POST">
+                <?= csrf_field() ?>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <!-- Dimensions -->
+                    <div>
+                        <label for="dimensions" class="block text-sm font-medium text-gray-700 mb-1">Dimensions</label>
+                        <input type="text"
+                            name="dimensions"
+                            id="dimensions"
+                            placeholder="e.g., 2x3x8 cm, 8&quot; wingspan"
+                            class="w-full rounded-lg border border-blue-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 px-3 py-2 text-sm bg-white">
+                    </div>
+
+                    <!-- Weight -->
+                    <div>
+                        <label for="weight" class="block text-sm font-medium text-gray-700 mb-1">Weight (grams)</label>
+                        <input type="number"
+                            name="weight"
+                            id="weight"
+                            min="0"
+                            placeholder="150"
+                            class="w-full rounded-lg border border-blue-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 px-3 py-2 text-sm bg-white">
+                    </div>
+
+                    <!-- Material -->
+                    <div>
+                        <label for="material" class="block text-sm font-medium text-gray-700 mb-1">Material</label>
+                        <input type="text"
+                            name="material"
+                            id="material"
+                            placeholder="e.g., PLA, Resin, Wood"
+                            class="w-full rounded-lg border border-blue-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 px-3 py-2 text-sm bg-white">
+                    </div>
+
+                    <!-- Color -->
+                    <div>
+                        <label for="color" class="block text-sm font-medium text-gray-700 mb-1">Color</label>
+                        <div class="flex items-center gap-2">
+                            <input type="color"
+                                x-model="colorValue"
+                                class="h-10 w-12 rounded border border-blue-300 cursor-pointer">
+                            <input type="text"
+                                name="color"
+                                id="color"
+                                x-model="colorValue"
+                                placeholder="#000000"
+                                pattern="^#[0-9A-Fa-f]{6}$"
+                                class="flex-1 rounded-lg border border-blue-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 px-3 py-2 text-sm bg-white">
+                        </div>
+                    </div>
+
+                    <!-- Finishing -->
+                    <div>
+                        <label for="finishing" class="block text-sm font-medium text-gray-700 mb-1">Finishing</label>
+                        <input type="text"
+                            name="finishing"
+                            id="finishing"
+                            placeholder="e.g., raw print, sanded, painted"
+                            class="w-full rounded-lg border border-blue-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 px-3 py-2 text-sm bg-white">
+                    </div>
+
+                    <!-- Price -->
+                    <div>
+                        <label for="price" class="block text-sm font-medium text-gray-700 mb-1">
+                            Price <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-2 text-gray-500">$</span>
+                            <input type="number"
+                                name="price"
+                                id="price"
+                                step="0.01"
+                                min="0"
+                                required
+                                placeholder="0.00"
+                                class="w-full rounded-lg border border-blue-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 pl-8 pr-3 py-2 text-sm bg-white">
+                        </div>
+                    </div>
+
+                    <!-- SKU -->
+                    <div>
+                        <label for="sku" class="block text-sm font-medium text-gray-700 mb-1">SKU</label>
+                        <input type="text"
+                            name="sku"
+                            id="sku"
+                            placeholder="PROD-001-BLK-SM"
+                            class="w-full rounded-lg border border-blue-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 px-3 py-2 text-sm bg-white">
+                    </div>
+
+                    <!-- Stock -->
+                    <div>
+                        <label for="stock_quantity" class="block text-sm font-medium text-gray-700 mb-1">Stock Quantity</label>
+                        <input type="number"
+                            name="stock_quantity"
+                            id="stock_quantity"
+                            min="0"
+                            value="0"
+                            class="w-full rounded-lg border border-blue-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 px-3 py-2 text-sm bg-white">
+                    </div>
+                </div>
+
+                <!-- Assembly Required -->
+                <div class="mb-4">
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input type="checkbox"
+                            name="assembly_required"
+                            value="1"
+                            class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                        <span class="text-sm font-medium text-gray-700">Assembly Required</span>
+                    </label>
+                </div>
+
+                <div class="flex gap-3">
+                    <button type="submit"
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition">
+                        Add Variant
+                    </button>
+                    <button type="button"
+                        @click="showForm = false"
+                        class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-2 rounded-lg font-semibold transition">
+                        Cancel
+                    </button>
+                </div>
+            </form>
         </div>
 
         <?php
         $variants = $product->getVariants();
         if (empty($variants)):
         ?>
-            <div class="text-center py-12 bg-blue-50 rounded-lg border border-blue-200">
+            <div x-show="!showForm" class="text-center py-12 bg-blue-50 rounded-lg border border-blue-200">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto text-blue-400 mb-3">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
                 </svg>
                 <p class="text-gray-600 mb-4">No variants created yet</p>
-                <a href="<?= url('admin/products/' . $product->id . '/variants/create') ?>"
+                <button @click="showForm = true"
+                    type="button"
                     class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition">
                     Create First Variant
-                </a>
+                </button>
             </div>
         <?php else: ?>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -356,3 +491,13 @@ use App\Models\Product;
         </div>
     </div>
 </div>
+
+<script>
+    function variantManager() {
+        return {
+            showForm: false,
+            editingId: null,
+            colorValue: '#000000'
+        }
+    }
+</script>

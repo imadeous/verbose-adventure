@@ -59,11 +59,8 @@ $router->middleware([AuthMiddleware::class], function ($router) {
     // Product image upload routes
     $router->get('/admin/products/{id}/addImage', [AdminProductsController::class, 'addImage']);
     $router->post('/admin/products/{id}/addImage', [AdminProductsController::class, 'storeImage']);
-    // Product variant routes
-    $router->get('/admin/products/{id}/variants/create', [AdminVariantsController::class, 'create']);
+    // Product variant routes (inline creation/editing on product page)
     $router->post('/admin/products/{id}/variants', [AdminVariantsController::class, 'store']);
-    $router->get('/admin/products/{productId}/variants/{variantId}/edit', [AdminVariantsController::class, 'edit']);
-    $router->post('/admin/products/{productId}/variants/{variantId}', [AdminVariantsController::class, 'update']);
     $router->post('/admin/products/{productId}/variants/{variantId}/delete', [AdminVariantsController::class, 'destroy']);
     $router->resource('/admin/categories', AdminCategoriesController::class);
     $router->resource('/admin/gallery', AdminGalleryController::class);
