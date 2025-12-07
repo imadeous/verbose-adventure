@@ -74,13 +74,13 @@
                             <?php foreach ($variants as $variant): ?>
                                 <div class="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
                                     <div>
-                                        <span class="text-white font-medium"><?= htmlspecialchars($variant['variant_name']) ?></span>
+                                        <span class="text-white font-medium"><?= htmlspecialchars($variant['sku'] ?? 'N/A') ?></span>
                                         <span class="text-gray-400 text-sm ml-2">
-                                            (Stock: <?= $variant['stock_quantity'] ?>)
+                                            (Stock: <?= $variant['stock_quantity'] ?? 0 ?>)
                                         </span>
                                     </div>
                                     <span class="text-indigo-400 font-semibold">
-                                        $<?= number_format($variant['price'], 2) ?>
+                                        $<?= number_format($variant['price'] ?? 0, 2) ?>
                                     </span>
                                 </div>
                             <?php endforeach; ?>
