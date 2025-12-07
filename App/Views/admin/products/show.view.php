@@ -295,20 +295,20 @@ $overallRating = Product::getOverallRating($product->id);
             </div>
         <?php else: ?>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <?php foreach ($variants as $variant):
-                    $variantObj = new \App\Models\Variant((array)$variant);
+                <?php foreach ($variants as $v):
+                    $variantObj = new \App\Models\Variant((array)$v);
                 ?>
                     <div class="bg-gray-50 rounded-lg border border-gray-200 p-4 hover:shadow-md transition">
                         <div class="flex justify-between items-start mb-3">
                             <div class="flex-1">
                                 <div class="text-2xl font-bold text-gray-900 mb-1">
-                                    $<?= number_format($variant->price, 2) ?>
+                                    $<?= number_format($variantObj->price ?? 0, 2) ?>
                                 </div>
-                                <?php if (!empty($variant->sku)): ?>
-                                    <div class="text-xs text-gray-500">SKU: <?= e($variant->sku) ?></div>
+                                <?php if (!empty($variantObj->sku)): ?>
+                                    <div class="text-xs text-gray-500">SKU: <?= e($variantObj->sku) ?></div>
                                 <?php endif; ?>
                             </div>
-                            <form action="<?= url('admin/products/' . $product->id . '/variants/' . $variant->id) ?>" method="POST" onsubmit="return confirm('Delete this variant?')">
+                            <form action="<?= url('admin/products/' . $product->id . '/variants/' . $variantObj->id) ?>" method="POST" onsubmit="return confirm('Delete this variant?')">
                                 <?= csrf_field() ?>
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button type="submit" class="text-red-500 hover:text-red-700 p-1">
@@ -320,16 +320,16 @@ $overallRating = Product::getOverallRating($product->id);
                         </div>
 
                         <div class="space-y-2 text-sm">
-                            <?php if ($variant->length || $variant->width || $variant->height): ?>
+                            <?php if ($variantObj->length || $variantObj->width || $variantObj->height): ?>
                                 <div class="flex items-center gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-gray-400">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
                                     </svg>
-                                    <span class="text-gray-700"><?= e($variant->length) ?> × <?= e($variant->width) ?> × <?= e($variant->height) ?> cm</span>
+                                    <span class="text-gray-700"><?= e($variantObj->length) ?> × <?= e($variantObj->width) ?> × <?= e($variantObj->height) ?> cm</span>
                                 </div>
                             <?php endif; ?>
 
-                            <?php if ($variant->weight_grams): ?>
+                            <?php if ($variantObj->weight_grams): ?>
                                 <div class="flex items-center gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-gray-400">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0012 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 01-2.031.352 5.988 5.988 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 01-2.031.352 5.989 5.989 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971z" />
@@ -338,16 +338,16 @@ $overallRating = Product::getOverallRating($product->id);
                                 </div>
                             <?php endif; ?>
 
-                            <?php if ($variant->material): ?>
+                            <?php if ($variantObj->material): ?> ?>
                                 <div class="flex items-center gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-gray-400">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
                                     </svg>
-                                    <span class="text-gray-700"><?= e($variant->material) ?></span>
+                                    <span class="text-gray-700"><?= e($variantObj->material) ?></span>
                                 </div>
                             <?php endif; ?>
 
-                            <?php if ($variant->color): ?>
+                            <?php if ($variantObj->color): ?> ?>
                                 <div class="flex items-center gap-2">
                                     <div
                                         class="w-4 h-4 rounded border border-gray-300"
@@ -356,16 +356,16 @@ $overallRating = Product::getOverallRating($product->id);
                                 </div>
                             <?php endif; ?>
 
-                            <?php if ($variant->finishing): ?>
+                            <?php if ($variantObj->finishing): ?>
                                 <div class="flex items-center gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-gray-400">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />
                                     </svg>
-                                    <span class="text-gray-700"><?= e($variant->finishing) ?></span>
+                                    <span class="text-gray-700"><?= e($variantObj->finishing) ?></span>
                                 </div>
                             <?php endif; ?>
 
-                            <?php if ($variant->assembly_required): ?>
+                            <?php if ($variantObj->assembly_required): ?>
                                 <div class="flex items-center gap-2 text-amber-600">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" />
@@ -376,8 +376,8 @@ $overallRating = Product::getOverallRating($product->id);
 
                             <div class="pt-2 border-t border-gray-200 mt-2">
                                 <span class="text-gray-500">Stock: </span>
-                                <span class="font-semibold <?= $variant->stock_quantity > 0 ? 'text-green-600' : 'text-red-600' ?>">
-                                    <?= e($variant->stock_quantity) ?>
+                                <span class="font-semibold <?= $variantObj->stock_quantity > 0 ? 'text-green-600' : 'text-red-600' ?>">
+                                    <?= e($variantObj->stock_quantity) ?>
                                 </span>
                             </div>
                         </div>
