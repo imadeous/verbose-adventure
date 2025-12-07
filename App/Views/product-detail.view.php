@@ -178,26 +178,81 @@
                 <div class="space-y-6">
                     <?php foreach ($reviews as $review):
                         $reviewData = is_array($review) ? $review : (array)$review;
+
+                        // Calculate average rating from all rating categories
+                        $ratings = [
+                            $reviewData['quality_rating'] ?? 0,
+                            $reviewData['pricing_rating'] ?? 0,
+                            $reviewData['communication_rating'] ?? 0,
+                            $reviewData['packaging_rating'] ?? 0,
+                            $reviewData['delivery_rating'] ?? 0
+                        ];
+                        $avgRating = array_sum($ratings) / count(array_filter($ratings));
                     ?>
                         <div class="bg-gray-800 rounded-lg p-6">
-                            <div class="flex items-start justify-between mb-3">
+                            <div class="flex items-start justify-between mb-4">
                                 <div>
                                     <h4 class="text-white font-medium"><?= htmlspecialchars($reviewData['customer_name'] ?? 'Anonymous') ?></h4>
                                     <div class="flex items-center mt-1">
                                         <div class="flex text-yellow-400">
                                             <?php for ($i = 0; $i < 5; $i++): ?>
-                                                <svg fill="<?= $i < ($reviewData['rating'] ?? 0) ? 'currentColor' : 'none' ?>" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4" viewBox="0 0 24 24">
+                                                <svg fill="<?= $i < round($avgRating) ? 'currentColor' : 'none' ?>" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4" viewBox="0 0 24 24">
                                                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
                                                 </svg>
                                             <?php endfor; ?>
                                         </div>
-                                        <span class="text-gray-400 text-sm ml-2"><?= htmlspecialchars($reviewData['created_at'] ?? '') ?></span>
+                                        <span class="text-gray-400 text-sm ml-2"><?= number_format($avgRating, 1) ?> Overall</span>
                                     </div>
+                                    <span class="text-gray-500 text-xs"><?= htmlspecialchars($reviewData['created_at'] ?? '') ?></span>
                                 </div>
+                                <?php if (isset($reviewData['recommendation_score'])): ?>
+                                    <div class="text-right">
+                                        <span class="text-sm <?= $reviewData['recommendation_score'] >= 8 ? 'text-green-400' : ($reviewData['recommendation_score'] >= 5 ? 'text-yellow-400' : 'text-red-400') ?>">
+                                            <?= $reviewData['recommendation_score'] ?>/10 Recommendation
+                                        </span>
+                                    </div>
+                                <?php endif; ?>
                             </div>
-                            <p class="text-gray-300 leading-relaxed">
-                                <?= nl2br(htmlspecialchars($reviewData['review'] ?? 'No review text')) ?>
-                            </p>
+
+                            <!-- Rating Breakdown -->
+                            <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4">
+                                <?php if (isset($reviewData['quality_rating'])): ?>
+                                    <div class="bg-gray-700 rounded p-2 text-center">
+                                        <div class="text-yellow-400 text-lg font-semibold"><?= $reviewData['quality_rating'] ?>/5</div>
+                                        <div class="text-gray-400 text-xs">Quality</div>
+                                    </div>
+                                <?php endif; ?>
+                                <?php if (isset($reviewData['pricing_rating'])): ?>
+                                    <div class="bg-gray-700 rounded p-2 text-center">
+                                        <div class="text-yellow-400 text-lg font-semibold"><?= $reviewData['pricing_rating'] ?>/5</div>
+                                        <div class="text-gray-400 text-xs">Pricing</div>
+                                    </div>
+                                <?php endif; ?>
+                                <?php if (isset($reviewData['communication_rating'])): ?>
+                                    <div class="bg-gray-700 rounded p-2 text-center">
+                                        <div class="text-yellow-400 text-lg font-semibold"><?= $reviewData['communication_rating'] ?>/5</div>
+                                        <div class="text-gray-400 text-xs">Communication</div>
+                                    </div>
+                                <?php endif; ?>
+                                <?php if (isset($reviewData['packaging_rating'])): ?>
+                                    <div class="bg-gray-700 rounded p-2 text-center">
+                                        <div class="text-yellow-400 text-lg font-semibold"><?= $reviewData['packaging_rating'] ?>/5</div>
+                                        <div class="text-gray-400 text-xs">Packaging</div>
+                                    </div>
+                                <?php endif; ?>
+                                <?php if (isset($reviewData['delivery_rating'])): ?>
+                                    <div class="bg-gray-700 rounded p-2 text-center">
+                                        <div class="text-yellow-400 text-lg font-semibold"><?= $reviewData['delivery_rating'] ?>/5</div>
+                                        <div class="text-gray-400 text-xs">Delivery</div>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+
+                            <?php if (!empty($reviewData['comments'])): ?>
+                                <p class="text-gray-300 leading-relaxed">
+                                    <?= nl2br(htmlspecialchars($reviewData['comments'])) ?>
+                                </p>
+                            <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
                 </div>
