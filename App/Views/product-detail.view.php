@@ -28,6 +28,12 @@
                     <?php endif; ?>
                 </div>
 
+                <div>
+                    <img alt="<?= htmlspecialchars($product->name ?? 'Product') ?>"
+                        class="w-full h-full object-cover object-center"
+                        src="https://dummyimage.com/600x400/1f2937/9ca3af?text=No+Image">
+                </div>
+
                 <!-- Thumbnail Navigation -->
                 <?php if (count($images) > 1): ?>
                     <div class="flex gap-2 overflow-x-auto">
