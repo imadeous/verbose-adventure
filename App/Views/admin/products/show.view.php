@@ -86,38 +86,47 @@ $highestPrice = Product::getHighestPrice($product->id);
                             </div>
 
                             <!-- Sales Chart -->
-                            <?php if (!empty($salesData) && count($salesData) > 1): ?>
+                            <?php if (!empty($salesData['data']['datasets']) && !empty($salesData['data']['labels'])): ?>
                                 <div class="mt-4 bg-gray-50 border border-gray-200 rounded-lg p-4">
-                                    <label class="text-xs font-medium text-gray-500 mb-2 block">Last <?= count($salesData) ?> Sales Trend</label>
+                                    <label class="text-xs font-medium text-gray-500 mb-2 block">Last <?= count($salesData['data']['labels']) ?> Days Sales Trend</label>
                                     <svg viewBox="0 0 400 60" class="w-full h-16" preserveAspectRatio="none">
                                         <?php
-                                        $amounts = array_map(function ($sale) {
-                                            return is_array($sale) ? ($sale['amount'] ?? 0) : ($sale->amount ?? 0);
-                                        }, $salesData);
-                                        $maxAmount = max($amounts);
-                                        $minAmount = min($amounts);
-                                        $range = $maxAmount - $minAmount;
-                                        if ($range == 0) $range = 1;
-
-                                        $points = [];
-                                        foreach ($amounts as $index => $amount) {
-                                            $x = ($index / (count($amounts) - 1)) * 400;
-                                            $y = 60 - ((($amount - $minAmount) / $range) * 50 + 5);
-                                            $points[] = "$x,$y";
+                                        // Get revenue data from the first dataset (Revenue)
+                                        $revenueDataset = null;
+                                        foreach ($salesData['data']['datasets'] as $dataset) {
+                                            if ($dataset['label'] === 'Revenue') {
+                                                $revenueDataset = $dataset;
+                                                break;
+                                            }
                                         }
-                                        $pathData = 'M ' . implode(' L ', $points);
+                                        $amounts = $revenueDataset ? $revenueDataset['data'] : [];
+
+                                        if (!empty($amounts)) {
+                                            $maxAmount = max($amounts);
+                                            $minAmount = min($amounts);
+                                            $range = $maxAmount - $minAmount;
+                                            if ($range == 0) $range = 1;
+
+                                            $points = [];
+                                            foreach ($amounts as $index => $amount) {
+                                                $x = ($index / (count($amounts) - 1)) * 400;
+                                                $y = 60 - ((($amount - $minAmount) / $range) * 50 + 5);
+                                                $points[] = "$x,$y";
+                                            }
+                                            $pathData = 'M ' . implode(' L ', $points);
                                         ?>
-                                        <!-- Gradient -->
-                                        <defs>
-                                            <linearGradient id="salesGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                                                <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.3" />
-                                                <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0.05" />
-                                            </linearGradient>
-                                        </defs>
-                                        <!-- Fill area -->
-                                        <path d="<?= $pathData ?> L 400,60 L 0,60 Z" fill="url(#salesGradient)" />
-                                        <!-- Line -->
-                                        <path d="<?= $pathData ?>" fill="none" stroke="#3b82f6" stroke-width="2" />
+                                            <!-- Gradient -->
+                                            <defs>
+                                                <linearGradient id="salesGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                                    <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.3" />
+                                                    <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0.05" />
+                                                </linearGradient>
+                                            </defs>
+                                            <!-- Fill area -->
+                                            <path d="<?= $pathData ?> L 400,60 L 0,60 Z" fill="url(#salesGradient)" />
+                                            <!-- Line -->
+                                            <path d="<?= $pathData ?>" fill="none" stroke="#3b82f6" stroke-width="2" />
+                                        <?php } ?>
                                         <!-- Points -->
                                         <?php foreach ($points as $point): ?>
                                             <circle cx="<?= explode(',', $point)[0] ?>" cy="<?= explode(',', $point)[1] ?>" r="2" fill="#2563eb" />
