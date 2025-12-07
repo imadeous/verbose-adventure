@@ -70,6 +70,8 @@ $router->middleware([AuthMiddleware::class], function ($router) {
     $router->get('/admin/assistant', [AdminAssistantController::class, 'index']);
     $router->get('/admin/assistant/analyze', [AdminAssistantController::class, 'analyze']);
     $router->post('/admin/assistant/analyze/generate', [AdminAssistantController::class, 'generateAnalysis']);
+    $router->get('/admin/assistant/sandbox', [AdminAssistantController::class, 'sandbox']);
+    $router->post('/admin/assistant/sandbox/execute', [AdminAssistantController::class, 'runSandbox']);
     // Admin user profile route
     $router->get('/admin/profile', [AdminUserController::class, 'profile']);
     // $router->resource('/admin/events', EventController::class);
