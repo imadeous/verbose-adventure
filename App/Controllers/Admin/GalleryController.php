@@ -75,7 +75,19 @@ class GalleryController extends AdminController
             $this->redirect('/admin/gallery/create');
             return;
         }
-        $upload = File::upload($_FILES['image'], 'public/storage/site', [
+
+        // Determine upload path based on image type
+        $imageType = $_POST['image_type'] ?? 'site';
+        $uploadPath = 'public/storage/' . $imageType;
+        if ($imageType === 'variant') {
+            $uploadPath = 'public/storage/variants';
+        } elseif ($imageType === 'product') {
+            $uploadPath = 'public/storage/products';
+        } elseif ($imageType === 'category') {
+            $uploadPath = 'public/storage/categories';
+        }
+
+        $upload = File::upload($_FILES['image'], $uploadPath, [
             'allowed_types' => ['jpg', 'jpeg', 'png', 'gif', 'webp'],
             'max_size' => 5 * 1024 * 1024
         ]);
@@ -89,10 +101,10 @@ class GalleryController extends AdminController
         $galleryData = [
             'title' => $_POST['title'] ?? null,
             'caption' => $_POST['caption'] ?? null,
-            'image_type' => $_POST['image_type'] ?? 'site',
+            'image_type' => $imageType,
             'image_url' => $imagePath,
         ];
-        if (!empty($_POST['related_id']) && $_POST['image_type'] !== 'site') {
+        if (!empty($_POST['related_id']) && $imageType !== 'site') {
             $galleryData['related_id'] = $_POST['related_id'];
         } else {
             $galleryData['related_id'] = null;
@@ -101,7 +113,7 @@ class GalleryController extends AdminController
         $gallery->save();
         Notification::log('created', 'Gallery', $gallery->id, ['image' => $imagePath]);
         flash('success', 'Image uploaded and added to gallery.');
-        $this->redirect('/admin/gallery/index');
+        $this->redirect('/admin/gallery');
     }
 
     public function edit($id)
