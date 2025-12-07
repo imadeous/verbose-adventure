@@ -56,6 +56,7 @@ class ProductsController extends AdminControllerBase
             ->limit(50)
             ->get();
 
+        echo "<pre>";
         var_dump($salesData);
         die();
 
