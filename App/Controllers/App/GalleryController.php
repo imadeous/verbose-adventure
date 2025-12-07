@@ -93,7 +93,9 @@ class GalleryController extends Controller
                         $vImgArray['image_url'] = '/' . ltrim($vImgArray['image_url'], '/');
                         $allImages[] = $vImgArray;
                     }
-                    $variant['image'] = '/' . ltrim($variantImages[0]['image_url'], '/');
+                    // Use the first processed image for the variant
+                    $firstVarImg = is_array($variantImages[0]) ? $variantImages[0] : (array)$variantImages[0];
+                    $variant['image'] = '/' . ltrim($firstVarImg['image_url'], '/');
                 } else {
                     $variant['image'] = null;
                 }
