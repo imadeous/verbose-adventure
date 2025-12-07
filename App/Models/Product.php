@@ -62,10 +62,24 @@ class Product extends Model
 
         $totalRating = 0;
         foreach ($reviews as $review) {
-            $rating = is_array($review) ? ($review['rating'] ?? 0) : ($review->rating ?? 0);
-            $totalRating += $rating;
+            $reviewData = is_array($review) ? $review : (array)$review;
+
+            // Calculate average from all rating categories
+            $ratings = [
+                $reviewData['quality_rating'] ?? 0,
+                $reviewData['pricing_rating'] ?? 0,
+                $reviewData['communication_rating'] ?? 0,
+                $reviewData['packaging_rating'] ?? 0,
+                $reviewData['delivery_rating'] ?? 0
+            ];
+
+            $validRatings = array_filter($ratings);
+            if (!empty($validRatings)) {
+                $avgRating = array_sum($validRatings) / count($validRatings);
+                $totalRating += $avgRating;
+            }
         }
-        return round($totalRating / count($reviews), 1);
+        return count($reviews) > 0 ? round($totalRating / count($reviews), 1) : 0;
     }
 
     /**
