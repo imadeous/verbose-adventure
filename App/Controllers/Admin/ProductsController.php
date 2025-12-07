@@ -50,11 +50,11 @@ class ProductsController extends AdminControllerBase
 
         // Get last 50 sales for chart using product_id
         $salesData =  ChartBuilder::build('transactions', 'date')
-            ->forPeriod('2025-01-01', '2025-07-31')
-            ->monthly()
+            ->daily()
             ->where('type', '=', 'income')
             ->withSum('amount', 'Revenue')
             ->withCount('*', 'Orders')
+            ->limit(50)
             // ->withAverage('amount', 'Average')
             ->mixedChart([
                 'Revenue' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#2563eb', 'fill' => false],
