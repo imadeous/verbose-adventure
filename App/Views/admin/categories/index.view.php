@@ -36,7 +36,11 @@
                             </td>
                             <td class="px-4 py-3 text-center">
                                 <span class="font-semibold text-green-700">
-                                    <span class="text-xs">MVR</span> <?= number_format($category['total_revenue'], 2) ?>
+                                    <?php if ($category['total_revenue'] === null): ?>
+                                        -
+                                    <?php else: ?>
+                                        <span class="text-xs">MVR</span> <?= number_format($category['total_revenue'], 2) ?>
+                                    <?php endif; ?>
                                 </span>
                             </td>
                             <td class="px-4 py-3">
