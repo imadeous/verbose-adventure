@@ -54,6 +54,7 @@ class ProductsController extends AdminControllerBase
             ->where('type', '=', 'income')
             ->andWhere('product_id', '=', $id)
             ->withSum('amount', 'Revenue')
+            ->withCount('*', 'Orders')
             ->limit(10)
             ->legend(['display' => false])
             ->line()
