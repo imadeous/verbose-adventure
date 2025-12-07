@@ -1,5 +1,10 @@
 <!-- Product Detail Section -->
 <section class="text-gray-400 bg-gray-900 body-font overflow-hidden">
+    <?php
+    // Debug
+    echo "<!-- Images count: " . count($images) . " -->";
+    echo "<!-- First image: " . ($images[0]['image_url'] ?? 'none') . " -->";
+    ?>
     <div class="container px-5 py-24 mx-auto">
         <div class="lg:w-4/5 mx-auto flex flex-wrap">
             <!-- Image Gallery (All Images: Product + Variants) -->
