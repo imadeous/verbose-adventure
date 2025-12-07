@@ -58,6 +58,8 @@ class ProductsController extends AdminControllerBase
             ->limit(10)
             ->legend(['display' => false])
             ->line()
+            ->scaleX(false, false) // Hide X axis
+            ->scaleY(false, false) // Hide Y axis
             ->toArray();
 
         $breadcrumbs = [
