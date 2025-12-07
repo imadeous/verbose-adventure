@@ -103,16 +103,26 @@ CREATE TABLE promo_codes (
 CREATE TABLE transactions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     type ENUM('income','expense') NOT NULL,
-    category VARCHAR(100) NOT NULL,
+    category_id INT DEFAULT NULL COMMENT 'References categories table - for categorizing transactions',
+    product_id INT DEFAULT NULL COMMENT 'References products table - for product-related transactions',
+    variant_id INT DEFAULT NULL COMMENT 'References variants table - specific variant sold',
     amount DECIMAL(12,2) NOT NULL,
-    description TEXT,
+    description TEXT COMMENT 'Additional details about the transaction',
     quote_id INT DEFAULT NULL,
     promo_code_id INT DEFAULT NULL,
     date DATE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE SET NULL,
+    FOREIGN KEY (variant_id) REFERENCES variants(id) ON DELETE SET NULL,
     FOREIGN KEY (quote_id) REFERENCES quotes(id) ON DELETE SET NULL,
-    FOREIGN KEY (promo_code_id) REFERENCES promo_codes(id) ON DELETE SET NULL
-);
+    FOREIGN KEY (promo_code_id) REFERENCES promo_codes(id) ON DELETE SET NULL,
+    INDEX idx_type (type),
+    INDEX idx_category_id (category_id),
+    INDEX idx_product_id (product_id),
+    INDEX idx_variant_id (variant_id),
+    INDEX idx_date (date)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tracks all financial transactions including sales, expenses, and other income';
 
 CREATE TABLE reviews (
     id INT AUTO_INCREMENT PRIMARY KEY,
