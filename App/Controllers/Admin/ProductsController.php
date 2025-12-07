@@ -20,8 +20,6 @@ class ProductsController extends AdminControllerBase
         // Enrich each product with analytics data
         $enrichedProducts = [];
         foreach ($products as $product) {
-            $productData = (array)$product;
-
             // Get transaction stats
             $stats = ReportBuilder::build('transactions', 'date')
                 ->where('type', '=', 'income')
@@ -30,17 +28,18 @@ class ProductsController extends AdminControllerBase
                 ->withCount('*', 'Orders')
                 ->generate()['data'][0] ?? [];
 
-            $productData['total_orders'] = $stats['Orders'] ?? 0;
-            $productData['total_revenue'] = $stats['Revenue'] ?? 0;
+            // Add analytics properties to product object
+            $product->total_orders = $stats['Orders'] ?? 0;
+            $product->total_revenue = $stats['Revenue'] ?? 0;
 
             // Get variants and stock
             $variants = Product::getVariants($product->id);
-            $productData['variant_count'] = count($variants);
-            $productData['total_stock'] = array_sum(array_map(function ($v) {
+            $product->variant_count = count($variants);
+            $product->total_stock = array_sum(array_map(function ($v) {
                 return is_array($v) ? ($v['stock_quantity'] ?? 0) : ($v->stock_quantity ?? 0);
             }, $variants));
 
-            $enrichedProducts[] = (object)$productData;
+            $enrichedProducts[] = $product;
         }
 
         $this->view->layout('admin');
