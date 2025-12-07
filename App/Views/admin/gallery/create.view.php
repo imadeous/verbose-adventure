@@ -137,7 +137,7 @@
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             x-model="relatedId"
                             :required="type === 'variant'">
-                            <option value="">Loading variants...</option>
+                            <option value="" x-text="variants.length === 0 ? 'Loading variants...' : 'Select Variant'"></option>
                             <template x-for="variant in variants" :key="variant.id">
                                 <option :value="variant.id" x-text="`${variant.sku || 'Variant #' + variant.id} - $${variant.price}`"></option>
                             </template>
