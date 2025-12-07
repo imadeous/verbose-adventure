@@ -36,7 +36,7 @@
                             </td>
                             <td class="px-4 py-3 text-center">
                                 <span class="font-semibold text-green-700">
-                                    $<?= number_format($category['total_revenue'], 2) ?>
+                                    MVR <?= number_format($category['total_revenue'], 2) ?>
                                 </span>
                             </td>
                             <td class="px-4 py-3">
