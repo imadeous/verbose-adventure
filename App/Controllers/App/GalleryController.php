@@ -114,6 +114,11 @@ class GalleryController extends Controller
             $priceRange = '$' . number_format($product->price ?? 0, 2);
         }
 
+        // Get reviews and rating
+        $reviews = Product::getReviews($id);
+        $overallRating = Product::getOverallRating($id);
+        $reviewCount = count($reviews);
+
         // Pass all data to view
         $this->view('product-detail', [
             'product' => $product,
@@ -121,6 +126,9 @@ class GalleryController extends Controller
             'variants' => $variants,
             'hasVariants' => $hasVariants,
             'priceRange' => $priceRange,
+            'reviews' => $reviews,
+            'overallRating' => $overallRating,
+            'reviewCount' => $reviewCount,
         ]);
     }
 }

@@ -60,16 +60,46 @@
                     <?= htmlspecialchars($product->name ?? 'Product Name') ?>
                 </h1>
 
-                <!-- Rating (Static 5 stars for now) -->
+                <!-- Rating -->
                 <div class="flex items-center mb-4">
                     <div class="flex text-yellow-400">
-                        <?php for ($i = 0; $i < 5; $i++): ?>
+                        <?php
+                        $rating = $overallRating ?? 5.0;
+                        $fullStars = floor($rating);
+                        $hasHalfStar = ($rating - $fullStars) >= 0.5;
+                        $emptyStars = 5 - $fullStars - ($hasHalfStar ? 1 : 0);
+
+                        // Full stars
+                        for ($i = 0; $i < $fullStars; $i++):
+                        ?>
                             <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4" viewBox="0 0 24 24">
                                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
                             </svg>
                         <?php endfor; ?>
+
+                        <?php // Half star
+                        if ($hasHalfStar):
+                        ?>
+                            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4" viewBox="0 0 24 24">
+                                <defs>
+                                    <linearGradient id="half">
+                                        <stop offset="50%" stop-color="currentColor" />
+                                        <stop offset="50%" stop-color="transparent" />
+                                    </linearGradient>
+                                </defs>
+                                <path fill="url(#half)" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                            </svg>
+                        <?php endif; ?>
+
+                        <?php // Empty stars
+                        for ($i = 0; $i < $emptyStars; $i++):
+                        ?>
+                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4" viewBox="0 0 24 24">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                            </svg>
+                        <?php endfor; ?>
                     </div>
-                    <span class="text-gray-400 ml-3">5.0 Rating</span>
+                    <span class="text-gray-400 ml-3"><?= number_format($rating, 1) ?> Rating<?= $reviewCount > 0 ? ' (' . $reviewCount . ' reviews)' : '' ?></span>
                 </div>
 
                 <!-- Price Range -->
@@ -139,5 +169,43 @@
                 </div>
             </div>
         <?php endif; ?>
+
+        <!-- Customer Reviews Section -->
+        <div class="lg:w-4/5 mx-auto mt-12">
+            <h3 class="text-white text-2xl font-medium mb-6">Customer Reviews</h3>
+
+            <?php if (!empty($reviews)): ?>
+                <div class="space-y-6">
+                    <?php foreach ($reviews as $review):
+                        $reviewData = is_array($review) ? $review : (array)$review;
+                    ?>
+                        <div class="bg-gray-800 rounded-lg p-6">
+                            <div class="flex items-start justify-between mb-3">
+                                <div>
+                                    <h4 class="text-white font-medium"><?= htmlspecialchars($reviewData['customer_name'] ?? 'Anonymous') ?></h4>
+                                    <div class="flex items-center mt-1">
+                                        <div class="flex text-yellow-400">
+                                            <?php for ($i = 0; $i < 5; $i++): ?>
+                                                <svg fill="<?= $i < ($reviewData['rating'] ?? 0) ? 'currentColor' : 'none' ?>" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4" viewBox="0 0 24 24">
+                                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                                                </svg>
+                                            <?php endfor; ?>
+                                        </div>
+                                        <span class="text-gray-400 text-sm ml-2"><?= htmlspecialchars($reviewData['created_at'] ?? '') ?></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-300 leading-relaxed">
+                                <?= nl2br(htmlspecialchars($reviewData['review'] ?? 'No review text')) ?>
+                            </p>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php else: ?>
+                <div class="bg-gray-800 rounded-lg p-8 text-center">
+                    <p class="text-gray-400">No reviews yet. Be the first to review this product!</p>
+                </div>
+            <?php endif; ?>
+        </div>
     </div>
 </section>
