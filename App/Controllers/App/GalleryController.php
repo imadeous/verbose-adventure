@@ -77,23 +77,50 @@ class GalleryController extends Controller
         $variants = Product::getVariants($id);
         $hasVariants = Product::hasVariants($id);
 
-        // Attach images to each variant
+        // Combine product images and variant images
+        $allImages = $images;
+
+        // Attach images to each variant and add to main image gallery
         if ($hasVariants && !empty($variants)) {
             foreach ($variants as &$variant) {
                 $variantImages = Gallery::where('related_id', '=', $variant['id'])
                     ->where('image_type', '=', 'variant')
                     ->get();
-                $variant['image'] = !empty($variantImages) ? '/' . $variantImages[0]['image_url'] : null;
+
+                if (!empty($variantImages)) {
+                    foreach ($variantImages as $vImg) {
+                        $vImgArray = is_array($vImg) ? $vImg : (array)$vImg;
+                        $vImgArray['image_url'] = '/' . ltrim($vImgArray['image_url'], '/');
+                        $allImages[] = $vImgArray;
+                    }
+                    $variant['image'] = '/' . ltrim($variantImages[0]['image_url'], '/');
+                } else {
+                    $variant['image'] = null;
+                }
             }
-            unset($variant); // Break reference
+            unset($variant);
+        }
+
+        // Calculate price range
+        $priceRange = null;
+        if ($hasVariants && !empty($variants)) {
+            $prices = array_column($variants, 'price');
+            $minPrice = min($prices);
+            $maxPrice = max($prices);
+            $priceRange = $minPrice == $maxPrice ?
+                '$' . number_format($minPrice, 2) :
+                '$' . number_format($minPrice, 2) . ' - $' . number_format($maxPrice, 2);
+        } else {
+            $priceRange = '$' . number_format($product->price ?? 0, 2);
         }
 
         // Pass all data to view
         $this->view('product-detail', [
             'product' => $product,
-            'images' => $images,
+            'images' => $allImages,
             'variants' => $variants,
             'hasVariants' => $hasVariants,
+            'priceRange' => $priceRange,
         ]);
     }
 }
