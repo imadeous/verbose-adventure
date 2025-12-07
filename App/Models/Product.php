@@ -70,41 +70,41 @@ class Product extends Model
     /**
      * Get all variants for this product
      */
-    public function getVariants()
+    public static function getVariants($id)
     {
-        return Variant::getByProduct($this->id);
+        return Variant::getByProduct($id);
     }
 
     /**
      * Get the price range for this product based on variants
      */
-    public function getPriceRange()
+    public static function getPriceRange($id)
     {
-        return Variant::getPriceRange($this->id);
+        return Variant::getPriceRange($id);
     }
 
     /**
      * Get the lowest price variant
      */
-    public function getLowestPrice()
+    public static function getLowestPrice($id)
     {
-        return Variant::getLowestPrice($this->id);
+        return Variant::getLowestPrice($id);
     }
 
     /**
      * Get the highest price variant
      */
-    public function getHighestPrice()
+    public static function getHighestPrice($id)
     {
-        return Variant::getHighestPrice($this->id);
+        return Variant::getHighestPrice($id);
     }
 
     /**
      * Check if product has variants
      */
-    public function hasVariants()
+    public static function hasVariants($id)
     {
-        $variants = $this->getVariants();
+        $variants = self::getVariants($id);
         return !empty($variants);
     }
 }

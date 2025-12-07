@@ -2,7 +2,7 @@
 
 use App\Models\Product;
 
-$variants = $product->getVariants();
+$variants = Product::getVariants($product->id);
 $overallRating = Product::getOverallRating($product->id);
 ?>
 
