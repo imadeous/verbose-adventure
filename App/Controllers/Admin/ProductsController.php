@@ -40,7 +40,13 @@ class ProductsController extends AdminControllerBase
             }, $variants));
 
             // Calculate stock value
-            $product->stock_value = Product::getStockValue($product->id);
+            $stockValue = Product::getStockValue($product->id);
+            $product->stock_value = $stockValue;
+
+            // Debug: verify the value is set
+            error_log("Product ID {$product->id}: Stock Value = " . var_export($stockValue, true));
+            error_log("Product object stock_value: " . var_export($product->stock_value, true));
+
             $enrichedProducts[] = $product;
         }
 
