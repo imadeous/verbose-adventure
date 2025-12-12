@@ -39,7 +39,7 @@
                 <div class="group hover:shadow-md transition-all duration-150 <?= is_null($contact->opened_at) ? 'bg-blue-50' : 'bg-white hover:bg-gray-50' ?>">
                     <a href="<?= url('admin/contacts/' . $contact->id) ?>" class="flex items-center px-4 py-3 cursor-pointer">
                         <!-- Star/Important marker (placeholder) -->
-                        <div class="flex-shrink-0 mr-3">
+                        <div class="shrink-0 mr-3">
                             <?php if (is_null($contact->opened_at)): ?>
                                 <div class="w-2 h-2 bg-blue-600 rounded-full"></div>
                             <?php else: ?>
@@ -48,7 +48,7 @@
                         </div>
 
                         <!-- Sender info -->
-                        <div class="flex-shrink-0 w-48 mr-4">
+                        <div class="shrink-0 w-48 mr-4">
                             <div class="<?= is_null($contact->opened_at) ? 'font-bold text-gray-900' : 'font-medium text-gray-700' ?> truncate">
                                 <?= e($contact->name) ?>
                             </div>
@@ -63,7 +63,7 @@
                         </div>
 
                         <!-- Date and actions -->
-                        <div class="flex-shrink-0 flex items-center gap-3">
+                        <div class="shrink-0 flex items-center gap-3">
                             <span class="text-xs text-gray-500">
                                 <?php
                                 $date = new DateTime($contact->created_at);
