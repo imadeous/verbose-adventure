@@ -23,7 +23,7 @@ class ContactController extends AdminControllerBase
         ]);
     }
 
-    // Show a single contact
+    // Show a single contact (merged with index view)
     public function show($id)
     {
         $this->view->layout('admin');
@@ -38,12 +38,16 @@ class ContactController extends AdminControllerBase
             $contact->opened_at = date('Y-m-d H:i:s');
             $contact->update();
         }
-        $this->view('admin/contacts/show', [
-            'contact' => $contact,
+
+        // Get all contacts for the sidebar
+        $contacts = Contact::all();
+
+        $this->view('admin/contacts/index', [
+            'contacts' => $contacts,
+            'selectedContact' => $contact,
             'breadcrumb' => [
                 ['label' => 'Dashboard', 'url' => url('admin')],
-                ['label' => 'Contacts', 'url' => url('admin/contacts')],
-                ['label' => $contact->customer_name]
+                ['label' => 'Contacts']
             ]
         ]);
     }
