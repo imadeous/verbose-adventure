@@ -35,6 +35,16 @@ abstract class Model
         $this->attributes[$key] = $value;
     }
 
+    public function __isset($key)
+    {
+        return isset($this->attributes[$key]);
+    }
+
+    public function __unset($key)
+    {
+        unset($this->attributes[$key]);
+    }
+
     public function toArray(): array
     {
         return $this->attributes;

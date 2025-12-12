@@ -59,10 +59,7 @@ use App\Models\Product; ?>
                             </span>
                         </td>
                         <td class="px-4 py-3 text-center">
-                            <?php
-                            // Debug: check what stock_value actually is
-                            var_dump($product->stock_value);
-                            if (isset($product->stock_value)): ?>
+                            <?php if (isset($product->stock_value)): ?>
                                 <span class="font-semibold text-blue-700">
                                     <span class="text-xs">MVR </span><?= number_format($product->stock_value, 2) ?>
                                 </span>
