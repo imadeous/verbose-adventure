@@ -58,7 +58,7 @@ use App\Models\Product; ?>
                                 <?= e($product->total_stock) ?>
                             </span>
                         </td>
-                        <td class="px-4 py-3 text-center">
+                        <td class="px-4 py-3">
                             <?php if (isset($product->stock_value)): ?>
                                 <span class="font-semibold text-blue-700">
                                     <span class="text-xs">MVR </span><?= number_format($product->stock_value, 2) ?>
