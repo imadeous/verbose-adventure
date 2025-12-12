@@ -39,6 +39,9 @@ class ProductsController extends AdminControllerBase
                 return is_array($v) ? ($v['stock_quantity'] ?? 0) : ($v->stock_quantity ?? 0);
             }, $variants));
 
+            // Calculate stock value
+            $product->stock_value = Product::getStockValue($product->id);
+
             $enrichedProducts[] = $product;
         }
 

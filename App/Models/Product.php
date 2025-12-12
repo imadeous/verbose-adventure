@@ -122,4 +122,26 @@ class Product extends Model
         $variants = self::getVariants($id);
         return !empty($variants);
     }
+
+    /**
+     * Calculate total stock value for this product
+     * Returns sum of (variant price × variant stock quantity) for all variants
+     */
+    public static function getStockValue($id)
+    {
+        $variants = self::getVariants($id);
+        if (empty($variants)) {
+            return 0;
+        }
+
+        $totalValue = 0;
+        foreach ($variants as $variant) {
+            $variantData = is_array($variant) ? $variant : (array)$variant;
+            $price = $variantData['price'] ?? 0;
+            $stock = $variantData['stock_quantity'] ?? 0;
+            $totalValue += ($price * $stock);
+        }
+
+        return $totalValue;
+    }
 }
