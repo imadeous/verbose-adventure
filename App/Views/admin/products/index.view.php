@@ -59,12 +59,15 @@ use App\Models\Product; ?>
                             </span>
                         </td>
                         <td class="px-4 py-3 text-center">
-                            <?php if (isset($product->stock_value) && $product->stock_value > 0): ?>
+                            <?php
+                            // Debug: check what stock_value actually is
+                            // var_dump($product->stock_value);
+                            if (isset($product->stock_value)): ?>
                                 <span class="font-semibold text-blue-700">
                                     <span class="text-xs">MVR </span><?= number_format($product->stock_value, 2) ?>
                                 </span>
                             <?php else: ?>
-                                <span class="text-gray-400">-</span>
+                                <span class="text-gray-400">Not calculated</span>
                             <?php endif; ?>
                         </td>
                         <td class="px-4 py-3">
