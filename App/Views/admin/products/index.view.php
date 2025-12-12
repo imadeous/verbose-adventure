@@ -62,9 +62,6 @@ use App\Models\Product; ?>
                             <?php if (isset($product->stock_value) && $product->stock_value > 0): ?>
                                 <span class="font-semibold text-blue-700">
                                     <span class="text-xs">MVR </span><?= number_format($product->stock_value, 2) ?>
-                                    <?php
-                                    var_dump($product->stock_value);
-                                    ?>
                                 </span>
                             <?php else: ?>
                                 <span class="text-gray-400">-</span>
