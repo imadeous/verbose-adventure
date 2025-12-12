@@ -14,7 +14,7 @@
     <!-- Analysis Tools Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         <!-- SWOT Analysis -->
-        <a href="<?= url('admin/assistant/swot') ?>" class="group bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 rounded-xl shadow-md hover:shadow-xl transition-all p-6 border-2 border-blue-200 hover:border-blue-400">
+        <a href="<?= url('admin/assistant/swot') ?>" class="group bg-linear-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 rounded-xl shadow-md hover:shadow-xl transition-all p-6 border-2 border-blue-200 hover:border-blue-400">
             <div class="flex items-center mb-4">
                 <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center text-white text-2xl mr-3 group-hover:scale-110 transition-transform">
                     🎯
@@ -27,7 +27,7 @@
         </a>
 
         <!-- Revenue Analysis -->
-        <a href="<?= url('admin/assistant/revenue') ?>" class="group bg-gradient-to-br from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 rounded-xl shadow-md hover:shadow-xl transition-all p-6 border-2 border-green-200 hover:border-green-400">
+        <a href="<?= url('admin/assistant/revenue') ?>" class="group bg-linear-to-br from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 rounded-xl shadow-md hover:shadow-xl transition-all p-6 border-2 border-green-200 hover:border-green-400">
             <div class="flex items-center mb-4">
                 <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center text-white text-2xl mr-3 group-hover:scale-110 transition-transform">
                     💰
@@ -40,7 +40,7 @@
         </a>
 
         <!-- Business Forecast -->
-        <a href="<?= url('admin/assistant/forecast') ?>" class="group bg-gradient-to-br from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 rounded-xl shadow-md hover:shadow-xl transition-all p-6 border-2 border-purple-200 hover:border-purple-400">
+        <a href="<?= url('admin/assistant/forecast') ?>" class="group bg-linear-to-br from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 rounded-xl shadow-md hover:shadow-xl transition-all p-6 border-2 border-purple-200 hover:border-purple-400">
             <div class="flex items-center mb-4">
                 <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center text-white text-2xl mr-3 group-hover:scale-110 transition-transform">
                     📈
@@ -53,7 +53,7 @@
         </a>
 
         <!-- Stock Analysis -->
-        <a href="<?= url('admin/assistant/stock') ?>" class="group bg-gradient-to-br from-orange-50 to-orange-100 hover:from-orange-100 hover:to-orange-200 rounded-xl shadow-md hover:shadow-xl transition-all p-6 border-2 border-orange-200 hover:border-orange-400">
+        <a href="<?= url('admin/assistant/stock') ?>" class="group bg-linear-to-br from-orange-50 to-orange-100 hover:from-orange-100 hover:to-orange-200 rounded-xl shadow-md hover:shadow-xl transition-all p-6 border-2 border-orange-200 hover:border-orange-400">
             <div class="flex items-center mb-4">
                 <div class="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center text-white text-2xl mr-3 group-hover:scale-110 transition-transform">
                     📦
@@ -66,7 +66,7 @@
         </a>
 
         <!-- CSAT Analysis -->
-        <a href="<?= url('admin/assistant/csat') ?>" class="group bg-gradient-to-br from-pink-50 to-pink-100 hover:from-pink-100 hover:to-pink-200 rounded-xl shadow-md hover:shadow-xl transition-all p-6 border-2 border-pink-200 hover:border-pink-400">
+        <a href="<?= url('admin/assistant/csat') ?>" class="group bg-linear-to-br from-pink-50 to-pink-100 hover:from-pink-100 hover:to-pink-200 rounded-xl shadow-md hover:shadow-xl transition-all p-6 border-2 border-pink-200 hover:border-pink-400">
             <div class="flex items-center mb-4">
                 <div class="w-12 h-12 bg-pink-500 rounded-lg flex items-center justify-center text-white text-2xl mr-3 group-hover:scale-110 transition-transform">
                     ⭐
@@ -79,7 +79,7 @@
         </a>
 
         <!-- Statistics -->
-        <a href="<?= url('admin/assistant/statistics') ?>" class="group bg-gradient-to-br from-indigo-50 to-indigo-100 hover:from-indigo-100 hover:to-indigo-200 rounded-xl shadow-md hover:shadow-xl transition-all p-6 border-2 border-indigo-200 hover:border-indigo-400">
+        <a href="<?= url('admin/assistant/statistics') ?>" class="group bg-linear-to-br from-indigo-50 to-indigo-100 hover:from-indigo-100 hover:to-indigo-200 rounded-xl shadow-md hover:shadow-xl transition-all p-6 border-2 border-indigo-200 hover:border-indigo-400">
             <div class="flex items-center mb-4">
                 <div class="w-12 h-12 bg-indigo-500 rounded-lg flex items-center justify-center text-white text-2xl mr-3 group-hover:scale-110 transition-transform">
                     📊
@@ -101,7 +101,7 @@
             Advanced Tools
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <a href="<?=  ?> url('admin/assistant/sandbox') ?>" class="group bg-white hover:bg-linear-to-r hover:from-purple-50 hover:to-pink-50 rounded-lg shadow hover:shadow-lg transition-all p-4 border border-gray-200 hover:border-purple-300 flex items-center gap-4">
+            <a href="<?= url('admin/assistant/sandbox') ?>" class="group bg-white hover:bg-linear-to-r hover:from-purple-50 hover:to-pink-50 rounded-lg shadow hover:shadow-lg transition-all p-4 border border-gray-200 hover:border-purple-300 flex items-center gap-4">
                 <div class="w-10 h-10 bg-linear-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center text-white text-xl group-hover:scale-110 transition-transform">
                     🤖
                 </div>
