@@ -16,13 +16,14 @@ use App\Models\Product; ?>
                     <th class="px-4 py-3 text-center text-xs font-bold text-gray-600 uppercase tracking-wider border-b-2 border-gray-200">Revenue</th>
                     <th class="px-4 py-3 text-center text-xs font-bold text-gray-600 uppercase tracking-wider border-b-2 border-gray-200">Variants</th>
                     <th class="px-4 py-3 text-center text-xs font-bold text-gray-600 uppercase tracking-wider border-b-2 border-gray-200">Stock</th>
+                    <th class="px-4 py-3 text-center text-xs font-bold text-gray-600 uppercase tracking-wider border-b-2 border-gray-200">Stock Value</th>
                     <th class="px-4 py-3 text-center text-xs font-bold text-gray-600 uppercase tracking-wider border-b-2 border-gray-200">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (empty($products)): ?>
                     <tr>
-                        <td colspan="6" class="px-4 py-8 text-center text-gray-500">No products found.</td>
+                        <td colspan="7" class="px-4 py-8 text-center text-gray-500">No products found.</td>
                     </tr>
                 <?php endif; ?>
                 <?php foreach ($products as $product): ?>
@@ -56,6 +57,15 @@ use App\Models\Product; ?>
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <?= $product->total_stock > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' ?>">
                                 <?= e($product->total_stock) ?>
                             </span>
+                        </td>
+                        <td class="px-4 py-3 text-center">
+                            <?php if (isset($product->stock_value) && $product->stock_value > 0): ?>
+                                <span class="font-semibold text-blue-700">
+                                    <span class="text-xs">MVR </span><?= number_format($product->stock_value, 2) ?>
+                                </span>
+                            <?php else: ?>
+                                <span class="text-gray-400">-</span>
+                            <?php endif; ?>
                         </td>
                         <td class="px-4 py-3">
                             <div class="flex items-center justify-center gap-2">
