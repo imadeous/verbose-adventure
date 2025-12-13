@@ -205,55 +205,36 @@ class GalleryController extends AdminController
 
     public function destroy($id)
     {
-        $debugInfo = [];
-
         $item = Gallery::find($id);
         if (!$item) {
-            flash('error', 'Gallery item not found. ID: ' . $id);
+            flash('error', 'Gallery item not found.');
             $this->redirect('/admin/gallery');
             return;
         }
 
-        $debugInfo[] = "Item found with ID: {$id}";
-        $debugInfo[] = "Image URL: {$item->image_url}";
-
         // Delete the actual image file
         $fileDeleted = false;
         if (!empty($item->image_url)) {
-            $filePath = 'public/storage/' . ltrim($item->image_url, '/');
-            $debugInfo[] = "Attempting to delete file: {$filePath}";
+            // Check if path already starts with 'storage/' to avoid duplication
+            $relativePath = ltrim($item->image_url, '/');
+            if (strpos($relativePath, 'storage/') === 0) {
+                $filePath = 'public/' . $relativePath;
+            } else {
+                $filePath = 'public/storage/' . $relativePath;
+            }
 
             if (file_exists($filePath)) {
-                $debugInfo[] = "File exists";
                 if (unlink($filePath)) {
                     $fileDeleted = true;
-                    $debugInfo[] = "File deleted successfully";
                     Notification::log('deleted', 'Gallery', $id, ['file_deleted' => $filePath]);
-                } else {
-                    $debugInfo[] = "Failed to unlink file";
-                    Notification::log('deleted', 'Gallery', $id, ['file_delete_failed' => $filePath]);
                 }
-            } else {
-                $debugInfo[] = "File does not exist at path: {$filePath}";
             }
-        } else {
-            $debugInfo[] = "No image_url found";
         }
 
         // Delete the database row
-        $dbDeleted = $item->delete();
-        $debugInfo[] = "Database deletion result: " . ($dbDeleted ? 'success' : 'failed');
+        $item->delete();
 
-        $message = "Gallery deletion complete. ";
-        if ($fileDeleted) {
-            $message .= "File deleted. ";
-        }
-        if ($dbDeleted) {
-            $message .= "Database record deleted. ";
-        }
-        $message .= "Debug: " . implode(' | ', $debugInfo);
-
-        flash('success', $message);
+        flash('success', 'Gallery image deleted successfully.');
         $this->redirect('/admin/gallery');
     }
 }
