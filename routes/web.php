@@ -69,6 +69,7 @@ $router->middleware([AuthMiddleware::class], function ($router) {
     $router->get('/admin/products/{id}/variants-json', [AdminProductsController::class, 'variantsJson']);
     $router->post('/admin/products/{id}/variants', [AdminVariantsController::class, 'store']);
     $router->post('/admin/products/{productId}/variants/{variantId}/delete', [AdminVariantsController::class, 'destroy']);
+    $router->get('/admin/categories/tree', [AdminCategoriesController::class, 'tree']);
     $router->resource('/admin/categories', AdminCategoriesController::class);
     $router->resource('/admin/gallery', AdminGalleryController::class);
     // AI Assistant routes

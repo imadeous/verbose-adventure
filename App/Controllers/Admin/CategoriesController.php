@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Variant;
 use Core\AdminControllerBase;
 use Core\Database\ReportBuilder;
 
@@ -159,5 +160,39 @@ class CategoriesController extends AdminControllerBase
             flash('error', 'Category not found.');
         }
         $this->redirect('/admin/categories');
+    }
+
+    public function tree()
+    {
+        $this->view->layout('admin');
+
+        // Get all categories with their products and variants
+        $categories = Category::query()->orderBy('name', 'asc')->get();
+
+        // Enrich categories with products and variants
+        $treeData = [];
+        foreach ($categories as $category) {
+            $products = Product::getByCategory($category['id']);
+
+            // For each product, get its variants
+            $enrichedProducts = [];
+            foreach ($products as $product) {
+                $variants = Product::getVariants($product['id']);
+                $product['variants'] = $variants;
+                $enrichedProducts[] = $product;
+            }
+
+            $category['products'] = $enrichedProducts;
+            $treeData[] = $category;
+        }
+
+        $this->view('admin/categories/tree', [
+            'categories' => $treeData,
+            'breadcrumb' => [
+                ['label' => 'Dashboard', 'url' => url('admin')],
+                ['label' => 'Categories', 'url' => url('admin/categories')],
+                ['label' => 'Category Tree']
+            ]
+        ]);
     }
 }
