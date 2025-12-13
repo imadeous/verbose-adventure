@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>External Data Examples - Contribution Calendar</title>
+    <link rel="stylesheet" href="contribution-calendar.css">
+    <style>
+        .example-section {
+            margin: 40px 0;
+            padding: 20px;
+            background: #f6f8fa;
+            border-radius: 8px;
+        }
+
+        .example-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #24292e;
+        }
+
+        .example-description {
+            color: #586069;
+            margin-bottom: 20px;
+        }
+
+        .code-block {
+            background: #24292e;
+            color: #e1e4e8;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        button {
+            background: #2ea44f;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background: #2c974b;
+        }
+
+        button:disabled {
+            background: #94d3a2;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>External Data Loading Examples</h1>
+        <p>Real-world scenarios for loading calendar data from various sources</p>
+
+        <!-- Example 1: JSON File -->
+        <div class="example-section">
+            <div class="example-title">📄 Example 1: Load from JSON File</div>
+            <div class="example-description">
+                Load sales data from a JSON file. This simulates loading data from a static file or API endpoint.
+                <br>Format: <code>[{date, count, total}]</code>
+            </div>
+            <div class="code-block">
+                // Load from JSON file<br>
+                const data = await CalendarDataLoader.fromJSON('sample-data.json');<br>
+                calendar.loadData(data);
+            </div>
+            <button onclick="loadFromJSON()">Load JSON Data</button>
+            <div id="calendar-json"></div>
+        </div>
+
+        <!-- Example 2: Simulated Database -->
+        <div class="example-section">
+            <div class="example-title">🗄️ Example 2: Simulated Database Query</div>
+            <div class="example-description">
+                Load data from a simulated database. In production, this would call your backend API.
+                <br>Format: Sales data with date, order count, and revenue total.
+            </div>
+            <div class="code-block">
+                // Load from database (via API)<br>
+                const data = await CalendarDataLoader.fromDatabase({<br>
+                &nbsp;&nbsp;type: 'sales',<br>
+                &nbsp;&nbsp;year: 2025<br>
+                });<br>
+                calendar.loadData(data);
+            </div>
+            <button onclick="loadFromDatabase()">Load Database Data</button>
+            <div id="calendar-db"></div>
+        </div>
+
+        <!-- Example 3: Different Field Names -->
+        <div class="example-section">
+            <div class="example-title">🔄 Example 3: Auto-Normalized Data</div>
+            <div class="example-description">
+                The library automatically normalizes different field names (amount→total, value→count, etc.)
+                <br>Try data with fields like: <code>{date, value, amount}</code> or
+                <code>{day, quantity, revenue}</code>
+            </div>
+            <div class="code-block">
+                // Data with different field names<br>
+                const data = [<br>
+                &nbsp;&nbsp;{ day: '2025-01-01', value: 10, amount: 500.00 },<br>
+                &nbsp;&nbsp;{ day: '2025-01-02', value: 15, amount: 750.50 }<br>
+                ];<br>
+                calendar.loadData(data); // Auto-normalized!
+            </div>
+            <button onclick="loadNormalizedData()">Load with Auto-Normalize</button>
+            <div id="calendar-normalized"></div>
+        </div>
+
+        <!-- Example 4: Simple Contributions (No Total) -->
+        <div class="example-section">
+            <div class="example-title">📊 Example 4: Simple Contributions (2 Columns)</div>
+            <div class="example-description">
+                Simple contribution tracking without totals - perfect for GitHub-style activity calendars.
+                <br>Format: <code>[{date, count}]</code>
+            </div>
+            <div class="code-block">
+                // Simple contributions<br>
+                const data = await CalendarDataLoader.fromDatabase({<br>
+                &nbsp;&nbsp;type: 'contributions',<br>
+                &nbsp;&nbsp;year: 2025<br>
+                });<br>
+                calendar.loadData(data);
+            </div>
+            <button onclick="loadSimpleContributions()">Load Simple Data</button>
+            <div id="calendar-simple"></div>
+        </div>
+
+        <!-- Example 5: Custom Labels -->
+        <div class="example-section">
+            <div class="example-title">🏷️ Example 5: Custom Labels and Currency</div>
+            <div class="example-description">
+                Customize the labels shown in tooltips for different business contexts.
+            </div>
+            <div class="code-block">
+                const calendar = new ContributionCalendar('#container', {<br>
+                &nbsp;&nbsp;data: salesData,<br>
+                &nbsp;&nbsp;labels: {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;count: 'transactions',<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;total: 'revenue',<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;currency: '€'<br>
+                &nbsp;&nbsp;}<br>
+                });
+            </div>
+            <button onclick="loadWithCustomLabels()">Load with Custom Labels</button>
+            <div id="calendar-custom"></div>
+        </div>
+
+    </div>
+
+    <script src="contribution-calendar.js"></script>
+    <script src="data-loader.js"></script>
+    <script>
+        // Example 1: Load from JSON
+        async function loadFromJSON() {
+            const container = document.getElementById('calendar-json');
+            container.innerHTML = '<p>Loading...</p>';
+
+            try {
+                const calendar = new ContributionCalendar('#calendar-json', {
+                    year: 2025,
+                    theme: 'blue',
+                    labels: {
+                        count: 'orders',
+                        total: 'sales',
+                        currency: '$'
+                    }
+                });
+
+                // Load from JSON file
+                const data = await CalendarDataLoader.fromJSON('sample-data.json');
+                await calendar.loadData(data);
+
+                console.log('Loaded from JSON:', data);
+            } catch (error) {
+                container.innerHTML = '<p style="color: red;">Error: ' + error.message + '</p>';
+            }
+        }
+
+        // Example 2: Load from simulated database
+        async function loadFromDatabase() {
+            const container = document.getElementById('calendar-db');
+            container.innerHTML = '<p>Loading from database...</p>';
+
+            const calendar = new ContributionCalendar('#calendar-db', {
+                year: 2025,
+                theme: 'forest',
+                labels: {
+                    count: 'orders',
+                    total: 'revenue',
+                    currency: '$'
+                }
+            });
+
+            // Simulate database query
+            const data = await CalendarDataLoader.fromDatabase({
+                type: 'sales',
+                year: 2025
+            });
+
+            await calendar.loadData(data);
+            console.log('Loaded from database:', data.length, 'records');
+        }
+
+        // Example 3: Auto-normalized data
+        async function loadNormalizedData() {
+            const container = document.getElementById('calendar-normalized');
+            container.innerHTML = '<p>Processing data...</p>';
+
+            const calendar = new ContributionCalendar('#calendar-normalized', {
+                year: 2025,
+                theme: 'purple',
+                labels: {
+                    count: 'items',
+                    total: 'amount',
+                    currency: '£'
+                }
+            });
+
+            // Data with different field names
+            const rawData = [];
+            for (let i = 1; i <= 100; i++) {
+                const date = new Date(2025, 0, i);
+                if (date.getFullYear() === 2025) {
+                    rawData.push({
+                        day: date.toISOString().split('T')[0],
+                        value: Math.floor(Math.random() * 20),
+                        amount: Math.random() * 500
+                    });
+                }
+            }
+
+            await calendar.loadData(rawData);
+            console.log('Auto-normalized data:', rawData.slice(0, 3));
+        }
+
+        // Example 4: Simple contributions (no totals)
+        async function loadSimpleContributions() {
+            const container = document.getElementById('calendar-simple');
+            container.innerHTML = '<p>Loading...</p>';
+
+            const calendar = new ContributionCalendar('#calendar-simple', {
+                year: 2025,
+                theme: 'github',
+                labels: {
+                    count: 'commits',
+                    total: '',
+                    currency: ''
+                }
+            });
+
+            const data = await CalendarDataLoader.fromDatabase({
+                type: 'contributions',
+                year: 2025
+            });
+
+            await calendar.loadData(data);
+            console.log('Simple contributions loaded:', data.length, 'days');
+        }
+
+        // Example 5: Custom labels
+        async function loadWithCustomLabels() {
+            const container = document.getElementById('calendar-custom');
+            container.innerHTML = '<p>Loading...</p>';
+
+            const calendar = new ContributionCalendar('#calendar-custom', {
+                year: 2025,
+                theme: 'sunset',
+                labels: {
+                    count: 'transactions',
+                    total: 'revenue',
+                    currency: '€'
+                }
+            });
+
+            const data = await CalendarDataLoader.fromDatabase({
+                type: 'sales',
+                year: 2025
+            });
+
+            await calendar.loadData(data);
+            console.log('Custom labels applied');
+        }
+    </script>
+</body>
+
+</html>

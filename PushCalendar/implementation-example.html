@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My App - Contribution Calendar</title>
+    
+    <!-- 1. Link the Contribution Calendar CSS -->
+    <link rel="stylesheet" href="contribution-calendar.css">
+    
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f6f8fa;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin-top: 0;
+            color: #24292e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Application Dashboard</h1>
+        
+        <!-- 2. Add a container element for the calendar -->
+        <div id="myCalendar"></div>
+    </div>
+
+    <!-- 3. Include the Contribution Calendar library -->
+    <script src="contribution-calendar.js"></script>
+    <script src="data-loader.js"></script>
+
+    <!-- 4. Configure and initialize your calendar -->
+    <script>
+        // Your calendar data (from database, API, etc.)
+        const myData = [
+            { date: '2025-01-01', count: 5, total: 125.50 },
+            { date: '2025-01-02', count: 8, total: 342.75 },
+            { date: '2025-01-05', count: 12, total: 567.25 },
+            { date: '2025-01-10', count: 3, total: 89.99 },
+            // ... more data
+        ];
+
+        // Configuration options (just like Chart.js)
+        const config = {
+            data: myData,                    // Your data array
+            year: 2025,                      // Year to display
+            theme: 'github',                 // Color theme
+            cellSize: 12,                    // Cell size in pixels
+            cellGap: 3,                      // Gap between cells
+            showTooltip: true,               // Enable tooltips
+            
+            // Customize labels
+            labels: {
+                count: 'orders',             // Label for count field
+                total: 'revenue',            // Label for total field
+                currency: '$'                // Currency symbol
+            },
+            
+            // Custom colors (optional)
+            colors: {
+                empty: '#ebedf0',
+                levels: ['#9be9a8', '#40c463', '#30a14e', '#216e39']
+            },
+            
+            // Click event handler
+            onClick: function(day) {
+                console.log('Clicked:', day);
+                alert(`Date: ${day.dateStr}\nOrders: ${day.count}\nRevenue: $${day.total}`);
+            }
+        };
+
+        // Initialize the calendar
+        const calendar = new ContributionCalendar('#myCalendar', config);
+
+        // That's it! Your calendar is ready.
+        
+        // Optional: Load data dynamically
+        // calendar.loadData(newData);
+        
+        // Optional: Change theme
+        // calendar.setTheme('blue');
+        
+        // Optional: Update data
+        // calendar.updateData(updatedData);
+    </script>
+</body>
+</html>
