@@ -303,6 +303,15 @@ use App\Models\Product;
     .calendar-title {
         display: none;
     }
+
+    #salesCalendar .contribution-calendar {
+        width: fit-content;
+        max-width: 100%;
+    }
+
+    #salesCalendar {
+        overflow-x: auto;
+    }
 </style>
 <script src="/js/contribution-calendar.js"></script>
 <script>
