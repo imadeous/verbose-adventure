@@ -53,6 +53,7 @@ $router->get('/product/{id}', [GalleryController::class, 'show']);
 $router->middleware([AuthMiddleware::class], function ($router) {
     $router->get('/admin', [AdminController::class, 'index']);
     $router->get('/admin/debug', [AdminController::class, 'debug']);
+    $router->get('/admin/transaction-calendar-data', [AdminController::class, 'transactionCalendarData']);
     $router->resource('/admin/users', AdminUserController::class)
         ->middleware(RoleMiddleware::class, ['create', 'store', 'destroy']);
     $router->resource('/admin/contacts', AdminContactController::class);

@@ -67,19 +67,17 @@ use App\Models\Product;
 <div class="mb-8">
     <h3 class="text-base font-semibold leading-6 text-blue-900">Business Insights</h3>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-4">
-        <!-- Revenue & Orders Chart -->
+        <!-- Revenue & Orders Calendar -->
         <div class="col-span-1 lg:col-span-2 bg-blue-50 rounded-xl shadow-md p-5 flex flex-col border border-blue-200 hover:shadow-lg transition">
-            <div class="flex items-center gap-3 mb-2">
+            <div class="flex items-center gap-3 mb-4">
                 <div class="bg-blue-200 text-blue-700 rounded-lg p-3 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
                     </svg>
                 </div>
-                <div class="text-xs text-blue-500 font-medium uppercase tracking-wide">Revenue & Orders Trend</div>
+                <div class="text-xs text-blue-500 font-medium uppercase tracking-wide">Sales Activity <?= date('Y') ?></div>
             </div>
-            <div class="flex-1 flex items-center justify-center" style="height:220px;min-height:180px;max-height:220px;">
-                <canvas id="revenueOrdersChart" class="w-full max-w-xl" style="height:200px!important;max-height:200px;min-height:200px;" height="200"></canvas>
-            </div>
+            <div id="salesCalendar" class="flex-1" style="min-height:180px;"></div>
         </div>
         <!-- Quarterly Report -->
         <div class="col-span-1 h-full bg-blue-50 rounded-xl shadow-md p-5 flex flex-col border border-blue-200 hover:shadow-lg transition">
@@ -299,11 +297,26 @@ use App\Models\Product;
 </div>
 <!-- Chart.js CDN -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Contribution Calendar -->
+<link rel="stylesheet" href="/css/contribution-calendar.min.css">
+<script src="/js/contribution-calendar.js"></script>
 <script>
-    // Transactions Chart (dynamic from PHP)
-    const ctx1 = document.getElementById('revenueOrdersChart').getContext('2d');
-    const transactionsChartConfig = <?php echo $transactionsChart; ?>;
-    new Chart(ctx1, transactionsChartConfig);
+    // Sales Activity Calendar
+    const salesCalendar = new ContributionCalendar('#salesCalendar', {
+        year: <?= date('Y') ?>,
+        theme: 'blue',
+        cellSize: 11,
+        cellGap: 3,
+        labels: {
+            count: 'orders',
+            total: 'revenue',
+            currency: 'MVR '
+        }
+    });
+
+    // Load transaction data
+    salesCalendar.loadData('/admin/transaction-calendar-data?year=<?= date('Y') ?>')
+        .catch(error => console.error('Failed to load calendar data:', error));
 
     // Quarterly Report Bar Chart
     const ctx2 = document.getElementById('quarterlyReportChart').getContext('2d');

@@ -249,4 +249,28 @@ class AdminController extends AdminControllerBase
             'vars' => $vars,
         ]);
     }
+
+    public function transactionCalendarData()
+    {
+        header('Content-Type: application/json');
+
+        // Get year from query parameter or default to current year
+        $year = isset($_GET['year']) ? (int)$_GET['year'] : date('Y');
+
+        // Get all income transactions for the year, grouped by date
+        $transactions = \Core\Database\Db::getInstance()->query("
+            SELECT 
+                DATE(date) as date,
+                COUNT(*) as count,
+                SUM(amount) as total
+            FROM transactions
+            WHERE type = 'income'
+                AND YEAR(date) = ?
+            GROUP BY DATE(date)
+            ORDER BY date ASC
+        ", [$year]);
+
+        echo json_encode($transactions);
+        exit;
+    }
 }
