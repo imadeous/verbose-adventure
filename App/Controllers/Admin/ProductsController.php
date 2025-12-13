@@ -131,7 +131,14 @@ class ProductsController extends AdminControllerBase
 
         // Create the product first
         $product = new Product($data);
-        $product->save();
+        $productId = $product->save();
+
+        // Ensure we have a valid product ID
+        if (!$productId) {
+            flash('error', 'Failed to create product.');
+            $this->redirect('/admin/products/create');
+            return;
+        }
 
         // Handle image uploads if any
         if (!empty($_FILES['images']['name'][0])) {
@@ -164,10 +171,10 @@ class ProductsController extends AdminControllerBase
                 ]);
 
                 if ($result['success']) {
-                    // Save to gallery table
+                    // Save to gallery table using the returned product ID
                     $gallery = new Gallery([
                         'image_type' => 'product',
-                        'related_id' => $product->id,
+                        'related_id' => $productId,
                         'image_url' => $result['path'],
                         'title' => $product->name,
                         'caption' => ''
