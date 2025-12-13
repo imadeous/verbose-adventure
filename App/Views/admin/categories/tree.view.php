@@ -162,7 +162,7 @@
                                                         </svg>
                                                         <span class="text-teal-900 text-sm font-medium">SKU: <?= e($variant['sku']) ?></span>
                                                         <?php if (!empty($variant['color'])): ?>
-                                                            <span class="text-xs text-gray-600">• <?= e($variant['color']) ?></span>
+                                                            <div class="w-4 h-4 rounded border border-gray-300 shadow-sm" style="background-color: <?= e($variant['color']) ?>;" title="<?= e($variant['color']) ?>"></div>
                                                         <?php endif; ?>
                                                         <?php if (!empty($variant['dimensions'])): ?>
                                                             <span class="text-xs text-gray-600">• <?= e($variant['dimensions']) ?></span>
