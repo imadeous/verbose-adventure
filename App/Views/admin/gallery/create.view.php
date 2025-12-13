@@ -287,22 +287,19 @@
                         e.target.appendChild(input);
                     });
                 });
+
+                // Watch for type changes to reset related fields
+                this.$watch('type', value => {
+                    if (value === 'site') {
+                        this.relatedId = '';
+                        this.selectedProduct = '';
+                        this.variants = [];
+                    } else if (value !== 'variant') {
+                        this.selectedProduct = '';
+                        this.variants = [];
+                    }
+                });
             }
         }));
     });
 </script>
-this.$watch('type', value => {
-if (value === 'site') {
-this.relatedId = '';
-this.selectedProduct = '';
-this.variants = [];
-} else if (value !== 'variant') {
-this.selectedProduct = '';
-this.variants = [];
-}
-});
-}
-}));
-});
-</script>
-</div>
