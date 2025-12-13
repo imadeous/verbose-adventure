@@ -68,7 +68,7 @@ use App\Models\Product;
     <h3 class="text-base font-semibold leading-6 text-blue-900">Business Insights</h3>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-4">
         <!-- Revenue & Orders Calendar -->
-        <div class="col-span-1 lg:col-span-2 bg-blue-50 rounded-xl shadow-md p-5 flex flex-col border border-blue-200 hover:shadow-lg transition">
+        <div class="col-span-3 lg:col-span-2 bg-blue-50 rounded-xl shadow-md p-5 flex flex-col border border-blue-200 hover:shadow-lg transition">
             <div class="flex items-center gap-3 mb-4">
                 <div class="bg-blue-200 text-blue-700 rounded-lg p-3 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
