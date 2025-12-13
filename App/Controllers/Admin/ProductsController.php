@@ -166,8 +166,11 @@ class ProductsController extends AdminControllerBase
                 if ($result['success']) {
                     // Save to gallery table
                     $gallery = new Gallery([
-                        'product_id' => $product->id,
-                        'image_path' => $result['path']
+                        'image_type' => 'product',
+                        'related_id' => $product->id,
+                        'image_url' => $result['path'],
+                        'title' => $product->name,
+                        'caption' => ''
                     ]);
                     $gallery->save();
                     $uploadedCount++;

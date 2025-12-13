@@ -9,7 +9,9 @@ class Gallery extends Model
     protected ?string $table = 'gallery'; // or whatever your table name is
     protected $fillable = [
         'title',
-        'description',
+        'caption',
+        'image_type',
+        'related_id',
         'image_url',
         'created_at'
     ];
