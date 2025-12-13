@@ -315,7 +315,23 @@ use App\Models\Product;
     });
 
     // Load transaction data
-    salesCalendar.loadData('/admin/transaction-calendar-data?year=<?= date('Y') ?>')
+    fetch('/admin/transaction-calendar-data?year=<?= date('Y') ?>')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.text(); // Get as text first to debug
+        })
+        .then(text => {
+            console.log('Response:', text); // Debug
+            try {
+                const data = JSON.parse(text);
+                salesCalendar.updateData(data);
+            } catch (e) {
+                console.error('JSON parse error:', e, 'Response:', text.substring(0, 500));
+                throw e;
+            }
+        })
         .catch(error => console.error('Failed to load calendar data:', error));
 
     // Quarterly Report Bar Chart

@@ -254,23 +254,29 @@ class AdminController extends AdminControllerBase
     {
         header('Content-Type: application/json');
 
-        // Get year from query parameter or default to current year
-        $year = isset($_GET['year']) ? (int)$_GET['year'] : date('Y');
+        try {
+            // Get year from query parameter or default to current year
+            $year = isset($_GET['year']) ? (int)$_GET['year'] : date('Y');
 
-        // Get all income transactions for the year, grouped by date
-        $transactions = \Core\Database\Db::getInstance()->query("
-            SELECT 
-                DATE(date) as date,
-                COUNT(*) as count,
-                SUM(amount) as total
-            FROM transactions
-            WHERE type = 'income'
-                AND YEAR(date) = ?
-            GROUP BY DATE(date)
-            ORDER BY date ASC
-        ", [$year]);
+            // Get all income transactions for the year, grouped by date
+            $db = \Core\Database\Db::getInstance();
+            $transactions = $db->query("
+                SELECT 
+                    DATE(date) as date,
+                    COUNT(*) as count,
+                    SUM(amount) as total
+                FROM transactions
+                WHERE type = 'income'
+                    AND YEAR(date) = ?
+                GROUP BY DATE(date)
+                ORDER BY date ASC
+            ", [$year]);
 
-        echo json_encode($transactions);
+            echo json_encode($transactions ?: []);
+        } catch (\Exception $e) {
+            http_response_code(500);
+            echo json_encode(['error' => $e->getMessage()]);
+        }
         exit;
     }
 }
