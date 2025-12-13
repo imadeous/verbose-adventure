@@ -146,4 +146,47 @@ class VariantsController extends AdminControllerBase
 
         $this->redirect('/admin/products/' . $productId);
     }
+
+    public function addStock($variantId)
+    {
+        $variant = Variant::find($variantId);
+
+        if (!$variant) {
+            flash('error', 'Variant not found.');
+            $productId = $_POST['product_id'] ?? null;
+            if ($productId) {
+                $this->redirect('/admin/products/' . $productId);
+            } else {
+                $this->redirect('/admin/products');
+            }
+            return;
+        }
+
+        $data = $_POST;
+
+        // CSRF validation
+        if (empty($data['_csrf']) || !\App\Helpers\Csrf::check($data['_csrf'])) {
+            flash('error', 'Invalid or missing CSRF token. Please try again.');
+            $this->redirect('/admin/products/' . $variant->product_id);
+            return;
+        }
+
+        $quantity = isset($data['stock_quantity']) ? (int)$data['stock_quantity'] : 0;
+
+        if ($quantity <= 0) {
+            flash('error', 'Stock quantity must be greater than 0.');
+            $this->redirect('/admin/products/' . $variant->product_id);
+            return;
+        }
+
+        // Add to current stock
+        $newStock = $variant->stock_quantity + $quantity;
+        $variant->update(['stock_quantity' => $newStock]);
+
+        $notes = !empty($data['notes']) ? ' (' . htmlspecialchars($data['notes']) . ')' : '';
+        flash('success', "Added {$quantity} units to variant {$variant->sku}. New stock: {$newStock}.{$notes}");
+
+        $productId = $data['product_id'] ?? $variant->product_id;
+        $this->redirect('/admin/products/' . $productId);
+    }
 }
