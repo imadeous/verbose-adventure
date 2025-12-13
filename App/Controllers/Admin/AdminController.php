@@ -267,7 +267,16 @@ class AdminController extends AdminControllerBase
                 ->withSum('amount', 'total')
                 ->generate();
 
-            echo json_encode($report['data'] ?: []);
+            // Map period_day to date for the calendar
+            $data = array_map(function ($item) {
+                return [
+                    'date' => $item['period_day'],
+                    'count' => (int)$item['count'],
+                    'total' => (float)$item['total']
+                ];
+            }, $report['data']);
+
+            echo json_encode($data);
         } catch (\Exception $e) {
             http_response_code(500);
             echo json_encode(['error' => $e->getMessage()]);
