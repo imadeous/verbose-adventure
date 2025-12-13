@@ -258,21 +258,16 @@ class AdminController extends AdminControllerBase
             // Get year from query parameter or default to current year
             $year = isset($_GET['year']) ? (int)$_GET['year'] : date('Y');
 
-            // Get all income transactions for the year, grouped by date
-            $db = \Core\Database\Db::getInstance();
-            $transactions = $db->query("
-                SELECT 
-                    DATE(date) as date,
-                    COUNT(*) as count,
-                    SUM(amount) as total
-                FROM transactions
-                WHERE type = 'income'
-                    AND YEAR(date) = ?
-                GROUP BY DATE(date)
-                ORDER BY date ASC
-            ", [$year]);
+            // Get all income transactions for the year, grouped by date using ReportBuilder
+            $report = ReportBuilder::build('transactions', 'date')
+                ->forPeriod($year . '-01-01', $year . '-12-31')
+                ->daily()
+                ->where('type', '=', 'income')
+                ->withCount('*', 'count')
+                ->withSum('amount', 'total')
+                ->generate();
 
-            echo json_encode($transactions ?: []);
+            echo json_encode($report['data'] ?: []);
         } catch (\Exception $e) {
             http_response_code(500);
             echo json_encode(['error' => $e->getMessage()]);
