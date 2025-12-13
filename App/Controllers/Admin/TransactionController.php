@@ -131,21 +131,16 @@ class TransactionController extends AdminControllerBase
         // Set defaults and sanitize
         $data['type'] = isset($data['type']) && $data['type'] ? $data['type'] : 'expense';
         $data['amount'] = isset($data['amount']) ? floatval($data['amount']) : 0.0;
-        $data['quantity'] = isset($data['quantity']) ? intval($data['quantity']) : 0;
         $data['created_at'] = date('Y-m-d H:i:s');
 
-        // Remove empty optional fields
-        foreach (['quote_id', 'promo_code_id', 'date', 'description', 'category_id', 'product_id', 'variant_id', 'quantity'] as $field) {
-            if (isset($data[$field]) && $data[$field] === '') {
-                unset($data[$field]);
-            }
-        }
+        // Handle quantity for stock subtraction (but don't save to transaction table)
+        $quantity = isset($data['quantity']) ? intval($data['quantity']) : 0;
 
         // If variant_id and quantity are provided, subtract from stock
-        if (!empty($data['variant_id']) && !empty($data['quantity'])) {
+        if (!empty($data['variant_id']) && $quantity > 0) {
             $variant = \App\Models\Variant::find($data['variant_id']);
             if ($variant) {
-                $newStock = $variant->stock_quantity - $data['quantity'];
+                $newStock = $variant->stock_quantity - $quantity;
                 if ($newStock < 0) {
                     flash('error', 'Insufficient stock. Available: ' . $variant->stock_quantity);
                     $this->redirect('/admin/transactions/create');
@@ -153,6 +148,16 @@ class TransactionController extends AdminControllerBase
                 }
                 $variant->stock_quantity = $newStock;
                 $variant->update();
+            }
+        }
+
+        // Remove quantity from data (it shouldn't be saved to transactions table)
+        unset($data['quantity']);
+
+        // Remove empty optional fields
+        foreach (['quote_id', 'promo_code_id', 'date', 'description', 'category_id', 'product_id', 'variant_id'] as $field) {
+            if (isset($data[$field]) && $data[$field] === '') {
+                unset($data[$field]);
             }
         }
 
