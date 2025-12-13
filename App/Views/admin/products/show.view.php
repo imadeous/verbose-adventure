@@ -450,10 +450,10 @@ $highestPrice = Product::getHighestPrice($product->id);
                 </table>
             </div>
         <?php endif; ?>
-    </div>
 
-    <!-- Add Stock Modal -->
-    <?php include __DIR__ . '/../../partials/admin/add-stock-modal.php'; ?>
+        <!-- Add Stock Modal -->
+        <?php include __DIR__ . '/../../partials/admin/add-stock-modal.php'; ?>
+    </div>
 
     <!-- Reviews Section -->
     <?php if (!empty($reviews)): ?>
