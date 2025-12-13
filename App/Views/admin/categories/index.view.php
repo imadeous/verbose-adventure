@@ -1,6 +1,6 @@
     <div class="flex justify-between items-center mb-8">
         <h1 class="text-3xl font-extrabold text-blue-900">Categories</h1>
-        <div class="flex justify-between items-center space-x-2-4">
+        <div class="flex justify-between items-center space-x-4">
             <a href="<?= url('admin/categories/tree') ?>" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-blue-700 transition">Category Tree</a>
             <a href="<?= url('admin/categories/create') ?>" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-blue-700 transition">Create Category</a>
         </div>
