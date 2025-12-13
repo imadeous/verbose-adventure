@@ -181,7 +181,8 @@ class VariantsController extends AdminControllerBase
 
         // Add to current stock
         $newStock = $variant->stock_quantity + $quantity;
-        $variant->update(['stock_quantity' => $newStock]);
+        $variant->stock_quantity = $newStock;
+        $variant->update();
 
         $notes = !empty($data['notes']) ? ' (' . htmlspecialchars($data['notes']) . ')' : '';
         flash('success', "Added {$quantity} units to variant {$variant->sku}. New stock: {$newStock}.{$notes}");
