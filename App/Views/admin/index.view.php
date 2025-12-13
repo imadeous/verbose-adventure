@@ -299,6 +299,11 @@ use App\Models\Product;
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!-- Contribution Calendar -->
 <link rel="stylesheet" href="/css/contribution-calendar.min.css">
+<style>
+    .calendar-title {
+        display: none;
+    }
+</style>
 <script src="/js/contribution-calendar.js"></script>
 <script>
     // Sales Activity Calendar
