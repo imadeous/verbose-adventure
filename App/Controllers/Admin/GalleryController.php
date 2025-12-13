@@ -205,32 +205,55 @@ class GalleryController extends AdminController
 
     public function destroy($id)
     {
+        $debugInfo = [];
+
         $item = Gallery::find($id);
         if (!$item) {
-            flash('error', 'Gallery item not found.');
+            flash('error', 'Gallery item not found. ID: ' . $id);
             $this->redirect('/admin/gallery');
             return;
         }
 
+        $debugInfo[] = "Item found with ID: {$id}";
+        $debugInfo[] = "Image URL: {$item->image_url}";
+
         // Delete the actual image file
+        $fileDeleted = false;
         if (!empty($item->image_url)) {
             $filePath = 'public/storage/' . ltrim($item->image_url, '/');
+            $debugInfo[] = "Attempting to delete file: {$filePath}";
 
             if (file_exists($filePath)) {
+                $debugInfo[] = "File exists";
                 if (unlink($filePath)) {
-                    // File deleted successfully
+                    $fileDeleted = true;
+                    $debugInfo[] = "File deleted successfully";
                     Notification::log('deleted', 'Gallery', $id, ['file_deleted' => $filePath]);
                 } else {
-                    // Failed to delete file but continue with database deletion
+                    $debugInfo[] = "Failed to unlink file";
                     Notification::log('deleted', 'Gallery', $id, ['file_delete_failed' => $filePath]);
                 }
+            } else {
+                $debugInfo[] = "File does not exist at path: {$filePath}";
             }
+        } else {
+            $debugInfo[] = "No image_url found";
         }
 
         // Delete the database row
-        $item->delete();
+        $dbDeleted = $item->delete();
+        $debugInfo[] = "Database deletion result: " . ($dbDeleted ? 'success' : 'failed');
 
-        flash('success', 'Gallery image and file deleted successfully.');
+        $message = "Gallery deletion complete. ";
+        if ($fileDeleted) {
+            $message .= "File deleted. ";
+        }
+        if ($dbDeleted) {
+            $message .= "Database record deleted. ";
+        }
+        $message .= "Debug: " . implode(' | ', $debugInfo);
+
+        flash('success', $message);
         $this->redirect('/admin/gallery');
     }
 }
