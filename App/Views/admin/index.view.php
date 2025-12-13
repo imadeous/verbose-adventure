@@ -305,8 +305,8 @@ use App\Models\Product;
     const salesCalendar = new ContributionCalendar('#salesCalendar', {
         year: <?= date('Y') ?>,
         theme: 'blue',
-        cellSize: 13,
-        cellGap: 4,
+        cellSize: 12,
+        cellGap: 3,
         labels: {
             count: 'orders',
             total: 'revenue',
