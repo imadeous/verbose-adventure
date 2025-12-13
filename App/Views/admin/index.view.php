@@ -79,6 +79,19 @@ use App\Models\Product;
             </div>
             <div id="salesCalendar" class="flex-1" style="min-height:180px;"></div>
         </div>
+        <div class="col-span-1 lg:col-span-2 bg-blue-50 rounded-xl shadow-md p-5 flex flex-col border border-blue-200 hover:shadow-lg transition">
+            <div class="flex items-center gap-3 mb-2">
+                <div class="bg-blue-200 text-blue-700 rounded-lg p-3 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
+                    </svg>
+                </div>
+                <div class="text-xs text-blue-500 font-medium uppercase tracking-wide"><?= date('F Y') ?> Trend</div>
+            </div>
+            <div class="flex-1 flex items-center justify-center" style="height:220px;min-height:180px;max-height:220px;">
+                <canvas id="monthlyTrendChart" class="w-full max-w-xl" style="height:200px!important;max-height:200px;min-height:200px;" height="200"></canvas>
+            </div>
+        </div>
         <!-- Quarterly Report -->
         <div class="col-span-1 h-full bg-blue-50 rounded-xl shadow-md p-5 flex flex-col border border-blue-200 hover:shadow-lg transition">
             <div class="flex items-center gap-3 mb-2">
@@ -357,4 +370,8 @@ use App\Models\Product;
     const ctx3 = document.getElementById('ratingsChart').getContext('2d');
     const ratingsChartConfig = JSON.parse(`<?php echo addslashes($ratingsChart); ?>`);
     new Chart(ctx3, ratingsChartConfig);
+    // Monthly Trend Chart (Revenue & Orders)
+    const ctx4 = document.getElementById('monthlyTrendChart').getContext('2d');
+    const monthlyTrendChartConfig = JSON.parse(`<?php echo addslashes($monthlyTrendChart); ?>`);
+    new Chart(ctx4, monthlyTrendChartConfig);
 </script>

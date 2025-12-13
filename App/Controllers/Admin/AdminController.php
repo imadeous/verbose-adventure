@@ -39,6 +39,18 @@ class AdminController extends AdminControllerBase
             ->legend(['display' => false])
             ->pie();
 
+        // Current month daily trend
+        $monthlyTrendChart = ChartBuilder::build('transactions', 'date')
+            ->forPeriod(date('Y-m-01'), date('Y-m-d'))
+            ->daily()
+            ->where('type', '=', 'income')
+            ->withSum('amount', 'Revenue')
+            ->withCount('*', 'Orders')
+            ->mixedChart([
+                'Revenue' => ['type' => 'line', 'yAxisID' => 'y1', 'borderColor' => '#2563eb', 'fill' => false, 'tension' => 0.4],
+                'Orders' => ['type' => 'line', 'yAxisID' => 'y', 'borderColor' => '#60a5fa', 'fill' => false, 'tension' => 0.4],
+            ]);
+
         $thisMonth = ReportBuilder::build('transactions', 'date')
             ->forPeriod(date('Y-m-01'), date('Y-m-d'))
             ->where('type', '=', 'income')
@@ -144,6 +156,7 @@ class AdminController extends AdminControllerBase
                 ['label' => 'Home']
             ],
             'transactionsChart' => $transactionsChart->toJson(),
+            'monthlyTrendChart' => $monthlyTrendChart->toJson(),
             'quarterlyChart' => $quarterlyChart,
             'ratingsChart' => $ratingsChart->toJson(),
             'thisMonth' => $thisMonth,
