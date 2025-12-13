@@ -129,73 +129,11 @@ class ProductsController extends AdminControllerBase
         }
         unset($data['_csrf'], $data['_method']);
 
-        // Create the product first
+        // Create the product
         $product = new Product($data);
-        $productId = $product->save();
+        $product->save();
 
-        // Ensure we have a valid product ID
-        if (!$productId) {
-            flash('error', 'Failed to create product.');
-            $this->redirect('/admin/products/create');
-            return;
-        }
-
-        // Handle image uploads if any
-        if (!empty($_FILES['images']['name'][0])) {
-            $uploadedCount = 0;
-            $maxImages = 8;
-
-            foreach ($_FILES['images']['name'] as $index => $filename) {
-                if ($uploadedCount >= $maxImages) {
-                    break;
-                }
-
-                // Skip if no file was uploaded at this index
-                if (empty($filename)) {
-                    continue;
-                }
-
-                // Prepare file array in format expected by File::upload
-                $file = [
-                    'name' => $_FILES['images']['name'][$index],
-                    'type' => $_FILES['images']['type'][$index],
-                    'tmp_name' => $_FILES['images']['tmp_name'][$index],
-                    'error' => $_FILES['images']['error'][$index],
-                    'size' => $_FILES['images']['size'][$index]
-                ];
-
-                // Upload the file
-                $result = \App\Helpers\File::upload($file, 'products', [
-                    'allowed_types' => ['jpg', 'jpeg', 'png', 'webp'],
-                    'max_size' => 5 * 1024 * 1024 // 5MB
-                ]);
-
-                if ($result['success']) {
-                    // Save to gallery table using the returned product ID
-                    $gallery = new Gallery([
-                        'image_type' => 'product',
-                        'related_id' => $productId,
-                        'image_url' => $result['path'],
-                        'title' => $product->name,
-                        'caption' => ''
-                    ]);
-                    $gallery->save();
-                    $uploadedCount++;
-                } else {
-                    // Log error but continue with other images
-                    error_log("Failed to upload image: " . $result['error']);
-                }
-            }
-
-            if ($uploadedCount > 0) {
-                flash('success', "Product created successfully with {$uploadedCount} image(s).");
-            } else {
-                flash('success', 'Product created successfully.');
-            }
-        } else {
-            flash('success', 'Product created successfully.');
-        }
-
+        flash('success', 'Product created successfully. You can now add images from the Gallery page.');
         $this->redirect('/admin/products');
     }
 

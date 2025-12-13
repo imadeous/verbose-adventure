@@ -70,13 +70,14 @@ class GalleryController extends AdminController
             return;
         }
 
-        if (!isset($_FILES['image'])) {
-            flash('error', 'No file uploaded.');
+        // Check if files were uploaded
+        if (!isset($_FILES['images']) || empty($_FILES['images']['name'][0])) {
+            flash('error', 'No files uploaded.');
             $this->redirect('/admin/gallery/create');
             return;
         }
 
-        // Determine upload path based on image type (use plural folder names)
+        // Determine upload path based on image type
         $imageType = $_POST['image_type'] ?? 'site';
         $uploadPaths = [
             'site' => 'site',
@@ -86,34 +87,75 @@ class GalleryController extends AdminController
         ];
         $uploadSubPath = $uploadPaths[$imageType] ?? 'site';
 
-        $upload = File::upload($_FILES['image'], $uploadSubPath, [
-            'allowed_types' => ['jpg', 'jpeg', 'png', 'gif', 'webp'],
-            'max_size' => 5 * 1024 * 1024
-        ]);
-        if (!$upload['success']) {
-            flash('error', $upload['error']);
-            $this->redirect('/admin/gallery/create');
-            return;
+        $relatedId = (!empty($_POST['related_id']) && $imageType !== 'site') ? $_POST['related_id'] : null;
+        $title = $_POST['title'] ?? 'Gallery Image';
+        $caption = $_POST['caption'] ?? '';
+
+        $uploadedCount = 0;
+        $maxImages = 8;
+        $errors = [];
+
+        // Process multiple image uploads
+        foreach ($_FILES['images']['name'] as $index => $filename) {
+            if ($uploadedCount >= $maxImages) {
+                break;
+            }
+
+            // Skip if no file was uploaded at this index
+            if (empty($filename)) {
+                continue;
+            }
+
+            // Prepare file array in format expected by File::upload
+            $file = [
+                'name' => $_FILES['images']['name'][$index],
+                'type' => $_FILES['images']['type'][$index],
+                'tmp_name' => $_FILES['images']['tmp_name'][$index],
+                'error' => $_FILES['images']['error'][$index],
+                'size' => $_FILES['images']['size'][$index]
+            ];
+
+            // Upload the file
+            $upload = File::upload($file, $uploadSubPath, [
+                'allowed_types' => ['jpg', 'jpeg', 'png', 'gif', 'webp'],
+                'max_size' => 5 * 1024 * 1024
+            ]);
+
+            if (!$upload['success']) {
+                $errors[] = "Failed to upload {$filename}: {$upload['error']}";
+                continue;
+            }
+
+            // Normalize path to use forward slashes for web
+            $imagePath = str_replace('\\', '/', $upload['path']);
+
+            // Save to gallery
+            $galleryData = [
+                'title' => $uploadedCount === 0 ? $title : "{$title} ({$uploadedCount})",
+                'caption' => $caption,
+                'image_type' => $imageType,
+                'image_url' => $imagePath,
+                'related_id' => $relatedId
+            ];
+
+            $gallery = new Gallery($galleryData);
+            $gallery->save();
+            Notification::log('created', 'Gallery', $gallery->id, ['image' => $imagePath]);
+            $uploadedCount++;
         }
 
-        // Normalize path to use forward slashes for web (Windows uses backslashes)
-        $imagePath = str_replace('\\', '/', $upload['path']);
-
-        $galleryData = [
-            'title' => $_POST['title'] ?? null,
-            'caption' => $_POST['caption'] ?? null,
-            'image_type' => $imageType,
-            'image_url' => $imagePath,
-        ];
-        if (!empty($_POST['related_id']) && $imageType !== 'site') {
-            $galleryData['related_id'] = $_POST['related_id'];
-        } else {
-            $galleryData['related_id'] = null;
+        if ($uploadedCount > 0) {
+            flash('success', "{$uploadedCount} image(s) uploaded successfully.");
         }
-        $gallery = new Gallery($galleryData);
-        $gallery->save();
-        Notification::log('created', 'Gallery', $gallery->id, ['image' => $imagePath]);
-        flash('success', 'Image uploaded and added to gallery.');
+
+        if (!empty($errors)) {
+            flash('error', implode('<br>', $errors));
+        }
+
+        if ($uploadedCount === 0) {
+            flash('error', 'No images were uploaded successfully.');
+        }
+
         $this->redirect('/admin/gallery');
     }
 
