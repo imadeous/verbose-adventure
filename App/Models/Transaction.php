@@ -13,6 +13,7 @@ class Transaction extends Model
         'category_id',
         'product_id',
         'variant_id',
+        'quantity',
         'amount',
         'description',
         'quote_id',

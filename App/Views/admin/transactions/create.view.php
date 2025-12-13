@@ -36,6 +36,7 @@
                     <div><span class="font-semibold">Product:</span> <span x-text="variantInfo?.product_name"></span></div>
                     <div><span class="font-semibold">Category:</span> <span x-text="variantInfo?.category_name"></span></div>
                     <div><span class="font-semibold">Price:</span> $<span x-text="variantInfo?.price"></span></div>
+                    <div><span class="font-semibold">Stock Available:</span> <span x-text="variantInfo?.stock_quantity"></span></div>
                     <div x-show="variantInfo?.dimensions"><span class="font-semibold">Dimensions:</span> <span x-text="variantInfo?.dimensions"></span></div>
                     <div x-show="variantInfo?.color"><span class="font-semibold">Color:</span> <span x-text="variantInfo?.color"></span></div>
                 </div>
@@ -48,9 +49,32 @@
             <input type="hidden" name="variant_id" x-model="variantId">
             <input type="hidden" name="category_id" x-model="categoryId">
         </div>
+        <div x-show="variantInfo" x-cloak>
+            <label class="block text-blue-700 font-semibold mb-1">Quantity</label>
+            <input type="number"
+                name="quantity"
+                x-model.number="quantity"
+                @input="calculateAmount()"
+                min="1"
+                :max="variantInfo?.stock_quantity || 999"
+                class="w-full border border-blue-300 rounded-lg px-3 py-2"
+                placeholder="Enter quantity">
+            <p class="mt-1 text-sm text-gray-600" x-show="quantity > 0">
+                Subtotal: $<span x-text="(quantity * (variantInfo?.price || 0)).toFixed(2)"></span>
+            </p>
+        </div>
         <div>
             <label class="block text-blue-700 font-semibold mb-1">Amount</label>
-            <input type="number" name="amount" step="0.01" class="w-full border border-blue-300 rounded-lg px-3 py-2" required>
+            <input type="number"
+                name="amount"
+                x-model="amount"
+                step="0.01"
+                class="w-full border border-blue-300 rounded-lg px-3 py-2"
+                :readonly="variantInfo !== null"
+                required>
+            <p class="mt-1 text-xs text-gray-500" x-show="variantInfo">
+                Amount is auto-calculated from quantity × price
+            </p>
         </div>
         <div>
             <label class="block text-blue-700 font-semibold mb-1">Description (optional)</label>
@@ -100,6 +124,16 @@
             productId: '',
             variantId: '',
             categoryId: '',
+            quantity: 0,
+            amount: 0,
+
+            calculateAmount() {
+                if (this.variantInfo && this.quantity > 0) {
+                    this.amount = (this.quantity * parseFloat(this.variantInfo.price || 0)).toFixed(2);
+                } else {
+                    this.amount = 0;
+                }
+            },
 
             async lookupSKU() {
                 if (!this.sku || this.sku.trim() === '') {
@@ -118,6 +152,8 @@
                         this.productId = data.variant.product_id;
                         this.variantId = data.variant.id;
                         this.categoryId = data.variant.category_id || '';
+                        this.quantity = 1;
+                        this.calculateAmount();
                         this.skuError = '';
                     } else {
                         this.variantInfo = null;
@@ -136,6 +172,8 @@
                 this.productId = '';
                 this.variantId = '';
                 this.categoryId = '';
+                this.quantity = 0;
+                this.amount = 0;
             }
         }
     }

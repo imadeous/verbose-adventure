@@ -131,12 +131,28 @@ class TransactionController extends AdminControllerBase
         // Set defaults and sanitize
         $data['type'] = isset($data['type']) && $data['type'] ? $data['type'] : 'expense';
         $data['amount'] = isset($data['amount']) ? floatval($data['amount']) : 0.0;
+        $data['quantity'] = isset($data['quantity']) ? intval($data['quantity']) : 0;
         $data['created_at'] = date('Y-m-d H:i:s');
 
         // Remove empty optional fields
-        foreach (['quote_id', 'promo_code_id', 'date', 'description', 'category_id', 'product_id', 'variant_id'] as $field) {
+        foreach (['quote_id', 'promo_code_id', 'date', 'description', 'category_id', 'product_id', 'variant_id', 'quantity'] as $field) {
             if (isset($data[$field]) && $data[$field] === '') {
                 unset($data[$field]);
+            }
+        }
+
+        // If variant_id and quantity are provided, subtract from stock
+        if (!empty($data['variant_id']) && !empty($data['quantity'])) {
+            $variant = \App\Models\Variant::find($data['variant_id']);
+            if ($variant) {
+                $newStock = $variant->stock_quantity - $data['quantity'];
+                if ($newStock < 0) {
+                    flash('error', 'Insufficient stock. Available: ' . $variant->stock_quantity);
+                    $this->redirect('/admin/transactions/create');
+                    return;
+                }
+                $variant->stock_quantity = $newStock;
+                $variant->update();
             }
         }
 
