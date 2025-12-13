@@ -19,9 +19,8 @@
                         <?php endif; ?>
                         <div class="flex gap-1 mt-auto">
                             <a href="<?= url('admin/gallery/' . $image['id']) ?>" class="bg-blue-100 text-blue-700 hover:bg-blue-200 border border-blue-200 rounded px-2 py-0.5 font-semibold transition shadow-sm text-[10px]">View</a>
-                            <form method="POST" action="<?= url('admin/gallery/' . $image['id']) ?>" class="inline" onsubmit="return confirm('Delete this image?')">
+                            <form method="POST" action="<?= url('admin/gallery/' . $image['id'] . '/delete') ?>" class="inline" onsubmit="return confirm('Delete this image?')">
                                 <?= csrf_field() ?>
-                                <input type="hidden" name="_method" value="DELETE">
                                 <button type="submit" class="bg-red-100 text-red-700 hover:bg-red-200 border border-red-200 rounded px-2 py-0.5 font-semibold transition shadow-sm text-[10px]">Delete</button>
                             </form>
                         </div>
