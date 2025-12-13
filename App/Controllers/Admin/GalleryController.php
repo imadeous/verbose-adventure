@@ -206,13 +206,31 @@ class GalleryController extends AdminController
     public function destroy($id)
     {
         $item = Gallery::find($id);
-        if ($item) {
-            $item->delete();
-            Notification::log('deleted', 'Gallery', $id);
-            flash('success', 'Gallery item deleted.');
-        } else {
+        if (!$item) {
             flash('error', 'Gallery item not found.');
+            $this->redirect('/admin/gallery');
+            return;
         }
+
+        // Delete the actual image file
+        if (!empty($item->image_url)) {
+            $filePath = 'public/storage/' . ltrim($item->image_url, '/');
+
+            if (file_exists($filePath)) {
+                if (unlink($filePath)) {
+                    // File deleted successfully
+                    Notification::log('deleted', 'Gallery', $id, ['file_deleted' => $filePath]);
+                } else {
+                    // Failed to delete file but continue with database deletion
+                    Notification::log('deleted', 'Gallery', $id, ['file_delete_failed' => $filePath]);
+                }
+            }
+        }
+
+        // Delete the database row
+        $item->delete();
+
+        flash('success', 'Gallery image and file deleted successfully.');
         $this->redirect('/admin/gallery');
     }
 }
