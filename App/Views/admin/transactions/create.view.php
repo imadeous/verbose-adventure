@@ -1,4 +1,4 @@
-<div class="max-w-xl mx-auto">
+<div class="max-w-xl mx-auto" x-data="transactionForm()">
     <h1 class="text-2xl font-bold text-blue-900 mb-6">Add Transaction</h1>
     <?php if (!empty($breadcrumb)): ?>
         <nav class="mb-4 text-xs text-blue-600">
@@ -23,17 +23,30 @@
             </select>
         </div>
         <div>
-            <label class="block text-blue-700 font-semibold mb-1">Category (optional)</label>
-            <select name="category_id" class="w-full border border-blue-300 rounded-lg px-3 py-2">
-                <option value="">Select Category</option>
-                <?php if (!empty($categories)): ?>
-                    <?php foreach ($categories as $category): ?>
-                        <option value="<?= htmlspecialchars($category->id) ?>">
-                            <?= htmlspecialchars($category->name) ?>
-                        </option>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </select>
+            <label class="block text-blue-700 font-semibold mb-1">SKU (optional)</label>
+            <input type="text"
+                x-model="sku"
+                @input.debounce.500ms="lookupSKU()"
+                class="w-full border border-blue-300 rounded-lg px-3 py-2"
+                placeholder="Enter product SKU">
+
+            <!-- Variant info display -->
+            <div x-show="variantInfo" x-cloak class="mt-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                <div class="text-sm space-y-1">
+                    <div><span class="font-semibold">Product:</span> <span x-text="variantInfo?.product_name"></span></div>
+                    <div><span class="font-semibold">Category:</span> <span x-text="variantInfo?.category_name"></span></div>
+                    <div><span class="font-semibold">Price:</span> $<span x-text="variantInfo?.price"></span></div>
+                    <div x-show="variantInfo?.dimensions"><span class="font-semibold">Dimensions:</span> <span x-text="variantInfo?.dimensions"></span></div>
+                    <div x-show="variantInfo?.color"><span class="font-semibold">Color:</span> <span x-text="variantInfo?.color"></span></div>
+                </div>
+            </div>
+
+            <div x-show="skuError" x-cloak class="mt-2 text-red-600 text-sm" x-text="skuError"></div>
+
+            <!-- Hidden fields for product_id, variant_id, category_id -->
+            <input type="hidden" name="product_id" x-model="productId">
+            <input type="hidden" name="variant_id" x-model="variantId">
+            <input type="hidden" name="category_id" x-model="categoryId">
         </div>
         <div>
             <label class="block text-blue-700 font-semibold mb-1">Amount</label>
@@ -78,3 +91,52 @@
         </div>
     </form>
 </div>
+<script>
+    function transactionForm() {
+        return {
+            sku: '',
+            variantInfo: null,
+            skuError: '',
+            productId: '',
+            variantId: '',
+            categoryId: '',
+
+            async lookupSKU() {
+                if (!this.sku || this.sku.trim() === '') {
+                    this.variantInfo = null;
+                    this.skuError = '';
+                    this.clearIds();
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`/admin/variants/lookup-sku?sku=${encodeURIComponent(this.sku)}`);
+                    const data = await response.json();
+
+                    if (data.success && data.variant) {
+                        this.variantInfo = data.variant;
+                        this.productId = data.variant.product_id;
+                        this.variantId = data.variant.id;
+                        this.categoryId = data.variant.category_id || '';
+                        this.skuError = '';
+                    } else {
+                        this.variantInfo = null;
+                        this.skuError = data.message || 'SKU not found';
+                        this.clearIds();
+                    }
+                } catch (error) {
+                    console.error('SKU lookup error:', error);
+                    this.skuError = 'Error looking up SKU';
+                    this.variantInfo = null;
+                    this.clearIds();
+                }
+            },
+
+            clearIds() {
+                this.productId = '';
+                this.variantId = '';
+                this.categoryId = '';
+            }
+        }
+    }
+</script>

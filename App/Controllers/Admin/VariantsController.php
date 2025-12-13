@@ -190,4 +190,57 @@ class VariantsController extends AdminControllerBase
         $productId = $data['product_id'] ?? $variant->product_id;
         $this->redirect('/admin/products/' . $productId);
     }
+
+    public function lookupSKU()
+    {
+        header('Content-Type: application/json');
+
+        $sku = $_GET['sku'] ?? '';
+
+        if (empty($sku)) {
+            echo json_encode(['success' => false, 'message' => 'SKU is required']);
+            exit;
+        }
+
+        // Find variant by SKU
+        $variants = Variant::query()->where('sku', '=', $sku)->get();
+
+        if (empty($variants)) {
+            echo json_encode(['success' => false, 'message' => 'SKU not found']);
+            exit;
+        }
+
+        $variant = new Variant($variants[0]);
+        $product = $variant->getProduct();
+
+        if (!$product) {
+            echo json_encode(['success' => false, 'message' => 'Product not found for this variant']);
+            exit;
+        }
+
+        $category = null;
+        if ($product->category_id) {
+            $category = \App\Models\Category::find($product->category_id);
+        }
+
+        echo json_encode([
+            'success' => true,
+            'variant' => [
+                'id' => $variant->id,
+                'sku' => $variant->sku,
+                'product_id' => $variant->product_id,
+                'product_name' => $product->name,
+                'category_id' => $product->category_id,
+                'category_name' => $category ? $category->name : null,
+                'price' => $variant->price,
+                'dimensions' => $variant->dimensions,
+                'weight' => $variant->weight,
+                'color' => $variant->color,
+                'material' => $variant->material,
+                'finishing' => $variant->finishing,
+                'stock_quantity' => $variant->stock_quantity
+            ]
+        ]);
+        exit;
+    }
 }

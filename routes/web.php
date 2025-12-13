@@ -70,6 +70,7 @@ $router->middleware([AuthMiddleware::class], function ($router) {
     $router->post('/admin/products/{id}/variants', [AdminVariantsController::class, 'store']);
     $router->post('/admin/products/{productId}/variants/{variantId}/delete', [AdminVariantsController::class, 'destroy']);
     $router->post('/admin/variants/{variantId}/add-stock', [AdminVariantsController::class, 'addStock']);
+    $router->get('/admin/variants/lookup-sku', [AdminVariantsController::class, 'lookupSKU']);
     $router->get('/admin/categories/tree', [AdminCategoriesController::class, 'tree']);
     $router->resource('/admin/categories', AdminCategoriesController::class);
     $router->resource('/admin/gallery', AdminGalleryController::class);

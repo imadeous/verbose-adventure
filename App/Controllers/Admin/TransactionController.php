@@ -134,7 +134,7 @@ class TransactionController extends AdminControllerBase
         $data['created_at'] = date('Y-m-d H:i:s');
 
         // Remove empty optional fields
-        foreach (['quote_id', 'promo_code_id', 'date', 'description', 'category_id'] as $field) {
+        foreach (['quote_id', 'promo_code_id', 'date', 'description', 'category_id', 'product_id', 'variant_id'] as $field) {
             if (isset($data[$field]) && $data[$field] === '') {
                 unset($data[$field]);
             }
