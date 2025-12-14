@@ -1,3 +1,6 @@
+<?php
+
+use App\Models\Product; ?>
 <div class="relative isolate">
     <!-- Hero Section -->
     <section class="text-gray-400 bg-gray-900 body-font">
@@ -97,7 +100,7 @@
         <div class="container px-5 py-24 mx-auto flex flex-wrap">
             <div class="flex flex-wrap w-full mb-20">
                 <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
-                    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-white">Featured Prints & Projects</h1>
+                    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-white">Recommended by Customers</h1>
                     <div class="h-1 w-20 bg-yellow-500 rounded"></div>
                 </div>
                 <p class="lg:w-1/2 w-full leading-relaxed text-gray-400 text-opacity-90">
@@ -157,63 +160,136 @@
         </div>
     </section>
 
-    <!-- machines section -->
+    <!-- Top Rated Products Section -->
     <section class="text-gray-400 body-font bg-gray-900">
         <div class="container px-5 py-4 mx-auto">
             <div class="flex flex-wrap w-full mb-20">
                 <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
-                    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-white">Our 3D Printing Machines</h1>
+                    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-white">Top Rated Products</h1>
                     <div class="h-1 w-20 bg-yellow-500 rounded"></div>
                 </div>
                 <p class="lg:w-1/2 w-full leading-relaxed text-gray-400 text-opacity-90">
-                    We use a range of professional 3D printers to deliver exceptional quality and precision for every project. From rapid prototyping to high-detail production, our machines are selected for their reliability, accuracy, and versatility. Explore some of the key printers that power our workshop below.
+                    Discover our highest-rated 3D printed products, loved by customers for their quality, design, and precision. These top picks represent the best of what we offer.
                 </p>
             </div>
-            <div
-                x-data="{
-                    machines: [
-                        {
-                            img: '<?= asset('storage/site/Prusa i3 MK3S+.png') ?>',
-                            type: 'FDM PRINTER',
-                            name: 'Prusa i3 MK3S+',
-                            desc: 'A workhorse for reliable, high-quality prints in PLA, PETG, and more. Perfect for prototypes, functional parts, and large models with excellent repeatability.'
-                        },
-                        {
-                            img: '<?= asset('storage/site/Anycubic Photon Mono X.png') ?>',
-                            type: 'RESIN PRINTER',
-                            name: 'Anycubic Photon Mono X',
-                            desc: 'Delivers ultra-fine detail and smooth surfaces for miniatures, jewelry, and intricate models. Ideal for projects requiring high resolution and sharp features.'
-                        },
-                        {
-                            img: '<?= asset('storage/site/Creality CR-10 Max.png') ?>',
-                            type: 'LARGE FORMAT',
-                            name: 'Creality CR-10 Max',
-                            desc: 'Handles oversized prints and batch production with ease. Its large build volume is perfect for architectural models, cosplay props, and multi-part assemblies.'
-                        },
-                        {
-                            img: '<?= asset('storage/site/FlashForge Creator Pro 2.png') ?>',
-                            type: 'DUAL EXTRUDER',
-                            name: 'FlashForge Creator Pro 2',
-                            desc: 'Enables multi-material and multi-color printing for advanced projects. Great for engineering parts, complex assemblies, and creative designs with soluble supports.'
-                        }
-                    ]
-                }"
-                class="flex flex-wrap -m-4">
-                <template x-for="machine in machines" :key="machine.name">
-                    <div class="xl:w-1/4 md:w-1/2 p-4">
-                        <div class="bg-gray-800 bg-opacity-40 p-6 rounded-lg">
-                            <img class="h-40 rounded w-full object-cover object-center mb-6" :src="machine.img" alt="content">
-                            <h3 class="tracking-widest text-yellow-400 text-xs font-medium title-font" x-text="machine.type"></h3>
-                            <h2 class="text-lg text-white font-medium title-font mb-4" x-text="machine.name"></h2>
-                            <p class="leading-relaxed text-base" x-text="machine.desc"></p>
+            <div class="flex flex-wrap -m-4">
+                <?php if (!empty($topRatedProducts)): ?>
+                    <?php foreach ($topRatedProducts as $product): ?>
+                        <div class="xl:w-1/4 md:w-1/2 p-4">
+                            <a href="<?= url('/product/' . $product['id']) ?>" class="block bg-gray-800 bg-opacity-40 p-6 rounded-lg hover:bg-opacity-60 transition group">
+                                <?php if ($product['image_url']): ?>
+                                    <img class="h-40 rounded w-full object-cover object-center mb-6 group-hover:opacity-90 transition" src="<?= htmlspecialchars($product['image_url']) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
+                                <?php else: ?>
+                                    <div class="h-40 rounded w-full bg-gray-700 mb-6 flex items-center justify-center">
+                                        <svg class="w-16 h-16 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                <?php endif; ?>
+                                <h3 class="tracking-widest text-yellow-400 text-xs font-medium title-font mb-1">
+                                    <?= strtoupper(htmlspecialchars(Product::getCategoryName($product['category_id'] ?? null) ?? 'GENERAL')) ?>
+                                </h3>
+                                <h2 class="text-lg text-white font-medium title-font mb-2"><?= htmlspecialchars($product['name']) ?></h2>
+                                <div class="flex items-center mb-2">
+                                    <div class="flex text-yellow-400">
+                                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                                            <?php if ($i <= floor($product['rating'])): ?>
+                                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                                                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                                                </svg>
+                                            <?php elseif ($i - 0.5 <= $product['rating']): ?>
+                                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                                                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0v15z" />
+                                                </svg>
+                                            <?php else: ?>
+                                                <svg class="w-4 h-4 fill-current text-gray-600" viewBox="0 0 20 20">
+                                                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                                                </svg>
+                                            <?php endif; ?>
+                                        <?php endfor; ?>
+                                    </div>
+                                    <span class="ml-2 text-gray-400 text-sm"><?= number_format($product['rating'], 1) ?> (<?= $product['review_count'] ?>)</span>
+                                </div>
+                                <p class="leading-relaxed text-base text-white font-semibold"><?= htmlspecialchars($product['price_display']) ?></p>
+                            </a>
                         </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="w-full text-center py-12">
+                        <p class="text-gray-400">No rated products yet.</p>
                     </div>
-                </template>
+                <?php endif; ?>
             </div>
         </div>
     </section>
 
-    <!-- End machines section -->
+    <!-- Best Selling Products Section -->
+    <section class="text-gray-400 body-font bg-gray-900">
+        <div class="container px-5 py-4 mx-auto">
+            <div class="flex flex-wrap w-full mb-20">
+                <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
+                    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-white">Best Selling Products</h1>
+                    <div class="h-1 w-20 bg-yellow-500 rounded"></div>
+                </div>
+                <p class="lg:w-1/2 w-full leading-relaxed text-gray-400 text-opacity-90">
+                    Our most popular 3D printed products, chosen by customers like you. These bestsellers showcase what people love to order again and again.
+                </p>
+            </div>
+            <div class="flex flex-wrap -m-4">
+                <?php if (!empty($bestSellingProducts)): ?>
+                    <?php foreach ($bestSellingProducts as $product): ?>
+                        <div class="xl:w-1/4 md:w-1/2 p-4">
+                            <a href="<?= url('/product/' . $product['id']) ?>" class="block bg-gray-800 bg-opacity-40 p-6 rounded-lg hover:bg-opacity-60 transition group">
+                                <?php if ($product['image_url']): ?>
+                                    <img class="h-40 rounded w-full object-cover object-center mb-6 group-hover:opacity-90 transition" src="<?= htmlspecialchars($product['image_url']) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
+                                <?php else: ?>
+                                    <div class="h-40 rounded w-full bg-gray-700 mb-6 flex items-center justify-center">
+                                        <svg class="w-16 h-16 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                <?php endif; ?>
+                                <h3 class="tracking-widest text-yellow-400 text-xs font-medium title-font mb-1">
+                                    <?= strtoupper(htmlspecialchars(Product::getCategoryName($product['category_id'] ?? null) ?? 'GENERAL')) ?>
+                                </h3>
+                                <h2 class="text-lg text-white font-medium title-font mb-2"><?= htmlspecialchars($product['name']) ?></h2>
+                                <div class="flex items-center mb-2">
+                                    <?php if ($product['rating'] > 0): ?>
+                                        <div class="flex text-yellow-400">
+                                            <?php for ($i = 1; $i <= 5; $i++): ?>
+                                                <?php if ($i <= floor($product['rating'])): ?>
+                                                    <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                                                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                                                    </svg>
+                                                <?php elseif ($i - 0.5 <= $product['rating']): ?>
+                                                    <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                                                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0v15z" />
+                                                    </svg>
+                                                <?php else: ?>
+                                                    <svg class="w-4 h-4 fill-current text-gray-600" viewBox="0 0 20 20">
+                                                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                                                    </svg>
+                                                <?php endif; ?>
+                                            <?php endfor; ?>
+                                        </div>
+                                        <span class="ml-2 text-gray-400 text-sm"><?= number_format($product['rating'], 1) ?></span>
+                                    <?php endif; ?>
+                                    <span class="ml-auto text-green-400 text-sm font-medium"><?= $product['transaction_count'] ?> sold</span>
+                                </div>
+                                <p class="leading-relaxed text-base text-white font-semibold"><?= htmlspecialchars($product['price_display']) ?></p>
+                            </a>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="w-full text-center py-12">
+                        <p class="text-gray-400">No sales data available yet.</p>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </section>
+
+    <!-- End Top Rated & Best Selling Sections -->
     <!--how to order section-->
     <section class="text-gray-400 bg-gray-900 body-font">
         <div class="container px-5 py-24 mx-auto flex flex-wrap">

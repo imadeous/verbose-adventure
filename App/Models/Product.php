@@ -144,4 +144,17 @@ class Product extends Model
 
         return $totalValue;
     }
+
+    /**
+     * Get transaction count for this product
+     * Returns the number of income transactions for this product
+     */
+    public static function getTransactionCount($id)
+    {
+        $transactions = QueryBuilder::table('transactions')
+            ->where('product_id', '=', $id)
+            ->andWhere('type', '=', 'income')
+            ->get();
+        return count($transactions);
+    }
 }

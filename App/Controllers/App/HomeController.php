@@ -3,6 +3,7 @@
 namespace App\Controllers\App;
 
 use Core\Controller;
+use App\Models\Product;
 
 class HomeController extends Controller
 {
@@ -11,18 +12,83 @@ class HomeController extends Controller
         // Set the layout (optional)
         $this->view->layout('app'); // uses App/Views/layouts/app.php
 
-        // Dummy calendar events
-        $calendarEvents = [
-            ['date' => '2025-07-13', 'title' => 'Test Event 1'],
-            ['date' => '2025-07-15', 'title' => 'Test Event 2'],
-            ['date' => '2025-07-20', 'title' => 'Test Event 3'],
-        ];
+        // Get top rated products (with ratings)
+        $allProducts = Product::all() ?? [];
+        $topRatedProducts = [];
+        
+        foreach ($allProducts as $product) {
+            $productId = is_array($product) ? $product['id'] : $product->id;
+            $rating = Product::getOverallRating($productId);
+            
+            if ($rating > 0) {
+                $productArray = is_array($product) ? $product : (array)$product;
+                $productArray['rating'] = $rating;
+                $productArray['review_count'] = count(Product::getReviews($productId));
+                
+                // Get first image
+                $images = Product::getImages($productId);
+                $productArray['image_url'] = !empty($images) ? '/' . ltrim($images[0]['image_url'], '/') : null;
+                
+                // Get price display
+                $hasVariants = Product::hasVariants($productId);
+                if ($hasVariants) {
+                    $lowestPrice = Product::getLowestPrice($productId);
+                    $productArray['price_display'] = 'From $' . number_format($lowestPrice, 2);
+                } else {
+                    $productArray['price_display'] = '$' . number_format($productArray['price'] ?? 0, 2);
+                }
+                
+                $topRatedProducts[] = $productArray;
+            }
+        }
+        
+        // Sort by rating and limit to 4
+        usort($topRatedProducts, function($a, $b) {
+            return $b['rating'] <=> $a['rating'];
+        });
+        $topRatedProducts = array_slice($topRatedProducts, 0, 4);
+        
+        // Get best selling products (based on transaction count)
+        $bestSellingProducts = [];
+        foreach ($allProducts as $product) {
+            $productId = is_array($product) ? $product['id'] : $product->id;
+            $productArray = is_array($product) ? $product : (array)$product;
+            
+            // Count transactions for this product
+            $transactionCount = Product::getTransactionCount($productId);
+            
+            if ($transactionCount > 0) {
+                $productArray['transaction_count'] = $transactionCount;
+                $productArray['rating'] = Product::getOverallRating($productId);
+                $productArray['review_count'] = count(Product::getReviews($productId));
+                
+                // Get first image
+                $images = Product::getImages($productId);
+                $productArray['image_url'] = !empty($images) ? '/' . ltrim($images[0]['image_url'], '/') : null;
+                
+                // Get price display
+                $hasVariants = Product::hasVariants($productId);
+                if ($hasVariants) {
+                    $lowestPrice = Product::getLowestPrice($productId);
+                    $productArray['price_display'] = 'From $' . number_format($lowestPrice, 2);
+                } else {
+                    $productArray['price_display'] = '$' . number_format($productArray['price'] ?? 0, 2);
+                }
+                
+                $bestSellingProducts[] = $productArray;
+            }
+        }
+        
+        // Sort by transaction count and limit to 4
+        usort($bestSellingProducts, function($a, $b) {
+            return $b['transaction_count'] <=> $a['transaction_count'];
+        });
+        $bestSellingProducts = array_slice($bestSellingProducts, 0, 4);
 
         // Render the view and pass data
         $this->view('index', [
-            'message' => 'Welcome to your new MVC app!',
-            'username' => 'imadeous',
-            'calendarEvents' => $calendarEvents
+            'topRatedProducts' => $topRatedProducts,
+            'bestSellingProducts' => $bestSellingProducts
         ]);
     }
 
