@@ -5,6 +5,7 @@ namespace App\Controllers\App;
 use Core\Controller;
 use App\Models\Product;
 use App\Models\Gallery;
+use FontLib\Table\Type\head;
 
 class GalleryController extends Controller
 {
@@ -58,6 +59,12 @@ class GalleryController extends Controller
 
         // Get the product
         $product = Product::find($id);
+
+        // Redirect if product not found
+        if (!$product) {
+            header('Location: ' . url('gallery'));
+            exit;
+        }
 
         // Get product images
         $images = Product::getImages($id);
