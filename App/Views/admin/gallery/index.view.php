@@ -1,5 +1,5 @@
 <!-- Header Section -->
-<div class="bg-linear-to-r from-blue-600 to-blue-700 rounded-xl shadow-lg p-6 mb-8 border border-blue-800">
+<div class="bg-blue-700 rounded-xl shadow-lg p-6 mb-8 border border-blue-800">
     <div class="flex items-center justify-between">
         <div>
             <h1 class="text-3xl font-bold text-white mb-1 flex items-center gap-3">
