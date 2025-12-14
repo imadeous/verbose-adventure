@@ -42,14 +42,8 @@ class GalleryController extends Controller
             }
         }
 
-        // Get statistics
-        $totalProducts = count($products);
-        $totalGalleryItems = count($galleryItems);
-
         $this->view('gallery', [
-            'galleryItems' => $galleryItems,
-            'totalProducts' => $totalProducts,
-            'totalGalleryItems' => $totalGalleryItems
+            'galleryItems' => $galleryItems
         ]);
     }
 
