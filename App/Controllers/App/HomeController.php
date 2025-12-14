@@ -84,9 +84,9 @@ class HomeController extends Controller
                 $hasVariants = Product::hasVariants($productId);
                 if ($hasVariants) {
                     $lowestPrice = Product::getLowestPrice($productId);
-                    $productArray['price_display'] = 'From $' . number_format($lowestPrice, 2);
+                    $productArray['price_display'] = 'From MVR ' . number_format($lowestPrice, 2);
                 } else {
-                    $productArray['price_display'] = '$' . number_format($productArray['price'], 2);
+                    $productArray['price_display'] = 'MVR ' . number_format($productArray['price'], 2);
                 }
 
                 $bestSellingProducts[] = $productArray;

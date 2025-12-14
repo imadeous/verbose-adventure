@@ -133,7 +133,7 @@
                                         <?php endif; ?>
                                     </div>
                                     <span class="text-indigo-400 font-semibold text-xl">
-                                        $<?= number_format($variant['price'] ?? 0, 2) ?>
+                                        MVR <?= number_format($variant['price'] ?? 0, 2) ?>
                                     </span>
                                 </div>
                                 <div class="flex flex-wrap gap-2 text-xs mt-3">
@@ -268,7 +268,7 @@
                                 </div>
 
                                 <!-- Price -->
-                                <div class="text-indigo-400 font-semibold"><?= $relatedProduct['price_display'] ?? '$0.00' ?></div>
+                                <div class="text-indigo-400 font-semibold"><?= $relatedProduct['price_display'] ?? 'MVR 0.00' ?></div>
                             </div>
                         </a>
                     <?php endforeach; ?>

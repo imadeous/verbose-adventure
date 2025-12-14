@@ -111,10 +111,10 @@ class GalleryController extends Controller
             $minPrice = min($prices);
             $maxPrice = max($prices);
             $priceRange = $minPrice == $maxPrice ?
-                '$' . number_format($minPrice, 2) :
-                '$' . number_format($minPrice, 2) . ' - $' . number_format($maxPrice, 2);
+                'MVR ' . number_format($minPrice, 2) :
+                'MVR ' . number_format($minPrice, 2) . ' - MVR ' . number_format($maxPrice, 2);
         } else {
-            $priceRange = '$' . number_format($product->price ?? 0, 2);
+            $priceRange = 'MVR ' . number_format($product->price ?? 0, 2);
         }
 
         // Get reviews and rating
@@ -143,9 +143,9 @@ class GalleryController extends Controller
                     $hasRelatedVariants = Product::hasVariants($relatedId);
                     if ($hasRelatedVariants) {
                         $lowestPrice = Product::getLowestPrice($relatedId);
-                        $relatedArray['price_display'] = 'From $' . number_format($lowestPrice, 2);
+                        $relatedArray['price_display'] = 'From MVR ' . number_format($lowestPrice, 2);
                     } else {
-                        $relatedArray['price_display'] = '$' . number_format($relatedArray['price'] ?? 0, 2);
+                        $relatedArray['price_display'] = 'MVR ' . number_format($relatedArray['price'] ?? 0, 2);
                     }
 
                     $relatedProducts[] = $relatedArray;
