@@ -21,9 +21,16 @@ class HomeController extends Controller
             $rating = Product::getOverallRating($productId);
 
             if ($rating > 0) {
-                $productArray = is_array($product) ? $product : (array)$product;
-                $productArray['rating'] = $rating;
-                $productArray['review_count'] = count(Product::getReviews($productId));
+                // Properly extract all fields
+                $productArray = [
+                    'id' => $productId,
+                    'name' => is_array($product) ? $product['name'] : $product->name,
+                    'description' => is_array($product) ? ($product['description'] ?? '') : ($product->description ?? ''),
+                    'price' => is_array($product) ? ($product['price'] ?? 0) : ($product->price ?? 0),
+                    'category_id' => is_array($product) ? ($product['category_id'] ?? null) : ($product->category_id ?? null),
+                    'rating' => $rating,
+                    'review_count' => count(Product::getReviews($productId))
+                ];
 
                 // Get first image
                 $images = Product::getImages($productId);
@@ -35,7 +42,7 @@ class HomeController extends Controller
                     $lowestPrice = Product::getLowestPrice($productId);
                     $productArray['price_display'] = 'From $' . number_format($lowestPrice, 2);
                 } else {
-                    $productArray['price_display'] = '$' . number_format($productArray['price'] ?? 0, 2);
+                    $productArray['price_display'] = '$' . number_format($productArray['price'], 2);
                 }
 
                 $topRatedProducts[] = $productArray;
@@ -52,15 +59,22 @@ class HomeController extends Controller
         $bestSellingProducts = [];
         foreach ($allProducts as $product) {
             $productId = is_array($product) ? $product['id'] : $product->id;
-            $productArray = is_array($product) ? $product : (array)$product;
 
             // Count transactions for this product
             $transactionCount = Product::getTransactionCount($productId);
 
             if ($transactionCount > 0) {
-                $productArray['transaction_count'] = $transactionCount;
-                $productArray['rating'] = Product::getOverallRating($productId);
-                $productArray['review_count'] = count(Product::getReviews($productId));
+                // Properly extract all fields
+                $productArray = [
+                    'id' => $productId,
+                    'name' => is_array($product) ? $product['name'] : $product->name,
+                    'description' => is_array($product) ? ($product['description'] ?? '') : ($product->description ?? ''),
+                    'price' => is_array($product) ? ($product['price'] ?? 0) : ($product->price ?? 0),
+                    'category_id' => is_array($product) ? ($product['category_id'] ?? null) : ($product->category_id ?? null),
+                    'transaction_count' => $transactionCount,
+                    'rating' => Product::getOverallRating($productId),
+                    'review_count' => count(Product::getReviews($productId))
+                ];
 
                 // Get first image
                 $images = Product::getImages($productId);
@@ -72,7 +86,7 @@ class HomeController extends Controller
                     $lowestPrice = Product::getLowestPrice($productId);
                     $productArray['price_display'] = 'From $' . number_format($lowestPrice, 2);
                 } else {
-                    $productArray['price_display'] = '$' . number_format($productArray['price'] ?? 0, 2);
+                    $productArray['price_display'] = '$' . number_format($productArray['price'], 2);
                 }
 
                 $bestSellingProducts[] = $productArray;
