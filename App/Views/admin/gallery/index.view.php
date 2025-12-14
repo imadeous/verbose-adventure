@@ -1,5 +1,5 @@
 <!-- Header Section -->
-<div class="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl shadow-lg p-6 mb-8 border border-blue-800">
+<div class="bg-linear-to-r from-blue-600 to-blue-700 rounded-xl shadow-lg p-6 mb-8 border border-blue-800">
     <div class="flex items-center justify-between">
         <div>
             <h1 class="text-3xl font-bold text-white mb-1 flex items-center gap-3">
@@ -46,7 +46,7 @@
                     <!-- Image Container -->
                     <div class="relative overflow-hidden bg-gray-100">
                         <img src="/<?= e($image['image_url']) ?>" alt="<?= e($image['title']) ?>" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-300">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute inset-0 bg-linear-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
 
                     <!-- Content -->
