@@ -68,7 +68,7 @@
                     <div class="grid grid-cols-3 gap-4 text-sm">
                         <div>
                             <span class="text-gray-600">Total Revenue:</span>
-                            <span class="font-bold text-green-600">$<?= number_format($businessData['revenue']['total'], 2) ?></span>
+                            <span class="font-bold text-green-600">MVR <?= number_format($businessData['revenue']['total'], 2) ?></span>
                         </div>
                         <div>
                             <span class="text-gray-600">Total Orders:</span>
@@ -76,7 +76,7 @@
                         </div>
                         <div>
                             <span class="text-gray-600">Avg Order Value:</span>
-                            <span class="font-bold">$<?= number_format($businessData['revenue']['average_order_value'], 2) ?></span>
+                            <span class="font-bold">MVR <?= number_format($businessData['revenue']['average_order_value'], 2) ?></span>
                         </div>
                     </div>
                 </div>
@@ -122,7 +122,7 @@
                                 <?php foreach (array_slice($businessData['categories'], 0, 5) as $cat): ?>
                                     <tr class="border-t">
                                         <td class="px-3 py-2"><?= e($cat['name']) ?></td>
-                                        <td class="px-3 py-2 text-right font-semibold text-green-600">$<?= number_format($cat['revenue'], 2) ?></td>
+                                        <td class="px-3 py-2 text-right font-semibold text-green-600">MVR <?= number_format($cat['revenue'], 2) ?></td>
                                         <td class="px-3 py-2 text-right"><?= $cat['orders'] ?></td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -148,7 +148,7 @@
                                 <?php foreach (array_slice($businessData['products'], 0, 10) as $prod): ?>
                                     <tr class="border-t">
                                         <td class="px-3 py-2"><?= e($prod['name']) ?></td>
-                                        <td class="px-3 py-2 text-right font-semibold text-green-600">$<?= number_format($prod['revenue'], 2) ?></td>
+                                        <td class="px-3 py-2 text-right font-semibold text-green-600">MVR <?= number_format($prod['revenue'], 2) ?></td>
                                         <td class="px-3 py-2 text-right"><?= $prod['orders'] ?></td>
                                     </tr>
                                 <?php endforeach; ?>

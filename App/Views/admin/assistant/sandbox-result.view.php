@@ -134,7 +134,7 @@
                                 </td>
                                 <td class="px-4 py-3 text-sm text-gray-900"><?= htmlspecialchars($categoryName) ?></td>
                                 <td class="px-4 py-3 text-sm text-gray-900"><?= htmlspecialchars($productName) ?></td>
-                                <td class="px-4 py-3 text-sm text-right font-medium text-gray-900">$<?= number_format($amount, 2) ?></td>
+                                <td class="px-4 py-3 text-sm text-right font-medium text-gray-900">MVR <?= number_format($amount, 2) ?></td>
                                 <td class="px-4 py-3 text-sm text-gray-600"><?= htmlspecialchars($notes) ?></td>
                             </tr>
                         <?php endforeach; ?>

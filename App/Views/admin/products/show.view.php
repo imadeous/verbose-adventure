@@ -47,16 +47,16 @@ $highestPrice = Product::getHighestPrice($product->id);
                             <label class="text-sm font-medium text-green-700 mb-2 block">Price Range</label>
                             <?php if ($lowestPrice !== null && $highestPrice !== null && $lowestPrice == $highestPrice): ?>
                                 <div class="text-3xl font-bold text-green-900">
-                                    $<?= number_format($lowestPrice, 2) ?>
+                                    MVR <?= number_format($lowestPrice, 2) ?>
                                 </div>
                             <?php elseif ($lowestPrice !== null && $highestPrice !== null): ?>
                                 <div class="flex items-baseline gap-2">
                                     <div class="text-3xl font-bold text-green-900">
-                                        $<?= number_format($lowestPrice, 2) ?>
+                                        MVR <?= number_format($lowestPrice, 2) ?>
                                     </div>
                                     <div class="text-lg text-green-600">-</div>
                                     <div class="text-3xl font-bold text-green-900">
-                                        $<?= number_format($highestPrice, 2) ?>
+                                        MVR <?= number_format($highestPrice, 2) ?>
                                     </div>
                                 </div>
                             <?php else: ?>
@@ -81,7 +81,7 @@ $highestPrice = Product::getHighestPrice($product->id);
                                 </div>
                                 <div class="bg-green-50 border border-green-200 rounded-lg p-3">
                                     <p class="text-xs text-green-600 mb-1">Total Revenue</p>
-                                    <p class="text-2xl font-bold text-green-900">$<?= number_format($productTransactions['Total Revenue'] ?? 0, 2) ?></p>
+                                    <p class="text-2xl font-bold text-green-900">MVR <?= number_format($productTransactions['Total Revenue'] ?? 0, 2) ?></p>
                                 </div>
                             </div>
 
@@ -374,7 +374,7 @@ $highestPrice = Product::getHighestPrice($product->id);
                             <tr class="hover:bg-gray-50 transition">
                                 <td class="px-4 py-3 whitespace-nowrap">
                                     <div class="text-lg font-bold text-gray-900">
-                                        $<?= number_format($variantObj->price ?? 0, 2) ?>
+                                        MVR <?= number_format($variantObj->price ?? 0, 2) ?>
                                     </div>
                                 </td>
                                 <td class="px-4 py-3 whitespace-nowrap">

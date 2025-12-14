@@ -113,9 +113,9 @@
                                 $highestPrice = \App\Models\Product::getHighestPrice($product['id']);
 
                                 if ($lowestPrice !== null && $highestPrice !== null && $lowestPrice == $highestPrice) {
-                                    echo '<p class="text-green-700 font-bold text-xl">$' . number_format($lowestPrice, 2) . '</p>';
+                                    echo '<p class="text-green-700 font-bold text-xl">MVR ' . number_format($lowestPrice, 2) . '</p>';
                                 } elseif ($lowestPrice !== null && $highestPrice !== null) {
-                                    echo '<p class="text-green-700 font-bold text-lg">$' . number_format($lowestPrice, 2) . ' - $' . number_format($highestPrice, 2) . '</p>';
+                                    echo '<p class="text-green-700 font-bold text-lg">MVR ' . number_format($lowestPrice, 2) . ' - MVR ' . number_format($highestPrice, 2) . '</p>';
                                 } else {
                                     echo '<p class="text-gray-400 text-sm italic">No pricing</p>';
                                 }
