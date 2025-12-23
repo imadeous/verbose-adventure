@@ -33,6 +33,7 @@
                     <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Date</th>
                     <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Amount</th>
                     <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Description</th>
+                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200 hidden md:table-cell">SKU</th>
                     <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200 hidden lg:table-cell">Quote ID</th>
                     <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200 hidden lg:table-cell">Promo Code ID</th>
                     <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200 hidden">Actions</th>
@@ -54,6 +55,16 @@
                             </td>
                             <td class="px-4 py-2 max-w-xs truncate">
                                 <?= htmlspecialchars($transaction->description ?: '-') ?>
+                            </td>
+                            <td class="px-4 py-2 whitespace-nowrap hidden md:table-cell">
+                                <?php
+                                if ($transaction->type === 'income' && !empty($transaction->variant_id)) {
+                                    $variant = \App\Models\Variant::find($transaction->variant_id);
+                                    echo htmlspecialchars($variant ? $variant->sku : '-');
+                                } else {
+                                    echo '-';
+                                }
+                                ?>
                             </td>
                             <td class="px-4 py-2 whitespace-nowrap hidden lg:table-cell">
                                 <?php if (!empty($transaction->quote_id)): ?>
