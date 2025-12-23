@@ -39,11 +39,18 @@
                 <?php else: ?>
                     <?php foreach ($transactions as $transaction): ?>
                         <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
-                            <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction->date ?? '-') ?></td>
-                            <td class="px-4 py-2 whitespace-nowrap font-semibold <?= ($transaction->type ?? '') === 'income' ? 'text-green-600' : 'text-red-600'; ?>">
-                                MVR <?= htmlspecialchars(number_format($transaction->amount ?? 0, 2)) ?>
+                            <td class="px-4 py-2 whitespace-nowrap">
+                                <?= htmlspecialchars($transaction->date ?? date('Y-m-d')) ?>
                             </td>
-                            <td class="px-4 py-2 whitespace-nowrap hidden md:table-cell"><?= htmlspecialchars($transaction->getCategoryNameAttribute() ?? '-') ?></td>
+                            <td class="px-4 py-2 whitespace-nowrap font-semibold <?= ($transaction->type ?? '') === 'income' ? 'text-green-600' : 'text-red-600'; ?>">
+                                MVR <?= number_format((float)($transaction->amount ?? 0), 2) ?>
+                            </td>
+                            <td class="px-4 py-2 whitespace-nowrap hidden md:table-cell">
+                                <?php
+                                $categoryName = $transaction->getCategoryNameAttribute();
+                                echo htmlspecialchars($categoryName ?: '-');
+                                ?>
+                            </td>
                             <td class="px-4 py-2 whitespace-nowrap hidden md:table-cell">
                                 <?php if (!empty($transaction->quote_id)): ?>
                                     <a href="<?= url('admin/quotes/' . $transaction->quote_id) ?>" class="text-blue-600 hover:underline">#<?= htmlspecialchars($transaction->quote_id) ?></a>

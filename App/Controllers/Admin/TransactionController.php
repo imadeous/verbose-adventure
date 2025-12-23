@@ -73,17 +73,58 @@ class TransactionController extends AdminControllerBase
             $query->where('amount', '<=', $filters['max_amount']);
         }
 
-        // Get total count for pagination
-        $totalTransactions = $query->count()[0]['count'];
+        // Get total count for pagination - need to build query separately
+        $countQuery = Transaction::query();
+
+        // Reapply all filters for counting
+        if (!empty($filters['date_from']) || !empty($filters['date_to'])) {
+            if (!empty($filters['date_from'])) {
+                $countQuery->where('date', '>=', $filters['date_from']);
+            }
+            if (!empty($filters['date_to'])) {
+                $countQuery->where('date', '<=', $filters['date_to']);
+            }
+        } else {
+            $countQuery->where('date', '>=', date('Y-m-01'))
+                ->where('date', '<=', date('Y-m-t'));
+        }
+
+        if (!empty($filters['type'])) {
+            $countQuery->where('type', '=', $filters['type']);
+        }
+
+        if (!empty($filters['category'])) {
+            $categoryQuery = \App\Models\Category::query()
+                ->where('name', 'LIKE', '%' . $filters['category'] . '%')
+                ->get();
+            if (!empty($categoryQuery)) {
+                $categoryId = $categoryQuery[0]['id'];
+                $countQuery->where('category_id', '=', $categoryId);
+            } else {
+                $countQuery->where('id', '=', -1);
+            }
+        }
+
+        if ($filters['min_amount'] !== null) {
+            $countQuery->where('amount', '>=', $filters['min_amount']);
+        }
+        if ($filters['max_amount'] !== null) {
+            $countQuery->where('amount', '<=', $filters['max_amount']);
+        }
+
+        $totalTransactions = $countQuery->count()[0]['count'];
         $paginator = new Paginator($totalTransactions, $perPage, $page);
 
         // Get transactions with pagination
+        $transactions = $query->orderBy('created_at', 'desc')
+            ->limit($paginator->perPage)
+            ->offset($paginator->offset())
+            ->get();
+
+        // Convert to Transaction objects
         $transactions = array_map(
             fn($row) => new Transaction($row),
-            $query->orderBy('created_at', 'desc')
-                ->limit($paginator->perPage)
-                ->offset($paginator->offset())
-                ->get()
+            $transactions
         );
 
         $this->view->layout('admin');
