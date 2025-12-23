@@ -62,6 +62,11 @@ $router->middleware([AuthMiddleware::class], function ($router) {
     $router->resource('/admin/reviews', AdminReviewsController::class);
     $router->resource('/admin/products', AdminProductsController::class);
     $router->resource('/admin/transactions', AdminTransactionController::class);
+    // Custom transaction routes for separate income/expense forms
+    $router->get('/admin/transactions/income/create', [AdminTransactionController::class, 'createIncome']);
+    $router->post('/admin/transactions/income', [AdminTransactionController::class, 'storeIncome']);
+    $router->get('/admin/transactions/expense/create', [AdminTransactionController::class, 'createExpense']);
+    $router->post('/admin/transactions/expense', [AdminTransactionController::class, 'storeExpense']);
     $router->get('/admin/reports', [AdminController::class, 'reports']);
     // Product image upload routes
     $router->get('/admin/products/{id}/addImage', [AdminProductsController::class, 'addImage']);

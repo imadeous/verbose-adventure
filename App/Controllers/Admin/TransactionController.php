@@ -141,6 +141,12 @@ class TransactionController extends AdminControllerBase
 
     public function create()
     {
+        // Redirect to income page by default
+        $this->redirect('/admin/transactions/income/create');
+    }
+
+    public function createIncome()
+    {
         $categories = \App\Models\Category::all();
         $quotes = \App\Models\Quote::all();
         $promo_codes = [];
@@ -149,28 +155,45 @@ class TransactionController extends AdminControllerBase
         $breadcrumbs = [
             ['label' => 'Dashboard', 'url' => url('/admin')],
             ['label' => 'Transactions', 'url' => url('/admin/transactions')],
-            ['label' => 'Create', 'url' => url('/admin/transactions/create')],
+            ['label' => 'Add Income', 'url' => url('/admin/transactions/income/create')],
         ];
-        $this->view('admin/transactions/create', [
+        $this->view('admin/transactions/create-income', [
             'categories' => $categories,
             'quotes' => $quotes,
             'promo_codes' => $promo_codes,
             'breadcrumb' => $breadcrumbs
         ]);
     }
-    public function store()
+
+    public function createExpense()
+    {
+        $categories = \App\Models\Category::all();
+
+        $this->view->layout('admin');
+        $breadcrumbs = [
+            ['label' => 'Dashboard', 'url' => url('/admin')],
+            ['label' => 'Transactions', 'url' => url('/admin/transactions')],
+            ['label' => 'Add Expense', 'url' => url('/admin/transactions/expense/create')],
+        ];
+        $this->view('admin/transactions/create-expense', [
+            'categories' => $categories,
+            'breadcrumb' => $breadcrumbs
+        ]);
+    }
+
+    public function storeIncome()
     {
         $data = $_POST;
 
         // CSRF check
         if (empty($data['_csrf']) || !\App\Helpers\Csrf::check($data['_csrf'])) {
             flash('error', 'Invalid or missing CSRF token. Please try again.');
-            $this->redirect('/admin/transactions/create');
+            $this->redirect('/admin/transactions/income/create');
             return;
         }
 
         // Set defaults and sanitize
-        $data['type'] = isset($data['type']) && $data['type'] ? $data['type'] : 'expense';
+        $data['type'] = 'income';
         $data['amount'] = isset($data['amount']) ? floatval($data['amount']) : 0.0;
         $data['created_at'] = date('Y-m-d H:i:s');
 
@@ -184,7 +207,7 @@ class TransactionController extends AdminControllerBase
                 $newStock = $variant->stock_quantity - $quantity;
                 if ($newStock < 0) {
                     flash('error', 'Insufficient stock. Available: ' . $variant->stock_quantity);
-                    $this->redirect('/admin/transactions/create');
+                    $this->redirect('/admin/transactions/income/create');
                     return;
                 }
                 $variant->stock_quantity = $newStock;
@@ -207,11 +230,58 @@ class TransactionController extends AdminControllerBase
         $newId = $transaction->save();
 
         if ($newId) {
-            flash('success', 'Transaction created successfully. ID: ' . $newId);
+            flash('success', 'Income transaction created successfully. ID: ' . $newId);
             $this->redirect('/admin/transactions');
         } else {
-            flash('error', 'Failed to create transaction. Please try again.');
-            $this->redirect('/admin/transactions/create');
+            flash('error', 'Failed to create income transaction. Please try again.');
+            $this->redirect('/admin/transactions/income/create');
+        }
+    }
+
+    public function storeExpense()
+    {
+        $data = $_POST;
+
+        // CSRF check
+        if (empty($data['_csrf']) || !\App\Helpers\Csrf::check($data['_csrf'])) {
+            flash('error', 'Invalid or missing CSRF token. Please try again.');
+            $this->redirect('/admin/transactions/expense/create');
+            return;
+        }
+
+        // Set defaults and sanitize
+        $data['type'] = 'expense';
+        $data['amount'] = isset($data['amount']) ? floatval($data['amount']) : 0.0;
+        $data['created_at'] = date('Y-m-d H:i:s');
+
+        // Remove empty optional fields
+        foreach (['date', 'description', 'category_id'] as $field) {
+            if (isset($data[$field]) && $data[$field] === '') {
+                unset($data[$field]);
+            }
+        }
+
+        // Create and save
+        $transaction = new Transaction($data);
+        $newId = $transaction->save();
+
+        if ($newId) {
+            flash('success', 'Expense transaction created successfully. ID: ' . $newId);
+            $this->redirect('/admin/transactions');
+        } else {
+            flash('error', 'Failed to create expense transaction. Please try again.');
+            $this->redirect('/admin/transactions/expense/create');
+        }
+    }
+
+    public function store()
+    {
+        // Redirect to appropriate create page based on type
+        $type = $_POST['type'] ?? 'expense';
+        if ($type === 'income') {
+            $this->redirect('/admin/transactions/income/create');
+        } else {
+            $this->redirect('/admin/transactions/expense/create');
         }
     }
 

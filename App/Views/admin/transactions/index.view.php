@@ -2,7 +2,14 @@
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-blue-900">Transactions</h1>
         <?php if (App\Helpers\Auth::isAdmin()): ?>
-            <a href="<?= url('admin/transactions/create') ?>" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-blue-700 transition">Add Transaction</a>
+            <div class="flex gap-2">
+                <a href="<?= url('admin/transactions/income/create') ?>" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-green-700 transition">
+                    + Add Income
+                </a>
+                <a href="<?= url('admin/transactions/expense/create') ?>" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-red-700 transition">
+                    + Add Expense
+                </a>
+            </div>
         <?php endif; ?>
     </div>
 
