@@ -92,7 +92,6 @@
                         Cancel
                     </button>
                     <button type="submit"
-                        :disabled="stockQuantity <= 0"
                         :class="stockQuantity <= 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-green-700'"
                         class="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                         Add Stock
