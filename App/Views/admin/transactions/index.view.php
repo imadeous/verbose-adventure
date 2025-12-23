@@ -1,13 +1,13 @@
 <div class="max-w-5xl mx-auto">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold text-blue-900">Transactions</h1>
+    <div class="flex justify-between items-center mb-6 gap-3">
+        <h1 class="text-xl md:text-2xl font-bold text-blue-900">Transactions</h1>
         <?php if (App\Helpers\Auth::isAdmin()): ?>
-            <div class="flex gap-2">
-                <a href="<?= url('admin/transactions/income/create') ?>" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-green-700 transition">
-                    + Add Income
+            <div class="flex gap-1 sm:gap-2">
+                <a href="<?= url('admin/transactions/income/create') ?>" class="bg-green-600 hover:bg-green-700 text-white text-xs sm:text-sm md:text-base px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-lg font-semibold shadow border border-green-700 transition whitespace-nowrap">
+                    <span class="hidden sm:inline">+ Add </span>Income
                 </a>
-                <a href="<?= url('admin/transactions/expense/create') ?>" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold shadow border border-red-700 transition">
-                    + Add Expense
+                <a href="<?= url('admin/transactions/expense/create') ?>" class="bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm md:text-base px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-lg font-semibold shadow border border-red-700 transition whitespace-nowrap">
+                    <span class="hidden sm:inline">+ Add </span>Expense
                 </a>
             </div>
         <?php endif; ?>
