@@ -110,6 +110,8 @@ CREATE TABLE transactions (
     description TEXT COMMENT 'Additional details about the transaction',
     quote_id INT DEFAULT NULL,
     promo_code_id INT DEFAULT NULL,
+    platform VARCHAR(50) DEFAULT NULL COMMENT 'Platform where transaction originated (e.g., whatsapp, instagram, website)',
+    customer_username VARCHAR(100) DEFAULT NULL COMMENT 'Customer username or identifier',
     date DATE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL,

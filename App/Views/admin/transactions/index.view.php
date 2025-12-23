@@ -33,6 +33,7 @@
                     <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Date</th>
                     <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Amount</th>
                     <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200 hidden md:table-cell">Description</th>
+                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200 hidden lg:table-cell">Customer</th>
                     <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">SKU</th>
                     <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Actions</th>
                 </tr>
@@ -51,10 +52,22 @@
                             <td class="px-4 py-2 whitespace-nowrap font-semibold <?= ($transaction->type ?? '') === 'income' ? 'text-green-600' : 'text-red-600'; ?>">
                                 MVR <?= number_format((float)($transaction->amount ?? 0), 2) ?>
                             </td>
-                            <td class="px-4 py-2 max-w-xs truncate">
+                            <td class="px-4 py-2 max-w-xs truncate hidden md:table-cell">
                                 <?= htmlspecialchars($transaction->description ?: '-') ?>
                             </td>
-                            <td class="px-4 py-2 whitespace-nowrap hidden md:table-cell">
+                            <td class="px-4 py-2 hidden lg:table-cell">
+                                <?php if (!empty($transaction->customer_username)): ?>
+                                    <div class="flex flex-col">
+                                        <span class="text-sm font-medium text-gray-900"><?= htmlspecialchars($transaction->customer_username) ?></span>
+                                        <?php if (!empty($transaction->platform)): ?>
+                                            <span class="text-xs text-gray-500"><?= htmlspecialchars(ucfirst($transaction->platform)) ?></span>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php else: ?>
+                                    <span class="text-gray-400">-</span>
+                                <?php endif; ?>
+                            </td>
+                            <td class="px-4 py-2 whitespace-nowrap">
                                 <?php
                                 if ($transaction->type === 'income' && !empty($transaction->variant_id)) {
                                     $variant = \App\Models\Variant::find($transaction->variant_id);

@@ -102,6 +102,23 @@
             </div>
         <?php endif; ?>
         <div>
+            <label class="block text-blue-700 font-semibold mb-1">Customer Username (optional)</label>
+            <input type="text" name="customer_username" class="w-full border border-blue-300 rounded-lg px-3 py-2" placeholder="Enter customer username or identifier">
+        </div>
+        <div>
+            <label class="block text-blue-700 font-semibold mb-1">Platform (optional)</label>
+            <select name="platform" class="w-full border border-blue-300 rounded-lg px-3 py-2">
+                <option value="">Select Platform</option>
+                <option value="whatsapp">WhatsApp</option>
+                <option value="instagram">Instagram</option>
+                <option value="facebook">Facebook</option>
+                <option value="website">Website</option>
+                <option value="phone">Phone</option>
+                <option value="in-person">In Person</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        <div>
             <label class="block text-blue-700 font-semibold mb-1">Date</label>
             <input type="date" name="date" class="w-full border border-blue-300 rounded-lg px-3 py-2" value="<?= date('Y-m-d') ?>" required>
         </div>

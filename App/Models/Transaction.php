@@ -17,6 +17,8 @@ class Transaction extends Model
         'description', // optional
         'quote_id', // optional
         'promo_code_id', // optional
+        'platform', // e.g., 'whatsapp', 'instagram', 'website', 'phone'
+        'customer_username', // optional customer identifier
         'date',
         'created_at'
     ];
