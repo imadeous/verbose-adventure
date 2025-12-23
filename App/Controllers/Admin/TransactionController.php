@@ -314,11 +314,13 @@ class TransactionController extends AdminControllerBase
             $this->redirect('/admin/transactions');
             return;
         }
+
         $breadcrumbs = [
             ['label' => 'Dashboard', 'url' => url('/admin')],
             ['label' => 'Transactions', 'url' => url('/admin/transactions')],
-            ['label' => 'Edit Transaction #' . $id, 'url' => url('/admin/transactions/edit/' . $id)]
+            ['label' => 'Edit Transaction #' . $id, 'url' => url('/admin/transactions/' . $id . '/edit')]
         ];
+
         $this->view('admin/transactions/edit', [
             'transaction' => $transaction,
             'breadcrumb' => $breadcrumbs
