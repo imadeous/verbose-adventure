@@ -41,17 +41,23 @@
                         <tr class="border-t border-blue-100 hover:bg-blue-50 transition">
                             <td class="px-4 py-2 whitespace-nowrap"><?= htmlspecialchars($transaction->date ?? '-') ?></td>
                             <td class="px-4 py-2 whitespace-nowrap font-semibold <?= ($transaction->type ?? '') === 'income' ? 'text-green-600' : 'text-red-600'; ?>">
-                                <?= htmlspecialchars($transaction->amount ?? '-') ?>
+                                MVR <?= htmlspecialchars(number_format($transaction->amount ?? 0, 2)) ?>
                             </td>
-                            <td class="px-4 py-2 whitespace-nowrap hidden md:table-cell"><?= htmlspecialchars($transaction->category_name ?? '-') ?></td>
+                            <td class="px-4 py-2 whitespace-nowrap hidden md:table-cell"><?= htmlspecialchars($transaction->getCategoryNameAttribute() ?? '-') ?></td>
                             <td class="px-4 py-2 whitespace-nowrap hidden md:table-cell">
                                 <?php if (!empty($transaction->quote_id)): ?>
-                                    <a href="<?= url('admin/quotes/' . $transaction->quote_id) ?>"><?= htmlspecialchars($transaction->quote_id) ?></a>
+                                    <a href="<?= url('admin/quotes/' . $transaction->quote_id) ?>" class="text-blue-600 hover:underline">#<?= htmlspecialchars($transaction->quote_id) ?></a>
                                 <?php else: ?>
                                     -
                                 <?php endif; ?>
                             </td>
-                            <td class="px-4 py-2 whitespace-nowrap hidden md:table-cell"><?= htmlspecialchars($transaction->promo_code_id ?? '-') ?></td>
+                            <td class="px-4 py-2 whitespace-nowrap hidden md:table-cell">
+                                <?php if (!empty($transaction->promo_code_id)): ?>
+                                    #<?= htmlspecialchars($transaction->promo_code_id) ?>
+                                <?php else: ?>
+                                    -
+                                <?php endif; ?>
+                            </td>
                             <td class="px-4 py-2 whitespace-nowrap hidden">
                                 <a href="<?= url('admin/transactions/show/' . $transaction->id) ?>" class="text-blue-600 hover:underline">View</a>
                             </td>
