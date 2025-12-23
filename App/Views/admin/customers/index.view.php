@@ -108,25 +108,25 @@
                         <tr class="hover:bg-gray-50 transition">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div>
-                                    <div class="text-sm font-semibold text-gray-900"><?= e($customer->customer_username) ?></div>
-                                    <?php if ($customer->platform): ?>
-                                        <div class="text-xs text-gray-500 capitalize"><?= e($customer->platform) ?></div>
+                                    <div class="text-sm font-semibold text-gray-900"><?= e($customer['customer_username']) ?></div>
+                                    <?php if (!empty($customer['platform'])): ?>
+                                        <div class="text-xs text-gray-500 capitalize"><?= e($customer['platform']) ?></div>
                                     <?php endif; ?>
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-semibold bg-blue-100 text-blue-800">
-                                    <?= $customer->orders_count ?>
+                                    <?= $customer['orders_count'] ?>
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm font-bold text-green-600">MVR <?= number_format($customer->total_spent, 2) ?></div>
+                                <div class="text-sm font-bold text-green-600">MVR <?= number_format((float)$customer['total_spent'], 2) ?></div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap hidden md:table-cell">
-                                <div class="text-sm text-gray-900"><?= date('M d, Y', strtotime($customer->first_order_date)) ?></div>
+                                <div class="text-sm text-gray-900"><?= date('M d, Y', strtotime($customer['first_order_date'])) ?></div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap hidden lg:table-cell">
-                                <div class="text-sm text-gray-900"><?= date('M d, Y', strtotime($customer->last_order_date)) ?></div>
+                                <div class="text-sm text-gray-900"><?= date('M d, Y', strtotime($customer['last_order_date'])) ?></div>
                             </td>
                         </tr>
                     <?php endforeach; ?>
