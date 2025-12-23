@@ -173,19 +173,28 @@ class VariantsController extends AdminControllerBase
 
         $quantity = isset($data['stock_quantity']) ? (int)$data['stock_quantity'] : 0;
 
-        if ($quantity <= 0) {
-            flash('error', 'Stock quantity must be greater than 0.');
+        if ($quantity == 0) {
+            flash('error', 'Stock quantity cannot be 0.');
             $this->redirect('/admin/products/' . $variant->product_id);
             return;
         }
 
-        // Add to current stock
+        // Add to current stock (can be negative to remove stock)
         $newStock = $variant->stock_quantity + $quantity;
+
+        if ($newStock < 0) {
+            flash('error', 'Cannot reduce stock below 0. Current stock: ' . $variant->stock_quantity);
+            $this->redirect('/admin/products/' . $variant->product_id);
+            return;
+        }
+
         $variant->stock_quantity = $newStock;
         $variant->update();
 
+        $action = $quantity > 0 ? 'Added' : 'Removed';
+        $absQuantity = abs($quantity);
         $notes = !empty($data['notes']) ? ' (' . htmlspecialchars($data['notes']) . ')' : '';
-        flash('success', "Added {$quantity} units to variant {$variant->sku}. New stock: {$newStock}.{$notes}");
+        flash('success', "{$action} {$absQuantity} units to variant {$variant->sku}. New stock: {$newStock}.{$notes}");
 
         $productId = $data['product_id'] ?? $variant->product_id;
         $this->redirect('/admin/products/' . $productId);
