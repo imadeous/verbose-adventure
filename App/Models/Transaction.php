@@ -10,7 +10,7 @@ class Transaction extends Model
     protected string $primaryKey = 'id';
     protected $fillable = [
         'type', // 'income' or 'expense'
-        'category_id', // for categorizing transactions (required for expenses, auto-filled for income with SKU)
+        'category_id', // for categorizing transactions (auto-filled for income with SKU)
         'product_id', // only for income transactions with product SKU
         'variant_id', // only for income transactions with variant SKU
         'amount',

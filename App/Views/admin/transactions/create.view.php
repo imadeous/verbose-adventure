@@ -51,11 +51,8 @@
 
         <!-- Category field: Hidden when variant is auto-filled (income with SKU), visible dropdown otherwise -->
         <div x-show="!variantInfo || transactionType === 'expense'" x-cloak>
-            <label class="block text-blue-700 font-semibold mb-1">
-                Category
-                <span x-show="transactionType === 'expense'" class="text-red-500">*</span>
-            </label>
-            <select name="category_id" class="w-full border border-blue-300 rounded-lg px-3 py-2" :required="transactionType === 'expense'">
+            <label class="block text-blue-700 font-semibold mb-1">Category (optional)</label>
+            <select name="category_id" class="w-full border border-blue-300 rounded-lg px-3 py-2">
                 <option value="">Select Category</option>
                 <?php if (!empty($categories)): ?>
                     <?php foreach ($categories as $category): ?>
