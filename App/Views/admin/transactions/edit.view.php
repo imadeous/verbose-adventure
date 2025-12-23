@@ -51,8 +51,9 @@
             <label class="block text-blue-700 font-semibold mb-1">Platform (optional)</label>
             <select name="platform" class="w-full border border-blue-300 rounded-lg px-3 py-2">
                 <option value="">Select Platform</option>
-                <option value="whatsapp" <?= ($transaction->platform ?? '') === 'whatsapp' ? 'selected' : '' ?>>WhatsApp</option>
                 <option value="instagram" <?= ($transaction->platform ?? '') === 'instagram' ? 'selected' : '' ?>>Instagram</option>
+                <option value="tiktok" <?= ($transaction->platform ?? '') === 'tiktok' ? 'selected' : '' ?>>Tiktok</option>
+                <option value="whatsapp" <?= ($transaction->platform ?? '') === 'whatsapp' ? 'selected' : '' ?>>WhatsApp</option>
                 <option value="facebook" <?= ($transaction->platform ?? '') === 'facebook' ? 'selected' : '' ?>>Facebook</option>
                 <option value="website" <?= ($transaction->platform ?? '') === 'website' ? 'selected' : '' ?>>Website</option>
                 <option value="phone" <?= ($transaction->platform ?? '') === 'phone' ? 'selected' : '' ?>>Phone</option>

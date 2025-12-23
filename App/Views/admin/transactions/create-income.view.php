@@ -109,8 +109,9 @@
             <label class="block text-blue-700 font-semibold mb-1">Platform (optional)</label>
             <select name="platform" class="w-full border border-blue-300 rounded-lg px-3 py-2">
                 <option value="">Select Platform</option>
-                <option value="whatsapp">WhatsApp</option>
                 <option value="instagram">Instagram</option>
+                <option value="tiktok">Tiktok</option>
+                <option value="whatsapp">WhatsApp</option>
                 <option value="facebook">Facebook</option>
                 <option value="website">Website</option>
                 <option value="phone">Phone</option>
