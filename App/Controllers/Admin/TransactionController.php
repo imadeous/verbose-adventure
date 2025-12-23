@@ -328,7 +328,6 @@ class TransactionController extends AdminControllerBase
     }
     public function update($id)
     {
-        $data = $_POST;
         $transaction = Transaction::find($id);
         if (!$transaction) {
             flash('error', 'Transaction not found.');
@@ -336,12 +335,17 @@ class TransactionController extends AdminControllerBase
             return;
         }
 
+        $data = $_POST;
+
         // CSRF validation
         if (empty($data['_csrf']) || !\App\Helpers\Csrf::check($data['_csrf'])) {
             flash('error', 'Invalid or missing CSRF token. Please try again.');
-            $this->redirect('/admin/transactions/edit/' . $id);
+            $this->redirect('/admin/transactions/' . $id . '/edit');
             return;
         }
+
+        // Remove _csrf and _method fields if present
+        unset($data['_csrf'], $data['_method']);
 
         // Update transaction data
         $transaction->fill($data);
@@ -350,7 +354,7 @@ class TransactionController extends AdminControllerBase
             $this->redirect('/admin/transactions');
         } else {
             flash('error', 'Failed to update transaction. Please try again.');
-            $this->redirect('/admin/transactions/edit/' . $id);
+            $this->redirect('/admin/transactions/' . $id . '/edit');
         }
     }
     public function destroy($id)
