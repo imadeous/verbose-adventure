@@ -17,20 +17,6 @@
         <input type="hidden" name="type" value="expense">
 
         <div>
-            <label class="block text-blue-700 font-semibold mb-1">Category (optional)</label>
-            <select name="category_id" class="w-full border border-blue-300 rounded-lg px-3 py-2">
-                <option value="">Select Category</option>
-                <?php if (!empty($categories)): ?>
-                    <?php foreach ($categories as $category): ?>
-                        <option value="<?= htmlspecialchars($category->id) ?>">
-                            <?= htmlspecialchars($category->name) ?>
-                        </option>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </select>
-        </div>
-
-        <div>
             <label class="block text-blue-700 font-semibold mb-1">Amount</label>
             <input type="number"
                 name="amount"

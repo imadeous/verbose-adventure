@@ -38,28 +38,11 @@
 
             <div x-show="skuError" x-cloak class="mt-2 text-red-600 text-sm" x-text="skuError"></div>
 
-            <!-- Hidden fields for product_id, variant_id -->
+            <!-- Hidden fields for product_id, variant_id, category_id (auto-resolved from SKU) -->
             <input type="hidden" name="product_id" x-model="productId">
             <input type="hidden" name="variant_id" x-model="variantId">
+            <input type="hidden" name="category_id" x-model="categoryId">
         </div>
-
-        <!-- Category field: Hidden when variant is auto-filled, visible dropdown otherwise -->
-        <div x-show="!variantInfo" x-cloak>
-            <label class="block text-blue-700 font-semibold mb-1">Category (optional)</label>
-            <select name="category_id" class="w-full border border-blue-300 rounded-lg px-3 py-2">
-                <option value="">Select Category</option>
-                <?php if (!empty($categories)): ?>
-                    <?php foreach ($categories as $category): ?>
-                        <option value="<?= htmlspecialchars($category->id) ?>">
-                            <?= htmlspecialchars($category->name) ?>
-                        </option>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </select>
-        </div>
-
-        <!-- Hidden category field when variant info is present -->
-        <input type="hidden" name="category_id" x-model="categoryId" x-show="variantInfo">
 
         <div x-show="variantInfo" x-cloak>
             <label class="block text-blue-700 font-semibold mb-1">Quantity</label>
