@@ -9,14 +9,14 @@ class Transaction extends Model
     protected ?string $table = 'transactions';
     protected string $primaryKey = 'id';
     protected $fillable = [
-        'type',
-        'category_id',
-        'product_id',
-        'variant_id',
+        'type', // 'income' or 'expense'
+        'category_id', // for categorizing transactions (required for expenses, auto-filled for income with SKU)
+        'product_id', // only for income transactions with product SKU
+        'variant_id', // only for income transactions with variant SKU
         'amount',
-        'description',
-        'quote_id',
-        'promo_code_id',
+        'description', // optional
+        'quote_id', // optional
+        'promo_code_id', // optional
         'date',
         'created_at'
     ];
