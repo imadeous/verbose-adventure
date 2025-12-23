@@ -62,7 +62,6 @@
                             id="stock_quantity"
                             name="stock_quantity"
                             x-model.number="stockQuantity"
-                            min="1"
                             required
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             placeholder="Enter quantity to add">
@@ -72,7 +71,7 @@
                     </div>
 
                     <!-- Notes (Optional) -->
-                    <div>
+                    <div class="hidden">
                         <label for="notes" class="block text-sm font-medium text-gray-700 mb-2">
                             Notes (Optional)
                         </label>
