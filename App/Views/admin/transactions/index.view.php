@@ -32,9 +32,10 @@
                 <tr>
                     <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Date</th>
                     <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Amount</th>
+                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200">Description</th>
                     <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200 hidden md:table-cell">Category</th>
-                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200 hidden md:table-cell">Quote ID</th>
-                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200 hidden md:table-cell">Promo Code ID</th>
+                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200 hidden lg:table-cell">Quote ID</th>
+                    <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200 hidden lg:table-cell">Promo Code ID</th>
                     <th class="px-4 py-2 text-left text-xs font-bold text-blue-800 uppercase tracking-wide border-b-2 border-blue-200 hidden">Actions</th>
                 </tr>
             </thead>
@@ -52,20 +53,23 @@
                             <td class="px-4 py-2 whitespace-nowrap font-semibold <?= ($transaction->type ?? '') === 'income' ? 'text-green-600' : 'text-red-600'; ?>">
                                 MVR <?= number_format((float)($transaction->amount ?? 0), 2) ?>
                             </td>
+                            <td class="px-4 py-2 max-w-xs truncate">
+                                <?= htmlspecialchars($transaction->description ?: '-') ?>
+                            </td>
                             <td class="px-4 py-2 whitespace-nowrap hidden md:table-cell">
                                 <?php
                                 $categoryName = $transaction->getCategoryNameAttribute();
                                 echo htmlspecialchars($categoryName ?: '-');
                                 ?>
                             </td>
-                            <td class="px-4 py-2 whitespace-nowrap hidden md:table-cell">
+                            <td class="px-4 py-2 whitespace-nowrap hidden lg:table-cell">
                                 <?php if (!empty($transaction->quote_id)): ?>
                                     <a href="<?= url('admin/quotes/' . $transaction->quote_id) ?>" class="text-blue-600 hover:underline">#<?= htmlspecialchars($transaction->quote_id) ?></a>
                                 <?php else: ?>
                                     -
                                 <?php endif; ?>
                             </td>
-                            <td class="px-4 py-2 whitespace-nowrap hidden md:table-cell">
+                            <td class="px-4 py-2 whitespace-nowrap hidden lg:table-cell">
                                 <?php if (!empty($transaction->promo_code_id)): ?>
                                     #<?= htmlspecialchars($transaction->promo_code_id) ?>
                                 <?php else: ?>
