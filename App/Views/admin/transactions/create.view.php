@@ -16,14 +16,14 @@
         <?= csrf_field() ?>
         <div>
             <label class="block text-blue-700 font-semibold mb-1">Type</label>
-            <select name="type" class="w-full border border-blue-300 rounded-lg px-3 py-2" required>
+            <select name="type" x-model="transactionType" class="w-full border border-blue-300 rounded-lg px-3 py-2" required>
                 <option value="">Select Type</option>
                 <option value="income">Income</option>
                 <option value="expense">Expense</option>
             </select>
         </div>
-        <div>
-            <label class="block text-blue-700 font-semibold mb-1">SKU (optional)</label>
+        <div x-show="transactionType === 'income'">
+            <label class="block text-blue-700 font-semibold mb-1">SKU (optional for Income)</label>
             <input type="text"
                 x-model="sku"
                 @input.debounce.500ms="lookupSKU()"
@@ -47,7 +47,20 @@
             <!-- Hidden fields for product_id, variant_id, category_id -->
             <input type="hidden" name="product_id" x-model="productId">
             <input type="hidden" name="variant_id" x-model="variantId">
-            <input type="hidden" name="category_id" x-model="categoryId">
+            <input type="hidden" name="category_id" x-bind:value="categoryId" x-show="transactionType === 'income'">
+        </div>
+        <div x-show="transactionType === 'expense' || !variantInfo" x-cloak>
+            <label class="block text-blue-700 font-semibold mb-1">Category <span x-show="transactionType === 'expense'" class="text-red-500">*</span></label>
+            <select name="category_id" x-model="manualCategoryId" class="w-full border border-blue-300 rounded-lg px-3 py-2" :required="transactionType === 'expense'">
+                <option value="">Select Category</option>
+                <?php if (!empty($categories)): ?>
+                    <?php foreach ($categories as $category): ?>
+                        <option value="<?= htmlspecialchars($category->id) ?>">
+                            <?= htmlspecialchars($category->name) ?>
+                        </option>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
         </div>
         <div x-show="variantInfo" x-cloak>
             <label class="block text-blue-700 font-semibold mb-1">Quantity</label>
@@ -118,12 +131,14 @@
 <script>
     function transactionForm() {
         return {
+            transactionType: '',
             sku: '',
             variantInfo: null,
             skuError: '',
             productId: '',
             variantId: '',
             categoryId: '',
+            manualCategoryId: '',
             quantity: 0,
             amount: 0,
 
