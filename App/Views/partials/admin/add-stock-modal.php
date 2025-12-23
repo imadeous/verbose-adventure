@@ -56,7 +56,7 @@
                     <!-- Stock Quantity Input -->
                     <div>
                         <label for="stock_quantity" class="block text-sm font-medium text-gray-700 mb-2">
-                            Quantity to Add <span class="text-red-500">*</span>
+                            Quantity to Add/Remove <span class="text-red-500">*</span>
                         </label>
                         <input type="number"
                             id="stock_quantity"
@@ -64,9 +64,12 @@
                             x-model.number="stockQuantity"
                             required
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            placeholder="Enter quantity to add">
+                            placeholder="Enter quantity (use negative to remove)">
                         <p class="mt-2 text-sm text-gray-500">
-                            New stock will be: <span class="font-semibold text-gray-900" x-text="selectedVariant.currentStock + stockQuantity"></span>
+                            New stock will be: <span class="font-semibold" :class="(selectedVariant.currentStock + stockQuantity) >= 0 ? 'text-gray-900' : 'text-red-600'" x-text="selectedVariant.currentStock + stockQuantity"></span>
+                        </p>
+                        <p class="mt-1 text-xs text-gray-400">
+                            Tip: Use negative values (e.g., -5) to remove stock
                         </p>
                     </div>
 
@@ -92,9 +95,10 @@
                         Cancel
                     </button>
                     <button type="submit"
-                        :class="stockQuantity <= 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-green-700'"
+                        :disabled="stockQuantity === 0 || stockQuantity === null || stockQuantity === ''"
+                        :class="(stockQuantity === 0 || stockQuantity === null || stockQuantity === '') ? 'opacity-50 cursor-not-allowed' : 'hover:bg-green-700'"
                         class="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                        Add Stock
+                        Update Stock
                     </button>
                 </div>
             </form>
