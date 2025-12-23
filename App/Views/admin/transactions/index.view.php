@@ -71,13 +71,6 @@
                                     -
                                 <?php endif; ?>
                             </td>
-                            <td class="px-4 py-2 whitespace-nowrap hidden lg:table-cell">
-                                <?php if (!empty($transaction->promo_code_id)): ?>
-                                    #<?= htmlspecialchars($transaction->promo_code_id) ?>
-                                <?php else: ?>
-                                    -
-                                <?php endif; ?>
-                            </td>
                             <td class="px-4 py-2 whitespace-nowrap hidden">
                                 <a href="<?= url('admin/transactions/show/' . $transaction->id) ?>" class="text-blue-600 hover:underline">View</a>
                             </td>
