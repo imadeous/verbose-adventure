@@ -1,17 +1,5 @@
 <div class="max-w-xl mx-auto">
     <h1 class="text-2xl font-bold text-blue-900 mb-6">Edit Transaction #<?= htmlspecialchars($transaction->id) ?></h1>
-    <?php if (!empty($breadcrumb)): ?>
-        <nav class="mb-4 text-xs text-blue-600">
-            <?php foreach ($breadcrumb as $i => $item): ?>
-                <?php if (!empty($item['url'])): ?>
-                    <a href="<?= $item['url'] ?>" class="hover:underline"><?= htmlspecialchars($item['label']) ?></a>
-                <?php else: ?>
-                    <span><?= htmlspecialchars($item['label']) ?></span>
-                <?php endif; ?>
-                <?php if ($i < count($breadcrumb) - 1): ?> &raquo; <?php endif; ?>
-            <?php endforeach; ?>
-        </nav>
-    <?php endif; ?>
 
     <form action="<?= url('admin/transactions/' . $transaction->id) ?>" method="POST" class="space-y-5">
         <?= csrf_field() ?>
