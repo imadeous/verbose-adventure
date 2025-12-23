@@ -30,6 +30,7 @@ use App\Controllers\Admin\TransactionController as AdminTransactionController;
 use App\Controllers\Admin\GalleryController as AdminGalleryController;
 use App\Controllers\Admin\VariantsController as AdminVariantsController;
 use App\Controllers\Admin\AssistantController as AdminAssistantController;
+use App\Controllers\Admin\CustomersController as AdminCustomersController;
 
 // Middleware imports
 use App\Middleware\AuthMiddleware;
@@ -80,6 +81,8 @@ $router->middleware([AuthMiddleware::class], function ($router) {
     $router->get('/admin/categories/tree', [AdminCategoriesController::class, 'tree']);
     $router->resource('/admin/categories', AdminCategoriesController::class);
     $router->resource('/admin/gallery', AdminGalleryController::class);
+    // Customers routes
+    $router->get('/admin/customers', [AdminCustomersController::class, 'index']);
     // AI Assistant routes
     $router->get('/admin/assistant', [AdminAssistantController::class, 'index']);
     // Individual analysis shortcuts

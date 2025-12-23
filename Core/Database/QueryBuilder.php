@@ -47,6 +47,12 @@ class QueryBuilder
         return $instance;
     }
 
+    public function selectRaw($expression)
+    {
+        $this->columns = [$expression];
+        return $this;
+    }
+
     public function alias($original, $as)
     {
         $this->aliases[$original] = $as;
