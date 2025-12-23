@@ -176,6 +176,17 @@
                 this.categoryId = '';
                 this.quantity = 0;
                 this.amount = 0;
+            },
+
+            init() {
+                // Check for SKU in URL parameters
+                const urlParams = new URLSearchParams(window.location.search);
+                const skuParam = urlParams.get('sku');
+
+                if (skuParam) {
+                    this.sku = skuParam;
+                    this.lookupSKU();
+                }
             }
         }
     }
