@@ -43,6 +43,25 @@
         </div>
 
         <div>
+            <label class="block text-blue-700 font-semibold mb-1">Customer Username (optional)</label>
+            <input type="text" name="customer_username" value="<?= htmlspecialchars($transaction->customer_username ?? '') ?>" class="w-full border border-blue-300 rounded-lg px-3 py-2" placeholder="Enter customer username or identifier">
+        </div>
+
+        <div>
+            <label class="block text-blue-700 font-semibold mb-1">Platform (optional)</label>
+            <select name="platform" class="w-full border border-blue-300 rounded-lg px-3 py-2">
+                <option value="">Select Platform</option>
+                <option value="whatsapp" <?= ($transaction->platform ?? '') === 'whatsapp' ? 'selected' : '' ?>>WhatsApp</option>
+                <option value="instagram" <?= ($transaction->platform ?? '') === 'instagram' ? 'selected' : '' ?>>Instagram</option>
+                <option value="facebook" <?= ($transaction->platform ?? '') === 'facebook' ? 'selected' : '' ?>>Facebook</option>
+                <option value="website" <?= ($transaction->platform ?? '') === 'website' ? 'selected' : '' ?>>Website</option>
+                <option value="phone" <?= ($transaction->platform ?? '') === 'phone' ? 'selected' : '' ?>>Phone</option>
+                <option value="in-person" <?= ($transaction->platform ?? '') === 'in-person' ? 'selected' : '' ?>>In Person</option>
+                <option value="other" <?= ($transaction->platform ?? '') === 'other' ? 'selected' : '' ?>>Other</option>
+            </select>
+        </div>
+
+        <div>
             <label class="block text-blue-700 font-semibold mb-1">Date</label>
             <input type="date" name="date" value="<?= htmlspecialchars($transaction->date ?? date('Y-m-d')) ?>" class="w-full border border-blue-300 rounded-lg px-3 py-2" required>
         </div>
