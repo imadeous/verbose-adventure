@@ -5,7 +5,7 @@ use App\Models\Product; ?>
     <!-- Hero Section -->
     <section class="text-gray-400 bg-gray-900 body-font">
         <div class="container mx-auto flex px-5 py-12 md:flex-row flex-col items-center">
-            <div class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-8 md:mb-0 items-center text-center">
+            <div class="lg:flex-grow md:w-2/3 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-8 md:mb-0 items-center text-center">
                 <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-white">Bring Your Ideas to Life
                     <br class="hidden lg:inline-block">with Professional 3D Printing
                 </h1>
@@ -17,7 +17,7 @@ use App\Models\Product; ?>
             </div>
             <div class="lg:max-w-lg lg:w-full w-11/12">
                 <!--featured section-->
-                <div class="container px-5 mx-auto flex flex-wrap">
+                <div class="container mx-auto flex flex-wrap">
                     <div x-data="{
                 images: [
                     {src: 'https://dummyimage.com/500x300'},
