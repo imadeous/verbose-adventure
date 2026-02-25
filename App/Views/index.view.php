@@ -15,7 +15,7 @@ use App\Models\Product; ?>
                     <a href="<?= url('/gallery') ?>" class="ml-4 inline-flex text-gray-400 bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-700 hover:text-white rounded text-lg">View Gallery</a>
                 </div>
             </div>
-            <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
+            <div class="lg:max-w-lg lg:w-full w-11/12">
                 <!--featured section-->
                 <div class="container px-5 mx-auto flex flex-wrap">
                     <div x-data="{
