@@ -16,7 +16,7 @@ use App\Models\Product; ?>
                 </div>
             </div>
             <!--featured section-->
-            <div class="px-5 mx-auto flex flex-wrap">
+            <div class="px-5 mx-auto flex-1 flex flex-wrap">
                 <div x-data="{
                 images: [
                     {src: 'https://dummyimage.com/500x300'},
