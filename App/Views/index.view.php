@@ -12,6 +12,7 @@ use App\Models\Product; ?>
                 <p class="mb-8 leading-relaxed">Craftophile Shop offers high-quality, affordable 3D printing services for hobbyists, creators, and businesses. Upload your design or choose from our gallery, and let us turn your vision into reality with precision and care.</p>
                 <div class="flex justify-center">
                     <a href="<?= url('/gallery') ?>" class="inline-flex text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded text-lg">View Gallery</a>
+                    <a href="<?= url('/contact') ?>" class="ml-4 inline-flex text-gray-400 bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-700 hover:text-white rounded text-lg">Contact Us</a>
                 </div>
             </div>
             <div class="lg:max-w-lg lg:w-full w-11/12">
