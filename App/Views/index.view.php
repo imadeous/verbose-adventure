@@ -225,7 +225,7 @@ use App\Models\Product; ?>
             <div class="flex flex-wrap -m-4">
                 <?php if (!empty($bestSellingProducts)): ?>
                     <?php foreach ($bestSellingProducts as $product): ?>
-                        <div class="xl:w-1/4 md:w-1/2 p-4">
+                        <div class="xl:w-1/4 w-full p-4">
                             <a href="<?= url('/product/' . $product['id']) ?>" class="block bg-gray-800 bg-opacity-40 p-6 rounded-lg hover:bg-opacity-60 transition group">
                                 <?php if ($product['image_url']): ?>
                                     <img class="h-40 rounded w-full object-cover object-center mb-6 group-hover:opacity-90 transition" src="<?= htmlspecialchars($product['image_url']) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
