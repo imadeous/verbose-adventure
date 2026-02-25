@@ -17,9 +17,8 @@ use App\Models\Product; ?>
             </div>
             <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
                 <!--featured section-->
-                <section class="text-gray-400 bg-gray-900 py-12 body-font">
-                    <div class="container px-5 py-24 mx-auto flex flex-wrap">
-                        <div x-data="{
+                <div class="container px-5 py-24 mx-auto flex flex-wrap">
+                    <div x-data="{
                 images: [
                     {src: 'https://dummyimage.com/500x300'},
                     {src: 'https://dummyimage.com/501x301'},
@@ -32,12 +31,12 @@ use App\Models\Product; ?>
                 prev() { this.current = (this.current === 0) ? this.images.length - 1 : this.current - 1; },
                 next() { this.current = (this.current === this.images.length - 1) ? 0 : this.current + 1; }
             }" class="relative w-full max-w-8xl h-96 mx-auto">
-                            <div class="overflow-hidden rounded-lg">
-                                <div class="relative w-full h-64 md:h-80 overflow-hidden">
-                                    <template x-for="(img, i) in images" :key="i">
-                                        <img :src="img.src" alt="gallery"
-                                            class="w-3/4 md:w-2/3 h-64 md:h-80 object-cover object-center absolute top-0 transition-transform duration-500"
-                                            :class="{
+                        <div class="overflow-hidden rounded-lg">
+                            <div class="relative w-full h-64 md:h-80 overflow-hidden">
+                                <template x-for="(img, i) in images" :key="i">
+                                    <img :src="img.src" alt="gallery"
+                                        class="w-3/4 md:w-2/3 h-64 md:h-80 object-cover object-center absolute top-0 transition-transform duration-500"
+                                        :class="{
                                     // Current image
                                     'left-1/2 -translate-x-1/2 z-20 opacity-100 scale-100': current === i,
                                     // Previous image (left, offset)
@@ -47,30 +46,29 @@ use App\Models\Product; ?>
                                     // All others
                                     'opacity-0 scale-90 z-0': (current !== i) && ((current === 0 ? images.length - 1 : current - 1) !== i) && ((current === images.length - 1 ? 0 : current + 1) !== i)
                                 }"
-                                            style="will-change: transform, opacity; pointer-events: none;">
-                                    </template>
-                                </div>
-                            </div>
-                            <!-- Navigation Arrows -->
-                            <button @click="prev" class="absolute left-2 top-1/2 -translate-y-1/2 bg-gray-800 bg-opacity-60 hover:bg-opacity-90 text-white rounded-full p-2 focus:outline-none z-30">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-                                </svg>
-                            </button>
-                            <button @click="next" class="absolute right-2 top-1/2 -translate-y-1/2 bg-gray-800 bg-opacity-60 hover:bg-opacity-90 text-white rounded-full p-2 focus:outline-none z-30">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                                </svg>
-                            </button>
-                            <!-- Indicators -->
-                            <div class="flex justify-center mt-8 space-x-2">
-                                <template x-for="(img, i) in images" :key="'dot-' + i">
-                                    <button @click="current = i" :class="{'bg-yellow-500': current === i, 'bg-gray-600': current !== i}" class="w-3 h-3 rounded-full focus:outline-none"></button>
+                                        style="will-change: transform, opacity; pointer-events: none;">
                                 </template>
                             </div>
                         </div>
+                        <!-- Navigation Arrows -->
+                        <button @click="prev" class="absolute left-2 top-1/2 -translate-y-1/2 bg-gray-800 bg-opacity-60 hover:bg-opacity-90 text-white rounded-full p-2 focus:outline-none z-30">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </button>
+                        <button @click="next" class="absolute right-2 top-1/2 -translate-y-1/2 bg-gray-800 bg-opacity-60 hover:bg-opacity-90 text-white rounded-full p-2 focus:outline-none z-30">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                        <!-- Indicators -->
+                        <div class="flex justify-center mt-8 space-x-2">
+                            <template x-for="(img, i) in images" :key="'dot-' + i">
+                                <button @click="current = i" :class="{'bg-yellow-500': current === i, 'bg-gray-600': current !== i}" class="w-3 h-3 rounded-full focus:outline-none"></button>
+                            </template>
+                        </div>
                     </div>
-                </section>
+                </div>
             </div>
         </div>
     </section>
