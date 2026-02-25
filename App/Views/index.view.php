@@ -16,7 +16,70 @@ use App\Models\Product; ?>
                 </div>
             </div>
             <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
-                <img class="object-cover object-center rounded" alt="hero" src="<?= asset('storage/site/cover.png') ?>">
+                <!--featured section-->
+                <section class="text-gray-400 bg-gray-900 py-12 body-font">
+                    <div class="container px-5 py-24 mx-auto flex flex-wrap">
+                        <div class="flex flex-wrap w-full mb-20">
+                            <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
+                                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-white">Recommended by Customers</h1>
+                                <div class="h-1 w-20 bg-yellow-500 rounded"></div>
+                            </div>
+                            <p class="lg:w-1/2 w-full leading-relaxed text-gray-400 text-opacity-90">
+                                Explore our latest 3D printed creations, from custom prototypes to artistic models. Each project showcases the versatility and quality of our printing technology. Get inspired for your next idea!.
+                            </p>
+                        </div>
+                        <div x-data="{
+                images: [
+                    {src: 'https://dummyimage.com/500x300'},
+                    {src: 'https://dummyimage.com/501x301'},
+                    {src: 'https://dummyimage.com/600x360'},
+                    {src: 'https://dummyimage.com/601x361'},
+                    {src: 'https://dummyimage.com/502x302'},
+                    {src: 'https://dummyimage.com/503x303'},
+                ],
+                current: 0,
+                prev() { this.current = (this.current === 0) ? this.images.length - 1 : this.current - 1; },
+                next() { this.current = (this.current === this.images.length - 1) ? 0 : this.current + 1; }
+            }" class="relative w-full max-w-8xl h-96 mx-auto">
+                            <div class="overflow-hidden rounded-lg">
+                                <div class="relative w-full h-64 md:h-80 overflow-hidden">
+                                    <template x-for="(img, i) in images" :key="i">
+                                        <img :src="img.src" alt="gallery"
+                                            class="w-3/4 md:w-2/3 h-64 md:h-80 object-cover object-center absolute top-0 transition-transform duration-500"
+                                            :class="{
+                                    // Current image
+                                    'left-1/2 -translate-x-1/2 z-20 opacity-100 scale-100': current === i,
+                                    // Previous image (left, offset)
+                                    'left-0 translate-x-[-30%] z-10 opacity-40 scale-90': (current === 0 ? images.length - 1 : current - 1) === i,
+                                    // Next image (right, offset)
+                                    'right-0 translate-x-[30%] z-10 opacity-40 scale-90': (current === images.length - 1 ? 0 : current + 1) === i,
+                                    // All others
+                                    'opacity-0 scale-90 z-0': (current !== i) && ((current === 0 ? images.length - 1 : current - 1) !== i) && ((current === images.length - 1 ? 0 : current + 1) !== i)
+                                }"
+                                            style="will-change: transform, opacity; pointer-events: none;">
+                                    </template>
+                                </div>
+                            </div>
+                            <!-- Navigation Arrows -->
+                            <button @click="prev" class="absolute left-2 top-1/2 -translate-y-1/2 bg-gray-800 bg-opacity-60 hover:bg-opacity-90 text-white rounded-full p-2 focus:outline-none z-30">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                                </svg>
+                            </button>
+                            <button @click="next" class="absolute right-2 top-1/2 -translate-y-1/2 bg-gray-800 bg-opacity-60 hover:bg-opacity-90 text-white rounded-full p-2 focus:outline-none z-30">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
+                            <!-- Indicators -->
+                            <div class="flex justify-center mt-8 space-x-2">
+                                <template x-for="(img, i) in images" :key="'dot-' + i">
+                                    <button @click="current = i" :class="{'bg-yellow-500': current === i, 'bg-gray-600': current !== i}" class="w-3 h-3 rounded-full focus:outline-none"></button>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     </section>
@@ -95,70 +158,7 @@ use App\Models\Product; ?>
     </section>
     <!-- End Stats Section -->
 
-    <!--featured section-->
-    <section class="text-gray-400 bg-gray-900 py-12 body-font">
-        <div class="container px-5 py-24 mx-auto flex flex-wrap">
-            <div class="flex flex-wrap w-full mb-20">
-                <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
-                    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-white">Recommended by Customers</h1>
-                    <div class="h-1 w-20 bg-yellow-500 rounded"></div>
-                </div>
-                <p class="lg:w-1/2 w-full leading-relaxed text-gray-400 text-opacity-90">
-                    Explore our latest 3D printed creations, from custom prototypes to artistic models. Each project showcases the versatility and quality of our printing technology. Get inspired for your next idea!.
-                </p>
-            </div>
-            <div x-data="{
-                images: [
-                    {src: 'https://dummyimage.com/500x300'},
-                    {src: 'https://dummyimage.com/501x301'},
-                    {src: 'https://dummyimage.com/600x360'},
-                    {src: 'https://dummyimage.com/601x361'},
-                    {src: 'https://dummyimage.com/502x302'},
-                    {src: 'https://dummyimage.com/503x303'},
-                ],
-                current: 0,
-                prev() { this.current = (this.current === 0) ? this.images.length - 1 : this.current - 1; },
-                next() { this.current = (this.current === this.images.length - 1) ? 0 : this.current + 1; }
-            }" class="relative w-full max-w-8xl h-96 mx-auto">
-                <div class="overflow-hidden rounded-lg">
-                    <div class="relative w-full h-64 md:h-80 overflow-hidden">
-                        <template x-for="(img, i) in images" :key="i">
-                            <img :src="img.src" alt="gallery"
-                                class="w-3/4 md:w-2/3 h-64 md:h-80 object-cover object-center absolute top-0 transition-transform duration-500"
-                                :class="{
-                                    // Current image
-                                    'left-1/2 -translate-x-1/2 z-20 opacity-100 scale-100': current === i,
-                                    // Previous image (left, offset)
-                                    'left-0 translate-x-[-30%] z-10 opacity-40 scale-90': (current === 0 ? images.length - 1 : current - 1) === i,
-                                    // Next image (right, offset)
-                                    'right-0 translate-x-[30%] z-10 opacity-40 scale-90': (current === images.length - 1 ? 0 : current + 1) === i,
-                                    // All others
-                                    'opacity-0 scale-90 z-0': (current !== i) && ((current === 0 ? images.length - 1 : current - 1) !== i) && ((current === images.length - 1 ? 0 : current + 1) !== i)
-                                }"
-                                style="will-change: transform, opacity; pointer-events: none;">
-                        </template>
-                    </div>
-                </div>
-                <!-- Navigation Arrows -->
-                <button @click="prev" class="absolute left-2 top-1/2 -translate-y-1/2 bg-gray-800 bg-opacity-60 hover:bg-opacity-90 text-white rounded-full p-2 focus:outline-none z-30">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-                    </svg>
-                </button>
-                <button @click="next" class="absolute right-2 top-1/2 -translate-y-1/2 bg-gray-800 bg-opacity-60 hover:bg-opacity-90 text-white rounded-full p-2 focus:outline-none z-30">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                    </svg>
-                </button>
-                <!-- Indicators -->
-                <div class="flex justify-center mt-8 space-x-2">
-                    <template x-for="(img, i) in images" :key="'dot-' + i">
-                        <button @click="current = i" :class="{'bg-yellow-500': current === i, 'bg-gray-600': current !== i}" class="w-3 h-3 rounded-full focus:outline-none"></button>
-                    </template>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
     <!-- Top Rated Products Section -->
     <section class="text-gray-400 body-font bg-gray-900">
