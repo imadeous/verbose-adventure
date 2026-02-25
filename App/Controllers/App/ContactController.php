@@ -71,12 +71,8 @@ class ContactController extends Controller
                 [742400987, 518941049, 7776430535]
             );
 
-
             $notifier->send($text);
 
-            $status = "Message sent successfully.";
-            Notifier::notify("SUCCESS", "Contact form submitted successfully by: " . $name);
-            // flash('success', 'Your message has been sent!');
             flash('success', 'Your message has been sent!');
             $this->redirect('/contact');
         } catch (Exception $e) {
