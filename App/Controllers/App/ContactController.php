@@ -43,8 +43,6 @@ class ContactController extends Controller
             'message' => $_POST['message'],
         ]);
         $contact->save();
-        flash('success', 'Your message has been sent!');
-        $this->redirect('/contact');
 
         // Send Telegram notification
         try {
@@ -81,11 +79,14 @@ class ContactController extends Controller
             $status = "Message sent successfully.";
             Notifier::notify("SUCCESS", "Contact form submitted successfully by: " . $name);
             // flash('success', 'Your message has been sent!');
+            flash('success', 'Your message has been sent!');
             $this->redirect('/contact');
         } catch (Exception $e) {
             $status = $e->getMessage();
             Notifier::notify("ERROR", "Contact form error: " . $status);
             flash('error', 'There was an error sending your message: ' . $status);
+            $this->redirect('/contact');
         }
+        $this->redirect('/contact');
     }
 }
