@@ -75,7 +75,7 @@ use App\Models\Product; ?>
     <!-- End Hero Section -->
 
     <!-- Stats Section -->
-    <section class="text-gray-400 bg-gray-900 body-font">
+    <section class="text-gray-400 bg-gray-900 body-font mb-8">
         <div class="container px-5 mx-auto">
             <div class="flex flex-col text-center w-full mb-20">
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Why Choose Craftophile?</h1>
