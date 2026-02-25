@@ -50,9 +50,9 @@ class ContactController extends Controller
             $name    = trim($_POST['name'] ?? '');
             $email   = trim($_POST['email'] ?? '');
             $message = trim($_POST['message'] ?? '');
-            // $phone   = trim($_POST['phone'] ?? '');
+            $phone   = trim($_POST['phone'] ?? '');
 
-            if (!$name || !$email || !$message) {
+            if (!$name || !$email || !$phone || !$message) {
                 throw new Exception("All fields are required.");
             }
 
@@ -63,9 +63,7 @@ class ContactController extends Controller
             $text  = "📩 New Contact Submission\n\n";
             $text .= "Name: " . htmlspecialchars($name) . "\n";
             $text .= "Email: " . htmlspecialchars($email) . "\n";
-            // if ($phone) {
-            //     $text .= "Phone: " . htmlspecialchars($phone) . "\n";
-            // }
+            $text .= "Phone: " . htmlspecialchars($phone) . "\n";
             $text .= "Message:\n" . htmlspecialchars($message);
 
             $notifier = new Notifier(
@@ -82,9 +80,8 @@ class ContactController extends Controller
             flash('success', 'Your message has been sent!');
             $this->redirect('/contact');
         } catch (Exception $e) {
-            $status = $e->getMessage();
-            Notifier::notify("ERROR", "Contact form error: " . $status);
-            flash('error', 'There was an error sending your message: ' . $status);
+            Notifier::notify("ERROR", "Contact form error: " . $e->getMessage());
+            flash('error', 'There was an error sending your message: ' . $e->getMessage());
             $this->redirect('/contact');
         }
         $this->redirect('/contact');

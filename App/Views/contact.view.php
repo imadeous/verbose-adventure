@@ -28,6 +28,10 @@
                     <input type="text" id="name" name="name" class="w-full bg-gray-800 rounded border border-gray-700 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
                 </div>
                 <div class="relative mb-4">
+                    <label for="phone" class="leading-7 text-sm text-gray-400">Phone</label>
+                    <input type="text" id="phone" name="phone" class="w-full bg-gray-800 rounded border border-gray-700 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
+                </div>
+                <div class="relative mb-4">
                     <label for="email" class="leading-7 text-sm text-gray-400">Email</label>
                     <input type="email" id="email" name="email" class="w-full bg-gray-800 rounded border border-gray-700 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
                 </div>
