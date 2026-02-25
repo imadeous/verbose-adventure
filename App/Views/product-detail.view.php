@@ -158,6 +158,11 @@
                                         <span class="text-xs text-yellow-400">⚙️ Assembly Required</span>
                                     <?php endif; ?>
                                 </div>
+                                <div class="mt-4 flex justify-between items-center">
+                                    <button class="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600 transition-colors disabled:opacity-50" <?= ($variant['stock_quantity'] ?? 0) > 0 ? '' : 'disabled' ?>>
+                                        Add to Cart
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
