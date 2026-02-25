@@ -6,6 +6,7 @@ use App\Models\Contact;
 use Core\Controller;
 use App\Helpers\Notifier;
 use Exception;
+use CURLFile;
 
 class ContactController extends Controller
 {
@@ -46,17 +47,25 @@ class ContactController extends Controller
         // Send Telegram notification
         try {
 
-            $name = trim($_POST['name'] ?? '');
-            $email = trim($_POST['email'] ?? '');
+            $name    = trim($_POST['name'] ?? '');
+            $email   = trim($_POST['email'] ?? '');
             $message = trim($_POST['message'] ?? '');
+            // $phone   = trim($_POST['phone'] ?? '');
 
             if (!$name || !$email || !$message) {
                 throw new Exception("All fields are required.");
             }
 
-            $text = "Name: " . htmlspecialchars($name) . "\n";
-            $text .= "Email: " . htmlspecialchars($email) . "\n";
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                throw new Exception("Invalid email address.");
+            }
 
+            $text  = "📩 New Contact Submission\n\n";
+            $text .= "Name: " . htmlspecialchars($name) . "\n";
+            $text .= "Email: " . htmlspecialchars($email) . "\n";
+            // if ($phone) {
+            //     $text .= "Phone: " . htmlspecialchars($phone) . "\n";
+            // }
             $text .= "Message:\n" . htmlspecialchars($message);
 
             $notifier = new Notifier(
@@ -65,18 +74,18 @@ class ContactController extends Controller
             );
 
 
-            $notifier::notify(
-                "📩 New Contact Form Submission",
-                $text
-            );
-
+            $notifier->send($text);
 
             $status = "Message sent successfully.";
+            Notifier::notify("SUCCESS", "Contact form submitted successfully by: " . $name);
+            flash('success', 'Your message has been sent!');
         } catch (Exception $e) {
             $status = $e->getMessage();
+            Notifier::notify("ERROR", "Contact form error: " . $status);
+            flash('error', 'There was an error sending your message: ' . $status);
         }
 
-        flash('success', 'Your message has been sent!');
+        // flash('success', 'Your message has been sent!');
         $this->redirect('/contact');
     }
 }
