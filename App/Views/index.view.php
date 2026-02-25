@@ -339,7 +339,7 @@ use App\Models\Product; ?>
     </section>
 
     <!--testimonials section-->
-    <section class="text-gray-400 bg-gray-900 body-font">
+    <section class="text-gray-400 bg-gray-900 body-font hidden">
         <div class="container px-5 py-24 mx-auto">
             <h1 class="text-3xl font-medium title-font text-white mb-12 text-center">Testimonials</h1>
             <div class="flex flex-wrap -m-4">
