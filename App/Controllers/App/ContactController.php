@@ -6,7 +6,7 @@ use App\Models\Contact;
 use Core\Controller;
 use App\Helpers\Notifier;
 use Exception;
-use CURLFile;
+// use CURLFile;
 
 class ContactController extends Controller
 {

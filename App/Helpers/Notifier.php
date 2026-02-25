@@ -133,48 +133,46 @@ class Notifier
      * @param array  $payload
      * @throws Exception
      */
-    private function request(string $endpoint, array $payload): void
+    private function request(string $endpoint, array $params)
     {
-        $url = $this->baseUrl . $endpoint;
+        $url = "https://api.telegram.org/bot{$this->botToken}/{$endpoint}";
 
-        $attempt = 0;
-        $delay   = 1;
+        $attempts = 0;
+        $maxAttempts = 3;
 
-        while ($attempt < $this->maxRetries) {
+        while ($attempts < $maxAttempts) {
 
-            $ch = curl_init($url);
+            $ch = curl_init();
 
             curl_setopt_array($ch, [
-                CURLOPT_POST => true,
-                CURLOPT_POSTFIELDS => $payload,
+                CURLOPT_URL => $url,
                 CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_TIMEOUT => $this->timeout
+                CURLOPT_POST => true,
+                CURLOPT_POSTFIELDS => $params,
+                CURLOPT_TIMEOUT => 10,
             ]);
 
             $response = curl_exec($ch);
-
-            if (curl_errno($ch)) {
-                curl_close($ch);
-                $attempt++;
-                sleep($delay);
-                $delay *= 2; // exponential backoff
-                continue;
-            }
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            $curlError = curl_error($ch);
 
             curl_close($ch);
 
-            $decoded = json_decode($response, true);
-
-            if (!$decoded || !isset($decoded['ok']) || $decoded['ok'] !== true) {
-                $attempt++;
-                sleep($delay);
-                $delay *= 2;
+            if ($response === false) {
+                $attempts++;
                 continue;
             }
 
-            return; // success
+            $decoded = json_decode($response, true);
+
+            // SUCCESS CASE
+            if ($httpCode === 200 && isset($decoded['ok']) && $decoded['ok'] === true) {
+                return true;
+            }
+
+            $attempts++;
         }
 
-        throw new Exception("Telegram API request failed after {$this->maxRetries} attempts.");
+        throw new Exception("Telegram API request failed after {$maxAttempts} attempts.");
     }
 }
