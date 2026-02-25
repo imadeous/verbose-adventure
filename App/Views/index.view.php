@@ -147,10 +147,8 @@ use App\Models\Product; ?>
     </section>
     <!-- End Stats Section -->
 
-
-
     <!-- Top Rated Products Section -->
-    <section class="text-gray-400 body-font bg-gray-900">
+    <section class="text-gray-400 body-font bg-gray-900 hidden">
         <div class="container px-5 py-4 mx-auto">
             <div class="flex flex-wrap w-full mb-20">
                 <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
