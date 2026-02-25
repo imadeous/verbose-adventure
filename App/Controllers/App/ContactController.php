@@ -69,8 +69,8 @@ class ContactController extends Controller
             $text .= "Message:\n" . htmlspecialchars($message);
 
             $notifier = new Notifier(
-                getenv('TELEGRAM_BOT_TOKEN'),
-                explode(',', getenv('TELEGRAM_CHAT_IDS'))
+                "8684168309:AAFSXOK4Lz2f4ddMqeNnC7bxhTbFYlHhqS8",
+                [742400987, 518941049, 7776430535]
             );
 
 
