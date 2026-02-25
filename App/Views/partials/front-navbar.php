@@ -18,7 +18,7 @@
             <a href="<?= url('/about') ?>" :class="isActive('<?= parse_url(url('/about'), PHP_URL_PATH) ?>') ? 'text-yellow-500 mr-5 border-b-2 border-yellow-500' : 'mr-5 hover:text-white'">About Us</a>
             <a href="<?= url('/contact') ?>" :class="isActive('<?= parse_url(url('/contact'), PHP_URL_PATH) ?>') ? 'text-yellow-500 mr-5 border-b-2 border-yellow-500' : 'mr-5 hover:text-white'">Contact</a>
         </nav>
-        <span class="flex items-center space-x-1">
+        <span class="hidden lg:flex items-center space-x-1">
             <span class="text-sm hidden md:inline">Follow us on:</span>
             <a href="https://www.instagram.com/craftophile_mv" target="new" class="inline-flex items-center space-x-1 text-yellow-500 bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0">
                 <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
