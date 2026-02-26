@@ -38,7 +38,7 @@ class TransactionController extends AdminControllerBase
             }
         } else {
             // Default to current month if no date filters
-            $query->where('date', '>=', date('Y-m-01'))
+            $query->where('date', '>=', date('Y-01-01'))
                 ->where('date', '<=', date('Y-m-t'));
         }
 
