@@ -16,6 +16,14 @@
     <div class="mt-8 bg-white rounded-xl shadow-md p-6">
         <div class="flex justify-between items-center">
             <h2 class="text-xl font-semibold text-blue-900 mb-4">Transactions this Month</h2>
+            <div>
+                <ul class="flex justify-between items-center">
+                    <li class="rounded-lg border-2 border-blue-400 px-3 py-2">Full</li>
+                    <li>1 Year</li>
+                    <li>1 Month</li>
+                    <li>1 Week</li>
+                </ul>
+            </div>
             <form action="<?= url('admin/transactions') ?>" method="GET" class="flex items-center">
                 <label for="limit" class="mr-2">Show:</label>
                 <select name="limit" id="limit" class="border border-blue-300 rounded-md p-2" onchange="this.form.submit()">
