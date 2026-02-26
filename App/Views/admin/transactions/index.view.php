@@ -16,17 +16,11 @@
     <div class="mt-8 bg-white rounded-xl shadow-md p-6">
         <div class="flex justify-between items-center">
             <h2 class="text-xl font-semibold text-blue-900 mb-4">Transactions this Month</h2>
-            <div>
-                <ul class="flex justify-between items-center space-x-4 text-sm text-blue-600">
-                    <li class="rounded-lg border-2 border-blue-400 px-2 py-1">ALL</li>
-                    <li class="rounded-lg border-2 border-blue-400 px-2 py-1"><?php echo date('Y', strtotime('last year')); ?></li>
-                    <li class="rounded-lg border-2 border-blue-400 px-2 py-1">YTD</li>
-                    <li class="rounded-lg border-2 border-blue-400 px-2 py-1"><?php echo date('F', strtotime('last month')); ?></li>
-                    <li class="rounded-lg border-2 border-blue-400 px-2 py-1">1M</li>
-                    <li class="rounded-lg border-2 border-blue-400 px-2 py-1">1W</li>
-                </ul>
-            </div>
+
             <form action="<?= url('admin/transactions') ?>" method="GET" class="flex items-center">
+                <input type="date" name="date_from" id="">
+                <input type="date" name="date_to" id="">
+
                 <label for="limit" class="mr-2">Show:</label>
                 <select name="limit" id="limit" class="border border-blue-300 rounded-md p-2" onchange="this.form.submit()">
                     <option value="5" <?= ($paginator->perPage == 5) ? 'selected' : '' ?>>5</option>
