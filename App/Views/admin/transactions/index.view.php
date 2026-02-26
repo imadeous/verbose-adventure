@@ -17,11 +17,12 @@
         <div class="flex justify-between items-center">
             <h2 class="text-xl font-semibold text-blue-900 mb-4">Transactions this Month</h2>
             <div>
-                <ul class="flex justify-between items-center">
-                    <li class="rounded-lg border-2 border-blue-400 px-3 py-2">Full</li>
-                    <li>1 Year</li>
-                    <li>1 Month</li>
-                    <li>1 Week</li>
+                <ul class="flex justify-between items-center space-x-4">
+                    <li class="rounded-lg border-2 border-blue-400 px-2 py-1">ALL</li>
+                    <li class="rounded-lg border-2 border-blue-400 px-2 py-1"><?php echo date('Y', strtotime('last year')); ?></li>
+                    <li class="rounded-lg border-2 border-blue-400 px-2 py-1">YTD</li>
+                    <li class="rounded-lg border-2 border-blue-400 px-2 py-1"><?php echo date('F', strtotime('last month')); ?></li>
+                    <li class="rounded-lg border-2 border-blue-400 px-2 py-1">1 Week</li>
                 </ul>
             </div>
             <form action="<?= url('admin/transactions') ?>" method="GET" class="flex items-center">
