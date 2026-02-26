@@ -13,7 +13,7 @@ class AdminController extends AdminControllerBase
     {
 
         $transactionsChart = ChartBuilder::build('transactions', 'date')
-            ->forPeriod('2025-01-01', '2025-07-31')
+            ->forPeriod(date('Y-01-01'), date('Y-m-d'))
             ->monthly()
             ->where('type', '=', 'income')
             ->withSum('amount', 'Revenue')
