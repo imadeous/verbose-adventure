@@ -18,8 +18,8 @@
             <h2 class="text-xl font-semibold text-blue-900 mb-4">Transactions this Month</h2>
 
             <form action="<?= url('admin/transactions') ?>" method="GET" class="flex items-center">
-                <input type="date" name="date_from" id="" onchange="this.form.submit()" class="border border-blue-300 rounded-md p-2">
-                <input type="date" name="date_to" id="" onchange="this.form.submit()" class="border border-blue-300 rounded-md p-2">
+                <input type="date" name="date_from" id="" onchange="this.form.submit()" class="border border-blue-300 rounded-md p-1">
+                <input type="date" name="date_to" id="" onchange="this.form.submit()" class="border border-blue-300 rounded-md p-1 ml-2">
 
                 <label for="limit" class="mr-2">Show:</label>
                 <select name="limit" id="limit" class="border border-blue-300 rounded-md p-2" onchange="this.form.submit()">
