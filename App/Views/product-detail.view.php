@@ -152,7 +152,7 @@
                                 </div>
                                 <div class="mt-4 flex justify-between items-center">
                                     <span class="text-sm <?= ($variant['stock_quantity'] ?? 0) > 0 ? 'text-green-400' : 'text-red-400' ?>">
-                                        <?= ($variant['stock_quantity'] ?? 0) > 0 ? 'In Stock (' . $variant['stock_quantity'] . ')' : 'Out of Stock' ?>
+                                        <?= ($variant['stock_quantity'] ?? 0) > 0 ? 'In Stock (' . $variant['stock_quantity'] . ')' : 'Print-on-demand' ?>
                                     </span>
                                     <?php if ($variant['assembly_required'] ?? false): ?>
                                         <span class="text-xs text-yellow-400">⚙️ Assembly Required</span>

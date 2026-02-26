@@ -87,15 +87,6 @@ class Transaction extends Model
     }
 
     /**
-     * Get the quote relationship
-     */
-    public function getQuote()
-    {
-        if (!$this->quote_id) return null;
-        return \App\Models\Quote::find($this->quote_id);
-    }
-
-    /**
      * Get the promo code relationship
      */
     public function getPromoCode()
