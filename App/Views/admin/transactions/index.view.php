@@ -18,11 +18,16 @@
             <h2 class="text-xl font-semibold text-blue-900 mb-4">Transactions this Month</h2>
 
             <form action="<?= url('admin/transactions') ?>" method="GET" class="flex items-center">
+                <select name="type" id="" class="border border-blue-300 rounded-md p-1" onchange="this.form.submit()">
+                    <option value="">All Types</option>
+                    <option value="income" <?= (isset($_GET['type']) && $_GET['type'] === 'income') ? 'selected' : '' ?>>Income</option>
+                    <option value="expense" <?= (isset($_GET['type']) && $_GET['type'] === 'expense') ? 'selected' : '' ?>>Expense</option>
+                </select>
                 <input type="date" name="date_from" id="" onchange="this.form.submit()" class="border border-blue-300 rounded-md p-1">
                 <input type="date" name="date_to" id="" onchange="this.form.submit()" class="border border-blue-300 rounded-md p-1 ml-2">
 
                 <label for="limit" class="mr-2">Show:</label>
-                <select name="limit" id="limit" class="border border-blue-300 rounded-md p-2" onchange="this.form.submit()">
+                <select name="limit" id="limit" class="border border-blue-300 rounded-md p-1" onchange="this.form.submit()">
                     <option value="5" <?= ($paginator->perPage == 5) ? 'selected' : '' ?>>5</option>
                     <option value="10" <?= ($paginator->perPage == 10) ? 'selected' : '' ?>>10</option>
                     <option value="25" <?= ($paginator->perPage == 25) ? 'selected' : '' ?>>25</option>
