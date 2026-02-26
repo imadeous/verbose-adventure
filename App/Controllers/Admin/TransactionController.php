@@ -148,7 +148,6 @@ class TransactionController extends AdminControllerBase
     public function createIncome()
     {
         $categories = \App\Models\Category::all();
-        $quotes = \App\Models\Quote::all();
         $promo_codes = [];
 
         $this->view->layout('admin');
@@ -159,7 +158,6 @@ class TransactionController extends AdminControllerBase
         ];
         $this->view('admin/transactions/create-income', [
             'categories' => $categories,
-            'quotes' => $quotes,
             'promo_codes' => $promo_codes,
             'breadcrumb' => $breadcrumbs
         ]);
