@@ -23,6 +23,8 @@
                     <option value="10" <?= ($paginator->perPage == 10) ? 'selected' : '' ?>>10</option>
                     <option value="25" <?= ($paginator->perPage == 25) ? 'selected' : '' ?>>25</option>
                     <option value="50" <?= ($paginator->perPage == 50) ? 'selected' : '' ?>>50</option>
+                    <!-- all -->
+                    <option value="1000" <?= ($paginator->perPage == 1000) ? 'selected' : '' ?>>All</option>
                 </select>
             </form>
         </div>
