@@ -139,11 +139,11 @@ use App\Models\Product; ?>
                         </svg>
                         <h2
                             x-data="{ count: 0 }"
-                            x-init="let target = <?= $totalRevenue ?>; let step = 1; let interval = setInterval(() => { if(count < target) { count += step; if(count > target) count = target; } else { clearInterval(interval); } }, 20);"
+                            x-init="let target = <?= $totalRevenue ?>; let step = Math.ceil(target / 60); let interval = setInterval(() => { if(count < target) { count += step; if(count > target) count = target; } else { clearInterval(interval); } }, 20);"
                             x-text="count.toLocaleString() + '+'"
                             class="title-font font-medium text-3xl text-white">
                         </h2>
-                        <p class="leading-relaxed">Cities Served</p>
+                        <p class="leading-relaxed">Money Made</p>
                     </div>
                 </div>
             </div>
