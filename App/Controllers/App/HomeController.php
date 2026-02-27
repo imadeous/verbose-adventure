@@ -4,6 +4,7 @@ namespace App\Controllers\App;
 
 use Core\Controller;
 use App\Models\Product;
+use App\Models\Transaction;
 
 class HomeController extends Controller
 {
@@ -99,10 +100,19 @@ class HomeController extends Controller
         });
         $bestSellingProducts = array_slice($bestSellingProducts, 0, 4);
 
+        // Unique customers count (where customer_username is not null)
+        $uniqueCustomers = Transaction::query()
+            ->selectRaw('COUNT(DISTINCT customer_username) as count')
+            ->whereNotNull('customer_username')
+            ->where('customer_username', '!=', '')
+            ->count('*');
+
         // Render the view and pass data
         $this->view('index', [
             'topRatedProducts' => $topRatedProducts,
-            'bestSellingProducts' => $bestSellingProducts
+            'bestSellingProducts' => $bestSellingProducts,
+            'uniqueCustomers' => $uniqueCustomers
+
         ]);
     }
 
