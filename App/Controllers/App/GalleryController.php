@@ -178,8 +178,6 @@ class GalleryController extends Controller
         $this->view->layout('app');
         // For simplicity, just show a confirmation page with variant details
         $variant = Variant::find($variantId);
-        var_dump($variant);
-        die();
         if (!$variant) {
             flash('error', 'Variant not found.');
             header('Location: ' . url('/gallery'));
