@@ -10,7 +10,7 @@ $Gallery = Gallery::select(['id', 'related_id', 'image_url'])
     ->get();
 ?>
 <section class="text-gray-400 bg-gray-900 body-font overflow-hidden">
-    <div class="container px-5 py-24 mx-auto">
+    <div class="container px-5 py-16 mx-auto">
         <div class="lg:w-4/5 mx-auto flex flex-wrap">
             <div class="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
                 <h2 class="text-sm title-font text-gray-500 tracking-widest"><?= $variant->sku ?? 'N/A' ?></h2>
