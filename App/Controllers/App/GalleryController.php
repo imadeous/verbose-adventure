@@ -185,7 +185,7 @@ class GalleryController extends Controller
             header('Location: ' . url('/gallery'));
             exit;
         }
-        $this->view('buy');
+        $this->view('buy', ['variant' => $variant]);
     }
 
     public function requestQuote($variantId)
