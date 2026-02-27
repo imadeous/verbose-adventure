@@ -73,11 +73,6 @@ use App\Models\Product; ?>
         </div>
     </section>
     <!-- End Hero Section -->
-    <span class="text-white">
-        <?php
-        var_dump($totalOrders);
-        ?>
-    </span>
 
     <!-- Stats Section -->
     <section class="text-gray-400 bg-gray-900 body-font mb-8">
@@ -126,7 +121,7 @@ use App\Models\Product; ?>
                         </svg>
                         <h2
                             x-data="{ count: 0 }"
-                            x-init="let target = 74; let step = 1; let interval = setInterval(() => { if(count < target) { count += step; if(count > target) count = target; } else { clearInterval(interval); } }, 20);"
+                            x-init="let target = <?= $totalVariants ?>; let step = 1; let interval = setInterval(() => { if(count < target) { count += step; if(count > target) count = target; } else { clearInterval(interval); } }, 20);"
                             x-text="count"
                             class="title-font font-medium text-3xl text-white">
                         </h2>

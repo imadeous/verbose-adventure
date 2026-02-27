@@ -4,6 +4,7 @@ namespace App\Controllers\App;
 
 use Core\Controller;
 use App\Models\Product;
+use App\Models\Variant;
 use App\Models\Transaction;
 
 class HomeController extends Controller
@@ -101,6 +102,7 @@ class HomeController extends Controller
         $bestSellingProducts = array_slice($bestSellingProducts, 0, 4);
 
         $total_orders = (new Transaction)->query()->count('*')[0]['count'] ?? 0;
+        $total_variants = (new Variant)->query()->count('*')[0]['count'] ?? 0;
         // Unique customers count (where customer_username is not null)
         $uniqueCustomers = (new Transaction)->query()
             ->selectRaw('COUNT(DISTINCT customer_username) as count')
@@ -114,7 +116,7 @@ class HomeController extends Controller
             'bestSellingProducts' => $bestSellingProducts,
             'totalOrders' => $total_orders,
             'uniqueCustomers' => $uniqueCustomers,
-
+            'totalVariants' => $total_variants,
         ]);
     }
 
