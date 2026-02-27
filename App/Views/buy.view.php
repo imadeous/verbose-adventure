@@ -33,7 +33,7 @@ $Gallery = Gallery::select(['id', 'related_id', 'image_url'])
                         <?php endif; ?>
                     </span>
                 </div>
-                <div class="flex justify-center border-t border-gray-800 py-2">
+                <div class="flex border-t border-gray-800 py-2">
                     <span class="text-gray-500">Dimensions</span>
                     <span class="flex items-center gap-1">
                         <span class="ml-auto text-white"><?= $variant->dimensions ?? 'N/A' ?></span>
