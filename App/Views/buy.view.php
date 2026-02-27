@@ -16,18 +16,17 @@
                         <?php if (!empty($variant->color)): ?>
                             <span class="px-2 py-1 bg-gray-700 text-gray-300 rounded flex items-center gap-1">
                                 <span class="w-3 h-3 rounded-full" style="background-color: <?= htmlspecialchars($variant->color) ?>"></span>
-                                <?= htmlspecialchars($variant->color) ?>
                             </span>
                         <?php endif; ?>
                     </span>
                 </div>
                 <div class="flex border-t border-gray-800 py-2">
-                    <span class="text-gray-500">Size</span>
-                    <span class="ml-auto text-white"><?= $variant->size ?? 'N/A' ?></span>
+                    <span class="text-gray-500">Dimensions</span>
+                    <span class="ml-auto text-white"><?= $variant->dimensions ?? 'N/A' ?></span>
                 </div>
                 <div class="flex border-t border-b mb-6 border-gray-800 py-2">
                     <span class="text-gray-500">Quantity</span>
-                    <span class="ml-auto text-white"><?= $variant->quantity ?? 'N/A' ?></span>
+                    <span class="ml-auto text-white"><?= $variant->stock_quantity ?? 'N/A' ?></span>
                 </div>
                 <div class="flex">
                     <span class="title-font font-medium text-2xl text-white"><?= $variant->price ?? 'N/A' ?></span>
