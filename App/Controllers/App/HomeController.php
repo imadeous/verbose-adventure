@@ -105,7 +105,7 @@ class HomeController extends Controller
             ->selectRaw('COUNT(DISTINCT customer_username) as count')
             ->whereNotNull('customer_username')
             ->where('customer_username', '!=', '')
-            ->count('*')[1]['count'] ?? 0;
+            ->count('*');
 
         // Render the view and pass data
         $this->view('index', [
