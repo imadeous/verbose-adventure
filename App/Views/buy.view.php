@@ -61,7 +61,7 @@ $Gallery = Gallery::select(['id', 'related_id', 'image_url'])
 </section>
 
 <section class="text-gray-400 bg-gray-900 body-font relative">
-    <div class="container px-5 py-12 mx-auto">
+    <div class="container px-5 py-8 mx-auto">
         <div class="flex flex-col text-center w-full mb-12">
             <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Fill in your details</h1>
             <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical gentrify.</p>
