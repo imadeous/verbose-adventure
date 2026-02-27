@@ -5,9 +5,9 @@
                 <h2 class="text-sm title-font text-gray-500 tracking-widest">BRAND NAME</h2>
                 <h1 class="text-white text-3xl title-font font-medium mb-4">Animated Night Hill Illustrations</h1>
                 <div class="flex mb-4">
-                    <a class="flex-grow text-yellow-400 border-b-2 border-yellow-500 py-2 text-lg px-1">Description</a>
-                    <a class="flex-grow border-b-2 border-gray-800 py-2 text-lg px-1">Reviews</a>
-                    <a class="flex-grow border-b-2 border-gray-800 py-2 text-lg px-1">Details</a>
+                    <a class="grow text-yellow-400 border-b-2 border-yellow-500 py-2 text-lg px-1">Description</a>
+                    <a class="grow border-b-2 border-gray-800 py-2 text-lg px-1">Reviews</a>
+                    <a class="grow border-b-2 border-gray-800 py-2 text-lg px-1">Details</a>
                 </div>
                 <p class="leading-relaxed mb-4">Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia microdosing tilde DIY. XOXO fam iligo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean.</p>
                 <div class="flex border-t border-gray-800 py-2">
