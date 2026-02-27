@@ -44,15 +44,32 @@ $product = Product::find($variant->product_id);
                     </button>
                 </div>
             </div>
-            <?php if (!empty($variant->image)): ?>
-                <div class="h-48 overflow-hidden">
-                    <img src="<?= htmlspecialchars($variant->image) ?>"
-                        alt="<?= htmlspecialchars($variant->sku ?? 'Variant') ?>"
-                        class="w-full h-full object-cover">
+            <div class="lg:w-1/2 w-full" x-data='<?php
+                                                    echo json_encode([
+                                                        "currentImage" => 0,
+                                                        "images" => array_map(function ($img) {
+                                                            return $img["image_url"];
+                                                        }, $images)
+                                                    ], JSON_HEX_APOS | JSON_HEX_QUOT);
+                                                    ?>'>
+                <!-- Main Image -->
+                <div class="relative h-96 rounded-lg overflow-hidden mb-4">
+                    <?php if (!empty($images)): ?>
+                        <template x-for="(image, index) in images" :key="index">
+                            <img
+                                x-show="currentImage === index"
+                                x-transition
+                                :alt="'<?= htmlspecialchars($product->name ?? 'Product') ?> - Image ' + (index + 1)"
+                                class="w-full h-full object-cover object-center absolute inset-0"
+                                :src="image">
+                        </template>
+                    <?php else: ?>
+                        <img alt="<?= htmlspecialchars($product->name ?? 'Product') ?>"
+                            class="w-full h-full object-cover object-center"
+                            src="https://dummyimage.com/600x400/1f2937/9ca3af?text=No+Image">
+                    <?php endif; ?>
                 </div>
-            <?php else: ?>
-                <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400">
-            <?php endif; ?>
+            </div>
         </div>
     </div>
 </section>
