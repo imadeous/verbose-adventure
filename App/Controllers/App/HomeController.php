@@ -102,7 +102,6 @@ class HomeController extends Controller
         });
         $bestSellingProducts = array_slice($bestSellingProducts, 0, 4);
 
-        $total_orders = (new Transaction)->query()->count('*')[0]['count'] ?? 0;
         $total_variants = (new Variant)->query()->count('*')[0]['count'] ?? 0;
         $total_revenue = ReportBuilder::build('transactions')
             ->withSum('amount', 'Total Amount')
@@ -122,10 +121,10 @@ class HomeController extends Controller
         $this->view('index', [
             'topRatedProducts' => $topRatedProducts,
             'bestSellingProducts' => $bestSellingProducts,
-            'totalOrders' => $total_orders,
+            'totalOrders' => $total_revenue['Total Orders'] ?? 0,
             'uniqueCustomers' => $uniqueCustomers,
             'totalVariants' => $total_variants,
-            'totalRevenue' => $total_revenue,
+            'totalRevenue' => $total_revenue['Total Amount'] ?? 0,
         ]);
     }
 
