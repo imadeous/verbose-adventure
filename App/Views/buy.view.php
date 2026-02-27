@@ -1,6 +1,3 @@
-<?php
-var_dump($variant);
-?>
 <section class="text-gray-400 bg-gray-900 body-font overflow-hidden">
     <div class="container px-5 py-24 mx-auto">
         <div class="lg:w-4/5 mx-auto flex flex-wrap">
@@ -14,7 +11,7 @@ var_dump($variant);
                 </div>
                 <p class="leading-relaxed mb-4">Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia microdosing tilde DIY. XOXO fam iligo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean.</p>
                 <div class="flex border-t border-gray-800 py-2">
-                    <span class="text-gray-500">Color</span>
+                    <span class="text-gray-500"><?= $variant->color ?? 'N/A' ?></span>
                     <span class="ml-auto text-white">Blue</span>
                 </div>
                 <div class="flex border-t border-gray-800 py-2">
