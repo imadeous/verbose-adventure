@@ -13,7 +13,7 @@
                     <h2 class="title-font font-semibold text-white tracking-widest text-xs">EMAIL</h2>
                     <a href="mailto:hello@craftophile.com" class="text-yellow-400 leading-relaxed">hello@craftophile.com</a>
                     <h2 class="title-font font-semibold text-white tracking-widest text-xs mt-4">PHONE</h2>
-                    <p class="leading-relaxed">(960) 980-0303</p>
+                    <p class="leading-relaxed">(960) 760-0657</p>
                 </div>
             </div>
         </div>
