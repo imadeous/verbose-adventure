@@ -11,16 +11,16 @@
                 </div>
                 <p class="leading-relaxed mb-4">Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia microdosing tilde DIY. XOXO fam iligo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean.</p>
                 <div class="flex border-t border-gray-800 py-2">
-                    <span class="text-gray-500"><?= $variant->color ?? 'N/A' ?></span>
-                    <span class="ml-auto text-white">Blue</span>
+                    <span class="text-gray-500">Color</span>
+                    <span class="ml-auto text-white"><?= $variant->color ?? 'N/A' ?></span>
                 </div>
                 <div class="flex border-t border-gray-800 py-2">
                     <span class="text-gray-500">Size</span>
-                    <span class="ml-auto text-white">Medium</span>
+                    <span class="ml-auto text-white"><?= $variant->size ?? 'N/A' ?></span>
                 </div>
                 <div class="flex border-t border-b mb-6 border-gray-800 py-2">
                     <span class="text-gray-500">Quantity</span>
-                    <span class="ml-auto text-white">4</span>
+                    <span class="ml-auto text-white"><?= $variant->quantity ?? 'N/A' ?></span>
                 </div>
                 <div class="flex">
                     <span class="title-font font-medium text-2xl text-white">$58.00</span>
