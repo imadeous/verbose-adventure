@@ -50,8 +50,10 @@ $Gallery = Gallery::select(['id', 'related_id', 'image_url'])
                 </div>
             </div>
             <?php
-            var_dump($Gallery);
-            die();
+            foreach ($Gallery as $image) {
+                $imageUrl = '/' . $image['image_url'];
+                echo '<img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="' . $imageUrl . '">';
+            }
             ?>
             <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400">
         </div>
