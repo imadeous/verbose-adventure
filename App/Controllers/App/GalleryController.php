@@ -191,7 +191,7 @@ class GalleryController extends Controller
         $this->view->layout('app');
         // For simplicity, just show a quote request page with variant details
         $variant = Product::getVariant($variantId);
-        $variant->product_name = Product::find($variant->product_id)->name ?? 'Unknown Product';
+        $variant->product_name = $variant->getProduct()->name ?? 'Product Name';
         if (!$variant) {
             flash('error', 'Variant not found.');
             header('Location: ' . url('/gallery'));
