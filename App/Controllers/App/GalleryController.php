@@ -171,4 +171,32 @@ class GalleryController extends Controller
             'relatedProducts' => $relatedProducts,
         ]);
     }
+
+    public function buy($variantId)
+    {
+        var_dump($variantId);
+        die();
+        $this->view->layout('app');
+        // For simplicity, just show a confirmation page with variant details
+        $variant = Product::getVariant($variantId);
+        if (!$variant) {
+            flash('error', 'Variant not found.');
+            header('Location: ' . url('/gallery'));
+            exit;
+        }
+        $this->view('buy', ['variant' => $variant]);
+    }
+
+    public function requestQuote($variantId)
+    {
+        $this->view->layout('app');
+        // For simplicity, just show a quote request page with variant details
+        $variant = Product::getVariant($variantId);
+        if (!$variant) {
+            flash('error', 'Variant not found.');
+            header('Location: ' . url('/gallery'));
+            exit;
+        }
+        $this->view('request-quote', ['variant' => $variant]);
+    }
 }
