@@ -3,7 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Models\User;
-
+use App\Helpers\Notifier;
 
 use Core\AdminControllerBase;
 
