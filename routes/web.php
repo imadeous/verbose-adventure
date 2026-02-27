@@ -45,8 +45,8 @@ $router->post('/contact', [ContactController::class, 'store']);
 // Public product detail route (must be last to avoid catching other routes)
 $router->get('/product/{id}', [GalleryController::class, 'show']);
 //Order placement routes
-$router->get('/buy', [GalleryController::class, 'buy']);
-$router->get('/request/{variantId}', [GalleryController::class, 'requestQuote']);
+$router->get('product/{variantId}/buy', [GalleryController::class, 'buy']);
+$router->get('product/{variantId}/request-quote', [GalleryController::class, 'requestQuote']);
 $router->post('/order', [GalleryController::class, 'placeOrder']);
 
 // Static pages

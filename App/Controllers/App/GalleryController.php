@@ -172,16 +172,16 @@ class GalleryController extends Controller
         ]);
     }
 
-    public function buy()
+    public function buy($variantId)
     {
         $this->view->layout('app');
-        // // For simplicity, just show a confirmation page with variant details
-        // $variant = Product::getVariant($variantId);
-        // if (!$variant) {
-        //     flash('error', 'Variant not found.');
-        //     header('Location: ' . url('/gallery'));
-        //     exit;
-        // }
+        // For simplicity, just show a confirmation page with variant details
+        $variant = Product::getVariant($variantId);
+        if (!$variant) {
+            flash('error', 'Variant not found.');
+            header('Location: ' . url('/gallery'));
+            exit;
+        }
         $this->view('buy');
     }
 

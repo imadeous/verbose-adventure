@@ -159,7 +159,7 @@
                                     <?php endif; ?>
                                 </div>
                                 <div class="mt-4 flex justify-end items-center">
-                                    <a href="buy.php" class="px-2 py-1 <?= ($variant['stock_quantity'] ?? 0) > 0 ? 'bg-yellow-500' : 'bg-indigo-700' ?> text-sm text-white rounded hover:bg-indigo-600 transition-colors disabled:opacity-50">
+                                    <a href="<?= ($variant['stock_quantity'] ?? 0) > 0 ? url('product/' . $variant['id'] . '/buy') : url('product/' . $variant['id'] . '/request-quote') ?>" class="px-2 py-1 <?= ($variant['stock_quantity'] ?? 0) > 0 ? 'bg-yellow-500' : 'bg-indigo-700' ?> text-sm text-white rounded hover:bg-indigo-600 transition-colors disabled:opacity-50">
                                         <?= ($variant['stock_quantity'] ?? 0) > 0 ? 'Buy Now' : 'Request' ?>
                                     </a>
                                 </div>
