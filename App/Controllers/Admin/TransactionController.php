@@ -6,6 +6,8 @@ use App\Helpers\Paginator;
 use App\Models\Transaction;
 use Core\AdminControllerBase;
 use Core\Database\ReportBuilder;
+use App\Helpers\Notifier;
+use Exception;
 
 class TransactionController extends AdminControllerBase
 {
@@ -230,9 +232,17 @@ class TransactionController extends AdminControllerBase
         if ($newId) {
             flash('success', 'Income transaction created successfully. ID: ' . $newId);
             $this->redirect('/admin/transactions');
+            Notifier::notify(
+                'SUCCESS',
+                "New income transaction created. ID: $newId, Amount: {$data['amount']}"
+            );
         } else {
             flash('error', 'Failed to create income transaction. Please try again.');
             $this->redirect('/admin/transactions/income/create');
+            Notifier::notify(
+                'ERROR',
+                "Failed to create income transaction. Amount: {$data['amount']}"
+            );
         }
     }
 
@@ -266,9 +276,17 @@ class TransactionController extends AdminControllerBase
         if ($newId) {
             flash('success', 'Expense transaction created successfully. ID: ' . $newId);
             $this->redirect('/admin/transactions');
+            Notifier::notify(
+                'SUCCESS',
+                "New expense transaction created. ID: $newId, Amount: {$data['amount']}"
+            );
         } else {
             flash('error', 'Failed to create expense transaction. Please try again.');
             $this->redirect('/admin/transactions/expense/create');
+            Notifier::notify(
+                'ERROR',
+                "Failed to create expense transaction. Amount: {$data['amount']}"
+            );
         }
     }
 
@@ -350,9 +368,17 @@ class TransactionController extends AdminControllerBase
         if ($transaction->update()) {
             flash('success', 'Transaction updated successfully.');
             $this->redirect('/admin/transactions');
+            Notifier::notify(
+                'SUCCESS',
+                "Transaction updated successfully. ID: $id, Amount: {$data['amount']}"
+            );
         } else {
             flash('error', 'Failed to update transaction. Please try again.');
             $this->redirect('/admin/transactions/' . $id . '/edit');
+            Notifier::notify(
+                'ERROR',
+                "Failed to update transaction. ID: $id, Amount: {$data['amount']}"
+            );
         }
     }
     public function destroy($id)
@@ -366,8 +392,16 @@ class TransactionController extends AdminControllerBase
 
         if ($transaction->delete()) {
             flash('success', 'Transaction deleted successfully.');
+            Notifier::notify(
+                'SUCCESS',
+                "Transaction deleted successfully. ID: $id"
+            );
         } else {
             flash('error', 'Failed to delete transaction. Please try again.');
+            Notifier::notify(
+                'ERROR',
+                "Failed to delete transaction. ID: $id"
+            );
         }
         $this->redirect('/admin/transactions');
     }
