@@ -5,7 +5,6 @@ namespace App\Controllers\App;
 use Core\Controller;
 use App\Models\Product;
 use App\Models\Gallery;
-use FontLib\Table\Type\head;
 
 class GalleryController extends Controller
 {

@@ -15,7 +15,6 @@
 use App\Controllers\AuthController;
 
 use App\Controllers\App\HomeController;
-use App\Controllers\App\QuotesController;
 use App\Controllers\App\ContactController;
 use App\Controllers\App\GalleryController;
 
@@ -24,7 +23,6 @@ use App\Controllers\Admin\UserController as AdminUserController;
 use App\Controllers\Admin\ContactController as AdminContactController;
 use App\Controllers\Admin\ReviewsController as AdminReviewsController;
 use App\Controllers\Admin\ProductsController as AdminProductsController;
-use App\Controllers\Admin\QuotesController as AdminQuotesController;
 use App\Controllers\Admin\CategoriesController as AdminCategoriesController;
 use App\Controllers\Admin\TransactionController as AdminTransactionController;
 use App\Controllers\Admin\GalleryController as AdminGalleryController;
@@ -41,14 +39,21 @@ $router->get('/', [HomeController::class, 'index']);
 // Public routes
 // Public gallery route
 $router->get('/gallery', [GalleryController::class, 'index']);
-// Public quote routes
-$router->get('/quote', [QuotesController::class, 'index']);
-$router->post('/quote', [QuotesController::class, 'store']);
 // Public contact routes
 $router->get('/contact', [ContactController::class, 'index']);
 $router->post('/contact', [ContactController::class, 'store']);
 // Public product detail route (must be last to avoid catching other routes)
 $router->get('/product/{id}', [GalleryController::class, 'show']);
+//Order placement routes
+$router->get('/buy/{variantId}', [GalleryController::class, 'buy']);
+$router->get('/request/{variantId}', [GalleryController::class, 'requestQuote']);
+$router->post('/order', [GalleryController::class, 'placeOrder']);
+
+// Static pages
+$router->get('/about', [HomeController::class, 'about']);
+$router->get('/terms', [HomeController::class, 'terms']);
+$router->get('/privacy', [HomeController::class, 'privacy']);
+
 
 // Admin routes (protected by AuthMiddleware) => Login required
 $router->middleware([AuthMiddleware::class], function ($router) {
@@ -58,8 +63,6 @@ $router->middleware([AuthMiddleware::class], function ($router) {
     $router->resource('/admin/users', AdminUserController::class)
         ->middleware(RoleMiddleware::class, ['create', 'store', 'destroy']);
     $router->resource('/admin/contacts', AdminContactController::class);
-    $router->resource('/admin/quotes', AdminQuotesController::class);
-    $router->post('/admin/quotes/bulk-action', [AdminQuotesController::class, 'bulkAction']);
     $router->resource('/admin/reviews', AdminReviewsController::class);
     $router->resource('/admin/products', AdminProductsController::class);
     $router->resource('/admin/transactions', AdminTransactionController::class);

@@ -106,49 +106,30 @@ class HomeController extends Controller
         ]);
     }
 
-    public function test()
+    public function buy($variantId)
     {
-        // Set the layout (optional)
-        $this->view->layout('app'); // uses App/Views/layouts/app.php
-
-        // Render the view and pass data
-        $this->view('test', [
-            'message' => 'Welcome to your new MVC app!',
-            'username' => 'imadeous'
-        ]);
+        // For simplicity, just show a confirmation page with variant details
+        $variant = Product::getVariant($variantId);
+        if (!$variant) {
+            flash('error', 'Variant not found.');
+            header('Location: ' . url('/gallery'));
+            exit;
+        }
+        $this->view('buy', ['variant' => $variant]);
     }
-    /**
-     * Show the public events index page
-     */
 
-    // public function indexEvents()
-    // {
-    //     $this->view->layout('app');
-    //     // Fetch events from the database
-    //     // $events = Event::all();
-    //     // Optionally, you could sort or filter by start_date/end_date here
-    //     // Example: Sort events by start_date ascending
-    //     usort($events, function ($a, $b) {
-    //         return strtotime($a->start_date) <=> strtotime($b->start_date);
-    //     });
-    //     $this->view('events/index', [
-    //         'events' => $events,
-    //         'title' => 'Upcoming Events',
-    //     ]);
-    // }
-
-    /**
-     * Show a single event by ID
-     */
-    public function showEvent($id)
+    public function requestQuote($variantId)
     {
-        $this->view->layout('app');
-        // $event = \App\Models\Event::find($id);
-        $this->view('events/show', [
-            // 'event' => $event,
-            // 'title' => $event ? $event->title : 'Event Not Found',
-        ]);
+        // For simplicity, just show a quote request page with variant details
+        $variant = Product::getVariant($variantId);
+        if (!$variant) {
+            flash('error', 'Variant not found.');
+            header('Location: ' . url('/gallery'));
+            exit;
+        }
+        $this->view('request-quote', ['variant' => $variant]);
     }
+
 
     /**
      * Show a generic page by title

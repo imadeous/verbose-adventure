@@ -90,6 +90,11 @@ class Product extends Model
         return Variant::getByProduct($id);
     }
 
+    public static function getVariant($id)
+    {
+        return Variant::find($id);
+    }
+
     /**
      * Get the price range for this product based on variants
      */
