@@ -44,6 +44,12 @@ class ContactController extends Controller
         ]);
         $contact->save();
 
+        var_dump(
+            getenv('TELEGRAM_BOT_TOKEN'),
+            [getenv('TELEGRAM_CHAT_ID')]
+        );
+        die();
+
         // Send Telegram notification
         try {
 
