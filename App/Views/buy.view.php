@@ -45,6 +45,12 @@ $Gallery = Gallery::select(['id', 'related_id', 'image_url'])
                         <?= $variant->weight . 'g' ?? 'N/A' ?>
                     </span>
                 </div>
+                <div class="flex border-t border-gray-800 py-2">
+                    <span class="text-gray-500">Production Time</span>
+                    <span class="ml-auto text-white">
+                        2 Weeks
+                    </span>
+                </div>
                 <div class="flex border-t border-b mb-6 border-gray-800 py-2">
                     <span class="text-gray-500">Available Stock</span>
                     <span class="ml-auto text-white"><?= $variant->stock_quantity ?? 'N/A' ?></span>
