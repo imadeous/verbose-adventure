@@ -7,7 +7,7 @@
                 <circle cx="24" cy="16" r="7" fill="#fff" />
                 <circle cx="26" cy="16" r="7" fill="#007E3A" />
             </svg>
-            <span class="ml-1 text-lg">100% Maldivian </span>
+            <span class="ml-1 text-lg text-gray-400">100% Maldivian </span>
         </a>
         <p class="text-sm text-gray-400 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4">&copy;<?= date('Y') ?>
             <a href="https://www.instagram.com/imadeous.exe" class="text-gray-500 ml-1" target="_blank" rel="noopener noreferrer">@Developed by Imadeous</a>
