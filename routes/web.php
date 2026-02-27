@@ -49,11 +49,6 @@ $router->get('product/{variantId}/buy', [GalleryController::class, 'buy']);
 $router->get('product/{variantId}/request-quote', [GalleryController::class, 'requestQuote']);
 $router->post('/order', [GalleryController::class, 'placeOrder']);
 
-// Static pages
-$router->get('/about', [HomeController::class, 'about']);
-$router->get('/terms', [HomeController::class, 'terms']);
-$router->get('/privacy', [HomeController::class, 'privacy']);
-
 
 // Admin routes (protected by AuthMiddleware) => Login required
 $router->middleware([AuthMiddleware::class], function ($router) {
