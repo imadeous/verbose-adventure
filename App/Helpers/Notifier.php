@@ -100,6 +100,9 @@ class Notifier
         $botToken = getenv('TELEGRAM_BOT_TOKEN');
         $chatIds  = explode(',', getenv('TELEGRAM_CHAT_IDS'));
 
+        var_dump($botToken, $chatIds);
+        die();
+
         $instance = new self($botToken, $chatIds);
 
         // Default emoji by status
