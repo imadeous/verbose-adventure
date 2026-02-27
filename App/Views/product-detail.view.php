@@ -159,9 +159,9 @@
                                     <?php endif; ?>
                                 </div>
                                 <div class="mt-4 flex justify-end items-center">
-                                    <button class="px-2 py-1 <?= ($variant['stock_quantity'] ?? 0) > 0 ? 'bg-yellow-500' : 'bg-indigo-700' ?> text-sm text-white rounded hover:bg-indigo-600 transition-colors disabled:opacity-50">
+                                    <a href="<?= ($variant['stock_quantity'] ?? 0) > 0 ? url('/buy/' . $variant['id']) : url('/request/' . $variant['id']) ?>" class="px-2 py-1 <?= ($variant['stock_quantity'] ?? 0) > 0 ? 'bg-yellow-500' : 'bg-indigo-700' ?> text-sm text-white rounded hover:bg-indigo-600 transition-colors disabled:opacity-50">
                                         <?= ($variant['stock_quantity'] ?? 0) > 0 ? 'Buy Now' : 'Request' ?>
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
