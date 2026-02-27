@@ -6,6 +6,7 @@ use Core\Controller;
 use App\Models\Product;
 use App\Models\Variant;
 use App\Models\Transaction;
+use Core\Database\ReportBuilder;
 
 class HomeController extends Controller
 {
@@ -103,7 +104,13 @@ class HomeController extends Controller
 
         $total_orders = (new Transaction)->query()->count('*')[0]['count'] ?? 0;
         $total_variants = (new Variant)->query()->count('*')[0]['count'] ?? 0;
-        $total_revenue = (new Transaction)->query()->selectRaw('SUM(total_amount) as total')->get()[0]['total'] ?? 0;
+        $total_revenue = ReportBuilder::build('transactions')
+            ->withSum('amount', 'Total Amount')
+            ->where('type', '=', 'income')
+            ->withCount('*', 'Total Orders')
+            ->generate()['data'][0] ?? [];
+
+
         // Unique customers count (where customer_username is not null)
         $uniqueCustomers = (new Transaction)->query()
             ->selectRaw('COUNT(DISTINCT customer_username) as count')
