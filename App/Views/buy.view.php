@@ -35,10 +35,12 @@ $Gallery = Gallery::select(['id', 'related_id', 'image_url'])
                 </div>
                 <div class="flex border-t border-gray-800 py-2">
                     <span class="text-gray-500">Dimensions</span>
-                    <span class="flex items-center gap-1">
-                        <span class="ml-auto text-white"><?= $variant->dimensions ?? 'N/A' ?></span>
-                        <span>|</span>
-                        <span class="ml-auto text-white"><?= $variant->weight . 'g' ?? 'N/A' ?></span>
+                    <span class="ml-auto text-white">
+                        <span class="flex items-center gap-1">
+                            <span><?= $variant->dimensions ?? 'N/A' ?></span>
+                            <span>|</span>
+                            <span><?= $variant->weight . 'g' ?? 'N/A' ?></span>
+                        </span>
                     </span>
                 </div>
                 <div class="flex border-t border-b mb-6 border-gray-800 py-2">
