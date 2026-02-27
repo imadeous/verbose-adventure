@@ -73,7 +73,11 @@ use App\Models\Product; ?>
         </div>
     </section>
     <!-- End Hero Section -->
-
+    <span>
+        <?php
+        var_dump($total_revenue);
+        ?>
+    </span>
     <!-- Stats Section -->
     <section class="text-gray-400 bg-gray-900 body-font mb-8">
         <div class="container px-5 mx-auto">
