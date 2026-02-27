@@ -59,7 +59,7 @@ class AuthController extends Controller
                 flash('success', 'Welcome back!');
                 Notifier::notify(
                     'SUCCESS',
-                    "User " . Auth::user()->username . " logged in successfully."
+                    Auth::user()->username . " logged in successfully."
                 );
                 header('Location: ' . url('admin'));
                 exit;
@@ -91,10 +91,11 @@ class AuthController extends Controller
                 exit;
             }
         }
+        $username = Auth::user()->username ?? 'unknown';
         Auth::logout();
         Notifier::notify(
             'INFO',
-            "User " . (Auth::user()->username ?? 'unknown') . " logged out successfully."
+            $username . " logged out successfully."
         );
         header('Location: ' . url('login'));
         exit;
