@@ -27,6 +27,7 @@ $Gallery = Gallery::select(['id', 'related_id', 'image_url'])
                             <span class="px-2 py-1 bg-gray-700 text-gray-300 rounded flex items-center gap-1">
                                 <span class="w-3 h-3 rounded-full" style="background-color: <?= htmlspecialchars($variant->color) ?>"></span>
                                 <span><?= $variant->finishing ?? 'N/A' ?></span>
+                                <span><?= $variant->material ?? 'N/A' ?></span>
                             </span>
                         <?php endif; ?>
                     </span>
