@@ -12,6 +12,7 @@ class ErrorController extends Controller
     public function notFound()
     {
         http_response_code(404);
+        Notifier::notify('ERROR', "Page Not Found: " . $_SERVER['REQUEST_URI']);
         $this->view->layout('app'); // uses App/Views/layouts/app.php
         $this->view('404', [
             'title' => 'Page Not Found',
