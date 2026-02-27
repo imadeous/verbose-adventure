@@ -5,8 +5,8 @@ use App\Models\Gallery;
 
 $product = Product::find($variant->product_id);
 $Gallery = Gallery::select(['id', 'related_id', 'image_url'])
-    ->where('related_id', '=', $product->id)
-    ->andWhere('image_type', '=', 'product')
+    ->where('related_id', '=', $variant->id)
+    ->andWhere('image_type', '=', 'variant')
     ->get();
 ?>
 <section class="text-gray-400 bg-gray-900 body-font overflow-hidden">
