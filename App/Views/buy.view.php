@@ -44,17 +44,17 @@ $product = Product::find($variant->product_id);
                     </button>
                 </div>
             </div>
-            <?php if (!empty($variant['image'])): ?>
+            <?php if (!empty($variant->image)): ?>
                 <div class="h-48 overflow-hidden">
-                    <img src="<?= htmlspecialchars($variant['image']) ?>"
-                        alt="<?= htmlspecialchars($variant['sku'] ?? 'Variant') ?>"
+                    <img src="<?= htmlspecialchars($variant->image) ?>"
+                        alt="<?= htmlspecialchars($variant->sku ?? 'Variant') ?>"
                         class="w-full h-full object-cover">
                 </div>
             <?php endif; ?>
-            <?php if (!empty($variant['color'])): ?>
+            <?php if (!empty($variant->color)): ?>
                 <div class="mt-2">
                     <span class="text-gray-500">Color:</span>
-                    <span class="inline-block w-4 h-4 rounded-full" style="background-color: <?= htmlspecialchars($variant['color']) ?>"></span>
+                    <span class="inline-block w-4 h-4 rounded-full" style="background-color: <?= htmlspecialchars($variant->color) ?>"></span>
                 </div>
             <?php endif; ?>
         </div>
