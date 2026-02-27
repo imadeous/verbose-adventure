@@ -103,6 +103,7 @@ class HomeController extends Controller
 
         $total_orders = (new Transaction)->query()->count('*')[0]['count'] ?? 0;
         $total_variants = (new Variant)->query()->count('*')[0]['count'] ?? 0;
+        $total_revenue = (new Transaction)->query()->selectRaw('SUM(total_amount) as total')->get()[0]['total'] ?? 0;
         // Unique customers count (where customer_username is not null)
         $uniqueCustomers = (new Transaction)->query()
             ->selectRaw('COUNT(DISTINCT customer_username) as count')
@@ -117,6 +118,7 @@ class HomeController extends Controller
             'totalOrders' => $total_orders,
             'uniqueCustomers' => $uniqueCustomers,
             'totalVariants' => $total_variants,
+            'totalRevenue' => $total_revenue,
         ]);
     }
 
