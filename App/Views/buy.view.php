@@ -70,20 +70,32 @@ $Gallery = Gallery::select(['id', 'related_id', 'image_url'])
             <div class="flex flex-wrap -m-2">
                 <div class="p-2 w-full">
                     <div class="relative">
-                        <label for="name" class="leading-7 text-sm text-gray-400">Name</label>
+                        <label for="name" class="leading-7 text-sm text-gray-400">Full Name</label>
                         <input type="text" id="name" name="name" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                     </div>
                 </div>
                 <div class="p-2 w-full">
                     <div class="relative">
-                        <label for="phone" class="leading-7 text-sm text-gray-400">Phone</label>
+                        <label for="phone" class="leading-7 text-sm text-gray-400">Phone Number</label>
                         <input type="text" id="phone" name="phone" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                     </div>
                 </div>
                 <div class="p-2 w-full">
                     <div class="relative">
-                        <label for="email" class="leading-7 text-sm text-gray-400">Email (optional)</label>
-                        <input type="email" id="email" name="email" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                        <label for="platform" class="leading-7 text-sm text-gray-400">Social Media</label>
+                        <select type="text" id="platform" name="platform" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <option value="">Select Platform</option>
+                            <option value="facebook">Facebook</option>
+                            <option value="instagram">Instagram</option>
+                            <option value="twitter">Twitter</option>
+                            <option value="linkedin">LinkedIn</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="p-2 w-full">
+                    <div class="relative">
+                        <label for="username" class="leading-7 text-sm text-gray-400">Username</label>
+                        <input type="text" id="username" name="username" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-yellow-500 focus:bg-gray-900 focus:ring-2 focus:ring-yellow-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                     </div>
                 </div>
                 <div class="p-2 w-full">
