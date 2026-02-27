@@ -16,6 +16,9 @@ class Db
             $username = getenv('DB_USERNAME');
             $password = getenv('DB_PASSWORD');
 
+            var_dump(getenv('TELEGRAM_BOT_TOKEN'), getenv('TELEGRAM_CHAT_IDS'));
+            die();
+
             $dsn = sprintf('mysql:host=%s;dbname=%s;charset=utf8mb4', $host, $database);
             self::$instance = new PDO($dsn, $username, $password, [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
