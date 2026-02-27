@@ -172,7 +172,7 @@ class GalleryController extends Controller
         ]);
     }
 
-    public function buy($variantId)
+    public function buy()
     {
         $this->view->layout('app');
         // // For simplicity, just show a confirmation page with variant details
