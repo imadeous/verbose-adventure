@@ -2,7 +2,6 @@
 
 use App\Models\Product;
 use App\Models\Gallery;
-use App\Models\Variant;
 
 $product = Product::find($variant->product_id);
 $Gallery = Gallery::select('product_id', 'image_url')
