@@ -1,6 +1,5 @@
 <?php
 var_dump($variant);
-die();
 ?>
 <section class="text-gray-400 bg-gray-900 body-font overflow-hidden">
     <div class="container px-5 py-24 mx-auto">
