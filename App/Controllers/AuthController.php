@@ -56,6 +56,11 @@ class AuthController extends Controller
             // Security: password_verify only
             if ($user && password_verify($password, $user->password)) {
                 Auth::login($user->id);
+                $_SESSION['user'] = [
+                    'id' => $user->id,
+                    'email' => $user->email,
+                    'name' => $user->name,
+                ];
                 flash('success', 'Welcome back!');
                 Notifier::notify(
                     'SUCCESS',
