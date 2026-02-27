@@ -56,15 +56,10 @@ class AuthController extends Controller
             // Security: password_verify only
             if ($user && password_verify($password, $user->password)) {
                 Auth::login($user->id);
-                $_SESSION['user'] = [
-                    'id' => $user->id,
-                    'email' => $user->email,
-                    'name' => $user->name,
-                ];
                 flash('success', 'Welcome back!');
                 Notifier::notify(
                     'SUCCESS',
-                    "User " . ($_SESSION['user']['email'] ?? 'unknown') . " logged in successfully."
+                    "User " . Auth::user()->email . " logged in successfully."
                 );
                 header('Location: ' . url('admin'));
                 exit;
@@ -99,7 +94,7 @@ class AuthController extends Controller
         Auth::logout();
         Notifier::notify(
             'INFO',
-            "User " . ($_SESSION['user']['email'] ?? 'unknown') . " logged out successfully."
+            "User " . (Auth::user()->email ?? 'unknown') . " logged out successfully."
         );
         header('Location: ' . url('login'));
         exit;
