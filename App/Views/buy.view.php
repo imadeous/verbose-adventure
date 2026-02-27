@@ -1,12 +1,15 @@
 <?php
-$product = $variant->getProduct();
+
+use App\Models\Product;
+
+$product = Product::find($variant->product_id);
 ?>
 <section class="text-gray-400 bg-gray-900 body-font overflow-hidden">
     <div class="container px-5 py-24 mx-auto">
         <div class="lg:w-4/5 mx-auto flex flex-wrap">
             <div class="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
                 <h2 class="text-sm title-font text-gray-500 tracking-widest"><?= $variant->sku ?? 'N/A' ?></h2>
-                <h1 class="text-white text-3xl title-font font-medium mb-4"><?= $product->name ?? $variant->sku ?></h1>
+                <h1 class="text-white text-3xl title-font font-medium mb-4"><?= $product->name ?? 'Product Name' ?></h1>
                 <div class="flex mb-4">
                     <a class="grow text-yellow-400 border-b-2 border-yellow-500 py-2 text-lg px-1">Description</a>
                     <a class="grow border-b-2 border-gray-800 py-2 text-lg px-1">Reviews</a>
