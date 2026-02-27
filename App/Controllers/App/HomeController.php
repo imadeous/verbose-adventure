@@ -100,9 +100,9 @@ class HomeController extends Controller
         });
         $bestSellingProducts = array_slice($bestSellingProducts, 0, 4);
 
-        $total_orders = Transaction::count('*');
+        $total_orders = (new Transaction)->count();
         // Unique customers count (where customer_username is not null)
-        $uniqueCustomers = Transaction::query()
+        $uniqueCustomers = (new Transaction)->query()
             ->selectRaw('COUNT(DISTINCT customer_username) as count')
             ->whereNotNull('customer_username')
             ->where('customer_username', '!=', '')
