@@ -108,6 +108,8 @@ class HomeController extends Controller
 
     public function buy($variantId)
     {
+        var_dump($variantId);
+        die();
         $this->view->layout('app');
         // For simplicity, just show a confirmation page with variant details
         $variant = Product::getVariant($variantId);
