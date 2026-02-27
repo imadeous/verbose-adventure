@@ -48,7 +48,6 @@ $router->get('/product/{id}', [GalleryController::class, 'show']);
 $router->get('/buy/{variantId}', [HomeController::class, 'buy']);
 $router->get('/request/{variantId}', [HomeController::class, 'requestQuote']);
 $router->post('/order', [HomeController::class, 'placeOrder']);
-
 // Static pages
 $router->get('/about', [HomeController::class, 'about']);
 $router->get('/terms', [HomeController::class, 'terms']);

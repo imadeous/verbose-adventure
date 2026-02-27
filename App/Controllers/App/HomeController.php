@@ -108,6 +108,7 @@ class HomeController extends Controller
 
     public function buy($variantId)
     {
+        $this->view->layout('app');
         // For simplicity, just show a confirmation page with variant details
         $variant = Product::getVariant($variantId);
         if (!$variant) {
@@ -120,6 +121,7 @@ class HomeController extends Controller
 
     public function requestQuote($variantId)
     {
+        $this->view->layout('app');
         // For simplicity, just show a quote request page with variant details
         $variant = Product::getVariant($variantId);
         if (!$variant) {
