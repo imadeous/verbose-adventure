@@ -48,7 +48,13 @@ $Gallery = Gallery::select(['id', 'related_id', 'image_url'])
                 <div class="flex border-t border-gray-800 py-2">
                     <span class="text-gray-500">Production Time</span>
                     <span class="ml-auto text-white">
-                        2 Weeks
+                        2 weeks
+                    </span>
+                </div>
+                <div class="flex border-t border-gray-800 py-2">
+                    <span class="text-gray-500">Personalization</span>
+                    <span class="ml-auto text-white">
+                        Available upon request
                     </span>
                 </div>
                 <div class="flex border-t border-b mb-6 border-gray-800 py-2">
