@@ -4,6 +4,7 @@ namespace App\Controllers\App;
 
 use Core\Controller;
 use App\Models\Product;
+use App\Models\Variant;
 use App\Models\Gallery;
 
 class GalleryController extends Controller
@@ -176,7 +177,7 @@ class GalleryController extends Controller
     {
         $this->view->layout('app');
         // For simplicity, just show a confirmation page with variant details
-        $variant = Product::getVariant($variantId);
+        $variant = Variant::find($variantId);
         if (!$variant) {
             flash('error', 'Variant not found.');
             header('Location: ' . url('/gallery'));
