@@ -17,8 +17,8 @@ $Gallery = Gallery::select(['id', 'related_id', 'image_url'])
                 <h1 class="text-white text-3xl title-font font-medium mb-4"><?= $product->name ?? 'N/A' ?></h1>
                 <div class="flex mb-4">
                     <a class="grow text-yellow-400 border-b-2 border-yellow-500 py-2 text-lg px-1">Description</a>
-                    <a class="grow border-b-2 border-gray-800 py-2 text-lg px-1">Reviews</a>
-                    <a class="grow border-b-2 border-gray-800 py-2 text-lg px-1">Details</a>
+                    <!-- <a class="grow border-b-2 border-gray-800 py-2 text-lg px-1">Reviews</a>
+                    <a class="grow border-b-2 border-gray-800 py-2 text-lg px-1">Details</a> -->
                 </div>
                 <div class="flex border-t border-gray-800 py-2">
                     <span class="text-gray-500">Color</span>
