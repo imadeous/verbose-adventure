@@ -100,7 +100,7 @@ class HomeController extends Controller
         });
         $bestSellingProducts = array_slice($bestSellingProducts, 0, 4);
 
-        $total_orders = (new Transaction)->count();
+        $total_orders = (new Transaction)->query()->count('*') ?? 0;
         // Unique customers count (where customer_username is not null)
         $uniqueCustomers = (new Transaction)->query()
             ->selectRaw('COUNT(DISTINCT customer_username) as count')
