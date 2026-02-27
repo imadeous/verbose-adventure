@@ -46,7 +46,19 @@ die();
                     </button>
                 </div>
             </div>
-            <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400">
+            <?php if (!empty($variant['image'])): ?>
+                <div class="h-48 overflow-hidden">
+                    <img src="<?= htmlspecialchars($variant['image']) ?>"
+                        alt="<?= htmlspecialchars($variant['sku'] ?? 'Variant') ?>"
+                        class="w-full h-full object-cover">
+                </div>
+            <?php endif; ?>
+            <?php if (!empty($variant['color'])): ?>
+                <div class="mt-2">
+                    <span class="text-gray-500">Color:</span>
+                    <span class="inline-block w-4 h-4 rounded-full" style="background-color: <?= htmlspecialchars($variant['color']) ?>"></span>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </section>
