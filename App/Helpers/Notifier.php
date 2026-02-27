@@ -46,10 +46,14 @@ class Notifier
      * @param string $message
      * @throws Exception
      */
-    public function send(string $message): void
+    public static function send(string $message): void
     {
-        foreach ($this->chatIds as $chatId) {
-            $this->request('sendMessage', [
+        $botToken = getenv('TELEGRAM_BOT_TOKEN');
+        $chatIds  = explode(',', getenv('TELEGRAM_CHAT_IDS'));
+        $instance = new self($botToken, $chatIds);
+
+        foreach ($instance->chatIds as $chatId) {
+            $instance->request('sendMessage', [
                 'chat_id' => $chatId,
                 'text'    => $message
             ]);
@@ -63,9 +67,13 @@ class Notifier
      * @param string|null $caption
      * @throws Exception
      */
-    public function sendPhoto(string|CURLFile $photo, ?string $caption = null): void
+    public static function sendPhoto(string|CURLFile $photo, ?string $caption = null): void
     {
-        foreach ($this->chatIds as $chatId) {
+        $botToken = getenv('TELEGRAM_BOT_TOKEN');
+        $chatIds  = explode(',', getenv('TELEGRAM_CHAT_IDS'));
+        $instance = new self($botToken, $chatIds);
+
+        foreach ($instance->chatIds as $chatId) {
 
             $payload = [
                 'chat_id' => $chatId,
@@ -76,7 +84,7 @@ class Notifier
                 $payload['caption'] = $caption;
             }
 
-            $this->request('sendPhoto', $payload);
+            $instance->request('sendPhoto', $payload);
         }
     }
 

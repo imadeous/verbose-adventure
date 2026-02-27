@@ -66,12 +66,7 @@ class ContactController extends Controller
             $text .= "Phone: " . htmlspecialchars($phone) . "\n";
             $text .= "Message:\n" . htmlspecialchars($message);
 
-            $notifier = new Notifier(
-                getenv('TELEGRAM_BOT_TOKEN'),
-                explode(',', getenv('TELEGRAM_CHAT_IDS'))
-            );
-
-            $notifier->send($text);
+            Notifier::send($text);
 
             flash('success', 'Your message has been sent!');
             $this->redirect('/contact');
