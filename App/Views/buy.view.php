@@ -4,7 +4,7 @@ use App\Models\Product;
 use App\Models\Gallery;
 
 $product = Product::find($variant->product_id);
-$Gallery = Gallery::select('product_id', 'image_url')
+$Gallery = Gallery::select('id', 'related_id', 'image_url')
     ->where('related_id', '=', $product->id)
     ->andWhere('image_type', '=', 'product')
     ->get();
