@@ -14,8 +14,8 @@
                     <span class="text-gray-500">Color</span>
                     <span class="ml-auto text-white">
                         <?php if (!empty($variant->color)): ?>
-                            <span class="px-2 py-1 bg-gray-700 text-gray-300 rounded flex items-center gap-1">
-                                <span class="w-3 h-3 rounded-full" style="background-color: <?= htmlspecialchars($variant->color) ?>"></span>
+                            <span class="flex items-center">
+                                <span class="w-4 h-4 rounded-full" style="background-color: <?= htmlspecialchars($variant->color) ?>"></span>
                             </span>
                         <?php endif; ?>
                     </span>
