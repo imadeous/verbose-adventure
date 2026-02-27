@@ -29,7 +29,7 @@
                     <span class="ml-auto text-white"><?= $variant->stock_quantity ?? 'N/A' ?></span>
                 </div>
                 <div class="flex">
-                    <span class="title-font font-medium text-2xl text-white"><span class="text-sm text-gray-400">MVR</span><?= $variant->price ?? 'N/A' ?></span>
+                    <span class="title-font font-medium text-2xl text-white"><span class="text-sm text-gray-400 mr-3">MVR</span><?= $variant->price ?? 'N/A' ?></span>
                     <button class="flex ml-auto text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded">Button</button>
                     <button class="rounded-full w-10 h-10 bg-gray-800 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                         <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
