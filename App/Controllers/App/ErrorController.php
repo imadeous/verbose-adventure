@@ -5,6 +5,7 @@ namespace App\Controller;
 namespace App\Controllers\App;
 
 use Core\Controller;
+use App\Helpers\Notifier;
 
 class ErrorController extends Controller
 {
@@ -34,6 +35,7 @@ class ErrorController extends Controller
                 'message' => $message
             ]);
         } else {
+            Notifier::notify('ERROR', "Somebody got hit with a View Not Found Error: $message");
             echo '<h1>View Not Found</h1><p>' . $message . '</p>';
         }
         exit;
