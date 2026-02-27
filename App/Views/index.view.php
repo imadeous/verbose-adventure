@@ -95,7 +95,7 @@ use App\Models\Product; ?>
                         </svg>
                         <h2
                             x-data="{ count: 0 }"
-                            x-init="let target = 2700; let step = Math.ceil(target / 60); let interval = setInterval(() => { if(count < target) { count += step; if(count > target) count = target; } else { clearInterval(interval); } }, 20);"
+                            x-init="let target = <?= $totalOrders ?>; let step = Math.ceil(target / 60); let interval = setInterval(() => { if(count < target) { count += step; if(count > target) count = target; } else { clearInterval(interval); } }, 20);"
                             x-text="count.toLocaleString() + '+'"
                             class="title-font font-medium text-3xl text-white">
                         </h2>
