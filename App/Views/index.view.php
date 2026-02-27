@@ -75,7 +75,7 @@ use App\Models\Product; ?>
     <!-- End Hero Section -->
     <span class="text-white">
         <?php
-        var_dump($uniqueCustomers);
+        var_dump($totalOrders);
         ?>
     </span>
 
