@@ -61,6 +61,10 @@ class UserController extends AdminControllerBase
         // created_at is handled by DB, avatar stays null
         $user = new User($data);
         $user->save();
+        Notifier::notify(
+            'SUCCESS',
+            "User " . $user->username . " created successfully."
+        );
         header('Location: ' . url('admin/users'));
         exit;
     }
@@ -119,6 +123,10 @@ class UserController extends AdminControllerBase
             $user->$key = $value;
         }
         $user->update();
+        Notifier::notify(
+            'SUCCESS',
+            "User " . $user->username . " updated successfully."
+        );
         $this->redirect('/admin/users/' . $id);
         exit;
     }
@@ -128,6 +136,10 @@ class UserController extends AdminControllerBase
         $user = User::find($id);
         if ($user) {
             $user->delete();
+            Notifier::notify(
+                'SUCCESS',
+                "User " . $user->username . " deleted successfully."
+            );
         }
         $this->redirect('/admin/users');
         exit;
