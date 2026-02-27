@@ -73,7 +73,10 @@ use App\Models\Product; ?>
         </div>
     </section>
     <!-- End Hero Section -->
+    <?php
+    var_dump($uniqueCustomers);
 
+    ?>
     <!-- Stats Section -->
     <section class="text-gray-400 bg-gray-900 body-font mb-8">
         <div class="container px-5 mx-auto">
@@ -106,7 +109,7 @@ use App\Models\Product; ?>
                         </svg>
                         <h2
                             x-data="{ count: 0 }"
-                            x-init="let target = <?= $uniqueCustomers['count'] ?>; let step = Math.ceil(target / 60); let interval = setInterval(() => { if(count < target) { count += step; if(count > target) count = target; } else { clearInterval(interval); } }, 20);"
+                            x-init="let target = <?= $uniqueCustomers ?>; let step = Math.ceil(target / 60); let interval = setInterval(() => { if(count < target) { count += step; if(count > target) count = target; } else { clearInterval(interval); } }, 20);"
                             x-text="count.toLocaleString() + '+'"
                             class="title-font font-medium text-3xl text-white">
                         </h2>
