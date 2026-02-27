@@ -36,6 +36,8 @@ $Gallery = Gallery::select(['id', 'related_id', 'image_url'])
                 <div class="flex border-t border-gray-800 py-2">
                     <span class="text-gray-500">Dimensions</span>
                     <span class="ml-auto text-white"><?= $variant->dimensions ?? 'N/A' ?></span>
+                    <span>|</span>
+                    <span class="ml-auto text-white"><?= $variant->weight ?? 'N/A' ?></span>
                 </div>
                 <div class="flex border-t border-b mb-6 border-gray-800 py-2">
                     <span class="text-gray-500">Available Stock</span>
